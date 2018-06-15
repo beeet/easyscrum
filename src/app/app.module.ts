@@ -17,6 +17,9 @@ import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {HttpClientModule, HttpClient} from '@angular/common/http';
 
+// import Bootstrap
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 const appRoutes: Routes = [
   { path: 'sprint-backlog', component: SprintBacklogComponent },
   { path: 'issue-board', component: IssueBoardComponent },
@@ -50,7 +53,8 @@ export function createTranslateLoader(http: HttpClient) {
         useFactory: (createTranslateLoader),
         deps: [HttpClient]
       }
-    })
+    }),
+    NgbModule.forRoot()
   ],
   exports: [
     CommonModule
