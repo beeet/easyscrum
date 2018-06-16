@@ -1,11 +1,16 @@
-<button id="de" name="de" (click)="switchLang('de')">DE</button>
-<button id="en" name="en" (click)="switchLang('en')">EN</button>
-<br/>
-<nav>
-  <a routerLink="/sprint-backlog" routerLinkActive="active">Spring-Backlog</a><span> | </span>
-  <a routerLink="/issue-board" routerLinkActive="active">Issue-Board</a><span> | </span>
-  <a routerLink="/product-backlog" routerLinkActive="active">Product-Backlog</a><span> | </span>
-  <a routerLink="/burndown-chart" routerLinkActive="active">Burndown-Chart</a>
-</nav>
-<router-outlet></router-outlet>
+<div class="container">
 
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab">
+      <a class="nav-item nav-link" routerLink="/sprint-backlog" routerLinkActive="active">Spring-Backlog</a>
+      <a class="nav-item nav-link" routerLink="/issue-board" routerLinkActive="active">Issue-Board</a>
+      <a class="nav-item nav-link" routerLink="/product-backlog" routerLinkActive="active">Product-Backlog</a>
+      <a class="nav-item nav-link" routerLink="/burndown-chart" routerLinkActive="active">Burndown-Chart</a>
+      <div>
+        <button id="de" type="button" class="btn btn-outline-dark btn-sm" name="de" (click)="switchLang('de')">DE</button>
+        <button id="en" type="button" class="btn btn-outline-dark btn-sm" name="en" (click)="switchLang('en')">EN</button>
+      </div>
+    </div>
+  </nav>
+  <router-outlet></router-outlet>
+</div>

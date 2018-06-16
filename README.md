@@ -25,3 +25,15 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+## Setup further Modules
+
+- install translation (I8N)
+  - npm install @ngx-translate/core@10 --save
+  - npm install @ngx-translate/http-loader@3 --save
+  - details: https://github.com/ngx-translate/core
+
+- install bootstrap
+  - gem install bootstrap
+  - npm install --save @ng-bootstrap/ng-bootstrap
+  - details: https://ng-bootstrap.github.io/#/getting-started
