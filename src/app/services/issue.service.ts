@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
+import { UUID } from 'angular2-uuid';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class Issue { // TODO extract to own class incl enums
-  private _id: number;
+  private _id: string;
   private _title: string;
   private _description: string;
   private _type: IssueType;
   private _priority: IssuePriority;
 
-  public get id(): number {
+  public get id(): string {
     return this._id;
   }
-  public set id(value: number) {
+  public set id(value: string) {
     this._id = value;
   }
   public get title(): string {
@@ -57,10 +58,11 @@ export enum IssuePriority {
 }
 
 export interface Crud { // TODO extract to common
+  create();
   getAll();
-  get(id: number);
+  get(id: string);
   put(issue: Issue);
-  delete(id: number);
+  delete(id: string);
 }
 
 export class IssueService implements Crud {
@@ -71,11 +73,17 @@ export class IssueService implements Crud {
     this.setupDummyData(); // TODO remove later
   }
 
+  create(): Issue {
+    const newIssue = new Issue();
+    newIssue.id = UUID.UUID();
+    return newIssue;
+  }
+
   getAll(): Issue[] {
     return this.issues;
   }
 
-  get(id: number): Issue {
+  get(id: string): Issue {
     return this.issues.find(i => i.id === id);
   }
 
@@ -83,21 +91,21 @@ export class IssueService implements Crud {
     return this.issues.push(issue);
   }
 
-  delete(id: number): void {
+  delete(id: string): void {
     const index = this.issues.findIndex(i => i.id === id);
     this.issues.splice(index, 1);
   }
 
   private setupDummyData() {
     const i1 = new Issue();
-    i1.id = 1;
+    i1.id = '98769967-0176-3914-a09b-061dad1e7024';
     i1.title = 'No beer avaliable';
     i1.description = 'Make sure there\'s enough beer every Saturday night';
     i1.priority = IssuePriority.blocker;
     i1.type = IssueType.task;
     this.issues.push(i1);
     const i2 = new Issue();
-    i2.id = 2;
+    i2.id = '601597b7-0e96-bca5-0bce-ed7253040c8a';
     i2.title = 'Missing Chips';
     i2.description = 'Enough chips is quite important';
     i2.priority = IssuePriority.high;

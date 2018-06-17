@@ -10,6 +10,7 @@ import { SprintBacklogComponent } from './sprint-backlog/sprint-backlog.componen
 import { IssueBoardComponent } from './issue-board/issue-board.component';
 import { BurndownChartComponent } from './burndown-chart/burndown-chart.component';
 import { ProductBacklogComponent } from './product-backlog/product-backlog.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 // import Translation FW
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
@@ -23,8 +24,10 @@ import {IssueService} from './services/issue.service';
 const appRoutes: Routes = [
   { path: 'sprint-backlog', component: SprintBacklogComponent },
   { path: 'issue-board', component: IssueBoardComponent },
+  { path: 'issue-board/:id', component: IssueBoardComponent },
   { path: 'burndown-chart', component: BurndownChartComponent },
-  { path: 'product-backlog', component: ProductBacklogComponent }
+  { path: 'product-backlog', component: ProductBacklogComponent },
+  { path: '**', component: PageNotFoundComponent }
   ];
 
 // AoT requires an exported function for factories
@@ -38,7 +41,8 @@ export function createTranslateLoader(http: HttpClient) {
     SprintBacklogComponent,
     IssueBoardComponent,
     BurndownChartComponent,
-    ProductBacklogComponent
+    ProductBacklogComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

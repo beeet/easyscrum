@@ -37,3 +37,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
   - gem install bootstrap
   - npm install --save @ng-bootstrap/ng-bootstrap
   - details: https://ng-bootstrap.github.io/#/getting-started
+
+- install guid (UUID)
+  - npm install angular2-uuid --save

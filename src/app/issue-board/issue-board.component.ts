@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {IssueService} from '../services/issue.service';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-issue-board',
@@ -25,7 +25,12 @@ export class IssueBoardComponent implements OnInit {
 
 
   ngOnInit() {
-    this.currentIssue = this.issueService.get(1); // TODO via url stateParam currentIssue via laden
+    const urlParam = this.route.snapshot.paramMap.get('id');
+    if (urlParam) {
+      this.currentIssue = this.issueService.get(urlParam);
+    } else {
+      this.currentIssue = this.issueService.create();
+    }
   }
 
   onSave() {
