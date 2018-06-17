@@ -8,11 +8,19 @@
     <div class="row">
       <div class="form-group col-md-6">
         <label id="titleLabel" for="titleInput">{{'issue-board.title' | translate }}</label>
-        <input id="titleInput" class="form-control" name="titleInput" type="text" placeholder="{{'issue-board.title.placeholder' | translate }}" maxlength="100">
+        <input id="titleInput"
+               class="form-control"
+               name="titleInput"
+               type="text"
+               placeholder="{{'issue-board.title.placeholder' | translate }}"
+               maxlength="100"
+               required="required"> <!--TODO bind to model-->
       </div>
       <div class="form-group col-md-6">
         <label id="assigneeLabel" for="assigneeInput">{{'issue-board.assignee' | translate }}</label>
-        <select id="assigneeInput" class="form-control" name="assigneeInput"><!--TODO use datalist (Dropdown+)-->
+        <select id="assigneeInput"
+                class="form-control"
+                name="assigneeInput"><!--TODO use datalist (Dropdown+)-->
           <option selected>{{'issue-board.assignee.placeholder' | translate}}</option>
           <option>{{'issue-board.assignee.aa' | translate}}</option>
           <option>{{'issue-board.assignee.bb' | translate}}</option>
@@ -24,12 +32,21 @@
     <div class="row">
       <div class="form-group col-md-6">
         <label id="descriptionLabel" for="descriptionInput">{{'issue-board.description' | translate }}</label>
-        <input id="descriptionInput" class="form-control" name="descriptionInput" type="text" placeholder="{{'issue-board.description.placeholder' | translate }}" maxlength="2000">
-        <small id="descriptionHelp" class="form-text text-muted">{{'issue-board.description.help' | translate }}</small>
+        <input id="descriptionInput"
+               class="form-control"
+               name="descriptionInput"
+               type="text"
+               placeholder="{{'issue-board.description.placeholder' | translate }}"
+               maxlength="2000">
+        <small id="descriptionHelp"
+               class="form-text text-muted">{{'issue-board.description.help' | translate }}
+        </small>
       </div>
       <div class="form-group col-md-6">
         <label id="sprintLabel" for="sprintInput">{{'issue-board.sprint' | translate }}</label>
-        <select id="sprintInput" class="form-control" name="sprintInput"><!--TODO use datalist (Dropdown+)-->
+        <select id="sprintInput"
+                class="form-control"
+                name="sprintInput"><!--TODO use datalist (Dropdown+)-->
           <option selected>{{'issue-board.sprint.placeholder' | translate}}</option>
           <option>{{'issue-board.sprint.0' | translate}}</option>
           <option>{{'issue-board.sprint.1' | translate}}</option>
@@ -40,7 +57,9 @@
     <div class="row">
       <div class="form-group col-md-6">
         <label id="typeLabel" for="typeInput">{{'issue-board.type' | translate}}</label>
-        <select id="typeInput" class="form-control" name="typeInput">
+        <select id="typeInput"
+                class="form-control"
+                name="typeInput">
           <option selected>{{'issue-board.type.placeholder' | translate}}</option>
           <option>{{'issue-board.type.story' | translate}}</option>
           <option>{{'issue-board.type.bug' | translate}}</option>
@@ -49,14 +68,19 @@
       </div>
       <div class="form-group col-md-6">
         <label id="dueDateLabel" for="dueDateInput">{{'issue-board.dueDate' | translate}}</label>
-        <input id="dueDateInput" class="form-control" name="dueDateInput" type="date">
+        <input id="dueDateInput"
+               class="form-control"
+               name="dueDateInput"
+               type="date">
       </div>
     </div>
 
     <div class="row">
       <div class="form-group col-md-6">
         <label id="priorityLabel" for="priorityInput">{{'issue-board.priority' | translate}}</label>
-        <select id="priorityInput" class="form-control" name="priorityInput">
+        <select id="priorityInput"
+                class="form-control"
+                name="priorityInput">
           <option selected>{{'issue-board.priority.placeholder' | translate}}</option>
           <option>{{'issue-board.priority.blocker' | translate}}</option>
           <option>{{'issue-board.priority.high' | translate}}</option>
@@ -66,14 +90,20 @@
       </div>
       <div class="form-group col-md-6">
         <label id="estimatedLabel" for="estimatedInput">{{'issue-board.estimated' | translate}}</label>
-        <input id="estimatedInput" class="form-control" name="estimatedInput" type="number" min="0">
+        <input id="estimatedInput"
+               class="form-control"
+               name="estimatedInput"
+               type="number"
+               min="0">
       </div>
     </div>
 
     <div class="row">
       <div class="form-group col-md-6">
         <label id="stateLabel" for="stateInput">{{'issue-board.state' | translate}}</label>
-        <select id="stateInput" class="form-control" name="stateInput">
+        <select id="stateInput"
+                class="form-control"
+                name="stateInput">
           <option selected>{{'issue-board.state.placeholder' | translate}}</option>
           <option>{{'issue-board.state.open' | translate}}</option>
           <option>{{'issue-board.state.inwork' | translate}}</option>
@@ -83,14 +113,20 @@
       </div>
       <div class="form-group col-md-6">
         <label id="elapsedLabel" for="elapsedInput">{{'issue-board.elapsed' | translate}}</label>
-        <input id="elapsedInput" class="form-control" name="elapsedInput" type="number" min="0">
+        <input id="elapsedInput"
+               class="form-control"
+               name="elapsedInput"
+               type="number"
+               min="0">
       </div>
     </div>
 
     <div class="row">
       <div class="form-group col-md-6">
         <label id="resolutionLabel" for="resolutionInput">{{'issue-board.resolution' | translate}}</label>
-        <select id="resolutionInput" class="form-control" name="resolutionInput">
+        <select id="resolutionInput"
+                class="form-control"
+                name="resolutionInput">
           <option selected>{{'issue-board.resolution.placeholder' | translate}}</option>
           <option>{{'issue-board.resolution.unresolved' | translate}}</option>
           <option>{{'issue-board.resolution.fixed' | translate}}</option>
@@ -101,9 +137,8 @@
       </div>
     </div>
 
-
-    <button type="submit" class="btn btn-primary" routerLink="/sprint-backlog">{{'issue-board.buttonSave' | translate }}</button>
-    <button type="submit" class="btn btn-light">{{'issue-board.buttonCancel' | translate }}</button>
+    <button type="submit" class="btn btn-primary" (click)="onSave()">{{'issue-board.buttonSave' | translate }}</button>
+    <button type="submit" class="btn btn-light" (click)="onCancel()">{{'issue-board.buttonCancel' | translate }}</button>
 
     <div class="alert alert-success" hidden="true"><!--TODO show/hide depending on validation-->
       A simple success alert—check it out!

@@ -19,12 +19,13 @@ import {HttpClientModule, HttpClient} from '@angular/common/http';
 
 // import Bootstrap
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {IssueService} from './services/issue.service';
 
 const appRoutes: Routes = [
   { path: 'sprint-backlog', component: SprintBacklogComponent },
   { path: 'issue-board', component: IssueBoardComponent },
   { path: 'burndown-chart', component: BurndownChartComponent },
-  { path: 'product-backlog', component: ProductBacklogComponent },
+  { path: 'product-backlog', component: ProductBacklogComponent }
   ];
 
 // AoT requires an exported function for factories
@@ -59,7 +60,9 @@ export function createTranslateLoader(http: HttpClient) {
   exports: [
     CommonModule
   ],
-  providers: [],
+  providers: [
+    IssueService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
