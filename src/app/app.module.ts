@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {CommonModule} from '@angular/common';
-
-// import Routing
 import { RouterModule, Routes } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 // import App Components
 import { AppComponent } from './app.component';
@@ -55,7 +54,8 @@ export function createTranslateLoader(http: HttpClient) {
         deps: [HttpClient]
       }
     }),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    FormsModule
   ],
   exports: [
     CommonModule

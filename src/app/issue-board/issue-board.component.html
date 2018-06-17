@@ -1,26 +1,36 @@
 <div class="container">
-
   <h1>
     Issue-Board
   </h1>
 
-  <form>
+  <form (ngSubmit)="onSave()" #issueForm="ngForm">
     <div class="row">
       <div class="form-group col-md-6">
         <label id="titleLabel" for="titleInput">{{'issue-board.title' | translate }}</label>
         <input id="titleInput"
                class="form-control"
-               name="titleInput"
+               name="title"
                type="text"
                placeholder="{{'issue-board.title.placeholder' | translate }}"
+               required
                maxlength="100"
-               required="required"> <!--TODO bind to model-->
+               [(ngModel)]="currentIssue.title" name="title" #title="ngModel">
+                <div [hidden]="title.valid || title.pristine"
+                     class="alert alert-danger">
+                    {{'commons.validation.field.required' | translate }}
+                  <!--<div *ngIf="currentIssue.title.errors.required"> TODO concrete messages-->
+                    <!--Ist required!!!!-->
+                  <!--</div>-->
+                  <!--<div *ngIf="currentIssue.title.errors.maxlength">-->
+                    <!--Name must be at least 4 characters long.-->
+                  <!--</div>-->
+                </div>
       </div>
       <div class="form-group col-md-6">
         <label id="assigneeLabel" for="assigneeInput">{{'issue-board.assignee' | translate }}</label>
         <select id="assigneeInput"
                 class="form-control"
-                name="assigneeInput"><!--TODO use datalist (Dropdown+)-->
+                name="assignee"><!--TODO use datalist (Dropdown+)-->
           <option selected>{{'issue-board.assignee.placeholder' | translate}}</option>
           <option>{{'issue-board.assignee.aa' | translate}}</option>
           <option>{{'issue-board.assignee.bb' | translate}}</option>
@@ -34,10 +44,16 @@
         <label id="descriptionLabel" for="descriptionInput">{{'issue-board.description' | translate }}</label>
         <input id="descriptionInput"
                class="form-control"
-               name="descriptionInput"
+               name="description"
                type="text"
                placeholder="{{'issue-board.description.placeholder' | translate }}"
-               maxlength="2000">
+               required
+               maxlength="2000"
+               [(ngModel)]="currentIssue.description" name="description" #description="ngModel">
+               <div [hidden]="description.valid || description.pristine"
+                    class="alert alert-danger">
+                    {{'commons.validation.field.required' | translate }}
+               </div>
         <small id="descriptionHelp"
                class="form-text text-muted">{{'issue-board.description.help' | translate }}
         </small>
@@ -46,7 +62,7 @@
         <label id="sprintLabel" for="sprintInput">{{'issue-board.sprint' | translate }}</label>
         <select id="sprintInput"
                 class="form-control"
-                name="sprintInput"><!--TODO use datalist (Dropdown+)-->
+                name="sprint"><!--TODO use datalist (Dropdown+)-->
           <option selected>{{'issue-board.sprint.placeholder' | translate}}</option>
           <option>{{'issue-board.sprint.0' | translate}}</option>
           <option>{{'issue-board.sprint.1' | translate}}</option>
@@ -59,7 +75,7 @@
         <label id="typeLabel" for="typeInput">{{'issue-board.type' | translate}}</label>
         <select id="typeInput"
                 class="form-control"
-                name="typeInput">
+                name="type">
           <option selected>{{'issue-board.type.placeholder' | translate}}</option>
           <option>{{'issue-board.type.story' | translate}}</option>
           <option>{{'issue-board.type.bug' | translate}}</option>
@@ -70,7 +86,7 @@
         <label id="dueDateLabel" for="dueDateInput">{{'issue-board.dueDate' | translate}}</label>
         <input id="dueDateInput"
                class="form-control"
-               name="dueDateInput"
+               name="dueDate"
                type="date">
       </div>
     </div>
@@ -80,7 +96,7 @@
         <label id="priorityLabel" for="priorityInput">{{'issue-board.priority' | translate}}</label>
         <select id="priorityInput"
                 class="form-control"
-                name="priorityInput">
+                name="priority">
           <option selected>{{'issue-board.priority.placeholder' | translate}}</option>
           <option>{{'issue-board.priority.blocker' | translate}}</option>
           <option>{{'issue-board.priority.high' | translate}}</option>
@@ -92,7 +108,7 @@
         <label id="estimatedLabel" for="estimatedInput">{{'issue-board.estimated' | translate}}</label>
         <input id="estimatedInput"
                class="form-control"
-               name="estimatedInput"
+               name="estimated"
                type="number"
                min="0">
       </div>
@@ -103,7 +119,7 @@
         <label id="stateLabel" for="stateInput">{{'issue-board.state' | translate}}</label>
         <select id="stateInput"
                 class="form-control"
-                name="stateInput">
+                name="state">
           <option selected>{{'issue-board.state.placeholder' | translate}}</option>
           <option>{{'issue-board.state.open' | translate}}</option>
           <option>{{'issue-board.state.inwork' | translate}}</option>
@@ -115,7 +131,7 @@
         <label id="elapsedLabel" for="elapsedInput">{{'issue-board.elapsed' | translate}}</label>
         <input id="elapsedInput"
                class="form-control"
-               name="elapsedInput"
+               name="elapsed"
                type="number"
                min="0">
       </div>
@@ -126,7 +142,7 @@
         <label id="resolutionLabel" for="resolutionInput">{{'issue-board.resolution' | translate}}</label>
         <select id="resolutionInput"
                 class="form-control"
-                name="resolutionInput">
+                name="resolution">
           <option selected>{{'issue-board.resolution.placeholder' | translate}}</option>
           <option>{{'issue-board.resolution.unresolved' | translate}}</option>
           <option>{{'issue-board.resolution.fixed' | translate}}</option>
@@ -137,21 +153,17 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary" (click)="onSave()">{{'issue-board.buttonSave' | translate }}</button>
-    <button type="submit" class="btn btn-light" (click)="onCancel()">{{'issue-board.buttonCancel' | translate }}</button>
-
-    <div class="alert alert-success" hidden="true"><!--TODO show/hide depending on validation-->
-      A simple success alert—check it out!
-    </div>
-    <div class="alert alert-danger" hidden="true">
-      A simple danger alert—check it out!
-    </div>
-    <div class="alert alert-warning" hidden="true">
-      A simple warning alert—check it out!
-    </div>
-    <div class="alert alert-info" hidden="true">
-      A simple info alert—check it out!
-    </div>
+    <button type="submit"
+            class="btn btn-primary"
+            (click)="onSave()"
+            [disabled]="!issueForm.form.valid">
+            {{'issue-board.buttonSave' | translate }}
+    </button>
+    <button type="submit"
+            class="btn btn-light"
+            (click)="onCancel()">
+            {{'issue-board.buttonCancel' | translate }}
+    </button>
   </form>
 
 </div>

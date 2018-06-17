@@ -1,4 +1,6 @@
 {
+  "__comment": "TODO translations to each component",
+  "commons.validation.field.required": "This field is required",
   "issue-board.title": "Title",
   "issue-board.title.placeholder": "Enter title",
   "issue-board.description": "Description",

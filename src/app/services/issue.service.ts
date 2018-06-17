@@ -68,13 +68,7 @@ export class IssueService implements Crud {
   private issues: Issue[] = [];
 
   constructor() {
-    const i = new Issue(); // TODO remove later
-    i.id = 1;
-    i.title = 'No beer avaliable';
-    i.description = 'Make sure there\'s enough beer every Saturday night';
-    i.priority = IssuePriority.blocker;
-    i.type = IssueType.task;
-    this.issues.push(i);
+    this.setupDummyData(); // TODO remove later
   }
 
   getAll(): Issue[] {
@@ -92,5 +86,22 @@ export class IssueService implements Crud {
   delete(id: number): void {
     const index = this.issues.findIndex(i => i.id === id);
     this.issues.splice(index, 1);
+  }
+
+  private setupDummyData() {
+    const i1 = new Issue();
+    i1.id = 1;
+    i1.title = 'No beer avaliable';
+    i1.description = 'Make sure there\'s enough beer every Saturday night';
+    i1.priority = IssuePriority.blocker;
+    i1.type = IssueType.task;
+    this.issues.push(i1);
+    const i2 = new Issue();
+    i2.id = 2;
+    i2.title = 'Missing Chips';
+    i2.description = 'Enough chips is quite important';
+    i2.priority = IssuePriority.high;
+    i2.type = IssueType.task;
+    this.issues.push(i2);
   }
 }
