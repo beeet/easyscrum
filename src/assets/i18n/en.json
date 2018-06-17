@@ -1,6 +1,9 @@
 {
   "__comment": "TODO translations to each component",
   "commons.validation.field.required": "This field is required",
+  "page-not-found.title": "The page you are looking for does not exist or has changed",
+  "page-not-found.link": "/sprint-backlog",
+  "page-not-found.linktext": "Back to the sprint backlog >",
   "issue-board.title": "Title",
   "issue-board.title.placeholder": "Enter title",
   "issue-board.description": "Description",
