@@ -27,38 +27,6 @@
                 </div>
       </div>
       <div class="form-group col-md-6">
-        <label id="assigneeLabel" for="assigneeInput">{{'issue-board.assignee' | translate }}</label>
-        <select id="assigneeInput"
-                class="form-control"
-                name="assignee"><!--TODO use datalist (Dropdown+)-->
-          <option value="" disabled selected>{{'issue-board.assignee.placeholder' | translate}}</option>
-          <option>{{'issue-board.assignee.aa' | translate}}</option>
-          <option>{{'issue-board.assignee.bb' | translate}}</option>
-          <option>{{'issue-board.assignee.sb' | translate}}</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="form-group col-md-6">
-        <label id="descriptionLabel" for="descriptionInput">{{'issue-board.description' | translate }}</label>
-        <input id="descriptionInput"
-               class="form-control"
-               name="description"
-               type="text"
-               placeholder="{{'issue-board.description.placeholder' | translate }}"
-               required
-               maxlength="2000"
-               [(ngModel)]="currentIssue.description" name="description" #description="ngModel">
-               <div [hidden]="description.valid || description.pristine"
-                    class="alert alert-danger">
-                    {{'commons.validation.field.required' | translate }}
-               </div>
-        <small id="descriptionHelp"
-               class="form-text text-muted">{{'issue-board.description.help' | translate }}
-        </small>
-      </div>
-      <div class="form-group col-md-6">
         <label id="sprintLabel" for="sprintInput">{{'issue-board.sprint' | translate }}</label>
         <select id="sprintInput"
                 class="form-control"
@@ -67,6 +35,29 @@
           <option>{{'issue-board.sprint.0' | translate}}</option>
           <option>{{'issue-board.sprint.1' | translate}}</option>
         </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label id="descriptionLabel" for="descriptionInput">{{'issue-board.description' | translate }}</label>
+        <textarea id="descriptionInput"
+               class="form-control"
+               name="description"
+               type="text"
+               placeholder="{{'issue-board.description.placeholder' | translate }}"
+                  rows="3"
+                  required
+               maxlength="2000"
+               [(ngModel)]="currentIssue.description" name="description" #description="ngModel">
+               <div [hidden]="description.valid || description.pristine"
+                    class="alert alert-danger">
+                    {{'commons.validation.field.required' | translate }}
+               </div>
+        </textarea>
+        <small id="descriptionHelp"
+               class="form-text text-muted">{{'issue-board.description.help' | translate }}
+        </small>
       </div>
     </div>
 
@@ -84,12 +75,17 @@
           <option>{{'issue-board.type.task' | translate}}</option>
         </select>
       </div>
+
       <div class="form-group col-md-6">
-        <label id="dueDateLabel" for="dueDateInput">{{'issue-board.dueDate' | translate}}</label>
-        <input id="dueDateInput"
-               class="form-control"
-               name="dueDate"
-               type="date">
+        <label id="assigneeLabel" for="assigneeInput">{{'issue-board.assignee' | translate }}</label>
+        <select id="assigneeInput"
+                class="form-control"
+                name="assignee"><!--TODO use datalist (Dropdown+)-->
+          <option value="" disabled selected>{{'issue-board.assignee.placeholder' | translate}}</option>
+          <option>{{'issue-board.assignee.aa' | translate}}</option>
+          <option>{{'issue-board.assignee.bb' | translate}}</option>
+          <option>{{'issue-board.assignee.sb' | translate}}</option>
+        </select>
       </div>
     </div>
 
@@ -107,12 +103,11 @@
         </select>
       </div>
       <div class="form-group col-md-6">
-        <label id="estimatedLabel" for="estimatedInput">{{'issue-board.estimated' | translate}}</label>
-        <input id="estimatedInput"
+        <label id="dueDateLabel" for="dueDateInput">{{'issue-board.dueDate' | translate}}</label>
+        <input id="dueDateInput"
                class="form-control"
-               name="estimated"
-               type="number"
-               min="0">
+               name="dueDate"
+               type="date">
       </div>
     </div>
 
@@ -130,10 +125,10 @@
         </select>
       </div>
       <div class="form-group col-md-6">
-        <label id="elapsedLabel" for="elapsedInput">{{'issue-board.elapsed' | translate}}</label>
-        <input id="elapsedInput"
+        <label id="estimatedLabel" for="estimatedInput">{{'issue-board.estimated' | translate}}</label>
+        <input id="estimatedInput"
                class="form-control"
-               name="elapsed"
+               name="estimated"
                type="number"
                min="0">
       </div>
@@ -152,6 +147,14 @@
           <option>{{'issue-board.resolution.duplicate' | translate}}</option>
           <option>{{'issue-board.resolution.incomplete' | translate}}</option>
         </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label id="elapsedLabel" for="elapsedInput">{{'issue-board.elapsed' | translate}}</label>
+        <input id="elapsedInput"
+               class="form-control"
+               name="elapsed"
+               type="number"
+               min="0">
       </div>
     </div>
 
