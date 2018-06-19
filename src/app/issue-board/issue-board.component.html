@@ -13,17 +13,11 @@
                type="text"
                placeholder="{{'issue-board.title.placeholder' | translate }}"
                required
-               maxlength="100"
+               maxlength="30"
                [(ngModel)]="currentIssue.title" #title="ngModel">
                 <div [hidden]="title.valid || title.pristine"
                      class="alert alert-danger">
                     {{'commons.validation.field.required' | translate }}
-                  <!--<div *ngIf="currentIssue.title.errors.required"> TODO concrete messages-->
-                    <!--Ist required!!!!-->
-                  <!--</div>-->
-                  <!--<div *ngIf="currentIssue.title.errors.maxlength">-->
-                    <!--Name must be at least 4 characters long.-->
-                  <!--</div>-->
                 </div>
       </div>
       <div class="form-group col-md-6">
@@ -160,8 +154,7 @@
 
     <button type="submit"
             class="btn btn-primary"
-            (click)="onSave()"
-            [disabled]="!issueForm.form.valid">
+            (click)="onSave()"><!-- TODO [disabled]="!issueForm.form.valid">-->
             {{'issue-board.buttonSave' | translate }}
     </button>
     <button type="submit"

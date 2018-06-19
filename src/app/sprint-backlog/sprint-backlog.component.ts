@@ -1,3 +1,4 @@
+declare function require(path: string);
 import { Component, OnInit } from '@angular/core';
 import {IssueService} from '../services/issue.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -10,6 +11,7 @@ import {TranslateService} from '@ngx-translate/core';
 })
 
 export class SprintBacklogComponent implements OnInit {
+  imageSrc = require('../../assets/pics/avatar.png');
   issueService: IssueService;
   private translate;
   private route: ActivatedRoute;

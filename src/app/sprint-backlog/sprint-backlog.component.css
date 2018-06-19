@@ -1,0 +1,16 @@
+div.card {
+  width: 18rem;
+  height: 9rem;
+  margin-bottom: 1rem;
+  background-color: var(--color-card-blue);
+  list-style-type:none;
+}
+img.card-img-top {
+  position: absolute;
+  left: 70%;
+  margin: 1rem;
+  width: 4rem;
+}
+a.card-text {
+  color: var(--color-white);
+}

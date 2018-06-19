@@ -27,7 +27,11 @@ export class IssueService implements Crud {
   }
 
   put(issue: Issue): number {
-    return this.issues.push(issue);
+    if (this.get(issue.id) === undefined) {
+      return this.issues.push(issue);
+    } else {
+      return -1;
+    }
   }
 
   delete(id: string): void {

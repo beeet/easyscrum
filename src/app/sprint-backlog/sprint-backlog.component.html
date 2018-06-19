@@ -1,8 +1,12 @@
 <p>
   sprint-backlog works!
 </p>
-<ul>
-  <li *ngFor="let issue of issueService.getAll(); let i = index">
-    <a class="nav-item nav-link" routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">Issue {{i}}</a>
-  </li>
-</ul>
+<div class="card"
+      *ngFor="let issue of issueService.getAll(); let i = index">
+  <!--https://www.google.ch/search?q=avatar+png&rlz=1C1CHBD_deCH790CH790&tbm=isch&tbo=u&source=univ&sa=X&ved=0ahUKEwjH0ePqxuDbAhXMkywKHdFUDYQQsAQIKA&biw=1904&bih=879-->
+  <img class="card-img-top" src="{{imageSrc}}" alt="avatar">
+  <div class="card-body">
+    <a class="card-text" routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">Issue {{issue.title}}</a>
+  </div>
+</div>
+

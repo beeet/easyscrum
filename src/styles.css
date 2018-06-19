@@ -1,6 +1,8 @@
 :root {
+  --color-white: white;
   --color-validation-green: #42A948;
   --color-validation-red: #42A948;
+  --color-card-blue: #219be6;
 }
 
 .ng-valid[required], .ng-valid.required  {
