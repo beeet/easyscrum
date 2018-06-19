@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import {IssueService} from './services/issue.service';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +10,13 @@ import {TranslateService} from '@ngx-translate/core';
 export class AppComponent {
   title = 'EasyScum';
   translate;
+  private issueService: IssueService;
 
-  constructor(translate: TranslateService) {
+  constructor(translate: TranslateService, issueService: IssueService) {
     this.translate = translate;
     this.setUserLanguage();
+    this.issueService = issueService;
+    this.issueService.setupDummyData(); // TODO remove later
   }
 
   public switchLang(lang: string): void {

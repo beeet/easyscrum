@@ -76,7 +76,8 @@
         <select id="typeInput"
                 class="form-control"
                 name="type"
-                required>
+                required
+                [(ngModel)]="currentIssue.type" name="type" #type="ngModel">
           <option value="" disabled selected>{{'issue-board.type.placeholder' | translate}}</option>
           <option>{{'issue-board.type.story' | translate}}</option>
           <option>{{'issue-board.type.bug' | translate}}</option>

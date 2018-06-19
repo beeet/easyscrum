@@ -9,9 +9,9 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./issue-board.component.css']
 })
 export class IssueBoardComponent implements OnInit {
-  private translate;
-  issueService;
   currentIssue;
+  issueService;
+  private translate;
   private route: ActivatedRoute;
   private router: Router;
 
@@ -34,6 +34,7 @@ export class IssueBoardComponent implements OnInit {
   }
 
   onSave() {
+    this.issueService.put(this.currentIssue);
     this.router.navigate(['/sprint-backlog']);
   }
 

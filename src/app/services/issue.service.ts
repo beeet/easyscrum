@@ -70,7 +70,7 @@ export class IssueService implements Crud {
   private issues: Issue[] = [];
 
   constructor() {
-    this.setupDummyData(); // TODO remove later
+
   }
 
   create(): Issue {
@@ -96,7 +96,7 @@ export class IssueService implements Crud {
     this.issues.splice(index, 1);
   }
 
-  private setupDummyData() {
+  setupDummyData() {
     const i1 = new Issue();
     i1.id = '98769967-0176-3914-a09b-061dad1e7024';
     i1.title = 'No beer avaliable';
