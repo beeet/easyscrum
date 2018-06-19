@@ -14,7 +14,7 @@
                placeholder="{{'issue-board.title.placeholder' | translate }}"
                required
                maxlength="100"
-               [(ngModel)]="currentIssue.title" name="title" #title="ngModel">
+               [(ngModel)]="currentIssue.title" #title="ngModel">
                 <div [hidden]="title.valid || title.pristine"
                      class="alert alert-danger">
                     {{'commons.validation.field.required' | translate }}
@@ -49,7 +49,7 @@
                   rows="3"
                   required
                maxlength="2000"
-               [(ngModel)]="currentIssue.description" name="description" #description="ngModel">
+               [(ngModel)]="currentIssue.description" #description="ngModel">
                <div [hidden]="description.valid || description.pristine"
                     class="alert alert-danger">
                     {{'commons.validation.field.required' | translate }}
@@ -68,11 +68,11 @@
                 class="form-control"
                 name="type"
                 required
-                [(ngModel)]="currentIssue.type" name="type" #type="ngModel">
+                [(ngModel)]="currentIssue.type" #type="ngModel">
           <option value="" disabled selected>{{'issue-board.type.placeholder' | translate}}</option>
-          <option>{{'issue-board.type.story' | translate}}</option>
-          <option>{{'issue-board.type.bug' | translate}}</option>
-          <option>{{'issue-board.type.task' | translate}}</option>
+          <option value="S">{{'issue-board.type.story' | translate}}</option><!--TODO How to use enum directly-->
+          <option value="B">{{'issue-board.type.bug' | translate}}</option>
+          <option value="T">{{'issue-board.type.task' | translate}}</option>
         </select>
       </div>
 
@@ -169,6 +169,7 @@
             (click)="onCancel()">
             {{'issue-board.buttonCancel' | translate }}
     </button>
+    <br/>{{currentIssue | json}} <!--TODO remove-->
   </form>
 
 </div>

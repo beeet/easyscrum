@@ -8,6 +8,7 @@ import {TranslateService} from '@ngx-translate/core';
   templateUrl: './sprint-backlog.component.html',
   styleUrls: ['./sprint-backlog.component.css']
 })
+
 export class SprintBacklogComponent implements OnInit {
   issueService: IssueService;
   private translate;

@@ -48,7 +48,7 @@ export function createTranslateLoader(http: HttpClient) {
     BrowserModule,
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      { enableTracing: false } // <-- true: debugging purposes only
     ),
     HttpClientModule,
     TranslateModule.forRoot({
