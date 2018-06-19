@@ -3,7 +3,7 @@
     Issue-Board
   </h1>
 
-  <form (ngSubmit)="onSave()" #issueForm="ngForm">
+  <form (ngSubmit)="onSave()" #issueForm="ngForm" novalidate>
     <div class="row">
       <div class="form-group col-md-6">
         <label id="titleLabel" for="titleInput">{{'issue-board.title' | translate }}</label>
@@ -31,7 +31,7 @@
         <select id="assigneeInput"
                 class="form-control"
                 name="assignee"><!--TODO use datalist (Dropdown+)-->
-          <option selected>{{'issue-board.assignee.placeholder' | translate}}</option>
+          <option value="" disabled selected>{{'issue-board.assignee.placeholder' | translate}}</option>
           <option>{{'issue-board.assignee.aa' | translate}}</option>
           <option>{{'issue-board.assignee.bb' | translate}}</option>
           <option>{{'issue-board.assignee.sb' | translate}}</option>
@@ -63,7 +63,7 @@
         <select id="sprintInput"
                 class="form-control"
                 name="sprint"><!--TODO use datalist (Dropdown+)-->
-          <option selected>{{'issue-board.sprint.placeholder' | translate}}</option>
+          <option value="" disabled selected>{{'issue-board.sprint.placeholder' | translate}}</option>
           <option>{{'issue-board.sprint.0' | translate}}</option>
           <option>{{'issue-board.sprint.1' | translate}}</option>
         </select>
@@ -75,8 +75,9 @@
         <label id="typeLabel" for="typeInput">{{'issue-board.type' | translate}}</label>
         <select id="typeInput"
                 class="form-control"
-                name="type">
-          <option selected>{{'issue-board.type.placeholder' | translate}}</option>
+                name="type"
+                required>
+          <option value="" disabled selected>{{'issue-board.type.placeholder' | translate}}</option>
           <option>{{'issue-board.type.story' | translate}}</option>
           <option>{{'issue-board.type.bug' | translate}}</option>
           <option>{{'issue-board.type.task' | translate}}</option>
@@ -97,7 +98,7 @@
         <select id="priorityInput"
                 class="form-control"
                 name="priority">
-          <option selected>{{'issue-board.priority.placeholder' | translate}}</option>
+          <option value="" disabled selected>{{'issue-board.priority.placeholder' | translate}}</option>
           <option>{{'issue-board.priority.blocker' | translate}}</option>
           <option>{{'issue-board.priority.high' | translate}}</option>
           <option>{{'issue-board.priority.medium' | translate}}</option>
@@ -120,7 +121,7 @@
         <select id="stateInput"
                 class="form-control"
                 name="state">
-          <option selected>{{'issue-board.state.placeholder' | translate}}</option>
+          <option value="" disabled selected>{{'issue-board.state.placeholder' | translate}}</option>
           <option>{{'issue-board.state.open' | translate}}</option>
           <option>{{'issue-board.state.inwork' | translate}}</option>
           <option>{{'issue-board.state.testing' | translate}}</option>
@@ -143,7 +144,7 @@
         <select id="resolutionInput"
                 class="form-control"
                 name="resolution">
-          <option selected>{{'issue-board.resolution.placeholder' | translate}}</option>
+          <option value="" disabled selected>{{'issue-board.resolution.placeholder' | translate}}</option>
           <option>{{'issue-board.resolution.unresolved' | translate}}</option>
           <option>{{'issue-board.resolution.fixed' | translate}}</option>
           <option>{{'issue-board.resolution.wontfix' | translate}}</option>
