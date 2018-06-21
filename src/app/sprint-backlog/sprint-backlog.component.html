@@ -9,11 +9,12 @@
           {{'issue-board.state.open' | translate}}
         </h3>
         <div class="card"
-              *ngFor="let issue of issueService.getAllFilteredByState('O'); let i = index">
+             *ngFor="let issue of issueService.getAllFilteredByState(issueStates.open); let i = index"
+             routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">
           <!--https://www.google.ch/search?q=avatar+png&rlz=1C1CHBD_deCH790CH790&tbm=isch&tbo=u&source=univ&sa=X&ved=0ahUKEwjH0ePqxuDbAhXMkywKHdFUDYQQsAQIKA&biw=1904&bih=879-->
           <img class="card-img-top" src="{{imageSrc}}" alt="avatar">
           <div class="card-body">
-            <a class="card-text" routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">Issue {{issue.title}}</a>
+            <span class="card-text">{{issue.type}}<br/>{{issue.title}}</span>
           </div>
       </div>
     </div>
@@ -22,10 +23,11 @@
           {{'issue-board.state.inwork' | translate}}
         </h3>
         <div class="card"
-             *ngFor="let issue of issueService.getAllFilteredByState('W'); let i = index">
+             *ngFor="let issue of issueService.getAllFilteredByState(issueStates.inwork); let i = index"
+             routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">
           <img class="card-img-top" src="{{imageSrc}}" alt="avatar">
           <div class="card-body">
-            <a class="card-text" routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">Issue {{issue.title}}</a>
+            <span class="card-text">{{issue.type}}<br/>{{issue.title}}</span>
           </div>
         </div>
       </div>
@@ -34,10 +36,11 @@
         {{'issue-board.state.intest' | translate}}
       </h3>
       <div class="card"
-           *ngFor="let issue of issueService.getAllFilteredByState('T'); let i = index">
+           *ngFor="let issue of issueService.getAllFilteredByState(issueStates.intest); let i = index"
+           routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">
         <img class="card-img-top" src="{{imageSrc}}" alt="avatar">
         <div class="card-body">
-          <a class="card-text" routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">Issue {{issue.title}}</a>
+          <span class="card-text">{{issue.type}}<br/>{{issue.title}}</span>
         </div>
       </div>
     </div>
@@ -46,10 +49,11 @@
         {{'issue-board.state.done' | translate}}
       </h3>
       <div class="card"
-           *ngFor="let issue of issueService.getAllFilteredByState('D'); let i = index">
+           *ngFor="let issue of issueService.getAllFilteredByState(issueStates.done); let i = index"
+           routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">
         <img class="card-img-top" src="{{imageSrc}}" alt="avatar">
         <div class="card-body">
-          <a class="card-text" routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">Issue {{issue.title}}</a>
+          <span class="card-text">{{issue.type}}<br/>{{issue.title}}</span>
         </div>
       </div>
     </div>

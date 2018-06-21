@@ -15,6 +15,7 @@ import {TranslateService} from '@ngx-translate/core';
 export class SprintBacklogComponent implements OnInit {
   imageSrc = require('../../assets/pics/avatar.png');
   issueService: IssueService;
+  issueStates = IssueState;
   private translate;
   private route: ActivatedRoute;
   private router: Router;

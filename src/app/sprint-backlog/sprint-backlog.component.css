@@ -1,5 +1,5 @@
 div.card {
-  width: 16rem;
+  width: 15rem;
   height: 9rem;
   margin-bottom: 1rem;
   background-color: var(--color-card-blue);
@@ -11,7 +11,7 @@ img.card-img-top {
   margin: 1rem;
   width: 4rem;
 }
-a.card-text {
+span.card-text {
   color: var(--color-white);
 }
 
