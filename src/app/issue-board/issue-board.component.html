@@ -88,12 +88,13 @@
         <label id="priorityLabel" for="priorityInput">{{'issue-board.priority' | translate}}</label>
         <select id="priorityInput"
                 class="form-control"
-                name="priority">
+                name="priority"
+                [(ngModel)]="currentIssue.priority" #priority="ngModel">
           <option value="" disabled selected>{{'issue-board.priority.placeholder' | translate}}</option>
-          <option>{{'issue-board.priority.blocker' | translate}}</option>
-          <option>{{'issue-board.priority.high' | translate}}</option>
-          <option>{{'issue-board.priority.medium' | translate}}</option>
-          <option>{{'issue-board.priority.low' | translate}}</option>
+          <option value="1">{{'issue-board.priority.blocker' | translate}}</option>
+          <option value="2">{{'issue-board.priority.high' | translate}}</option>
+          <option value="3">{{'issue-board.priority.medium' | translate}}</option>
+          <option value="4">{{'issue-board.priority.low' | translate}}</option>
         </select>
       </div>
       <div class="form-group col-md-6">
@@ -110,12 +111,13 @@
         <label id="stateLabel" for="stateInput">{{'issue-board.state' | translate}}</label>
         <select id="stateInput"
                 class="form-control"
-                name="state">
+                name="state"
+                [(ngModel)]="currentIssue.state" #state="ngModel">
           <option value="" disabled selected>{{'issue-board.state.placeholder' | translate}}</option>
-          <option>{{'issue-board.state.open' | translate}}</option>
-          <option>{{'issue-board.state.inwork' | translate}}</option>
-          <option>{{'issue-board.state.testing' | translate}}</option>
-          <option>{{'issue-board.state.done' | translate}}</option>
+          <option value="O">{{'issue-board.state.open' | translate}}</option>
+          <option value="W">{{'issue-board.state.inwork' | translate}}</option>
+          <option value="T">{{'issue-board.state.intest' | translate}}</option>
+          <option value="D">{{'issue-board.state.done' | translate}}</option>
         </select>
       </div>
       <div class="form-group col-md-6">

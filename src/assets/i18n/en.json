@@ -13,7 +13,7 @@
   "issue-board.state.placeholder": "Choose state",
   "issue-board.state.open": "open",
   "issue-board.state.inwork": "in work",
-  "issue-board.state.testing": "in test",
+  "issue-board.state.intest": "in test",
   "issue-board.state.done": "done",
   "issue-board.type": "Type",
   "issue-board.type.placeholder": "Choose type",

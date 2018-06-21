@@ -6,7 +6,7 @@
   <div class="row">
       <div class="col-sm-3">
         <h3>
-          open
+          {{'issue-board.state.open' | translate}}
         </h3>
         <div class="card"
               *ngFor="let issue of issueService.getAllFilteredByState('O'); let i = index">
@@ -19,7 +19,7 @@
     </div>
       <div class="col-sm-3">
         <h3>
-          in work
+          {{'issue-board.state.inwork' | translate}}
         </h3>
         <div class="card"
              *ngFor="let issue of issueService.getAllFilteredByState('W'); let i = index">
@@ -31,16 +31,27 @@
       </div>
     <div class="col-sm-3">
       <h3>
-        in test
+        {{'issue-board.state.intest' | translate}}
       </h3>
+      <div class="card"
+           *ngFor="let issue of issueService.getAllFilteredByState('T'); let i = index">
+        <img class="card-img-top" src="{{imageSrc}}" alt="avatar">
+        <div class="card-body">
+          <a class="card-text" routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">Issue {{issue.title}}</a>
+        </div>
+      </div>
     </div>
     <div class="col-sm-3">
       <h3>
-        done
+        {{'issue-board.state.done' | translate}}
       </h3>
+      <div class="card"
+           *ngFor="let issue of issueService.getAllFilteredByState('D'); let i = index">
+        <img class="card-img-top" src="{{imageSrc}}" alt="avatar">
+        <div class="card-body">
+          <a class="card-text" routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">Issue {{issue.title}}</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
-
-
