@@ -1,5 +1,5 @@
 div.card {
-  width: 18rem;
+  width: 16rem;
   height: 9rem;
   margin-bottom: 1rem;
   background-color: var(--color-card-blue);
@@ -7,7 +7,7 @@ div.card {
 }
 img.card-img-top {
   position: absolute;
-  left: 70%;
+  left: 65%;
   margin: 1rem;
   width: 4rem;
 }

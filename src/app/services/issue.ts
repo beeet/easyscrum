@@ -1,17 +1,19 @@
 import {Injectable} from '@angular/core';
-import {IssuePriority} from './IssuePriority';
+import {IssuePriority} from './issuePriority';
 import {IssueType} from './issueType';
+import {IssueState} from './issueState';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class Issue { // TODO extract to own class incl enums
+export class Issue {
   private _id: string;
   private _title: string;
   private _description: string;
   private _type: IssueType;
   private _priority: IssuePriority;
+  private _state: IssueState;
 
   public get id(): string {
     return this._id;
@@ -51,5 +53,11 @@ export class Issue { // TODO extract to own class incl enums
 
   public set priority(value: IssuePriority) {
     this._priority = value;
+  }
+  get state(): IssueState {
+    return this._state;
+  }
+  set state(value: IssueState) {
+    this._state = value;
   }
 }
