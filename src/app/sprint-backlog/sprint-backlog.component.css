@@ -1,15 +1,11 @@
 div.card {
-  width: 15rem;
-  height: 9rem;
-  margin-bottom: 1rem;
+  margin: 1rem;
   background-color: var(--color-card-blue);
   list-style-type:none;
 }
 img.card-img-top {
-  position: absolute;
-  left: 65%;
   margin: 1rem;
-  width: 4rem;
+  width: 20%;
 }
 span.card-text {
   color: var(--color-white);
