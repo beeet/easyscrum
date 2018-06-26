@@ -48,8 +48,4 @@ export class IssueBoardComponent implements OnInit {
   onCancel() {
 
   }
-
-  displayStrint(sprint: Sprint): string {
-    return `${sprint.name} (${sprint.begin.toLocaleDateString()}-${sprint.end.toLocaleDateString()})`;
-  }
 }

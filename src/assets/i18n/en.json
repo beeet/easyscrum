@@ -43,5 +43,6 @@
   "issue-board.resolution.duplicate": "duplicate",
   "issue-board.resolution.incomplete": "incomplete",
   "issue-board.buttonSave": "Save",
-  "issue-board.buttonCancel": "Cancel"
+  "issue-board.buttonCancel": "Cancel",
+  "sprint-backlog.createTask": "Create Task"
 }

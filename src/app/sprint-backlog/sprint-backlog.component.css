@@ -11,9 +11,16 @@ span.card-text {
   color: var(--color-white);
 }
 
-#swimmlane-open, #swimmlane-inwork, #swimmlane-intest, #swimmlane-done {
-  border-right: ridge var(--color-black);
+#createTask {
+  display: block;
+  margin: 0 auto;
 }
-#swimmlane-open {
-  border-left: ridge var(--color-black);
+
+@media (min-width: 768px) {
+  #swimmlane-open, #swimmlane-inwork, #swimmlane-intest, #swimmlane-done {
+    border-right: ridge var(--color-black);
+  }
+  #swimmlane-open {
+    border-left: ridge var(--color-black);
+  }
 }

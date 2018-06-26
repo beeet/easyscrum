@@ -26,7 +26,8 @@
                 class="form-control"
                 name="sprint"><!--TODO use datalist (Dropdown+)-->
           <option value="" disabled selected>{{'issue-board.sprint.placeholder' | translate}}</option>
-          <option *ngFor="let sprint of sprintService.getAll()">{{displayStrint(sprint)}}</option>
+          <option *ngFor="let sprint of sprintService.getAll()">
+            {{sprint.name}} ({{sprint.begin | date:"dd.MM.yyyy"}} - {{sprint.end | date:"dd.MM.yyyy"}})</option>
         </select>
       </div>
     </div>

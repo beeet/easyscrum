@@ -17,7 +17,15 @@
             <span class="card-text">{{issue.type}}<br/>{{issue.title}}</span>
           </div>
       </div>
-    </div>
+      <div class="container">
+        <button id="createTask"
+                type="submit"
+                class="btn btn-light"
+                routerLink="/issue-board/">
+          {{"sprint-backlog.createTask" | translate}}
+        </button>
+      </div>
+      </div>
       <div id="swimmlane-inwork" class="col-sm-3">
         <h3>
           {{'issue-board.state.inwork' | translate}}
