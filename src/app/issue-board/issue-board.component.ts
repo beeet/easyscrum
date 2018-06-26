@@ -4,6 +4,7 @@ import {IssueService} from '../services/issue.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import {AssigneeService} from '../services/assignee.service';
 import {SprintService} from '../services/sprint.service';
+import {Sprint} from '../services/sprint';
 
 @Component({
   selector: 'app-issue-board',
@@ -46,5 +47,9 @@ export class IssueBoardComponent implements OnInit {
 
   onCancel() {
 
+  }
+
+  displayStrint(sprint: Sprint): string {
+    return `${sprint.name} (${sprint.begin.toLocaleDateString()}-${sprint.end.toLocaleDateString()})`;
   }
 }

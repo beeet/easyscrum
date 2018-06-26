@@ -26,7 +26,7 @@
                 class="form-control"
                 name="sprint"><!--TODO use datalist (Dropdown+)-->
           <option value="" disabled selected>{{'issue-board.sprint.placeholder' | translate}}</option>
-          <option *ngFor="let sprint of sprintService.getAll()">{{sprint.name}} {{sprint.begin.toLocaleString()}} {{sprint.end.toLocaleString()}}</option>
+          <option *ngFor="let sprint of sprintService.getAll()">{{displayStrint(sprint)}}</option>
         </select>
       </div>
     </div>
@@ -149,13 +149,14 @@
                class="form-control"
                name="elapsed"
                type="number"
-               min="0">
+               min="0"
+               [(ngModel)]="currentIssue.elapsed" #elapsed="ngModel">
       </div>
     </div>
 
     <button type="submit"
             class="btn btn-primary"
-            (click)="onSave()"><!-- TODO [disabled]="!issueForm.form.valid">-->
+            (click)="onSave()"><!-- TODO [disabled]="!issueForm.form.valid"> validierung auf controller, so dass nicht gespeichert werden kann wenn invalid-->
             {{'issue-board.buttonSave' | translate }}
     </button>
     <button type="submit"
