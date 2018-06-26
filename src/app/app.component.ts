@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {IssueService} from './services/issue.service';
+import {AssigneeService} from './services/assignee.service';
 
 @Component({
   selector: 'app-root',
@@ -11,12 +12,15 @@ export class AppComponent {
   title = 'EasyScum';
   translate;
   private issueService: IssueService;
+  private assigneeService: AssigneeService;
 
-  constructor(translate: TranslateService, issueService: IssueService) {
+  constructor(translate: TranslateService, issueService: IssueService, assigneeService: AssigneeService) {
     this.translate = translate;
     this.setUserLanguage();
     this.issueService = issueService;
     this.issueService.setupDummyData(); // TODO remove later
+    this.assigneeService = assigneeService;
+    this.assigneeService.setupDummyData(); // TODO remove later
   }
 
   public switchLang(lang: string): void {

@@ -1,13 +1,13 @@
 import {Issue} from './issue';
 
-export interface Crud {
-  create(): Issue;
+export interface Crud<T> {
+  create(): T;
 
-  getAll(): Issue[];
+  getAll(): T[];
 
   get(id: string);
 
-  put(issue: Issue);
+  put(item: T);
 
   delete(id: string);
 }
