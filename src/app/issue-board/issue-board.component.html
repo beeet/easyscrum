@@ -76,9 +76,7 @@
                 class="form-control"
                 name="assignee"><!--TODO use datalist (Dropdown+)-->
           <option value="" disabled selected>{{'issue-board.assignee.placeholder' | translate}}</option>
-          <option>{{'issue-board.assignee.aa' | translate}}</option>
-          <option>{{'issue-board.assignee.bb' | translate}}</option>
-          <option>{{'issue-board.assignee.sb' | translate}}</option>
+          <option *ngFor="let assignee of assigneeService.getAll()">{{assignee.nickname}}</option>
         </select>
       </div>
     </div>

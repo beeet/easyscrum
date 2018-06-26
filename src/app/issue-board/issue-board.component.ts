@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {IssueService} from '../services/issue.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import {AssigneeService} from '../services/assignee.service';
 
 @Component({
   selector: 'app-issue-board',
@@ -11,16 +12,18 @@ import { Router, ActivatedRoute } from '@angular/router';
 export class IssueBoardComponent implements OnInit {
   currentIssue;
   issueService;
+  assigneeService;
   private translate;
   private route: ActivatedRoute;
   private router: Router;
 
   constructor(translate: TranslateService, route: ActivatedRoute, router: Router,
-              issueService: IssueService) {
+              issueService: IssueService, assigneeService: AssigneeService) {
     this.translate = translate;
     this.route = route;
     this.router = router;
     this.issueService = issueService;
+    this.assigneeService = assigneeService;
   }
 
 
