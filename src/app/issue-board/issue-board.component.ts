@@ -4,7 +4,10 @@ import {IssueService} from '../services/issue.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import {AssigneeService} from '../services/assignee.service';
 import {SprintService} from '../services/sprint.service';
-import {Sprint} from '../services/sprint';
+import {IssueState} from '../services/issueState';
+import {IssueType} from '../services/issueType';
+import {IssuePriority} from '../services/issuePriority';
+import {IssueResolution} from '../services/issueResolution';
 
 @Component({
   selector: 'app-issue-board',
@@ -13,10 +16,13 @@ import {Sprint} from '../services/sprint';
 })
 export class IssueBoardComponent implements OnInit {
   currentIssue;
+  issueStates = IssueState;
+  issueTypes = IssueType;
+  issuePriorities = IssuePriority;
+  issueResolutions = IssueResolution;
   issueService;
   assigneeService;
   sprintService;
-  currentSprint;
   private translate;
   private route: ActivatedRoute;
   private router: Router;
@@ -43,7 +49,10 @@ export class IssueBoardComponent implements OnInit {
 
   onSave() {
     this.issueService.put(this.currentIssue);
-    this.router.navigate(['/sprint-backlog']);
+    this.router.navigate(['/sprint-backlog'])
+      .catch(reason =>
+        console.log('error while navigate to sprint-backlog' + JSON.stringify(reason))
+      );
   }
 
   onCancel() {

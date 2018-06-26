@@ -66,9 +66,9 @@
                 required
                 [(ngModel)]="currentIssue.type" #type="ngModel">
           <option value="" disabled selected>{{'issue-board.type.placeholder' | translate}}</option>
-          <option value="S">{{'issue-board.type.story' | translate}}</option>
-          <option value="B">{{'issue-board.type.bug' | translate}}</option>
-          <option value="T">{{'issue-board.type.task' | translate}}</option>
+          <option value="{{issueTypes.story}}">{{'issue-board.type.story' | translate}}</option>
+          <option value="{{issueTypes.bug}}">{{'issue-board.type.bug' | translate}}</option>
+          <option value="{{issueTypes.task}}">{{'issue-board.type.task' | translate}}</option>
         </select>
       </div>
 
@@ -94,10 +94,10 @@
                 name="priority"
                 [(ngModel)]="currentIssue.priority" #priority="ngModel">
           <option value="" disabled selected>{{'issue-board.priority.placeholder' | translate}}</option>
-          <option value="1">{{'issue-board.priority.blocker' | translate}}</option>
-          <option value="2">{{'issue-board.priority.high' | translate}}</option>
-          <option value="3">{{'issue-board.priority.medium' | translate}}</option>
-          <option value="4">{{'issue-board.priority.low' | translate}}</option>
+          <option value="{{issuePriorities.blocker}}">{{'issue-board.priority.blocker' | translate}}</option>
+          <option value="{{issuePriorities.high}}">{{'issue-board.priority.high' | translate}}</option>
+          <option value="{{issuePriorities.medium}}">{{'issue-board.priority.medium' | translate}}</option>
+          <option value="{{issuePriorities.low}}">{{'issue-board.priority.low' | translate}}</option>
         </select>
       </div>
       <div class="form-group col-md-6">
@@ -118,10 +118,10 @@
                 name="state"
                 [(ngModel)]="currentIssue.state" #state="ngModel">
           <option value="" disabled selected>{{'issue-board.state.placeholder' | translate}}</option>
-          <option value="O">{{'issue-board.state.open' | translate}}</option>
-          <option value="W">{{'issue-board.state.inwork' | translate}}</option>
-          <option value="T">{{'issue-board.state.intest' | translate}}</option>
-          <option value="D">{{'issue-board.state.done' | translate}}</option>
+          <option value="{{issueStates.open}}">{{'issue-board.state.open' | translate}}</option>
+          <option value="{{issueStates.inwork}}">{{'issue-board.state.inwork' | translate}}</option>
+          <option value="{{issueStates.intest}}">{{'issue-board.state.intest' | translate}}</option>
+          <option value="{{issueStates.done}}">{{'issue-board.state.done' | translate}}</option>
         </select>
       </div>
       <div class="form-group col-md-6">
@@ -140,13 +140,14 @@
         <label id="resolutionLabel" for="resolutionInput">{{'issue-board.resolution' | translate}}</label>
         <select id="resolutionInput"
                 class="form-control"
-                name="resolution">
+                name="resolution"
+                [(ngModel)]="currentIssue.resolution" #priority="ngModel">
           <option value="" disabled selected>{{'issue-board.resolution.placeholder' | translate}}</option>
-          <option>{{'issue-board.resolution.unresolved' | translate}}</option>
-          <option>{{'issue-board.resolution.fixed' | translate}}</option>
-          <option>{{'issue-board.resolution.wontfix' | translate}}</option>
-          <option>{{'issue-board.resolution.duplicate' | translate}}</option>
-          <option>{{'issue-board.resolution.incomplete' | translate}}</option>
+          <option value="{{issueResolutions.unresolved}}">{{'issue-board.resolution.unresolved' | translate}}</option>
+          <option value="{{issueResolutions.fixed}}">{{'issue-board.resolution.fixed' | translate}}</option>
+          <option value="{{issueResolutions.wontfix}}">{{'issue-board.resolution.wontfix' | translate}}</option>
+          <option value="{{issueResolutions.duplicate}}">{{'issue-board.resolution.duplicate' | translate}}</option>
+          <option value="{{issueResolutions.incomplete}}">{{'issue-board.resolution.incomplete' | translate}}</option>
         </select>
       </div>
       <div class="form-group col-md-6">
