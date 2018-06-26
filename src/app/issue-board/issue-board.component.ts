@@ -16,6 +16,7 @@ export class IssueBoardComponent implements OnInit {
   issueService;
   assigneeService;
   sprintService;
+  currentSprint;
   private translate;
   private route: ActivatedRoute;
   private router: Router;
