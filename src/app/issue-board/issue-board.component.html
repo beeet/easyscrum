@@ -24,10 +24,12 @@
         <label id="sprintLabel" for="sprintInput">{{'issue-board.sprint' | translate }}</label>
         <select id="sprintInput"
                 class="form-control"
-                name="sprint"><!--TODO use datalist (Dropdown+)-->
+                name="sprint"
+                [(ngModel)]="currentIssue.sprintId">
           <option value="" disabled selected>{{'issue-board.sprint.placeholder' | translate}}</option>
-          <option *ngFor="let sprint of sprintService.getAll()">
-            {{sprint.name}} ({{sprint.begin | date:"dd.MM.yyyy"}} - {{sprint.end | date:"dd.MM.yyyy"}})</option>
+          <option *ngFor="let sprint of sprintService.getAll()" [ngValue]="sprint.id">
+            {{sprint.name}} ({{sprint.begin | date:"dd.MM.yyyy"}} - {{sprint.end | date:"dd.MM.yyyy"}})
+          </option>
         </select>
       </div>
     </div>
@@ -64,7 +66,7 @@
                 required
                 [(ngModel)]="currentIssue.type" #type="ngModel">
           <option value="" disabled selected>{{'issue-board.type.placeholder' | translate}}</option>
-          <option value="S">{{'issue-board.type.story' | translate}}</option><!--TODO How to use enum directly-->
+          <option value="S">{{'issue-board.type.story' | translate}}</option>
           <option value="B">{{'issue-board.type.bug' | translate}}</option>
           <option value="T">{{'issue-board.type.task' | translate}}</option>
         </select>
@@ -74,9 +76,12 @@
         <label id="assigneeLabel" for="assigneeInput">{{'issue-board.assignee' | translate }}</label>
         <select id="assigneeInput"
                 class="form-control"
-                name="assignee"><!--TODO use datalist (Dropdown+)-->
+                name="assignee"
+                [(ngModel)]="currentIssue.assigneeId">
           <option value="" disabled selected>{{'issue-board.assignee.placeholder' | translate}}</option>
-          <option *ngFor="let assignee of assigneeService.getAll()">{{assignee.nickname}}</option>
+          <option *ngFor="let assignee of assigneeService.getAll()" [ngValue]="assignee.id">
+            {{assignee.nickname}}
+          </option>
         </select>
       </div>
     </div>
