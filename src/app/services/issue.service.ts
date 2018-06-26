@@ -48,6 +48,10 @@ export class IssueService implements Crud {
     return this.issues.filter(issue => issue.type === issueType);
   }
 
+  getAllWithoutSprintAssignment(): Issue[] {
+    return this.issues.filter(issure => issure.sprintId === undefined);
+  }
+
   setupDummyData() {
     const i1 = new Issue();
     i1.id = '98769967-0176-3914-a09b-061dad1e7024';

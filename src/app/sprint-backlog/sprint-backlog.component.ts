@@ -1,10 +1,10 @@
 import {IssueState} from '../services/issueState';
-
-declare function require(path: string);
 import { Component, OnInit } from '@angular/core';
 import {IssueService} from '../services/issue.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
+
+declare function require(path: string);
 
 @Component({
   selector: 'app-sprint-backlog',

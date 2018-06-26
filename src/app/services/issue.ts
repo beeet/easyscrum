@@ -14,6 +14,11 @@ export class Issue {
   private _type: IssueType;
   private _priority: IssuePriority;
   private _state: IssueState;
+  private _sprintId: string;
+  private _assigneeId: string;
+  private _dueDate: Date;
+  private _estimated: number;
+  private _elapsed: number;
 
   public get id(): string {
     return this._id;
@@ -59,5 +64,35 @@ export class Issue {
   }
   set state(value: IssueState) {
     this._state = value;
+  }
+  get sprintId(): string {
+    return this._sprintId;
+  }
+  set sprintId(value: string) {
+    this._sprintId = value;
+  }
+  get assigneeId(): string {
+    return this._assigneeId;
+  }
+  set assigneeId(value: string) {
+    this._assigneeId = value;
+  }
+  get dueDate(): Date {
+    return this._dueDate;
+  }
+  set dueDate(value: Date) {
+    this._dueDate = value;
+  }
+  get estimated(): number {
+    return this._estimated;
+  }
+  set estimated(value: number) {
+    this._estimated = value;
+  }
+  get elapsed(): number {
+    return this._elapsed;
+  }
+  set elapsed(value: number) {
+    this._elapsed = value;
   }
 }

@@ -2,4 +2,27 @@
   <h1>
     Produkt-Backlog
   </h1>
+
+  <table class="table table-bordered">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Row</th> <!--TODO evt hidden? sonst übersetzung machen-->
+        <th scope="col">{{'issue-board.type' | translate}}</th>
+        <th scope="col">{{'issue-board.title' | translate}}</th>
+        <th scope="col">{{'issue-board.priority' | translate}}</th>
+        <th scope="col">{{'issue-board.estimated' | translate}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let issue of issueService.getAllWithoutSprintAssignment(); let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{issue.type}}</td>
+        <td>{{issue.title}}</td>
+        <td>{{issue.priority}}</td>
+        <td>{{issue.estimated}}</td>
+        <!--{{issue | json}} &lt;!&ndash;TODO remove&ndash;&gt;-->
+      </tr>
+    </tbody>
+  </table>
+
 </div>

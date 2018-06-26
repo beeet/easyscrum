@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {IssueService} from '../services/issue.service';
 
 @Component({
   selector: 'app-product-backlog',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./product-backlog.component.css']
 })
 export class ProductBacklogComponent implements OnInit {
+  issueService: IssueService;
 
-  constructor() { }
+  constructor(issueService: IssueService) {
+    this.issueService = issueService;
+  }
 
   ngOnInit() {
   }
