@@ -26,8 +26,7 @@
                 class="form-control"
                 name="sprint"><!--TODO use datalist (Dropdown+)-->
           <option value="" disabled selected>{{'issue-board.sprint.placeholder' | translate}}</option>
-          <option>{{'issue-board.sprint.0' | translate}}</option>
-          <option>{{'issue-board.sprint.1' | translate}}</option>
+          <option *ngFor="let sprint of sprintService.getAll()">{{sprint.name}} {{sprint.begin.toLocaleString()}} {{sprint.end.toLocaleString()}}</option>
         </select>
       </div>
     </div>

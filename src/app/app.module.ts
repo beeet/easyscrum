@@ -13,6 +13,7 @@ import { ProductBacklogComponent } from './product-backlog/product-backlog.compo
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { IssueService } from './services/issue.service';
 import { AssigneeService } from './services/assignee.service';
+import {SprintService} from './services/sprint.service';
 
 // import Translation FW
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -67,7 +68,8 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   providers: [
     IssueService,
-    AssigneeService
+    AssigneeService,
+    SprintService
   ],
   bootstrap: [AppComponent]
 })
