@@ -23,6 +23,10 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 // import Bootstrap
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
+// import ng2-tables
+import { Ng2TableModule } from 'ng2-table/ng2-table';
+
+
 const appRoutes: Routes = [
   { path: 'sprint-backlog', component: SprintBacklogComponent },
   { path: 'issue-board', component: IssueBoardComponent },
@@ -61,7 +65,8 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     NgbModule.forRoot(),
-    FormsModule
+    FormsModule,
+    Ng2TableModule
   ],
   exports: [
     CommonModule
