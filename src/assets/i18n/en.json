@@ -44,5 +44,7 @@
   "issue-board.resolution.incomplete": "incomplete",
   "issue-board.buttonSave": "Save",
   "issue-board.buttonCancel": "Cancel",
-  "sprint-backlog.createTask": "Create Task"
+  "sprint-backlog.createTask": "Create Task",
+  "product-backlog.row": "Row",
+  "product-backlog.sum": "Sum"
 }
