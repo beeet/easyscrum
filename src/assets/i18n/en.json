@@ -1,9 +1,12 @@
 {
   "__comment": "TODO translations to each component",
   "commons.validation.field.required": "This field is required",
-  "page-not-found.title": "The page you are looking for does not exist or has changed",
-  "page-not-found.link": "/sprint-backlog",
-  "page-not-found.linktext": "Back to the sprint backlog >",
+
+  "app.sprint-backlog": "Sprint-Backlog",
+  "app.issue-board": "Issue-Board",
+  "app.product-backlog": "Product-Backlog",
+  "app.burndown-chart": "Burndown-Chart",
+
   "issue-board.title": "Title",
   "issue-board.title.placeholder": "Enter title",
   "issue-board.description": "Description",
@@ -44,7 +47,13 @@
   "issue-board.resolution.incomplete": "incomplete",
   "issue-board.buttonSave": "Save",
   "issue-board.buttonCancel": "Cancel",
+
   "sprint-backlog.createTask": "Create Task",
+
   "product-backlog.row": "Row",
-  "product-backlog.sum": "Sum"
+  "product-backlog.sum": "Sum",
+
+  "page-not-found.title": "The page you are looking for does not exist or has changed",
+  "page-not-found.link": "/sprint-backlog",
+  "page-not-found.linktext": "Back to the sprint backlog >"
 }
