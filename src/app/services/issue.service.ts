@@ -4,12 +4,23 @@ import {Issue} from './issue';
 import {IssueType} from './issueType';
 import {IssuePriority} from './issuePriority';
 import {IssueState} from './issueState';
+import {SprintService} from './sprint.service';
+import {Injectable} from '@angular/core';
+
+
+@Injectable({
+  // we declare that this service should be created
+  // by the root application injector.
+  providedIn: 'root',
+})
+
 
 export class IssueService implements Crud<Issue> {
   private issues: Issue[] = [];
+  private sprintService: SprintService;
 
-  constructor() {
-
+  constructor(sprintService: SprintService) {
+    this.sprintService = sprintService;
   }
 
   create(): Issue {
@@ -36,6 +47,9 @@ export class IssueService implements Crud<Issue> {
   }
 
   delete(id: string): void {
+    if (!this.isDeletionIssueAllowed(this.get(id))) {
+      throw new Error('Deletion is not allowed because of sprint assignment.');
+    }
     const index = this.issues.findIndex(i => i.id === id);
     this.issues.splice(index, 1);
   }
@@ -50,6 +64,14 @@ export class IssueService implements Crud<Issue> {
 
   getAllWithoutSprintAssignment(): Issue[] {
     return this.issues.filter(issure => issure.sprintId === undefined);
+  }
+
+  isDeletionIssueAllowed(issue: Issue): boolean {
+    return !issue.sprintId;
+  }
+
+  isMutationIssueAllowed(issue: Issue): boolean {
+    return this.sprintService.isSprintAlreadyStarted(issue.sprintId);
   }
 
   setupDummyData() {

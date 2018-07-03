@@ -2,7 +2,7 @@ import {Crud} from './crud';
 import {UUID} from 'angular2-uuid';
 import {Sprint} from './sprint';
 
-export class SprintService implements Crud<Sprint>{
+export class SprintService implements Crud<Sprint> {
   private sprints: Sprint[] = [];
 
   constructor() {
@@ -19,7 +19,7 @@ export class SprintService implements Crud<Sprint>{
     return this.sprints;
   }
 
-  get(id: string) {
+  get(id: string): Sprint {
     return this.sprints.find(s => s.id === id);
   }
 
@@ -30,6 +30,20 @@ export class SprintService implements Crud<Sprint>{
   delete(id: string) {
     const index = this.sprints.findIndex(s => s.id === id);
     this.sprints.splice(index, 1);
+  }
+
+  getCurrent(): Sprint {
+    const now = new Date();
+    return this.sprints.find( s => s.begin <= now && s.end >= now); // TODO sbs ohne timestamp
+  }
+
+  isSprintAlreadyStarted(id: string): boolean {
+    const sprint = this.get(id);
+    if (!sprint) {
+      return false;
+    }
+    const now = new Date(); // TODO sbs only date (no timestamp)
+    return sprint.begin <= now;
   }
 
   setupDummyData() {

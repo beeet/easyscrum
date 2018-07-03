@@ -42,6 +42,15 @@ describe('IssueService', () => {
     expect(service.getAllFilteredByState(IssueState.done)).toEqual([two]);
     expect(service.getAllFilteredByState(IssueState.intest)).toEqual([]);
   }));
+
+  it('is deletion allowed', inject([IssueService], (service: IssueService) => {
+    // arrange
+    // act + assert
+    const issue = new Issue();
+    expect(service.isDeletionIssueAllowed(issue)).toEqual(true);
+    issue.sprintId = '1';
+    expect(service.isDeletionIssueAllowed(issue)).toEqual(false);
+  }));
 });
 
 function setupTestdata() {

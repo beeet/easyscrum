@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {IssuePriority} from './issuePriority';
 import {IssueType} from './issueType';
 import {IssueState} from './issueState';
+import {IssueResolution} from './issueResolution';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,8 @@ export class Issue {
   private _dueDate: Date;
   private _estimated: number;
   private _elapsed: number;
+  private _resolution: IssueResolution;
+  private _resolutionDate: Date;
 
   public get id(): string {
     return this._id;
@@ -94,5 +97,20 @@ export class Issue {
   }
   set elapsed(value: number) {
     this._elapsed = value;
+  }
+  get resolution(): IssueResolution {
+    return this._resolution;
+  }
+  set resolution(value: IssueResolution) {
+    if (value !== this.resolution) {
+      this.resolutionDate = new Date();
+    }
+    this._resolution = value;
+  }
+  get resolutionDate(): Date {
+    return this._resolutionDate;
+  }
+  set resolutionDate(value: Date) {
+    this._resolutionDate = value;
   }
 }

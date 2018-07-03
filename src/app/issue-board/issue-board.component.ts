@@ -58,4 +58,8 @@ export class IssueBoardComponent implements OnInit {
   onCancel() {
 
   }
+
+  onDelete() {
+    this.issueService.delete(this.currentIssue.id);
+  }
 }

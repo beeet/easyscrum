@@ -25,7 +25,8 @@
         <select id="sprintInput"
                 class="form-control"
                 name="sprint"
-                [(ngModel)]="currentIssue.sprintId">
+                [(ngModel)]="currentIssue.sprintId"
+                [disabled]="issueService.isMutationIssueAllowed(currentIssue)">
           <option value="" disabled selected>{{'issue-board.sprint.placeholder' | translate}}</option>
           <option *ngFor="let sprint of sprintService.getAll()" [ngValue]="sprint.id">
             {{sprint.name}} ({{sprint.begin | date:"dd.MM.yyyy"}} - {{sprint.end | date:"dd.MM.yyyy"}})
@@ -163,7 +164,8 @@
 
     <button type="submit"
             class="btn btn-primary"
-            (click)="onSave()"><!-- TODO [disabled]="!issueForm.form.valid"> validierung auf controller, so dass nicht gespeichert werden kann wenn invalid-->
+            (click)="onSave()"
+            [disabled]="!issueForm.form.valid">
             {{'issue-board.buttonSave' | translate }}
     </button>
     <button type="submit"
@@ -171,6 +173,13 @@
             (click)="onCancel()">
             {{'issue-board.buttonCancel' | translate }}
     </button>
+    <button type="submit"
+            class="btn btn-danger"
+            (click)="onDelete()"
+            [hidden]="!issueService.isDeletionIssueAllowed(currentIssue)">
+      {{'issue-board.buttonDelete' | translate }}
+    </button>
   </form>
+  {{ currentIssue | json }}
 
 </div>

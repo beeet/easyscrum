@@ -5,7 +5,7 @@
   "app.sprint-backlog": "Sprint-Backlog",
   "app.issue-board": "Issue-Board",
   "app.product-backlog": "Product-Backlog",
-  "app.burndown-chart": "Burndown-Chart",
+  "app.burndown-chart": "Chart-Board",
 
   "issue-board.title": "Title",
   "issue-board.title.placeholder": "Enter title",
@@ -47,6 +47,7 @@
   "issue-board.resolution.incomplete": "incomplete",
   "issue-board.buttonSave": "Save",
   "issue-board.buttonCancel": "Cancel",
+  "issue-board.buttonDelete": "Delete",
 
   "sprint-backlog.createTask": "Create Task",
 
