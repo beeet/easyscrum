@@ -4,7 +4,7 @@ import {IssueType} from './issueType';
 import {IssueState} from './issueState';
 import {IssueResolution} from './issueResolution';
 import {Moment} from 'moment';
-import {DateUtil} from './date.util';
+import {DateUtil} from '../utils/date.util';
 
 @Injectable({
   providedIn: 'root'

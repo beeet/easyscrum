@@ -1,7 +1,7 @@
 import {Crud} from './crud';
 import {UUID} from 'angular2-uuid';
 import {Sprint} from './sprint';
-import {DateUtil} from './date.util';
+import {DateUtil} from '../utils/date.util';
 
 export class SprintService implements Crud<Sprint> {
   private sprints: Sprint[] = [];
