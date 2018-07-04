@@ -162,20 +162,22 @@
       </div>
     </div>
 
-    <button type="submit"
+    <button type="button"
             class="btn btn-primary"
             (click)="onSave()"
             [disabled]="!issueForm.form.valid">
             {{'issue-board.buttonSave' | translate }}
     </button>
-    <button type="submit"
+    <button type="button"
             class="btn btn-light"
+            routerLink="/sprint-backlog/"
             (click)="onCancel()">
             {{'issue-board.buttonCancel' | translate }}
     </button>
-    <button type="submit"
+    <button type="button"
             class="btn btn-danger"
             (click)="onDelete()"
+            routerLink="/sprint-backlog/"
             [hidden]="!issueService.isDeletionIssueAllowed(currentIssue)">
       {{'issue-board.buttonDelete' | translate }}
     </button>

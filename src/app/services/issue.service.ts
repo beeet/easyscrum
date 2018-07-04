@@ -9,8 +9,7 @@ import {Injectable} from '@angular/core';
 
 
 @Injectable({
-  // we declare that this service should be created
-  // by the root application injector.
+  // we declare that this service should be created by the root application injector.
   providedIn: 'root',
 })
 
@@ -81,7 +80,7 @@ export class IssueService implements Crud<Issue> {
     i1.priority = IssuePriority.blocker;
     i1.type = IssueType.task;
     i1.state = IssueState.open;
-    i1.sprintId = UUID.UUID();
+    i1.sprintId = this.sprintService.getCurrent().id;
     this.put(i1);
     const i2 = this.create();
     i2.title = 'Missing Chips';
@@ -89,7 +88,7 @@ export class IssueService implements Crud<Issue> {
     i2.priority = IssuePriority.high;
     i2.type = IssueType.task;
     i2.state = IssueState.open;
-    i2.sprintId = UUID.UUID();
+    i2.sprintId = this.sprintService.getCurrent().id;
     this.put(i2);
     const i3 = this.create();
     i3.title = 'Testing';
