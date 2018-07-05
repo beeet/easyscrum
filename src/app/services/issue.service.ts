@@ -6,6 +6,7 @@ import {IssuePriority} from './issuePriority';
 import {IssueState} from './issueState';
 import {SprintService} from './sprint.service';
 import {Injectable} from '@angular/core';
+import {DateUtil} from '../utils/date.util';
 
 
 @Injectable({
@@ -18,6 +19,8 @@ export class IssueService implements Crud<Issue> {
   private issues: Issue[] = [];
   private sprintService: SprintService;
 
+  private dateUtil = new DateUtil();
+
   constructor(sprintService: SprintService) {
     this.sprintService = sprintService;
   }
@@ -26,6 +29,7 @@ export class IssueService implements Crud<Issue> {
     const newIssue = new Issue();
     newIssue.id = UUID.UUID();
     newIssue.state = IssueState.open;
+    newIssue.creationDate = this.dateUtil.now();
     return newIssue;
   }
 
@@ -57,8 +61,17 @@ export class IssueService implements Crud<Issue> {
     return this.issues.filter(issue => issue.state === issueState);
   }
 
+
+  getAllNotClosed(): Issue[] {
+    return this.issues.filter(issure => issure.state !== IssueState.done);
+  }
+
   getAllFilteredByType(issueType: IssueType): Issue[] {
-    return this.issues.filter(issue => issue.type === issueType);
+    return this.issues.filter(issue => issue.type === issueType); // TODO sbs evt. predicate auslagern
+  }
+
+  getAllFilteredBySprint(sprintId: string): Issue[] {
+    return this.issues.filter(issue => issue.sprintId === sprintId);
   }
 
   getAllWithoutSprintAssignment(): Issue[] {
@@ -81,6 +94,7 @@ export class IssueService implements Crud<Issue> {
     i1.type = IssueType.task;
     i1.state = IssueState.open;
     i1.sprintId = this.sprintService.getCurrent().id;
+    i1.creationDate = this.sprintService.getCurrent().begin.subtract(8, 'd');
     this.put(i1);
     const i2 = this.create();
     i2.title = 'Missing Chips';
@@ -89,6 +103,7 @@ export class IssueService implements Crud<Issue> {
     i2.type = IssueType.task;
     i2.state = IssueState.open;
     i2.sprintId = this.sprintService.getCurrent().id;
+    i1.creationDate = this.sprintService.getCurrent().begin.subtract(3, 'd');
     this.put(i2);
     const i3 = this.create();
     i3.title = 'Testing';
@@ -97,6 +112,7 @@ export class IssueService implements Crud<Issue> {
     i3.type = IssueType.task;
     i3.state = IssueState.inwork;
     i3.sprintId = undefined;
+    i1.creationDate = this.sprintService.getCurrent().begin.subtract(5, 'd');
     this.put(i3);
     const i4 = this.create();
     i4.title = 'Having Party';
@@ -105,6 +121,7 @@ export class IssueService implements Crud<Issue> {
     i4.type = IssueType.story;
     i4.state = IssueState.open;
     i4.sprintId = undefined;
+    i1.creationDate = this.sprintService.getCurrent().begin.subtract(12, 'd');
     this.put(i4);
   }
 }

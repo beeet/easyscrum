@@ -22,6 +22,7 @@ export class Issue {
   private _dueDate: Moment;
   private _estimated: number;
   private _elapsed: number;
+  private _creationDate: Moment;
   private _resolution: IssueResolution;
   private _resolutionDate: Moment;
 
@@ -101,6 +102,12 @@ export class Issue {
   }
   set elapsed(value: number) {
     this._elapsed = value;
+  }
+  get creationDate(): Moment {
+    return this._creationDate;
+  }
+  set creationDate(value: Moment) {
+    this._creationDate = value;
   }
   get resolution(): IssueResolution {
     return this._resolution;
