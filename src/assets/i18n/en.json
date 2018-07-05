@@ -1,6 +1,8 @@
 {
   "__comment": "TODO translations to each component",
-  "commons.validation.field.required": "This field is required",
+  "commons.validation.field.required": "This field is required.",
+  "commons.validation.field.minlength": "This field must be min 30 characters long.",
+  "commons.validation.field.maxlength": "This field must be max 30 characters long.",
 
   "app.sprint-backlog": "Sprint-Backlog",
   "app.issue-board": "Issue-Board",
