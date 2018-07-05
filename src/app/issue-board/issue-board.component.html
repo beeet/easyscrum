@@ -16,10 +16,20 @@
                mixlength="3"
                maxlength="30"
                [(ngModel)]="currentIssue.title" #title="ngModel">
-                <div [hidden]="title.valid || title.pristine"
-                     class="alert alert-danger">
-                    {{'commons.validation.field.required' | translate }}
-                </div>
+                    <div *ngIf="title.invalid && (title.dirty || title.touched)"
+                         class="alert alert-danger">
+                            <small *ngIf="title.hasError('required')">
+                              {{'commons.validation.field.required' | translate }}
+                            </small>
+                            <small *ngIf="title.hasError('minlength')">
+                              {{'commons.validation.field.minlength' | translate }}
+                            </small>
+                            <small *ngIf="title.hasError('maxlength')">
+                              {{'commons.validation.field.maxlength' | translate }}
+                            </small>
+                    </div>
+                    <!--TODO sbs interpolation of params. e.g. number of char-->
+                    <!--TODO sbs min/max validation doesn't work-->
       </div>
       <div class="form-group col-md-6">
         <label id="sprintLabel" for="sprintInput">{{'issue-board.sprint' | translate }}</label>
