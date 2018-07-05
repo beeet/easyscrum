@@ -20,6 +20,6 @@ describe('DateUtil', () => {
     date.setHours(0, 0, 0, 0);
     expect(dateUtil.newDate(new Date())).toEqual(moment(date));
   }));
-}
+});
 
 
