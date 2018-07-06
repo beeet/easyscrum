@@ -9,7 +9,8 @@ export class DateUtil  {
     return moment(date);
   }
 
-  newDate(date: Date): Moment {
+  newDate(year: number, month: number, day: number): Moment {
+    const date = new Date(year, month, day);
     date.setHours(0, 0, 0, 0);
     return moment(date);
   }

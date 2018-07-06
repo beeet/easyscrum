@@ -51,7 +51,7 @@ export class BurndownChartComponent implements OnInit {
       this.issues = this.issueService.getAllFiltered(filteredBySprintId(this.sprintSelected.id))
         .sort((a, b) => a.creationDate.valueOf() - b.creationDate.valueOf());
     }
-    let tempDate = this.sprintSelected.begin;
+    let tempDate = this.sprintSelected.begin.clone();
     const lineChartDataData = [];
     while (!tempDate.isAfter(this.sprintSelected.end)) {
       this.lineChartLabels.push(tempDate.format('DD-MM'));
@@ -59,8 +59,7 @@ export class BurndownChartComponent implements OnInit {
       tempDate = tempDate.add(1, 'days');
       let counter = 0;
       this.issues.forEach(issue => {
-        console.log(issue);
-        if (!issue.resolutionDate || issue.resolutionDate.isBefore(tempDate)) {
+        if (!issue.resolutionDate || !issue.resolutionDate.isAfter(tempDate)) {
           counter++;
         }
       });

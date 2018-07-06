@@ -103,14 +103,19 @@ export class IssueService implements Crud<Issue> {
   }
 
   setupDummyData() {
+    const latest = this.sprintService.getLatest();
+    const sprintBegin = latest.begin;
+    const sprintEnd = latest.end;
+
     const i1 = this.create();
     i1.title = 'No beer avaliable';
     i1.description = 'Make sure there\'s enough beer every Saturday night';
     i1.priority = IssuePriority.blocker;
     i1.type = IssueType.task;
     i1.state = IssueState.open;
-    i1.sprintId = this.sprintService.getLatest().id;
-    i1.creationDate = this.sprintService.getLatest().begin.subtract(8, 'd');
+    i1.sprintId = latest.id;
+    i1.creationDate = sprintBegin.clone().subtract(8, 'd');
+    i1.estimated = 4;
     this.put(i1);
     const i2 = this.create();
     i2.title = 'Missing Chips';
@@ -118,8 +123,9 @@ export class IssueService implements Crud<Issue> {
     i2.priority = IssuePriority.high;
     i2.type = IssueType.task;
     i2.state = IssueState.open;
-    i2.sprintId = this.sprintService.getLatest().id;
-    i2.creationDate = this.sprintService.getLatest().begin.subtract(3, 'd');
+    i2.sprintId = latest.id;
+    i2.creationDate = sprintBegin.clone().subtract(3, 'd');
+    i2.estimated = 4;
     this.put(i2);
     const i3 = this.create();
     i3.title = 'Testing';
@@ -128,7 +134,9 @@ export class IssueService implements Crud<Issue> {
     i3.type = IssueType.task;
     i3.state = IssueState.inwork;
     i3.sprintId = undefined;
-    i3.creationDate = this.sprintService.getLatest().begin.subtract(5, 'd');
+    i3.creationDate = sprintBegin.clone().subtract(5, 'd');
+    i3.estimated = 4;
+    i3.elapsed = 2;
     this.put(i3);
     const i4 = this.create();
     i4.title = 'Having Party';
@@ -137,7 +145,8 @@ export class IssueService implements Crud<Issue> {
     i4.type = IssueType.story;
     i4.state = IssueState.open;
     i4.sprintId = undefined;
-    i4.creationDate = this.sprintService.getLatest().begin.subtract(12, 'd');
+    i4.creationDate = sprintBegin.clone().subtract(12, 'd');
+    i4.estimated = 4;
     this.put(i4);
     const i5 = this.create();
     i5.title = 'Bug 1';
@@ -145,8 +154,10 @@ export class IssueService implements Crud<Issue> {
     i5.priority = IssuePriority.blocker;
     i5.type = IssueType.bug;
     i5.state = IssueState.intest;
-    i5.sprintId = this.sprintService.getLatest().id;
-    i5.creationDate = this.sprintService.getLatest().begin.subtract(8, 'd');
+    i5.sprintId = latest.id;
+    i5.creationDate = sprintBegin.clone().subtract(8, 'd');
+    i5.estimated = 4;
+    i5.elapsed = 8;
     this.put(i5);
     const i6 = this.create();
     i6.title = 'Story 1';
@@ -154,10 +165,12 @@ export class IssueService implements Crud<Issue> {
     i6.priority = IssuePriority.high;
     i6.type = IssueType.story;
     i6.state = IssueState.done;
-    i6.sprintId = this.sprintService.getLatest().id;
-    i6.creationDate = this.sprintService.getLatest().begin.subtract(3, 'd');
+    i6.sprintId = latest.id;
+    i6.creationDate = sprintBegin.clone().subtract(3, 'd');
     i6.resolution = IssueResolution.fixed;
-    i6.resolutionDate = this.sprintService.getLatest().end.subtract(5, 'd');
+    i6.resolutionDate = sprintEnd.clone().subtract(5, 'd');
+    i6.estimated = 4;
+    i6.elapsed = 5;
     this.put(i6);
   }
 }

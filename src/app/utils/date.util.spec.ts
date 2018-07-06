@@ -18,7 +18,7 @@ describe('DateUtil', () => {
   it('newDate', inject([DateUtil], (dateUtil: DateUtil) => {
     const date = new Date();
     date.setHours(0, 0, 0, 0);
-    expect(dateUtil.newDate(new Date())).toEqual(moment(date));
+    expect(dateUtil.now()).toEqual(moment(date));
   }));
 });
 
