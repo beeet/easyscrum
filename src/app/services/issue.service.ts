@@ -10,6 +10,18 @@ import {DateUtil} from '../utils/date.util';
 import {IssueResolution} from './issueResolution';
 
 
+export function filterdByType(issueType: IssueType) {
+  return issue => issue.type === issueType;
+}
+
+export function filteredBySprintId(sprintId: string) {
+  return issue => issue.sprintId === sprintId;
+}
+
+export function filteredByState(issueState: IssueState) {
+  return issue => issue.state === issueState;
+}
+
 @Injectable({
   // we declare that this service should be created by the root application injector.
   providedIn: 'root',
@@ -58,21 +70,24 @@ export class IssueService implements Crud<Issue> {
     this.issues.splice(index, 1);
   }
 
-  getAllFilteredByState(issueState: IssueState): Issue[] {
-    return this.issues.filter(issue => issue.state === issueState);
+  getAllFiltered(predicate: (issue) => boolean): Issue[] {
+    return this.issues.filter(predicate);
   }
 
-
-  getAllNotClosed(): Issue[] {
-    return this.issues.filter(issure => issure.state !== IssueState.done);
+  getAllFilteredByState(issueState: IssueState): Issue[] {
+    return this.issues.filter(filteredByState(issueState));
   }
 
   getAllFilteredByType(issueType: IssueType): Issue[] {
-    return this.issues.filter(issue => issue.type === issueType); // TODO sbs evt. predicate auslagern
+    return this.issues.filter(filterdByType(issueType));
   }
 
   getAllFilteredBySprint(sprintId: string): Issue[] {
-    return this.issues.filter(issue => issue.sprintId === sprintId);
+    return this.issues.filter(filteredBySprintId(sprintId));
+  }
+
+  getAllNotClosed(): Issue[] {
+    return this.issues.filter(issure => issure.state !== IssueState.done);
   }
 
   getAllWithoutSprintAssignment(): Issue[] {

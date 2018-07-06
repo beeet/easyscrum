@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {SprintService} from '../../services/sprint.service';
-import {IssueService} from '../../services/issue.service';
+import {filteredBySprintId, IssueService} from '../../services/issue.service';
 import {Issue} from '../../services/issue';
 import {Sprint} from '../../services/sprint';
 
@@ -48,7 +48,7 @@ export class BurndownChartComponent implements OnInit {
   public renderChart(): void {
     this.sprintSelected = this.sprintService.getLatest();
     if (!this.issues) {
-      this.issues = this.issueService.getAllFilteredBySprint(this.sprintSelected.id)
+      this.issues = this.issueService.getAllFiltered(filteredBySprintId(this.sprintSelected.id))
         .sort((a, b) => a.creationDate.valueOf() - b.creationDate.valueOf());
     }
     let tempDate = this.sprintSelected.begin;

@@ -1,6 +1,6 @@
 import {IssueState} from '../services/issueState';
 import { Component, OnInit } from '@angular/core';
-import {IssueService} from '../services/issue.service';
+import {IssueService, filteredByState, filterdByType, filteredBySprintId} from '../services/issue.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 
