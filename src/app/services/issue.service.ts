@@ -7,6 +7,7 @@ import {IssueState} from './issueState';
 import {SprintService} from './sprint.service';
 import {Injectable} from '@angular/core';
 import {DateUtil} from '../utils/date.util';
+import {IssueResolution} from './issueResolution';
 
 
 @Injectable({
@@ -93,8 +94,8 @@ export class IssueService implements Crud<Issue> {
     i1.priority = IssuePriority.blocker;
     i1.type = IssueType.task;
     i1.state = IssueState.open;
-    i1.sprintId = this.sprintService.getCurrent().id;
-    i1.creationDate = this.sprintService.getCurrent().begin.subtract(8, 'd');
+    i1.sprintId = this.sprintService.getLatest().id;
+    i1.creationDate = this.sprintService.getLatest().begin.subtract(8, 'd');
     this.put(i1);
     const i2 = this.create();
     i2.title = 'Missing Chips';
@@ -102,8 +103,8 @@ export class IssueService implements Crud<Issue> {
     i2.priority = IssuePriority.high;
     i2.type = IssueType.task;
     i2.state = IssueState.open;
-    i2.sprintId = this.sprintService.getCurrent().id;
-    i1.creationDate = this.sprintService.getCurrent().begin.subtract(3, 'd');
+    i2.sprintId = this.sprintService.getLatest().id;
+    i2.creationDate = this.sprintService.getLatest().begin.subtract(3, 'd');
     this.put(i2);
     const i3 = this.create();
     i3.title = 'Testing';
@@ -112,7 +113,7 @@ export class IssueService implements Crud<Issue> {
     i3.type = IssueType.task;
     i3.state = IssueState.inwork;
     i3.sprintId = undefined;
-    i1.creationDate = this.sprintService.getCurrent().begin.subtract(5, 'd');
+    i3.creationDate = this.sprintService.getLatest().begin.subtract(5, 'd');
     this.put(i3);
     const i4 = this.create();
     i4.title = 'Having Party';
@@ -121,7 +122,27 @@ export class IssueService implements Crud<Issue> {
     i4.type = IssueType.story;
     i4.state = IssueState.open;
     i4.sprintId = undefined;
-    i1.creationDate = this.sprintService.getCurrent().begin.subtract(12, 'd');
+    i4.creationDate = this.sprintService.getLatest().begin.subtract(12, 'd');
     this.put(i4);
+    const i5 = this.create();
+    i5.title = 'Bug 1';
+    i5.description = '...';
+    i5.priority = IssuePriority.blocker;
+    i5.type = IssueType.bug;
+    i5.state = IssueState.intest;
+    i5.sprintId = this.sprintService.getLatest().id;
+    i5.creationDate = this.sprintService.getLatest().begin.subtract(8, 'd');
+    this.put(i5);
+    const i6 = this.create();
+    i6.title = 'Story 1';
+    i6.description = '...';
+    i6.priority = IssuePriority.high;
+    i6.type = IssueType.story;
+    i6.state = IssueState.done;
+    i6.sprintId = this.sprintService.getLatest().id;
+    i6.creationDate = this.sprintService.getLatest().begin.subtract(3, 'd');
+    i6.resolution = IssueResolution.fixed;
+    i6.resolutionDate = this.sprintService.getLatest().end.subtract(5, 'd');
+    this.put(i6);
   }
 }

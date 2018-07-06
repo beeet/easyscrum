@@ -8,8 +8,11 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { SprintBacklogComponent } from './sprint-backlog/sprint-backlog.component';
 import { IssueBoardComponent } from './issue-board/issue-board.component';
-import { BurndownChartComponent } from './burndown-chart/burndown-chart.component';
 import { ProductBacklogComponent } from './product-backlog/product-backlog.component';
+import { ChartBoardComponent } from './chart-board/chart-board.component';
+import { BurndownChartComponent } from './chart-board/burndown-chart/burndown-chart.component';
+import { IssueTypeRatioComponent } from './chart-board/issue-type-ratio/issue-type-ratio.component';
+import { SprintIssueRatioComponent } from './chart-board/sprint-issue-ratio/sprint-issue-ratio.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { IssueService } from './services/issue.service';
 import { AssigneeService } from './services/assignee.service';
@@ -26,12 +29,14 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 // import ng2-tables
 import { Ng2TableModule } from 'ng2-table/ng2-table';
 
+// import Charts
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 const appRoutes: Routes = [
   { path: 'sprint-backlog', component: SprintBacklogComponent },
   { path: 'issue-board', component: IssueBoardComponent },
   { path: 'issue-board/:id', component: IssueBoardComponent },
-  { path: 'burndown-chart', component: BurndownChartComponent },
+  { path: 'chart-board', component: ChartBoardComponent },
   { path: 'product-backlog', component: ProductBacklogComponent },
   { path: '**', component: PageNotFoundComponent }
   ];
@@ -46,9 +51,12 @@ export function createTranslateLoader(http: HttpClient) {
     AppComponent,
     SprintBacklogComponent,
     IssueBoardComponent,
-    BurndownChartComponent,
     ProductBacklogComponent,
-    PageNotFoundComponent
+    ChartBoardComponent,
+    BurndownChartComponent,
+    IssueTypeRatioComponent,
+    PageNotFoundComponent,
+    SprintIssueRatioComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +74,8 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     NgbModule.forRoot(),
     FormsModule,
-    Ng2TableModule
+    Ng2TableModule,
+    ChartsModule
   ],
   exports: [
     CommonModule

@@ -39,6 +39,11 @@ export class SprintService implements Crud<Sprint> {
     return this.sprints.find( s => s.begin.isBefore(now) && s.end.isAfter(now));
   }
 
+  getLatest(): Sprint {
+    const now = this.dateUtil.now();
+    return this.sprints.slice(-1)[0];
+  }
+
   isSprintAlreadyStarted(id: string): boolean {
     const sprint = this.get(id);
     if (!sprint) {
@@ -63,5 +68,15 @@ export class SprintService implements Crud<Sprint> {
       s3.begin = this.dateUtil.newDate(new Date(2018, 6, 9));
       s3.end = this.dateUtil.newDate(new Date(2018, 6, 22));
       this.put(s3);
+      const s4 = this.create();
+      s4.name = 'Sprint KW30-31';
+      s4.begin = this.dateUtil.newDate(new Date(2018, 6, 23));
+      s4.end = this.dateUtil.newDate(new Date(2018, 7, 5));
+      this.put(s4);
+      const s5 = this.create();
+      s5.name = 'Sprint KW32-33';
+      s5.begin = this.dateUtil.newDate(new Date(2018, 7, 6));
+      s5.end = this.dateUtil.newDate(new Date(2018, 7, 19));
+      this.put(s5);
   }
 }

@@ -1,0 +1,35 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-md-6">
+      <label id="sprintLabel" for="sprintInput">{{'burndown-chart.selectsprint' | translate }}</label>
+      <select id="sprintInput"
+              class="form-control"
+              name="sprint"
+              [(ngModel)]="sprintSelected"
+              (change) ="renderChart()">
+        <option *ngFor="let sprint of sprintService.getAll()" [ngValue]="sprint.id">
+          {{sprint.name}} ({{sprint.begin | date:"dd.MM.yyyy"}} - {{sprint.end | date:"dd.MM.yyyy"}})
+        </option>
+      </select>
+    </div>
+  </div>
+  <div class="row" *ngIf="sprintSelected">
+    <div class="col-md-6">
+      <div style="display: block;">
+        <canvas baseChart width="400" height="400"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [colors]="lineChartColors"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+{{sprintSelected | json}}

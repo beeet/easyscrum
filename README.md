@@ -43,8 +43,13 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 - install data table for sorting, filtering and pagination
   - npm i ng2-table --save
-  - https://www.npmjs.com/package/ng2-table
+  - details: https://www.npmjs.com/package/ng2-table
 
 - install moment.js
   - npm i moment --save
-  - https://momentjs.com/docs/
+  - details: https://momentjs.com/docs/
+  
+- install ng2-charts
+  - npm install ng2-charts --save
+  - npm install chart.js --save
+  - details: https://www.npmjs.com/package/ng2-charts

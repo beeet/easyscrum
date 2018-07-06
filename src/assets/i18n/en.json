@@ -7,7 +7,7 @@
   "app.sprint-backlog": "Sprint-Backlog",
   "app.issue-board": "Issue-Board",
   "app.product-backlog": "Product-Backlog",
-  "app.burndown-chart": "Chart-Board",
+  "app.chart-board": "Chart-Board",
 
   "issue-board.title": "Title",
   "issue-board.title.placeholder": "Enter title",
@@ -55,6 +55,12 @@
 
   "product-backlog.row": "Row",
   "product-backlog.sum": "Sum",
+
+  "chart-board.burndownChart": "Burndown-Chart",
+  "chart-board.openIssueRatio": "Open-Issue-Ratio",
+  "chart-board.sprintIssueRatio": "Sprint-Issue-Ratio",
+
+  "burndown-chart.selectsprint": "Please select a sprint",
 
   "page-not-found.title": "The page you are looking for does not exist or has changed",
   "page-not-found.link": "/sprint-backlog",
