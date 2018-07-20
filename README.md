@@ -53,3 +53,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
   - npm install ng2-charts --save
   - npm install chart.js --save
   - details: https://www.npmjs.com/package/ng2-charts
+
+- install 
+  - npm install ng2-dragula --save
+  - https://alligator.io/angular/drag-drop-ng2-dragula/
