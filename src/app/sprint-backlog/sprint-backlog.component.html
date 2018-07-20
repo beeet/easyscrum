@@ -2,63 +2,24 @@
   <h1>
     {{'app.sprint-backlog' | translate}}
   </h1>
+  <div class="container">
+    <button id="createTask"
+            type="submit"
+            class="btn btn-light"
+            routerLink="/issue-board/">
+      {{"sprint-backlog.createTask" | translate}}
+    </button>
+  </div>
 
   <div class="row">
-      <div id="swimmlane-open" class="col-sm-3">
-        <h3>
-          {{'issue-board.state.open' | translate}}
-        </h3>
-        <div class="card"
-             *ngFor="let issue of issueService.getAllFilteredByState(issueStates.open); let i = index"
-             routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">
-          <!--https://www.google.ch/search?q=avatar+png&rlz=1C1CHBD_deCH790CH790&tbm=isch&tbo=u&source=univ&sa=X&ved=0ahUKEwjH0ePqxuDbAhXMkywKHdFUDYQQsAQIKA&biw=1904&bih=879-->
-          <img class="card-img-top" src="{{imageSrc}}" alt="avatar">
-          <div class="card-body">
-            <span class="card-text">{{issue.type}}<br/>{{issue.title}}</span>
-          </div>
-      </div>
-      <div class="container">
-        <button id="createTask"
-                type="submit"
-                class="btn btn-light"
-                routerLink="/issue-board/">
-          {{"sprint-backlog.createTask" | translate}}
-        </button>
-      </div>
-      </div>
-      <div id="swimmlane-inwork" class="col-sm-3">
-        <h3>
-          {{'issue-board.state.inwork' | translate}}
-        </h3>
-        <div class="card"
-             *ngFor="let issue of issueService.getAllFilteredByState(issueStates.inwork); let i = index"
-             routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">
-          <img class="card-img-top" src="{{imageSrc}}" alt="avatar">
-          <div class="card-body">
-            <span class="card-text">{{issue.type}}<br/>{{issue.title}}</span>
-          </div>
-        </div>
-      </div>
-    <div id="swimmlane-intest" class="col-sm-3">
+    <div *ngFor="let state of states" id="{{'swimmlane-' + state.label}}" class="col-sm-3" [dragula]='"bag-items"'>
       <h3>
-        {{'issue-board.state.intest' | translate}}
+        {{'issue-board.state.' + state.label | translate}}
       </h3>
       <div class="card"
-           *ngFor="let issue of issueService.getAllFilteredByState(issueStates.intest); let i = index"
+           *ngFor="let issue of getIssues(state.state)" id="{{issue.id}}"
            routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">
-        <img class="card-img-top" src="{{imageSrc}}" alt="avatar">
-        <div class="card-body">
-          <span class="card-text">{{issue.type}}<br/>{{issue.title}}</span>
-        </div>
-      </div>
-    </div>
-    <div id="swimmlane-done" class="col-sm-3">
-      <h3>
-        {{'issue-board.state.done' | translate}}
-      </h3>
-      <div class="card"
-           *ngFor="let issue of issueService.getAllFilteredByState(issueStates.done); let i = index"
-           routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">
+        <!--https://www.google.ch/search?q=avatar+png&rlz=1C1CHBD_deCH790CH790&tbm=isch&tbo=u&source=univ&sa=X&ved=0ahUKEwjH0ePqxuDbAhXMkywKHdFUDYQQsAQIKA&biw=1904&bih=879-->
         <img class="card-img-top" src="{{imageSrc}}" alt="avatar">
         <div class="card-body">
           <span class="card-text">{{issue.type}}<br/>{{issue.title}}</span>

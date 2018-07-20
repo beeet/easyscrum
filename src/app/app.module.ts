@@ -32,6 +32,9 @@ import { Ng2TableModule } from 'ng2-table/ng2-table';
 // import Charts
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
+// import drag'n'drop
+import {DragulaModule} from 'ng2-dragula';
+
 const appRoutes: Routes = [
   { path: 'sprint-backlog', component: SprintBacklogComponent },
   { path: 'issue-board', component: IssueBoardComponent },
@@ -75,7 +78,8 @@ export function createTranslateLoader(http: HttpClient) {
     NgbModule.forRoot(),
     FormsModule,
     Ng2TableModule,
-    ChartsModule
+    ChartsModule,
+    DragulaModule
   ],
   exports: [
     CommonModule
