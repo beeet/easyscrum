@@ -25,6 +25,9 @@ export class Issue {
   private _creationDate: Moment;
   private _resolution: IssueResolution;
   private _resolutionDate: Moment;
+  private _highlighting: boolean;
+  private _comments: Array<Object>;
+  private _issueLinks: Array<Issue>;
 
   private dateUtil = new DateUtil();
 
@@ -67,61 +70,111 @@ export class Issue {
   public set priority(value: IssuePriority) {
     this._priority = value;
   }
+
   get state(): IssueState {
     return this._state;
   }
+
   set state(value: IssueState) {
     this._state = value;
   }
+
   get sprintId(): string {
     return this._sprintId;
   }
+
   set sprintId(value: string) {
     this._sprintId = value;
   }
+
   get assigneeId(): string {
     return this._assigneeId;
   }
+
   set assigneeId(value: string) {
     this._assigneeId = value;
   }
+
   get dueDate(): Moment {
     return this._dueDate;
   }
+
   set dueDate(value: Moment) {
     this._dueDate = value;
   }
+
   get estimated(): number {
     return this._estimated;
   }
+
   set estimated(value: number) {
     this._estimated = value;
   }
+
   get elapsed(): number {
     return this._elapsed;
   }
+
   set elapsed(value: number) {
     this._elapsed = value;
   }
+
   get creationDate(): Moment {
     return this._creationDate;
   }
+
   set creationDate(value: Moment) {
     this._creationDate = value;
   }
+
   get resolution(): IssueResolution {
     return this._resolution;
   }
+
   set resolution(value: IssueResolution) {
     if (value !== this.resolution) {
       this.resolutionDate = this.dateUtil.now();
     }
     this._resolution = value;
   }
+
   get resolutionDate(): Moment {
     return this._resolutionDate;
   }
+
   set resolutionDate(value: Moment) {
     this._resolutionDate = value;
+  }
+
+  get highlighting(): boolean {
+    return this._highlighting;
+  }
+
+  set highlighting(value: boolean) {
+    this._highlighting = value;
+  }
+
+  get comments(): Array<Object> {
+    return this._comments;
+  }
+
+  set comments(value: Array<Object>) {
+    this._comments = value;
+  }
+
+  addComment(comment: string) {
+    this._comments.push({comment: comment});
+  }
+
+  get issueLinks(): Array<Issue> {
+    return this._issueLinks;
+  }
+
+  set issueLinks(value: Array<Issue>) {
+    this._issueLinks = value;
+  }
+
+  addIssueLink(value: Issue) {
+    this.issueLinks.push(value);
   }
 }

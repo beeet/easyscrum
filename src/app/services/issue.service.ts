@@ -8,6 +8,7 @@ import {SprintService} from './sprint.service';
 import {Injectable} from '@angular/core';
 import {DateUtil} from '../utils/date.util';
 import {IssueResolution} from './issueResolution';
+import {issueData} from './DUMMY_DATA';
 
 
 export function filterdByType(issueType: IssueType) {
@@ -103,74 +104,25 @@ export class IssueService implements Crud<Issue> {
   }
 
   setupDummyData() {
-    const latest = this.sprintService.getLatest();
-    const sprintBegin = latest.begin;
-    const sprintEnd = latest.end;
-
-    const i1 = this.create();
-    i1.title = 'No beer avaliable';
-    i1.description = 'Make sure there\'s enough beer every Saturday night';
-    i1.priority = IssuePriority.blocker;
-    i1.type = IssueType.task;
-    i1.state = IssueState.open;
-    i1.sprintId = latest.id;
-    i1.creationDate = sprintBegin.clone().subtract(8, 'd');
-    i1.estimated = 4;
-    this.put(i1);
-    const i2 = this.create();
-    i2.title = 'Missing Chips';
-    i2.description = 'Enough chips is quite important';
-    i2.priority = IssuePriority.high;
-    i2.type = IssueType.task;
-    i2.state = IssueState.open;
-    i2.sprintId = latest.id;
-    i2.creationDate = sprintBegin.clone().subtract(3, 'd');
-    i2.estimated = 4;
-    this.put(i2);
-    const i3 = this.create();
-    i3.title = 'Testing';
-    i3.description = 'Don\'t forget to write some tests';
-    i3.priority = IssuePriority.high;
-    i3.type = IssueType.task;
-    i3.state = IssueState.inwork;
-    i3.sprintId = undefined;
-    i3.creationDate = sprintBegin.clone().subtract(5, 'd');
-    i3.estimated = 4;
-    i3.elapsed = 2;
-    this.put(i3);
-    const i4 = this.create();
-    i4.title = 'Having Party';
-    i4.description = 'Have a big party after project';
-    i4.priority = IssuePriority.medium;
-    i4.type = IssueType.story;
-    i4.state = IssueState.open;
-    i4.sprintId = undefined;
-    i4.creationDate = sprintBegin.clone().subtract(12, 'd');
-    i4.estimated = 4;
-    this.put(i4);
-    const i5 = this.create();
-    i5.title = 'Bug 1';
-    i5.description = '...';
-    i5.priority = IssuePriority.blocker;
-    i5.type = IssueType.bug;
-    i5.state = IssueState.intest;
-    i5.sprintId = latest.id;
-    i5.creationDate = sprintBegin.clone().subtract(8, 'd');
-    i5.estimated = 4;
-    i5.elapsed = 8;
-    this.put(i5);
-    const i6 = this.create();
-    i6.title = 'Story 1';
-    i6.description = '...';
-    i6.priority = IssuePriority.high;
-    i6.type = IssueType.story;
-    i6.state = IssueState.done;
-    i6.sprintId = latest.id;
-    i6.creationDate = sprintBegin.clone().subtract(3, 'd');
-    i6.resolution = IssueResolution.fixed;
-    i6.resolutionDate = sprintEnd.clone().subtract(5, 'd');
-    i6.estimated = 4;
-    i6.elapsed = 5;
-    this.put(i6);
+    for ( const d of issueData ) {
+      const dummy = this.create();
+      // dummy.id = d.id;
+      dummy.title = d.title;
+      dummy.description = d.description;
+      dummy.priority = d.priority;
+      dummy.type = d.type;
+      dummy.state = d.state;
+      dummy.sprintId = d.sprintId;
+      dummy.assigneeId = d.assigneeID;
+      dummy.creationDate = d.creationDate;
+      dummy.dueDate = d.dueDate;
+      dummy.estimated = d.estimated;
+      dummy.elapsed = d.elapsed;
+      dummy.highlighting = d.highlighting;
+      dummy.resolution = d.resolution;
+      dummy.comments = d.comments;
+      dummy.issueLinks = d.issueLinks;
+      this.put(dummy);
+    }
   }
 }

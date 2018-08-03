@@ -1,6 +1,7 @@
 import {Crud} from './crud';
 import {UUID} from 'angular2-uuid';
 import {Assignee} from './assignee';
+import {assigneeData} from './DUMMY_DATA';
 
 
 export class AssigneeService implements Crud<Assignee> {
@@ -13,7 +14,7 @@ export class AssigneeService implements Crud<Assignee> {
   create(): Assignee {
     const newAssignee = new Assignee();
     newAssignee.id = UUID.UUID();
-    return newAssignee  ;
+    return newAssignee;
   }
 
   getAll(): Assignee[] {
@@ -34,14 +35,11 @@ export class AssigneeService implements Crud<Assignee> {
   }
 
   setupDummyData() {
-    const a1 = this.create();
-    a1.nickname = 'Adrian A.';
-    this.put(a1);
-    const a2 = this.create();
-    a2.nickname = 'Beat B.';
-    this.put(a2);
-    const a3 = this.create();
-    a3.nickname = 'Beat S.';
-    this.put(a3);
+    for ( const d of assigneeData ) {
+      const dummy = this.create();
+      dummy.id = d.id;
+      dummy.nickname = d.nickname;
+      this.put(dummy);
+    }
   }
 }
