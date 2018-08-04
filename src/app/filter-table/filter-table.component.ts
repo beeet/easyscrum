@@ -7,12 +7,10 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class FilterTableComponent implements OnInit {
   @Input() items: any[];
+  @Input() tableColumns: string[];
+  filter = [];
   filteredItems;
   globalFilter = '';
-  typeFilter = '';
-  titleFilter = '';
-  priorityFilter = '';
-  estimatedFilter = '';
   sum = 0;
   orderType: any;
   sortAscending = true;
@@ -22,34 +20,27 @@ export class FilterTableComponent implements OnInit {
   ngOnInit() {
     this.filteredItems = this.items;
     this.settingUpPagedItems();
+    this.tableColumns.forEach(col => this.filter.push({key: col, value: ''}));
   }
 
   filterItems(): void {
     this.filteredItems = this.items;
-    if (this.typeFilter) {
-      const value = this.typeFilter.toLocaleLowerCase();
-      this.filteredItems = this.filteredItems.filter(i => i._type.toLowerCase().indexOf(value) >= 0);
+    for ( const f of this.filter ) {
+      if (f.value) {
+        const value = f.value.toLocaleLowerCase();
+        this.filteredItems = this.filteredItems.filter(i => i[f.key].toString().toLocaleLowerCase().indexOf(value) >= 0);
+      }
     }
-    if (this.titleFilter) {
-      const value = this.titleFilter.toLocaleLowerCase();
-      this.filteredItems = this.filteredItems.filter(i => i._title.toLowerCase().indexOf(value) >= 0);
-    }
-    if (this.priorityFilter) {
-      const value = this.priorityFilter.toLocaleLowerCase();
-      this.filteredItems = this.filteredItems.filter(i => i._priority.indexOf(value) >= 0);
-    }
-    if (this.estimatedFilter) {
-      const value = this.estimatedFilter.toLocaleLowerCase();
-      this.filteredItems = this.filteredItems.filter(i => i._estimated.toString().indexOf(value) >= 0);
-    }
+
     if (this.globalFilter) {
       const value = this.globalFilter.toLocaleLowerCase();
       this.filteredItems = this.filteredItems.filter(i => {
-        if (i._type.toLowerCase().indexOf(value) >= 0 || i._title.toLowerCase().indexOf(value) >= 0 || i._priority.indexOf(value) >= 0 || i._estimated.toString().indexOf(value) >= 0) {
-          return true;
-        } else {
-          return false;
+        for ( const f of this.filter ) {
+          if (i[f.key].toString().toLocaleLowerCase().indexOf(value) >= 0) {
+            return true;
+          }
         }
+        return false;
       });
     }
     this.settingUpPagedItems();
@@ -73,7 +64,9 @@ export class FilterTableComponent implements OnInit {
   selectPage(selectedPage: number) {
     this.selectedPage = selectedPage;
     this.sum = 0;
-    this.pagedItems[selectedPage].forEach(item => this.sum += item.estimated);
+    if (this.pagedItems[selectedPage]) {
+      this.pagedItems[selectedPage].forEach(item => this.sum += item.estimated);
+    }
   }
 
   settingUpPagedItems() {

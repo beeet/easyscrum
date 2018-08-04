@@ -9,6 +9,7 @@ import {IssueService} from '../services/issue.service';
 export class ProductBacklogComponent {
   issueService: IssueService;
   issues;
+  tableColumns = ['type', 'title', 'priority', 'estimated'];
 
   constructor(issueService: IssueService) {
     this.issueService = issueService;
