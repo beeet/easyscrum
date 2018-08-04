@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {IssueService} from '../services/issue.service';
+import {forEach} from '@angular/router/src/utils/collection';
+import {IssueState} from '../services/issueState';
 
 @Component({
   selector: 'app-product-backlog',
@@ -18,15 +20,19 @@ export class ProductBacklogComponent implements OnInit {
   sum = 0;
   orderType: any;
   sortAscending = true;
+  selectedPage = 0;
+  pagedIssues;
 
   constructor(issueService: IssueService) {
     this.issueService = issueService;
     this.issues = this.issueService.getAll();
+    this.issues = this.issues.filter(i => !i.sprintId);
     this.filteredIssues = this.issues;
+    this.settingUpPagedIssues();
+    this.selectPage(0);
   }
 
   ngOnInit() {
-    this.sum = 0;
   }
 
   filterIssues(): void {
@@ -50,15 +56,15 @@ export class ProductBacklogComponent implements OnInit {
     if (this.globalFilter) {
       const value = this.globalFilter.toLocaleLowerCase();
       this.filteredIssues = this.filteredIssues.filter(i => {
-        console.log(value);
         if (i._type.toLowerCase().indexOf(value) >= 0 || i._title.toLowerCase().indexOf(value) >= 0 || i._priority.indexOf(value) >= 0 || i._estimated.toString().indexOf(value) >= 0) {
           return true;
         } else {
           return false;
         }
-
       });
     }
+    this.settingUpPagedIssues();
+    this.selectPage(0);
   }
 
   sortIssues(orderType: any): void {
@@ -69,9 +75,25 @@ export class ProductBacklogComponent implements OnInit {
     }
     this.orderType = orderType;
     if (this.sortAscending) {
-      return this.filteredIssues.sort((a, b) => a[orderType] > b[orderType] ? 1 : -1);
+      this.filteredIssues.sort((a, b) => a[orderType] > b[orderType] ? 1 : -1);
     } else {
-      return this.filteredIssues.sort((a, b) => a[orderType] > b[orderType] ? -1 : 1);
+      this.filteredIssues.sort((a, b) => a[orderType] > b[orderType] ? -1 : 1);
+    }
+    this.settingUpPagedIssues();
+    this.selectPage(0);
+  }
+
+  selectPage(selectedPage: number) {
+    this.selectedPage = selectedPage;
+    this.sum = 0;
+    this.filteredIssues.forEach(issue => this.sum += issue.estimated);
+  }
+
+  private settingUpPagedIssues() {
+    this.pagedIssues = [];
+    for ( let i = 0; i < this.filteredIssues.length / 10; i++ ) {
+      const startindex = i * 10;
+      this.pagedIssues.push(this.filteredIssues.slice(startindex, startindex + 10));
     }
   }
 }
