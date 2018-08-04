@@ -34,6 +34,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 // import drag'n'drop
 import {DragulaModule} from 'ng2-dragula';
+import { FilterTableComponent } from './filter-table/filter-table.component';
 
 const appRoutes: Routes = [
   { path: 'sprint-backlog', component: SprintBacklogComponent },
@@ -59,7 +60,8 @@ export function createTranslateLoader(http: HttpClient) {
     BurndownChartComponent,
     IssueTypeRatioComponent,
     PageNotFoundComponent,
-    SprintIssueRatioComponent
+    SprintIssueRatioComponent,
+    FilterTableComponent
   ],
   imports: [
     BrowserModule,
