@@ -3,32 +3,105 @@
     {{'app.product-backlog' | translate}}
   </h1>
 
-  <table class="table table-bordered">
-    <thead class="thead-light">
+  <div class="input-group">
+    <input [(ngModel)]="globalFilter" (keyup)="filterIssues()" type="text" class="form-control" placeholder="Filter"
+           aria-label="Filter" aria-describedby="button-addon2">
+    <div class="input-group-append">
+      <button [disabled]="!globalFilter" class="btn btn-outline-secondary" type="button" id="globalFilterButton"
+              (click)="globalFilter = ''; filterIssues()">X
+      </button>
+    </div>
+  </div>
+  <br>
+  <div class="table-responsive-sm">
+    <table class="table table-striped">
+      <thead class="thead-light">
       <tr>
         <th scope="col">{{'product-backlog.row' | translate}}</th>
-        <th scope="col">{{'issue-board.type' | translate}}</th>
-        <th scope="col">{{'issue-board.title' | translate}}</th>
-        <th scope="col">{{'issue-board.priority' | translate}}</th>
-        <th scope="col">{{'issue-board.estimated' | translate}}</th>
+        <th scope="col" (click)="sortIssues('type')">{{'issue-board.type' | translate}}
+          <i class="material-icons" *ngIf="orderType === 'type' && sortAscending">arrow_drop_up</i>
+          <i class="material-icons" *ngIf="orderType === 'type' && !sortAscending">arrow_drop_down</i>
+        </th>
+        <th scope="col" (click)="sortIssues('title')">{{'issue-board.title' | translate}}
+          <i class="material-icons" *ngIf="orderType === 'title' && sortAscending">arrow_drop_up</i>
+          <i class="material-icons" *ngIf="orderType === 'title' && !sortAscending">arrow_drop_down</i>
+        </th>
+        <th scope="col" (click)="sortIssues('priority')">{{'issue-board.priority' | translate}}
+          <i class="material-icons" *ngIf="orderType === 'priority' && sortAscending">arrow_drop_up</i>
+          <i class="material-icons" *ngIf="orderType === 'priority' && !sortAscending">arrow_drop_down</i>
+        </th>
+        <th scope="col" (click)="sortIssues('estimated')">{{'issue-board.estimated' | translate}}
+          <i class="material-icons" *ngIf="orderType === 'estimated' && sortAscending">arrow_drop_up</i>
+          <i class="material-icons" *ngIf="orderType === 'estimated' && !sortAscending">arrow_drop_down</i>
+        </th>
       </tr>
-    </thead>
-    <tfoot>
+      </thead>
+      <tfoot class="table-dark">
       <th scope="col">{{'product-backlog.sum' | translate}}</th>
       <th scope="col"></th>
       <th scope="col"></th>
       <th scope="col"></th>
-      <th scope="col"></th>
-    </tfoot>
-    <tbody>
-      <tr *ngFor="let issue of issueService.getAllWithoutSprintAssignment(); let i = index">
+      <th scope="col">{{sum}}</th>
+      </tfoot>
+      <tr class="table-light">
+        <td></td>
+        <td>
+          <div class="input-group input-group-sm">
+            <input [(ngModel)]="typeFilter" (keyup)="filterIssues()" type="text" class="form-control"
+                   placeholder="Filter" aria-label="Filter" aria-describedby="button-addon2">
+            <div class="input-group-append">
+              <button [disabled]="!typeFilter" class="btn btn-outline-secondary" type="button" id="filterButton2"
+                      (click)="typeFilter = ''; filterIssues()">X
+              </button>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="input-group input-group-sm">
+            <input [(ngModel)]="titleFilter" (keyup)="filterIssues()" type="text" class="form-control"
+                   placeholder="Filter" aria-label="Filter" aria-describedby="button-addon2">
+            <div class="input-group-append">
+              <button [disabled]="!titleFilter" class="btn btn-outline-secondary" type="button" id="filterButton3"
+                      (click)="titleFilter = ''; filterIssues()">X
+              </button>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="input-group input-group-sm">
+            <input [(ngModel)]="priorityFilter" (keyup)="filterIssues()" type="text" class="form-control"
+                   placeholder="Filter" aria-label="Filter" aria-describedby="button-addon2">
+            <div class="input-group-append">
+              <button [disabled]="!priorityFilter" class="btn btn-outline-secondary" type="button" id="filterButton4"
+                      (click)="priorityFilter = ''; filterIssues()">
+                X
+              </button>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="input-group input-group-sm">
+            <input [(ngModel)]="estimatedFilter" (keyup)="filterIssues()" type="text" class="form-control"
+                   placeholder="Filter" aria-label="Filter" aria-describedby="button-addon2">
+            <div class="input-group-append">
+              <button [disabled]="!estimatedFilter" class="btn btn-outline-secondary" type="button" id="filterButton5"
+                      (click)="estimatedFilter = ''; filterIssues()">
+                X
+              </button>
+            </div>
+          </div>
+        </td>
+      </tr>
+      <tbody>
+      <tr *ngFor="let issue of filteredIssues; let i = index">
         <th scope="row">{{i+1}}</th>
         <td>{{issue.type}}</td>
         <td>{{issue.title}}</td>
         <td>{{issue.priority}}</td>
         <td>{{issue.estimated}}</td>
       </tr>
-    </tbody>
-  </table>
-
+      </tbody>
+    </table>
+  </div>
 </div>
+
