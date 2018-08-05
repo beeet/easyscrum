@@ -120,6 +120,7 @@ export class IssueService implements Crud<Issue> {
       dummy.elapsed = d.elapsed;
       dummy.highlighting = d.highlighting;
       dummy.resolution = d.resolution;
+      dummy.resolutionDate = d.resolutionDate;
       dummy.comments = d.comments;
       dummy.issueLinks = d.issueLinks;
       this.put(dummy);
