@@ -26,9 +26,6 @@ import { HttpClientModule, HttpClient } from '@angular/common/http';
 // import Bootstrap
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-// import ng2-tables
-import { Ng2TableModule } from 'ng2-table/ng2-table';
-
 // import Charts
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 
@@ -37,6 +34,7 @@ import {DragulaModule} from 'ng2-dragula';
 import { FilterTableComponent } from './filter-table/filter-table.component';
 
 const appRoutes: Routes = [
+  { path: '', component: SprintBacklogComponent },
   { path: 'sprint-backlog', component: SprintBacklogComponent },
   { path: 'issue-board', component: IssueBoardComponent },
   { path: 'issue-board/:id', component: IssueBoardComponent },
@@ -79,7 +77,6 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     NgbModule.forRoot(),
     FormsModule,
-    Ng2TableModule,
     ChartsModule,
     DragulaModule
   ],
