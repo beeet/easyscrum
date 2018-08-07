@@ -6,7 +6,7 @@
       <select id="sprintInput"
               class="form-control"
               name="sprint"
-              [(ngModel)]="sprintSelected"
+              [(ngModel)]="sprintSelectedId"
               (change) ="renderChart()">
         <option *ngFor="let sprint of sprintService.getAll()" [ngValue]="sprint.id">
           {{sprint.name}} ({{sprint.begin | date:"dd.MM.yyyy"}} - {{sprint.end | date:"dd.MM.yyyy"}})

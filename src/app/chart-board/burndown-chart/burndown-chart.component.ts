@@ -3,6 +3,8 @@ import {SprintService} from '../../services/sprint.service';
 import {filteredBySprintId, IssueService} from '../../services/issue.service';
 import {Issue} from '../../services/issue';
 import {Sprint} from '../../services/sprint';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-burndown-chart',
@@ -32,9 +34,10 @@ export class BurndownChartComponent implements OnInit {
 
 
   private issueService: IssueService;
-  private issues: Array<Issue>;
+  private issues: Issue[];
   public sprintService: SprintService;
   public sprintSelected: Sprint;
+  public sprintSelectedId: string;
 
   constructor(issueService: IssueService, sprintService: SprintService) {
     this.issueService = issueService;
@@ -46,35 +49,63 @@ export class BurndownChartComponent implements OnInit {
   }
 
   public renderChart(): void {
-    this.sprintSelected = this.sprintService.getLatest();
-    if (!this.issues) {
-      this.issues = this.issueService.getAllFiltered(filteredBySprintId(this.sprintSelected.id))
-        .sort((a, b) => a.creationDate.valueOf() - b.creationDate.valueOf());
-    }
+    this.lineChartLabels = [];
+    this.lineChartData = [];
+    this.sprintSelected = this.sprintService.get(this.sprintSelectedId);
+    this.issues = this.issueService.getAllFiltered(filteredBySprintId(this.sprintSelected.id));
+    this.determindeChartLabels();
+    this.determindeChartData();
+  }
+
+  private determindeChartLabels() {
     let tempDate = this.sprintSelected.begin.clone();
-    const lineChartDataData = [];
     while (!tempDate.isAfter(this.sprintSelected.end)) {
-      this.lineChartLabels.push(tempDate.format('DD-MM'));
-      console.log(tempDate);
+      const label = tempDate.format('DD-MM');
+      this.lineChartLabels.push(label);
       tempDate = tempDate.add(1, 'days');
-      let counter = 0;
-      this.issues.forEach(issue => {
-        if (!issue.resolutionDate || !issue.resolutionDate.isAfter(tempDate)) {
-          counter++;
-        }
-      });
-      lineChartDataData.push(counter);
     }
+  }
+
+  private determindeChartData() {
+    const myMap = new Map();
+    this.issues.forEach(value => {
+      const label = moment(value.resolutionDate).format('DD-MM');
+
+      if (!myMap.get(label)) {
+        myMap.set(label, value.estimated);
+      } else {
+        myMap.set(label, myMap.get(label) + value.estimated);
+      }
+    });
+
+    const lineChartDataData = [];
+    let totalOfEstimationsOverAllIssues = this.calculateTotalOfEstimationsOverAllIssues();
+    this.lineChartLabels.forEach(label => {
+      const hours = myMap.get(label);
+      if (hours) {
+        totalOfEstimationsOverAllIssues = totalOfEstimationsOverAllIssues - hours;
+      }
+      lineChartDataData.push(totalOfEstimationsOverAllIssues);
+    });
+
     this.lineChartData.push({data: lineChartDataData, label: 'Issues'});
+  }
+
+  calculateTotalOfEstimationsOverAllIssues() {
+    let total = 0;
+    this.issues.forEach(issue => {
+      total += issue.estimated;
+    });
+    return total;
   }
 
   // events
   public chartClicked(event: any): void {
-    console.log(event);
+    // console.log(event);
   }
 
   public chartHovered(event: any): void {
-    console.log(event);
+    // console.log(event);
   }
 
 }

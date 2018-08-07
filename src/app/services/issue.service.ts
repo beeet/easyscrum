@@ -9,6 +9,7 @@ import {Injectable} from '@angular/core';
 import {DateUtil} from '../utils/date.util';
 import {IssueResolution} from './issueResolution';
 import {issueData} from './DUMMY_DATA';
+import * as moment from 'moment';
 
 
 export function filterdByType(issueType: IssueType) {
@@ -114,13 +115,13 @@ export class IssueService implements Crud<Issue> {
       dummy.state = d.state;
       dummy.sprintId = d.sprintId;
       dummy.assigneeId = d.assigneeID;
-      dummy.creationDate = d.creationDate;
-      dummy.dueDate = d.dueDate;
+      dummy.creationDate = moment(d.creationDate);
+      dummy.dueDate = moment(d.dueDate);
       dummy.estimated = d.estimated;
       dummy.elapsed = d.elapsed;
       dummy.highlighting = d.highlighting;
       dummy.resolution = d.resolution;
-      dummy.resolutionDate = d.resolutionDate;
+      dummy.resolutionDate = moment(d.resolutionDate);
       dummy.comments = d.comments;
       dummy.issueLinks = d.issueLinks;
       this.put(dummy);

@@ -3,6 +3,7 @@ import {UUID} from 'angular2-uuid';
 import {Sprint} from './sprint';
 import {DateUtil} from '../utils/date.util';
 import {sprintData} from './DUMMY_DATA';
+import * as moment from 'moment';
 
 export class SprintService implements Crud<Sprint> {
   private sprints: Sprint[] = [];
@@ -58,8 +59,8 @@ export class SprintService implements Crud<Sprint> {
       const dummy = this.create();
       dummy.id = d.sprintId;
       dummy.name = d.name;
-      dummy.begin = d.begin;
-      dummy.end = d.end;
+      dummy.begin = moment(d.begin);
+      dummy.end = moment(d.end);
       this.put(dummy);
     }
   }

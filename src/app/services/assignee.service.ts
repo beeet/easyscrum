@@ -3,7 +3,6 @@ import {UUID} from 'angular2-uuid';
 import {Assignee} from './assignee';
 import {assigneeData} from './DUMMY_DATA';
 
-
 export class AssigneeService implements Crud<Assignee> {
   private assignees: Assignee[] = [];
 
