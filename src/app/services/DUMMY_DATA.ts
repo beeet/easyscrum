@@ -221,12 +221,12 @@ issueData = [{
     sprintId: 'SPR18-00002',
     assigneeID: 'ASG18-00001',
     creationDate: '2018-06-15',
-    dueDate: '2018-06-25',
+    dueDate: '2018-06-28',
     estimated: 16,
     elapsed: 12,
     highlighting: true,
     resolution: IssueResolution.fixed,
-    resolutionDate: '2018-06-24',
+    resolutionDate: '2018-06-28',
     comments: [],
     issueLinks: []
   },
@@ -245,7 +245,7 @@ issueData = [{
     elapsed: 19,
     highlighting: false,
     resolution: IssueResolution.fixed,
-    resolutionDate: '2018-06-26',
+    resolutionDate: '2018-06-27',
     comments: [
       {comment: 'No Comment #1'},
       {comment: 'No Comment #2'},
@@ -265,7 +265,7 @@ issueData = [{
     assigneeID: 'ASG18-00003',
     creationDate: '2018-06-15',
     dueDate: '2018-07-01',
-    estimated: 18,
+    estimated: 14,
     elapsed: 4,
     highlighting: false,
     resolution: IssueResolution.fixed,
@@ -289,11 +289,11 @@ issueData = [{
     assigneeID: 'ASG18-00004',
     creationDate: '2018-06-14',
     dueDate: '2018-07-08',
-    estimated: 18,
+    estimated: 10,
     elapsed: 18,
     highlighting: true,
     resolution: IssueResolution.fixed,
-    resolutionDate: '2018-07-07',
+    resolutionDate: '2018-07-05',
     comments: [
       {comment: 'No Comment #1'},
       {comment: 'No Comment #2'},
@@ -316,7 +316,7 @@ issueData = [{
     elapsed: 4,
     highlighting: true,
     resolution: IssueResolution.fixed,
-    resolutionDate: '2018-07-07',
+    resolutionDate: '2018-07-06',
     comments: [],
     issueLinks: []
   },
@@ -330,12 +330,12 @@ issueData = [{
     sprintId: 'SPR18-00002',
     assigneeID: 'ASG18-00006',
     creationDate: '2018-06-15',
-    dueDate: '2018-06-25',
+    dueDate: '2018-07-05',
     estimated: 9,
     elapsed: 13,
     highlighting: false,
     resolution: IssueResolution.duplicate,
-    resolutionDate: '2018-06-25',
+    resolutionDate: '2018-07-07',
     comments: [
       {comment: 'No Comment #1'},
       {comment: 'No Comment #2'}
@@ -357,7 +357,7 @@ issueData = [{
     elapsed: 14,
     highlighting: true,
     resolution: IssueResolution.wontfix,
-    resolutionDate: '2018-09-07',
+    resolutionDate: '2018-07-12',
     comments: [
       {comment: 'No Comment #1'}
     ],
@@ -378,7 +378,7 @@ issueData = [{
     elapsed: 8,
     highlighting: true,
     resolution: IssueResolution.fixed,
-    resolutionDate: '2018-07-10',
+    resolutionDate: '2018-07-17',
     comments: [
       {comment: 'No Comment #1'},
       {comment: 'No Comment #2'}
@@ -419,7 +419,7 @@ issueData = [{
     elapsed: 12,
     highlighting: true,
     resolution: IssueResolution.fixed,
-    resolutionDate: '2018-07-17',
+    resolutionDate: '2018-07-21',
     comments: [
       {comment: 'No Comment #1'},
       {comment: 'No Comment #2'},

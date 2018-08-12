@@ -10,14 +10,12 @@
               name="type"
               [(ngModel)]="chartType" #type="ngModel">
         <option value="BDC" selected>{{'chart-board.burndownChart' | translate}}</option>
-        <option value="OIR">{{'chart-board.openIssueRatio' | translate}}</option>
         <option value="SIR">{{'chart-board.sprintIssueRatio' | translate}}</option>
       </select>
     </div>
   </div>
 
   <app-burndown-chart *ngIf="chartType == 'BDC'"></app-burndown-chart>
-  <app-issue-type-ratio *ngIf="chartType == 'OIR'"></app-issue-type-ratio>
   <app-sprint-issue-ratio *ngIf="chartType == 'SIR'"></app-sprint-issue-ratio>
 
   <!-- Todo sbs evt. tooltip mit beschreibung über chart -->

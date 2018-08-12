@@ -49,10 +49,11 @@ export class BurndownChartComponent implements OnInit {
   }
 
   public renderChart(): void {
-    this.lineChartLabels = [];
-    this.lineChartData = [];
+    this.lineChartLabels = []; // init
+    this.lineChartData = []; // init
     this.sprintSelected = this.sprintService.get(this.sprintSelectedId);
     this.issues = this.issueService.getAllFiltered(filteredBySprintId(this.sprintSelected.id));
+    this.debug();
     this.determindeChartLabels();
     this.determindeChartData();
   }
@@ -69,7 +70,8 @@ export class BurndownChartComponent implements OnInit {
   private determindeChartData() {
     const myMap = new Map();
     this.issues.forEach(value => {
-      const label = moment(value.resolutionDate).format('DD-MM');
+      const resolutionDate = value.resolutionDate;
+      const label = moment(resolutionDate).format('DD-MM');
 
       if (!myMap.get(label)) {
         myMap.set(label, value.estimated);
@@ -106,6 +108,12 @@ export class BurndownChartComponent implements OnInit {
 
   public chartHovered(event: any): void {
     // console.log(event);
+  }
+
+  private debug() {
+    this.issues.forEach(value => {
+      console.log('crea: ' + value.creationDate.format('DD.MM.YYYY') + ', done: ' + (value.resolutionDate ? value.resolutionDate.format('DD.MM.YYYY') : 'n/a' )  + ', h: ' + value.estimated);
+    });
   }
 
 }

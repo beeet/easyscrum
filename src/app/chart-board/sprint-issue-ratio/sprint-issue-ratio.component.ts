@@ -52,7 +52,8 @@ export class SprintIssueRatioComponent implements OnInit {
   private issueService: IssueService;
   private issues: Array<Issue>;
   public sprintService: SprintService;
-  public sprintIdSelected: string;
+  public sprintSelected: Sprint;
+  public sprintSelectedId: string;
 
   constructor(issueService: IssueService, sprintService: SprintService) {
     this.issueService = issueService;
@@ -64,7 +65,9 @@ export class SprintIssueRatioComponent implements OnInit {
   }
 
   public renderChart(): void {
-    this.issues = this.issueService.getAllFiltered(filteredBySprintId(this.sprintIdSelected));
+    this.lineChartData = []; // init
+    this.sprintSelected = this.sprintService.get(this.sprintSelectedId);
+    this.issues = this.issueService.getAllFiltered(filteredBySprintId(this.sprintSelectedId));
     let storyCounter = 0;
     let taskCounter = 0;
     let bugCounter = 0;

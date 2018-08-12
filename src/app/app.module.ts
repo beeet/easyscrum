@@ -11,7 +11,6 @@ import { IssueBoardComponent } from './issue-board/issue-board.component';
 import { ProductBacklogComponent } from './product-backlog/product-backlog.component';
 import { ChartBoardComponent } from './chart-board/chart-board.component';
 import { BurndownChartComponent } from './chart-board/burndown-chart/burndown-chart.component';
-import { IssueTypeRatioComponent } from './chart-board/issue-type-ratio/issue-type-ratio.component';
 import { SprintIssueRatioComponent } from './chart-board/sprint-issue-ratio/sprint-issue-ratio.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { IssueService } from './services/issue.service';
@@ -56,7 +55,6 @@ export function createTranslateLoader(http: HttpClient) {
     ProductBacklogComponent,
     ChartBoardComponent,
     BurndownChartComponent,
-    IssueTypeRatioComponent,
     PageNotFoundComponent,
     SprintIssueRatioComponent,
     FilterTableComponent
