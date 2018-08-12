@@ -57,8 +57,9 @@
   "product-backlog.sum": "Sum",
 
   "chart-board.burndownChart": "Burndown-Chart",
-  "chart-board.openIssueRatio": "Open-Issue-Ratio",
+  "chart-board.burndownchart.toottip": "The burn down chart is a graphical representation of work left to do versus time.",
   "chart-board.sprintIssueRatio": "Sprint-Issue-Ratio",
+  "chart-board.sprintIssueRatio.toottip": "The sprint issue ratio is a graphical representation between the different types of issues.",
 
   "burndown-chart.selectsprint": "Please select a sprint",
 

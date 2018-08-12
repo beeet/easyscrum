@@ -7,7 +7,7 @@
     <div class="form-group col-md-6">
       <select id="typeInput"
               class="form-control"
-              name="type"
+              name="type" ngbTooltip="{{resolveTooltipp() | translate}}"
               [(ngModel)]="chartType" #type="ngModel">
         <option value="BDC" selected>{{'chart-board.burndownChart' | translate}}</option>
         <option value="SIR">{{'chart-board.sprintIssueRatio' | translate}}</option>
@@ -18,5 +18,4 @@
   <app-burndown-chart *ngIf="chartType == 'BDC'"></app-burndown-chart>
   <app-sprint-issue-ratio *ngIf="chartType == 'SIR'"></app-sprint-issue-ratio>
 
-  <!-- Todo sbs evt. tooltip mit beschreibung über chart -->
 </div>

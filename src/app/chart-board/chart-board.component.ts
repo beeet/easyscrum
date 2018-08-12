@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ChartType} from './chartType';
 
 @Component({
@@ -18,5 +18,14 @@ export class ChartBoardComponent implements OnInit {
     this.chartType = ChartType.burndownchart;
   }
 
-
+  resolveTooltipp(): string {
+    switch (this.chartType) {
+      case ChartType.burndownchart:
+        return 'chart-board.burndownchart.toottip';
+      case ChartType.sprintissueratio:
+        return 'chart-board.sprintIssueRatio.toottip';
+      default:
+        return '';
+    }
+  }
 }
