@@ -23,11 +23,12 @@ export class AppComponent {
     this.translate = translate;
     this.setUserLanguage();
     this.assigneeService = assigneeService;
-    this.assigneeService.setupDummyData(); // TODO remove later
     this.sprintService = sprintService;
-    this.sprintService.setupDummyData(); // TODO remove later
     this.issueService = issueService;
-    this.issueService.setupDummyData(); // TODO remove later
+    // TODO remove later
+    this.assigneeService.setupDummyData();
+    this.sprintService.setupDummyData();
+    this.issueService.setupDummyData();
   }
 
   public switchLang(lang: string): void {
