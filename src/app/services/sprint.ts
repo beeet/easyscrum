@@ -1,10 +1,8 @@
-import {Moment} from 'moment';
-
 export class Sprint {
   private _id: string;
   private _name: string;
-  private _begin: Moment;
-  private _end: Moment;
+  private _begin: Date;
+  private _end: Date;
 
   get id(): string {
     return this._id;
@@ -18,16 +16,16 @@ export class Sprint {
   set name(value: string) {
     this._name = value;
   }
-  get begin(): Moment {
+  get begin(): Date {
     return this._begin;
   }
-  set begin(value: Moment) {
+  set begin(value: Date) {
     this._begin = value;
   }
-  get end(): Moment {
+  get end(): Date {
     return this._end;
   }
-  set end(value: Moment) {
+  set end(value: Date) {
     this._end = value;
   }
 }

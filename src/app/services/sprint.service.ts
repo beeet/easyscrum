@@ -3,7 +3,7 @@ import {UUID} from 'angular2-uuid';
 import {Sprint} from './sprint';
 import {DateUtil} from '../utils/date.util';
 import {sprintData} from './DUMMY_DATA';
-import * as moment from 'moment';
+import {isAfter, isBefore} from 'date-fns';
 
 export class SprintService implements Crud<Sprint> {
   private sprints: Sprint[] = [];
@@ -38,7 +38,7 @@ export class SprintService implements Crud<Sprint> {
 
   getCurrent(): Sprint {
     const now = this.dateUtil.now();
-    return this.sprints.find(s => s.begin.isBefore(now) && s.end.isAfter(now));
+    return this.sprints.find(s => isBefore(s.begin, now) && isAfter(s.end, now));
   }
 
   getLatest(): Sprint {
@@ -51,7 +51,7 @@ export class SprintService implements Crud<Sprint> {
     if (!sprint) {
       return false;
     }
-    return sprint.begin.isBefore(this.dateUtil.now());
+    return isBefore(sprint.begin, this.dateUtil.now());
   }
 
   setupDummyData() {
@@ -59,8 +59,8 @@ export class SprintService implements Crud<Sprint> {
       const dummy = this.create();
       dummy.id = d.sprintId;
       dummy.name = d.name;
-      dummy.begin = moment(d.begin);
-      dummy.end = moment(d.end);
+      dummy.begin = d.begin;
+      dummy.end = d.end;
       this.put(dummy);
     }
   }

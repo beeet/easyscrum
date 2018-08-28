@@ -3,7 +3,6 @@ import {IssuePriority} from './issuePriority';
 import {IssueType} from './issueType';
 import {IssueState} from './issueState';
 import {IssueResolution} from './issueResolution';
-import {Moment} from 'moment';
 import {DateUtil} from '../utils/date.util';
 
 @Injectable({
@@ -19,12 +18,12 @@ export class Issue {
   private _state: IssueState;
   private _sprintId: string;
   private _assigneeId: string;
-  private _dueDate: Moment;
+  private _dueDate: Date;
   private _estimated: number;
   private _elapsed: number;
-  private _creationDate: Moment;
+  private _creationDate: Date;
   private _resolution: IssueResolution;
-  private _resolutionDate: Moment;
+  private _resolutionDate: Date;
   private _highlighting: boolean;
   private _comments: Array<Object>;
   private _issueLinks: Array<Issue>;
@@ -95,11 +94,11 @@ export class Issue {
     this._assigneeId = value;
   }
 
-  get dueDate(): Moment {
+  get dueDate(): Date {
     return this._dueDate;
   }
 
-  set dueDate(value: Moment) {
+  set dueDate(value: Date) {
     this._dueDate = value;
   }
 
@@ -119,11 +118,11 @@ export class Issue {
     this._elapsed = value;
   }
 
-  get creationDate(): Moment {
+  get creationDate(): Date {
     return this._creationDate;
   }
 
-  set creationDate(value: Moment) {
+  set creationDate(value: Date) {
     this._creationDate = value;
   }
 
@@ -138,11 +137,11 @@ export class Issue {
     this._resolution = value;
   }
 
-  get resolutionDate(): Moment {
+  get resolutionDate(): Date {
     return this._resolutionDate;
   }
 
-  set resolutionDate(value: Moment) {
+  set resolutionDate(value: Date) {
     this._resolutionDate = value;
   }
 

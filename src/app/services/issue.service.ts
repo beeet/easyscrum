@@ -2,14 +2,11 @@ import {Crud} from './crud';
 import {UUID} from 'angular2-uuid';
 import {Issue} from './issue';
 import {IssueType} from './issueType';
-import {IssuePriority} from './issuePriority';
 import {IssueState} from './issueState';
 import {SprintService} from './sprint.service';
 import {Injectable} from '@angular/core';
 import {DateUtil} from '../utils/date.util';
-import {IssueResolution} from './issueResolution';
 import {issueData} from './DUMMY_DATA';
-import * as moment from 'moment';
 
 
 export function filterdByType(issueType: IssueType) {
@@ -115,13 +112,13 @@ export class IssueService implements Crud<Issue> {
       dummy.state = d.state;
       dummy.sprintId = d.sprintId;
       dummy.assigneeId = d.assigneeID;
-      dummy.creationDate = moment(d.creationDate);
-      dummy.dueDate = moment(d.dueDate);
+      dummy.creationDate = d.creationDate;
+      dummy.dueDate = d.dueDate;
       dummy.estimated = d.estimated;
       dummy.elapsed = d.elapsed;
       dummy.highlighting = d.highlighting;
       dummy.resolution = d.resolution;
-      dummy.resolutionDate = moment(d.resolutionDate);
+      dummy.resolutionDate = d.resolutionDate;
       dummy.comments = d.comments;
       dummy.issueLinks = d.issueLinks;
       this.put(dummy);

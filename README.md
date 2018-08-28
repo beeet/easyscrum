@@ -41,11 +41,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - install guid (UUID)
   - npm install angular2-uuid --save
 
-- install moment.js
-  - npm i moment --save
-  - details: https://momentjs.com/docs/
-  
-- install ng2-charts
+- nminstall ng2-charts
   - npm install ng2-charts --save
   - npm install chart.js --save
   - details: https://www.npmjs.com/package/ng2-charts
@@ -53,3 +49,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - install 
   - npm install ng2-dragula --save
   - https://alligator.io/angular/drag-drop-ng2-dragula/
+
+- install
+  - npm install date-fns --save
+  - https://date-fns.org
