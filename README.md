@@ -46,10 +46,15 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
   - npm install chart.js --save
   - details: https://www.npmjs.com/package/ng2-charts
 
-- install 
+- install d&d
   - npm install ng2-dragula --save
   - https://alligator.io/angular/drag-drop-ng2-dragula/
 
-- install
+- install date-util
   - npm install date-fns --save
   - https://date-fns.org
+
+- install sass
+  - npm install node-sass
+  - ng config schematics.@schematics/angular:component.styleext scss
+

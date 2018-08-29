@@ -4,7 +4,7 @@ import {IssueService} from '../../services/issue.service';
 @Component({
   selector: 'app-product-backlog',
   templateUrl: './product-backlog.component.html',
-  styleUrls: ['./product-backlog.component.css']
+  styleUrls: ['./product-backlog.component.scss']
 })
 export class ProductBacklogComponent {
   issueService: IssueService;

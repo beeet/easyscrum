@@ -12,7 +12,7 @@ import {IssueResolution} from '../../services/issueResolution';
 @Component({
   selector: 'app-issue-board',
   templateUrl: './issue-board.component.html',
-  styleUrls: ['./issue-board.component.css']
+  styleUrls: ['./issue-board.component.scss']
 })
 export class IssueBoardComponent implements OnInit {
   currentIssue;

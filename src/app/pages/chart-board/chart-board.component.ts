@@ -4,7 +4,7 @@ import {ChartType} from './chartType';
 @Component({
   selector: 'app-chart-board',
   templateUrl: './chart-board.component.html',
-  styleUrls: ['./chart-board.component.css']
+  styleUrls: ['./chart-board.component.scss']
 })
 export class ChartBoardComponent implements OnInit {
   chartTypes: ChartType;

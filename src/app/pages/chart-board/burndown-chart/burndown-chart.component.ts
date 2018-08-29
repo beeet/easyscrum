@@ -8,7 +8,7 @@ import {format, addDays, isAfter} from 'date-fns';
 @Component({
   selector: 'app-burndown-chart',
   templateUrl: './burndown-chart.component.html',
-  styleUrls: ['./burndown-chart.component.css']
+  styleUrls: ['./burndown-chart.component.scss']
 })
 export class BurndownChartComponent implements OnInit {
 

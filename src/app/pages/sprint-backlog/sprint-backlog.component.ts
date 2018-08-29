@@ -13,7 +13,7 @@ declare function require(path: string);
 @Component({
   selector: 'app-sprint-backlog',
   templateUrl: './sprint-backlog.component.html',
-  styleUrls: ['./sprint-backlog.component.css']
+  styleUrls: ['./sprint-backlog.component.scss']
 })
 
 export class SprintBacklogComponent implements OnInit {

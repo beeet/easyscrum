@@ -8,7 +8,7 @@ import {IssueType} from '../../../services/issueType';
 @Component({
   selector: 'app-sprint-issue-ratio',
   templateUrl: './sprint-issue-ratio.component.html',
-  styleUrls: ['./sprint-issue-ratio.component.css']
+  styleUrls: ['./sprint-issue-ratio.component.scss']
 })
 export class SprintIssueRatioComponent implements OnInit {
 
