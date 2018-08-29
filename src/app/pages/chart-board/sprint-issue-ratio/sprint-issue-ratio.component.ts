@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {SprintService} from '../../services/sprint.service';
-import {Issue} from '../../services/issue';
-import {Sprint} from '../../services/sprint';
-import {filteredBySprintId, IssueService} from '../../services/issue.service';
-import {IssueType} from '../../services/issueType';
+import {SprintService} from '../../../services/sprint.service';
+import {Issue} from '../../../services/issue';
+import {Sprint} from '../../../services/sprint';
+import {filteredBySprintId, IssueService} from '../../../services/issue.service';
+import {IssueType} from '../../../services/issueType';
 
 @Component({
   selector: 'app-sprint-issue-ratio',

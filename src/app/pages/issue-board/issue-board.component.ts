@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
-import {IssueService} from '../services/issue.service';
+import {IssueService} from '../../services/issue.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import {AssigneeService} from '../services/assignee.service';
-import {SprintService} from '../services/sprint.service';
-import {IssueState} from '../services/issueState';
-import {IssueType} from '../services/issueType';
-import {IssuePriority} from '../services/issuePriority';
-import {IssueResolution} from '../services/issueResolution';
+import {AssigneeService} from '../../services/assignee.service';
+import {SprintService} from '../../services/sprint.service';
+import {IssueState} from '../../services/issueState';
+import {IssueType} from '../../services/issueType';
+import {IssuePriority} from '../../services/issuePriority';
+import {IssueResolution} from '../../services/issueResolution';
 
 @Component({
   selector: 'app-issue-board',

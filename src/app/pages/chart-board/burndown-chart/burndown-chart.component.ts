@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {SprintService} from '../../services/sprint.service';
-import {filteredBySprintId, IssueService} from '../../services/issue.service';
-import {Issue} from '../../services/issue';
-import {Sprint} from '../../services/sprint';
+import {SprintService} from '../../../services/sprint.service';
+import {filteredBySprintId, IssueService} from '../../../services/issue.service';
+import {Issue} from '../../../services/issue';
+import {Sprint} from '../../../services/sprint';
 import {format, addDays, isAfter} from 'date-fns';
 
 @Component({

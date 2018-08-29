@@ -1,12 +1,12 @@
 import _ from 'lodash';
-import {IssueState} from '../services/issueState';
+import {IssueState} from '../../services/issueState';
 import { Component, OnInit } from '@angular/core';
-import {IssueService, filteredByState, filterdByType, filteredBySprintId} from '../services/issue.service';
+import {IssueService, filteredByState, filterdByType, filteredBySprintId} from '../../services/issue.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {DragulaService} from 'ng2-dragula';
-import {Issue} from '../services/issue';
-import {State} from '../services/state';
+import {Issue} from '../../services/issue';
+import {State} from '../../services/state';
 
 declare function require(path: string);
 
@@ -17,7 +17,7 @@ declare function require(path: string);
 })
 
 export class SprintBacklogComponent implements OnInit {
-  imageSrc = require('../../assets/pics/avatar.png');
+  imageSrc = require('../../../assets/pics/avatar.png');
   issueService: IssueService;
   issueStates = IssueState;
   private translate;

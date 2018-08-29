@@ -6,13 +6,13 @@ import { FormsModule } from '@angular/forms';
 
 // import App Components
 import { AppComponent } from './app.component';
-import { SprintBacklogComponent } from './sprint-backlog/sprint-backlog.component';
-import { IssueBoardComponent } from './issue-board/issue-board.component';
-import { ProductBacklogComponent } from './product-backlog/product-backlog.component';
-import { ChartBoardComponent } from './chart-board/chart-board.component';
-import { BurndownChartComponent } from './chart-board/burndown-chart/burndown-chart.component';
-import { SprintIssueRatioComponent } from './chart-board/sprint-issue-ratio/sprint-issue-ratio.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { SprintBacklogComponent } from './pages/sprint-backlog/sprint-backlog.component';
+import { IssueBoardComponent } from './pages/issue-board/issue-board.component';
+import { ProductBacklogComponent } from './pages/product-backlog/product-backlog.component';
+import { ChartBoardComponent } from './pages/chart-board/chart-board.component';
+import { BurndownChartComponent } from './pages/chart-board/burndown-chart/burndown-chart.component';
+import { SprintIssueRatioComponent } from './pages/chart-board/sprint-issue-ratio/sprint-issue-ratio.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { IssueService } from './services/issue.service';
 import { AssigneeService } from './services/assignee.service';
 import { SprintService } from './services/sprint.service';
@@ -30,7 +30,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 // import drag'n'drop
 import {DragulaModule} from 'ng2-dragula';
-import { FilterTableComponent } from './filter-table/filter-table.component';
+import { FilterTableComponent } from './directives/filter-table/filter-table.component';
 
 const appRoutes: Routes = [
   { path: '', component: SprintBacklogComponent },
