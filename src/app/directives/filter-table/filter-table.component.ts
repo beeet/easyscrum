@@ -1,13 +1,15 @@
-import {Component, HostListener, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-filter-table',
   templateUrl: './filter-table.component.html',
   styleUrls: ['./filter-table.component.scss']
 })
-export class FilterTableComponent implements OnInit {
+export class FilterTableComponent implements OnInit, OnChanges {
   @Input() items: any[];
   @Input() tableColumns: string[];
+  @Input() contextmenuActions;
+  @Output() action = new EventEmitter();
   filter = [];
   filteredItems;
   globalFilter = '';
@@ -25,6 +27,11 @@ export class FilterTableComponent implements OnInit {
     this.filteredItems = this.items;
     this.settingUpPagedItems();
     this.tableColumns.forEach(col => this.filter.push({key: col, value: ''}));
+  }
+
+  ngOnChanges() {
+    this.filterItems();
+    this.disableContextMenu();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -97,4 +104,11 @@ export class FilterTableComponent implements OnInit {
   disableContextMenu() {
     this.contextmenu.visible = false;
   }
+
+  onAction(e) {
+    this.disableContextMenu();
+    this.action.emit({action: e.action, item: this.selectedItem});
+  }
+
+
 }

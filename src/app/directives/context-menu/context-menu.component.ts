@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-context-menu',
@@ -8,18 +8,11 @@ import {Component, Input, OnInit} from '@angular/core';
 export class ContextMenuComponent {
   @Input() x = 0;
   @Input() y = 0;
-  @Input() issue;
+  @Input() actions;
+  @Output() action = new EventEmitter();
 
-  edit() {
-    //todo
-  }
-
-  delete() {
-    //todo
-  }
-
-  setSprint() {
-    //todo
+  onAction(element) {
+    this.action.emit(element);
   }
 
 }
