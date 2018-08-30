@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, HostListener, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-filter-table',
@@ -16,11 +16,18 @@ export class FilterTableComponent implements OnInit {
   sortAscending = true;
   selectedPage = 0;
   pagedItems;
+  innerWidth: any;
 
   ngOnInit() {
+    this.innerWidth = window.innerWidth;
     this.filteredItems = this.items;
     this.settingUpPagedItems();
     this.tableColumns.forEach(col => this.filter.push({key: col, value: ''}));
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerWidth = window.innerWidth;
   }
 
   filterItems(): void {
