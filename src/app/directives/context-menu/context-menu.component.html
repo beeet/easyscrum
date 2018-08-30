@@ -1,0 +1,11 @@
+<div class="contextmenu" [ngStyle]="{'left.px': x, 'top.px': y}">
+  <div>
+    <ul class="list-group">
+      <li class="list-group-item" routerLink="/issue-board/{{issue.id}}" routerLinkActive="active" >Bearbeiten</li>
+      <li class="list-group-item" (click)="delete()" >Löschen</li>
+      <li class="list-group-item" (click)="setSprint()" >Sprint zuweisen</li>
+    </ul>
+  </div>
+</div>
+
+

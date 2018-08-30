@@ -17,6 +17,8 @@ export class FilterTableComponent implements OnInit {
   selectedPage = 0;
   pagedItems;
   innerWidth: any;
+  contextmenu = {visible: false, posX: 0, posY: 0};
+  selectedItem;
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
@@ -83,5 +85,16 @@ export class FilterTableComponent implements OnInit {
       this.pagedItems.push(this.filteredItems.slice(startindex, startindex + 10));
     }
     this.selectPage(0);
+  }
+
+  onrightClick(event, item) {
+    this.selectedItem = item;
+    this.contextmenu.posX = event.clientX + 10;
+    this.contextmenu.posY = event.clientY + 20;
+    this.contextmenu.visible = true;
+  }
+
+  disableContextMenu() {
+    this.contextmenu.visible = false;
   }
 }
