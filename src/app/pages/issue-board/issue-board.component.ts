@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {IssueService} from '../../services/issue.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AssigneeService} from '../../services/assignee.service';
 import {SprintService} from '../../services/sprint.service';
 import {IssueState} from '../../services/issueState';
-import {IssueType} from '../../services/issueType';
+import {IssueType, IssueTypes} from '../../services/issueType';
 import {IssuePriority} from '../../services/issuePriority';
 import {IssueResolution} from '../../services/issueResolution';
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {Issue} from "../../services/issue";
 
 @Component({
   selector: 'app-issue-board',
@@ -15,28 +17,17 @@ import {IssueResolution} from '../../services/issueResolution';
   styleUrls: ['./issue-board.component.scss']
 })
 export class IssueBoardComponent implements OnInit {
-  currentIssue;
+  currentIssue: Issue;
   issueStates = IssueState;
-  issueTypes = IssueType;
+  issueTypes = IssueTypes;
   issuePriorities = IssuePriority;
   issueResolutions = IssueResolution;
-  issueService;
-  assigneeService;
-  sprintService;
-  private translate;
-  private route: ActivatedRoute;
-  private router: Router;
 
-  constructor(translate: TranslateService, route: ActivatedRoute, router: Router,
-              issueService: IssueService, assigneeService: AssigneeService, sprintService: SprintService) {
-    this.translate = translate;
-    this.route = route;
-    this.router = router;
-    this.issueService = issueService;
-    this.assigneeService = assigneeService;
-    this.sprintService = sprintService;
-  }
+  theForm: FormGroup;
 
+  constructor(translate: TranslateService, private route: ActivatedRoute, router: Router,
+              public issueService: IssueService, assigneeService: AssigneeService, public sprintService: SprintService,
+  private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     const urlParam = this.route.snapshot.paramMap.get('id');
@@ -44,15 +35,45 @@ export class IssueBoardComponent implements OnInit {
       this.currentIssue = this.issueService.get(urlParam);
     } else {
       this.currentIssue = this.issueService.create();
+      // TODO: remove
+      this.currentIssue.type = IssueType.story;
     }
+
+    this.theForm = this.formBuilder.group({
+      'title': new FormControl(this.currentIssue.title, [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(30)
+      ]),
+      'sprint': new FormControl(this.currentIssue.sprintId, []),
+      'description': new FormControl(this.currentIssue.description, [
+        Validators.required,
+        Validators.maxLength(3000)
+      ]),
+      'type': new FormControl(this.currentIssue.type, [
+        Validators.required
+      ])
+    });
   }
 
+  get title() { return this.theForm.get('title'); }
+  get description() { return this.theForm.get('description'); }
+
   onSave() {
+    console.log(this.theForm);
+    console.log('raw', this.theForm.getRawValue());
+    console.log('radio', this.theForm.get('type'));
+    this.currentIssue.title = this.theForm.get('title').value;
+    this.currentIssue.sprintId = this.theForm.get('sprint').value;
+    this.currentIssue.description = this.theForm.get('description').value;
+    this.currentIssue.type = this.theForm.get('type').value;
+    console.log(this.currentIssue);
+    // this.currentIssue = this.theForm.getRawValue(); TODO geht das ev. so einfacher?
     this.issueService.put(this.currentIssue);
-    this.router.navigate(['/sprint-backlog'])
-      .catch(reason =>
-        console.log('error while navigate to sprint-backlog' + JSON.stringify(reason))
-      );
+    // this.router.navigate(['/sprint-backlog'])
+    //   .catch(reason =>
+    //     console.log('error while navigate to sprint-backlog' + JSON.stringify(reason))
+    //   );
   }
 
   onCancel() {

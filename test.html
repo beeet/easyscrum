@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    .es-selector input{
+      margin:0;padding:0;
+      -webkit-appearance:none;
+      -moz-appearance:none;
+      appearance:none;
+    }
+
+    .es-radio, .es-selector input:active +.es-radio{opacity: .9;}
+    .es-radio, .es-selector input:checked +.es-radio{
+      filter: none;
+    }
+
+    .es-radio{
+      cursor:pointer;
+      background-size:contain;
+      background-repeat:no-repeat;
+      display:inline-block;
+      width:100px;height:70px;
+      transition: all 100ms ease-in;
+      filter: brightness(1.8) grayscale(1) opacity(.7);
+    }
+    .es-radio:hover{
+      filter: brightness(1.2) grayscale(.5) opacity(.9);
+    }
+  </style>
+</head>
+<body>
+<form>
+  <div class="es-selector">
+    <!--<input checked="checked" id="visa" type="radio" name="credit-card" value="visa" />-->
+    <input checked="checked" id="bug" type="radio" name="type" value="bug" />
+    <label class="es-radio" for="bug">
+      <img src="./src/assets/pics/bug.png" width="15px">
+      Bug
+    </label>
+    <input checked="checked" id="story" type="radio" name="type" value="story" />
+    <label class="es-radio"for="story">
+      <img src="./src/assets/pics/story.png" width="15rem">
+      Story
+    </label>
+    <input checked="" id="task" type="radio" name="type" value="task" />
+    <label class="es-radio"for="task">
+      <img src="./src/assets/pics/task.png" width="15rem">
+      Task
+    </label>
+  </div>
+</form>
+</body>
+</html>

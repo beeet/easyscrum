@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // import App Components
 import { AppComponent } from './app.component';
@@ -31,10 +31,12 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 // import drag'n'drop
 import {DragulaModule} from 'ng2-dragula';
 import { FilterTableComponent } from './directives/filter-table/filter-table.component';
+import {IssueBoardComponentOld} from "./pages/issue-board-old/issue-board.component";
 
 const appRoutes: Routes = [
   { path: '', component: SprintBacklogComponent },
   { path: 'sprint-backlog', component: SprintBacklogComponent },
+  { path: 'issue-board-old', component: IssueBoardComponent },
   { path: 'issue-board', component: IssueBoardComponent },
   { path: 'issue-board/:id', component: IssueBoardComponent },
   { path: 'chart-board', component: ChartBoardComponent },
@@ -52,6 +54,7 @@ export function createTranslateLoader(http: HttpClient) {
     AppComponent,
     SprintBacklogComponent,
     IssueBoardComponent,
+    IssueBoardComponentOld,
     ProductBacklogComponent,
     ChartBoardComponent,
     BurndownChartComponent,
@@ -75,6 +78,7 @@ export function createTranslateLoader(http: HttpClient) {
     }),
     NgbModule.forRoot(),
     FormsModule,
+    ReactiveFormsModule,
     ChartsModule,
     DragulaModule
   ],
