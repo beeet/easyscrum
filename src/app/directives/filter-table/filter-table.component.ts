@@ -1,13 +1,15 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-filter-table',
   templateUrl: './filter-table.component.html',
   styleUrls: ['./filter-table.component.scss']
 })
-export class FilterTableComponent implements OnInit {
+export class FilterTableComponent implements OnInit, OnChanges {
   @Input() items: any[];
   @Input() tableColumns: string[];
+  @Input() contextmenuActions;
+  @Output() action = new EventEmitter();
   filter = [];
   filteredItems;
   globalFilter = '';
@@ -16,11 +18,25 @@ export class FilterTableComponent implements OnInit {
   sortAscending = true;
   selectedPage = 0;
   pagedItems;
+  innerWidth: any;
+  contextmenu = {visible: false, posX: 0, posY: 0};
+  selectedItem;
 
   ngOnInit() {
+    this.innerWidth = window.innerWidth;
     this.filteredItems = this.items;
     this.settingUpPagedItems();
     this.tableColumns.forEach(col => this.filter.push({key: col, value: ''}));
+  }
+
+  ngOnChanges() {
+    this.filterItems();
+    this.disableContextMenu();
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerWidth = window.innerWidth;
   }
 
   filterItems(): void {
@@ -77,4 +93,22 @@ export class FilterTableComponent implements OnInit {
     }
     this.selectPage(0);
   }
+
+  onrightClick(event, item) {
+    this.selectedItem = item;
+    this.contextmenu.posX = event.clientX + 10;
+    this.contextmenu.posY = event.clientY + 20;
+    this.contextmenu.visible = true;
+  }
+
+  disableContextMenu() {
+    this.contextmenu.visible = false;
+  }
+
+  onAction(e) {
+    this.disableContextMenu();
+    this.action.emit({action: e.action, item: this.selectedItem});
+  }
+
+
 }
