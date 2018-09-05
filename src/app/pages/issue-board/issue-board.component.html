@@ -16,20 +16,20 @@
                mixlength="3"
                maxlength="30"
                [(ngModel)]="currentIssue.title" #title="ngModel">
-                    <div *ngIf="title.invalid && (title.dirty || title.touched)"
-                         class="alert alert-danger">
-                            <small *ngIf="title.hasError('required')">
-                              {{'commons.validation.field.required' | translate }}
-                            </small>
-                            <small *ngIf="title.hasError('minlength')">
-                              {{'commons.validation.field.minlength' | translate }}
-                            </small>
-                            <small *ngIf="title.hasError('maxlength')">
-                              {{'commons.validation.field.maxlength' | translate }}
-                            </small>
-                    </div>
-                    <!--TODO sbs interpolation of params. e.g. number of char-->
-                    <!--TODO sbs min/max validation doesn't work-->
+        <div *ngIf="title.invalid && (title.dirty || title.touched)"
+             class="alert alert-danger">
+          <small *ngIf="title.hasError('required')">
+            {{'commons.validation.field.required' | translate }}
+          </small>
+          <small *ngIf="title.hasError('minlength')">
+            {{'commons.validation.field.minlength' | translate }}
+          </small>
+          <small *ngIf="title.hasError('maxlength')">
+            {{'commons.validation.field.maxlength' | translate }}
+          </small>
+        </div>
+        <!--TODO sbs interpolation of params. e.g. number of char-->
+        <!--TODO sbs min/max validation doesn't work-->
       </div>
       <div class="form-group col-md-6">
         <label id="sprintLabel" for="sprintInput">{{'issue-board.sprint' | translate }}</label>
@@ -50,14 +50,14 @@
       <div class="form-group col-md-12">
         <label id="descriptionLabel" for="descriptionInput">{{'issue-board.description' | translate }}</label>
         <textarea id="descriptionInput"
-               class="form-control"
-               name="description"
-               type="text"
-               placeholder="{{'issue-board.description.placeholder' | translate }}"
+                  class="form-control"
+                  name="description"
+                  type="text"
+                  placeholder="{{'issue-board.description.placeholder' | translate }}"
                   rows="3"
                   required
-               maxlength="2000"
-               [(ngModel)]="currentIssue.description" #description="ngModel">
+                  maxlength="2000"
+                  [(ngModel)]="currentIssue.description" #description="ngModel">
                <div [hidden]="description.valid || description.pristine"
                     class="alert alert-danger">
                     {{'commons.validation.field.required' | translate }}
@@ -84,17 +84,35 @@
         </select>
       </div>
 
+
       <div class="form-group col-md-6">
         <label id="assigneeLabel" for="assigneeInput">{{'issue-board.assignee' | translate }}</label>
-        <select id="assigneeInput"
-                class="form-control"
-                name="assignee"
-                [(ngModel)]="currentIssue.assigneeId">
-          <option value="" disabled selected>{{'issue-board.assignee.placeholder' | translate}}</option>
-          <option *ngFor="let assignee of assigneeService.getAll()" [ngValue]="assignee.id">
-            {{assignee.nickname}}
-          </option>
-        </select>
+        <div class="input-group mb-3" [hidden]="isAssigneeEditable">
+          <select id="assigneeInput"
+                  class="custom-select"
+                  [(ngModel)]="currentIssue.assigneeId" [ngModelOptions]="{standalone: true}">
+            <option value="" disabled selected>{{'issue-board.assignee.placeholder' | translate}}</option>
+            <option *ngFor="let assignee of assigneeService.getAll()" [ngValue]="assignee.id">
+              {{assignee.nickname}}
+            </option>
+          </select>
+          <div class="input-group-append"
+               (click)="addAssignee()">
+            <label class="input-group-text" for="assigneeInput">+</label>
+          </div>
+        </div>
+        <div class="input-group mb-3" [hidden]="!isAssigneeEditable">
+          <input type="text"
+                 class="form-control"
+                 placeholder="{{'issue-board.assignee.new.placeholder' | translate}}"
+                [(ngModel)]="newAssignee" [ngModelOptions]="{standalone: true}">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary"
+                    type="button"
+                    id="button-addon2" (click)="saveAssignee()">Save
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -177,13 +195,13 @@
             class="btn btn-primary"
             (click)="onSave()"
             [disabled]="!issueForm.form.valid">
-            {{'issue-board.buttonSave' | translate }}
+      {{'issue-board.buttonSave' | translate }}
     </button>
     <button type="button"
             class="btn btn-light"
             routerLink="/sprint-backlog/"
             (click)="onCancel()">
-            {{'issue-board.buttonCancel' | translate }}
+      {{'issue-board.buttonCancel' | translate }}
     </button>
     <button type="button"
             class="btn btn-danger"

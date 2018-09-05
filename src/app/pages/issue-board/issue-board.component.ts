@@ -15,6 +15,9 @@ import {IssueResolution} from '../../services/issueResolution';
   styleUrls: ['./issue-board.component.scss']
 })
 export class IssueBoardComponent implements OnInit {
+  private translate;
+  private route: ActivatedRoute;
+  private router: Router;
   currentIssue;
   issueStates = IssueState;
   issueTypes = IssueType;
@@ -23,9 +26,8 @@ export class IssueBoardComponent implements OnInit {
   issueService;
   assigneeService;
   sprintService;
-  private translate;
-  private route: ActivatedRoute;
-  private router: Router;
+  isAssigneeEditable: boolean;
+  newAssignee: string;
 
   constructor(translate: TranslateService, route: ActivatedRoute, router: Router,
               issueService: IssueService, assigneeService: AssigneeService, sprintService: SprintService) {
@@ -39,6 +41,7 @@ export class IssueBoardComponent implements OnInit {
 
 
   ngOnInit() {
+    this.isAssigneeEditable = false;
     const urlParam = this.route.snapshot.paramMap.get('id');
     if (urlParam) {
       this.currentIssue = this.issueService.get(urlParam);
@@ -60,5 +63,21 @@ export class IssueBoardComponent implements OnInit {
 
   onDelete() {
     this.issueService.delete(this.currentIssue.id);
+  }
+
+  addAssignee() {
+    this.isAssigneeEditable = true;
+    return this.isAssigneeEditable;
+  }
+
+  saveAssignee() {
+    if (this.newAssignee && this.newAssignee !== '') {
+      const assignee = this.assigneeService.create();
+      assignee.nickname = this.newAssignee;
+      this.assigneeService.put(assignee);
+      this.currentIssue.assigneeId = assignee.id;
+    }
+    this.isAssigneeEditable = false;
+    return this.isAssigneeEditable;
   }
 }
