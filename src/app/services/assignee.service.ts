@@ -4,6 +4,12 @@ import {Assignee} from './assignee';
 import {assigneeData} from './DUMMY_DATA';
 
 export class AssigneeService implements Crud<Assignee> {
+    private availableAvatar = [
+        'barca', 'batman', 'calimero', 'capt.america', 'cowboy',
+        'devil', 'elvis', 'eminem', 'firefighter', 'gandalf',
+        'gladiator', 'king', 'mickey', 'motherboard', 'mr.t',
+        'obelix', 'pilot', 'pirat', 'poolboy', 'rambo',
+        'surgeon', 'tux', 'wikinger'];
     private assignees: Assignee[] = [];
 
     constructor() {
@@ -13,6 +19,7 @@ export class AssigneeService implements Crud<Assignee> {
     create(): Assignee {
         const newAssignee = new Assignee();
         newAssignee.id = UUID.UUID();
+        newAssignee.avatar = this.resolveAvailableAvatar();
         return newAssignee;
     }
 
@@ -36,6 +43,21 @@ export class AssigneeService implements Crud<Assignee> {
     getAvatar(assigneeId: string): string {
         const avatar = this.get(assigneeId).avatar;
         return 'http://localhost:4200/assets/pics/avatar/' + avatar + '.png';
+    }
+
+    resolveAvailableAvatar(): string {
+        const inUse = new Set();
+        this.assignees.forEach(value => {
+            if (value.avatar && value.avatar !== '') {
+                inUse.add(value.avatar);
+            }
+        });
+        for (const item of this.availableAvatar) {
+            if (!inUse.has(item)) {
+                return item;
+            }
+        }
+        return '';
     }
 
     setupDummyData() {
