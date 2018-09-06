@@ -7,6 +7,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {DragulaService} from 'ng2-dragula';
 import {Issue} from '../../services/issue';
 import {State} from '../../services/state';
+import {SprintService} from '../../services/sprint.service';
 
 declare function require(path: string);
 
@@ -19,22 +20,29 @@ declare function require(path: string);
 export class SprintBacklogComponent implements OnInit {
   imageSrc = require('../../../assets/pics/avatar.png');
   issueService: IssueService;
+  sprintService: SprintService;
   issueStates = IssueState;
   private translate;
   private route: ActivatedRoute;
   private router: Router;
   states: State[] = [];
 
-  constructor(translate: TranslateService, route: ActivatedRoute, router: Router,
-              issueService: IssueService, private dragula: DragulaService) {
+  constructor(translate: TranslateService,
+              route: ActivatedRoute,
+              router: Router,
+              issueService: IssueService,
+              sprintService: SprintService,
+              private dragula: DragulaService) {
     this.translate = translate;
     this.route = route;
     this.router = router;
     this.issueService = issueService;
+    this.sprintService = sprintService;
   }
 
   public getIssues(issueState: IssueState): Issue[] {
-    return this.issueService.getAllFilteredByState(issueState);
+    const sprintId = this.sprintService.getCurrent().id;
+    return this.issueService.getAllFilteredBySprint(sprintId).filter(filteredByState(issueState));
   }
 
   ngOnInit() {
@@ -46,7 +54,6 @@ export class SprintBacklogComponent implements OnInit {
       const id = value[1].id;
       const from = value[3].id.split('-')[1];
       const to = value[2].id.split('-')[1];
-      // this.issueService.get(id).state = _.find(this.states, {'label': to}).state;
       const state = _.find(this.states, {'label': to});
       this.issueService.get(id).state = state.state;
       });
