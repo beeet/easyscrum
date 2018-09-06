@@ -119,7 +119,7 @@ export class SprintBacklogComponent implements OnInit {
     }
 
     hasSubtask(issue: Issue): boolean {
-        const subissues = issue.subIssue;
+        const subissues = issue.subissue;
         return subissues && subissues.length > 0;
     }
 
