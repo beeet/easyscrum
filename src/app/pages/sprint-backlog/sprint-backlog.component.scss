@@ -1,26 +1,49 @@
-div.card {
-  margin: 1rem;
-  background-color: var(--color-card-blue);
-  list-style-type:none;
-}
-img.card-img-top {
-  margin: 1rem;
-  width: 20%;
-}
-span.card-text {
-  color: var(--color-white);
+div {
+  .card {
+    margin: 1rem;
+    background-color: var(--color-card-blue);
+    list-style-type: none;
+  }
+  .card-header {
+
+  }
+  .card-body {
+
+  }
+  .card-img-avatar {
+    width: 25%;
+  }
+  .card-img-type {
+    width: 10%;
+    position: absolute;
+    right: 25%;
+  }
+  .card-img-priority {
+    width: 10%;
+    position: absolute;
+    right: 5%;
+  }
+  span.card-text {
+    color: var(--color-white);
+  }
+  .material-icons {
+    text-align: right;
+  }
+  @media (min-width: 768px) {
+    #swimmlane-open, #swimmlane-inwork, #swimmlane-intest, #swimmlane-done {
+      border-right: ridge var(--color-black);
+    }
+    #swimmlane-open {
+      border-left: ridge var(--color-black);
+    }
+  }
 }
 
-#createTask {
-  display: block;
-  margin: 0 auto;
-}
 
-@media (min-width: 768px) {
-  #swimmlane-open, #swimmlane-inwork, #swimmlane-intest, #swimmlane-done {
-    border-right: ridge var(--color-black);
+  //obsolete
+  #createTask {
+    display: block;
+    margin: 0 auto;
   }
-  #swimmlane-open {
-    border-left: ridge var(--color-black);
-  }
-}
+
+

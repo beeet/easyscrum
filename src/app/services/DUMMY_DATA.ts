@@ -9,27 +9,33 @@ export let dateUtil = new DateUtil();
 export let assigneeData = [
   {
     id: 'ASG18-00001',
-    nickname: 'Adrian Aeby'
+    nickname: 'Adrian Aeby',
+    avatar: 'batman'
   },
   {
     id: 'ASG18-00002',
-    nickname: 'Beat Schumacher'
+    nickname: 'Beat Schumacher',
+    avatar: 'wikinger'
   },
   {
     id: 'ASG18-00003',
-    nickname: 'Beat Baumann'
+    nickname: 'Beat Baumann',
+    avatar: 'gandalf'
   },
   {
     id: 'ASG18-00004',
-    nickname: 'Justine Buckthought'
+    nickname: 'Justine Buckthought',
+    avatar: 'batman'
   },
   {
     id: 'ASG18-00005',
-    nickname: 'Patrizius Alven'
+    nickname: 'Patrizius Alven',
+    avatar: 'poolboy'
   },
   {
     id: 'ASG18-00006',
-    nickname: 'Sayers Mathwin'
+    nickname: 'Sayers Mathwin',
+    avatar: 'king'
   },
 ];
 
