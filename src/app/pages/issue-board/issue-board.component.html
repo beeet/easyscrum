@@ -176,15 +176,6 @@
       </div>
     </div>
 
-    <div>{{state}} / {{state !== 'D'}}</div>
-
-    <div>
-      Save Button disabled: {{!theForm.valid}}
-      <div *ngIf="!theForm.valid">
-        {{theForm.errors | json}}
-      </div>
-    </div>
-
     <button type="button"
             class="btn btn-primary"
             (click)="onSave()"

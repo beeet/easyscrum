@@ -4,12 +4,9 @@ import {IssueService} from '../../services/issue.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AssigneeService} from '../../services/assignee.service';
 import {SprintService} from '../../services/sprint.service';
-import {IssueState} from '../../services/issueState';
-import {IssuePriorities, IssueResolutions, IssueStates, IssueType, IssueTypes} from '../../services/issueType';
-import {IssuePriority} from '../../services/issuePriority';
-import {IssueResolution} from '../../services/issueResolution';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Issue} from "../../services/issue";
+import {IssuePriorities, IssueResolutions, IssueStates, IssueTypes} from '../../services/issueType';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Issue} from '../../services/issue';
 
 @Component({
   selector: 'app-issue-board',
@@ -73,26 +70,14 @@ export class IssueBoardComponent implements OnInit {
 
   get title() { return this.theForm.get('title'); }
   get description() { return this.theForm.get('description'); }
-  get state() { return this.theForm.get('state').value; }
 
   onSave() {
-    const a = this.state;
     console.log(this.theForm);
     console.log('raw', this.theForm.getRawValue());
-    console.log('currentIssue1', this.currentIssue.title);
+    // hier werden alle Eingabewerte aus dem Formular ans aktuelle Issue übergeben. Dazu müssen die Felder im Form genau gleich heissen wie
+    // in der Issue Klasse
     this.currentIssue = Object.assign(this.currentIssue, this.theForm.getRawValue());
-    console.log('currentIssue2', this.currentIssue.title);
-    // this.currentIssue.title = this.theForm.get('title').value;
-    // this.currentIssue.sprintId = this.theForm.get('sprint').value;
-    // this.currentIssue.description = this.theForm.get('description').value;
-    // this.currentIssue.type = this.theForm.get('type').value;
-    // console.log('currentIssue', this.currentIssue);
     this.issueService.put(this.currentIssue);
-    console.log('saved', this.issueService.getAll());
-    // this.router.navigate(['/sprint-backlog'])
-    //   .catch(reason =>
-    //     console.log('error while navigate to sprint-backlog' + JSON.stringify(reason))
-    //   );
   }
 
   onCancel() {
