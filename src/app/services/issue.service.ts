@@ -21,6 +21,10 @@ export function filteredByState(issueState: IssueState) {
   return issue => issue.state === issueState;
 }
 
+export function filteredByAllignee(assigneeId: string) {
+    return issue => issue.assigneeId === assigneeId;
+}
+
 @Injectable({
   // we declare that this service should be created by the root application injector.
   providedIn: 'root',
@@ -104,7 +108,6 @@ export class IssueService implements Crud<Issue> {
   setupDummyData() {
     for ( const d of issueData ) {
       const dummy = this.create();
-      // dummy.id = d.id;
       dummy.title = d.title;
       dummy.description = d.description;
       dummy.priority = d.priority;
@@ -121,6 +124,7 @@ export class IssueService implements Crud<Issue> {
       dummy.resolutionDate = d.resolutionDate;
       dummy.comments = d.comments;
       dummy.issueLinks = d.issueLinks;
+      dummy.subissues = d.subissues;
       this.put(dummy);
     }
   }

@@ -37,6 +37,17 @@ div {
   }
 }
 
+// TODO sbs hintereinander evt als schwebende icons...
+//.filter-avatar {
+//  width: 50%;
+//  margin: 0.5rem;
+//}
+
+.filter-img-avatar {
+  width: 5%;
+  margin: 0.5rem;
+}
+
 @media (min-width: 769px) {
   #swimmlane-open, #swimmlane-inwork, #swimmlane-intest, #swimmlane-done {
     border-right: ridge var(--color-black);

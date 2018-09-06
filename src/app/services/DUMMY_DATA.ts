@@ -25,7 +25,7 @@ export let assigneeData = [
   {
     id: 'ASG18-00004',
     nickname: 'Justine Buckthought',
-    avatar: 'batman'
+    avatar: 'eminem'
   },
   {
     id: 'ASG18-00005',
@@ -113,7 +113,30 @@ issueData = [
     {comment: 'No Comment #3'},
     {comment: 'No Comment #4'}
   ],
-  issueLinks: []
+  issueLinks: [],
+  subissues: [
+      {
+          id: 4,
+          title: 'Test for new changelog.',
+          description: 'Test for new changelog.',
+          type: IssueType.task,
+          priority: IssuePriority.medium,
+          state: IssueState.done,
+          sprintId: 'SPR18-00001',
+          assigneeID: 'ASG18-00004',
+          creationDate: '2018-06-10',
+          dueDate: '2018-06-18',
+          estimated: 6,
+          elapsed: 3,
+          highlighting: false,
+          resolution: IssueResolution.fixed,
+          resolutionDate: '2018-06-18',
+          comments: [
+              {comment: 'No Comment #1'}
+          ],
+          issueLinks: []
+      }
+  ]
 },
   {
     id: 2,

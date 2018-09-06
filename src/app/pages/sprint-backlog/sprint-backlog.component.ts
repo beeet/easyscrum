@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import {IssueState} from '../../services/issueState';
-import { Component, OnInit } from '@angular/core';
-import {IssueService, filteredByState, filterdByType, filteredBySprintId} from '../../services/issue.service';
+import {Component, OnInit} from '@angular/core';
+import {filteredByState, IssueService} from '../../services/issue.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {DragulaService} from 'ng2-dragula';
@@ -11,72 +11,97 @@ import {SprintService} from '../../services/sprint.service';
 import {AssigneeService} from '../../services/assignee.service';
 import {IssueType} from '../../services/issueType';
 import {IssuePriority} from '../../services/issuePriority';
+import {issueData} from '../../services/DUMMY_DATA';
 
 declare function require(path: string);
 
 @Component({
-  selector: 'app-sprint-backlog',
-  templateUrl: './sprint-backlog.component.html',
-  styleUrls: ['./sprint-backlog.component.scss']
+    selector: 'app-sprint-backlog',
+    templateUrl: './sprint-backlog.component.html',
+    styleUrls: ['./sprint-backlog.component.scss']
 })
 
 export class SprintBacklogComponent implements OnInit {
-  issueService: IssueService;
-  sprintService: SprintService;
-  assigneeService: AssigneeService;
-  issueStates = IssueState;
-  private translate;
-  private route: ActivatedRoute;
-  private router: Router;
-  states: State[] = [];
-  isSubtaskFilterAcitve = false;
+    issueService: IssueService;
+    sprintService: SprintService;
+    assigneeService: AssigneeService;
+    issueStates = IssueState;
+    private translate;
+    private route: ActivatedRoute;
+    private router: Router;
+    states: State[] = [];
+    isSubtaskFilterAcitve = false;
 
-  constructor(translate: TranslateService,
-              route: ActivatedRoute,
-              router: Router,
-              issueService: IssueService,
-              sprintService: SprintService,
-              assigneeService: AssigneeService,
-              private dragula: DragulaService) {
-    this.translate = translate;
-    this.route = route;
-    this.router = router;
-    this.issueService = issueService;
-    this.sprintService = sprintService;
-    this.assigneeService = assigneeService;
-  }
+    constructor(translate: TranslateService,
+                route: ActivatedRoute,
+                router: Router,
+                issueService: IssueService,
+                sprintService: SprintService,
+                assigneeService: AssigneeService,
+                private dragula: DragulaService) {
+        this.translate = translate;
+        this.route = route;
+        this.router = router;
+        this.issueService = issueService;
+        this.sprintService = sprintService;
+        this.assigneeService = assigneeService;
+    }
 
-  public getIssues(issueState: IssueState): Issue[] {
-    const sprintId = this.sprintService.getCurrent().id;
-    return this.issueService.getAllFilteredBySprint(sprintId).filter(filteredByState(issueState));
-  }
+    ngOnInit() {
+        this.states.push(new State('open', IssueState.open));
+        this.states.push(new State('inwork', IssueState.inwork));
+        this.states.push(new State('intest', IssueState.intest));
+        this.states.push(new State('done', IssueState.done));
+        this.dragula.drop.subscribe(value => {
+            const id = value[1].id;
+            const from = value[3].id.split('-')[1];
+            const to = value[2].id.split('-')[1];
+            const state = _.find(this.states, {'label': to});
+            this.issueService.get(id).state = state.state;
+        });
+    }
 
-  ngOnInit() {
-    this.states.push(new State('open', IssueState.open));
-    this.states.push(new State('inwork', IssueState.inwork));
-    this.states.push(new State('intest', IssueState.intest));
-    this.states.push(new State('done', IssueState.done));
-    this.dragula.drop.subscribe(value => {
-      const id = value[1].id;
-      const from = value[3].id.split('-')[1];
-      const to = value[2].id.split('-')[1];
-      const state = _.find(this.states, {'label': to});
-      this.issueService.get(id).state = state.state;
-      });
-  }
+    getIssues(issueState: IssueState): Issue[] {
+        const sprintId = this.sprintService.getCurrent().id;
+        return this.issueService.getAllFilteredBySprint(sprintId).filter(filteredByState(issueState));
+    }
+
+    getInvolvedAssignees(): string[] {
+        const sprintId = this.sprintService.getCurrent().id;
+        const sprintIssues = this.issueService.getAllFilteredBySprint(sprintId);
+        const assignees = sprintIssues
+            .map(value => value.assigneeId)
+            .sort()
+            .reduce(function(a, b) {
+                if (b !== a[0]) {
+                    a.unshift(b);
+                }
+                return a;
+                }, []);
+
+        // const set = new Set();
+        // assignees.forEach(id => {
+        //     if (value.avatar && value.avatar !== '') {
+        //         set.add(value.avatar);
+        //     }
+        // });
+        return assignees;
+
+        // return Array.from(this.assigneeService.resolveAvatarInUse());
+    }
 
     getAvatar(assigneeId: string): string {
-      return this.assigneeService.getAvatar(assigneeId);
+        return this.assigneeService.getAvatar(assigneeId);
     }
 
     getTaskType(type: IssueType): string {
-      if (IssueType.bug === type) {
-          return 'http://localhost:4200/assets/pics/bug.png';
-      } else if (IssueType.story === type) {
-          return 'http://localhost:4200/assets/pics/story.png';
-      } else if (IssueType.task === type) {
-          return 'http://localhost:4200/assets/pics/task.png';
-      }
+        if (IssueType.bug === type) {
+            return 'http://localhost:4200/assets/pics/bug.png';
+        } else if (IssueType.story === type) {
+            return 'http://localhost:4200/assets/pics/story.png';
+        } else if (IssueType.task === type) {
+            return 'http://localhost:4200/assets/pics/task.png';
+        }
     }
 
     getTaskPriority(priority: IssuePriority): string {
@@ -94,13 +119,14 @@ export class SprintBacklogComponent implements OnInit {
     }
 
     hasSubtask(issue: Issue): boolean {
-      return true; // TODO sbs wie werden subtasks ermittelt? via links?
+        const subissues = issue.subIssue;
+        return subissues && subissues.length > 0;
     }
 
     setSubtaskFilterAcitve(event: any): void {
-      console.log('setSubtaskFilterAcitve clicked')
-      this.isSubtaskFilterAcitve = true;
-      // TODO sbs filter handling subtasks anzeigen (ein/aus)
+        console.log('setSubtaskFilterAcitve clicked');
+        this.isSubtaskFilterAcitve = true;
+        // TODO sbs filter handling subtasks anzeigen (ein/aus)
     }
 
 }
