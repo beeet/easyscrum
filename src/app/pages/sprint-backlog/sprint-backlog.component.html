@@ -22,16 +22,20 @@
 
         <div class="card-header">
           <img class="card-img-avatar" src="{{getAvatar(issue.assigneeId)}}" alt="avatar">
-            <img class="card-img-type" src="{{getTaskType(issue.type)}}" alt="type">
-            <img class="card-img-priority" src="{{getTaskPriority(issue.priority)}}" alt="priority">
+          <img class="card-img-type" src="{{getTaskType(issue.type)}}" alt="type">
+          <img class="card-img-priority" src="{{getTaskPriority(issue.priority)}}" alt="priority">
         </div>
 
         <div class="card-body">
           <span class="card-text">{{issue.title}}</span><br>
-          <i class="material-icons"
-             *ngIf="hasSubtask(issue) && !isSubtaskFilterAcitve">arrow_forward_ios</i>
-          <i class="material-icons"
-             *ngIf="isSubtaskFilterAcitve">arrow_back_ios</i>
+          <img class="card-img-subtask"
+               *ngIf="hasSubtask(issue) && !isSubtaskFilterAcitve"
+               src="{{'http://localhost:4200/assets/pics/issue-subtasks/more.png'}}"
+               alt="more">
+          <img class="card-img-subtask"
+               *ngIf="isSubtaskFilterAcitve"
+               src="{{'http://localhost:4200/assets/pics/issue-subtasks/more.png'}}"
+               alt="more">
         </div>
 
       </div>
