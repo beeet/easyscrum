@@ -21,8 +21,18 @@ export class FilterTableComponent implements OnInit, OnChanges {
   innerWidth: any;
   contextmenu = {visible: false, posX: 0, posY: 0};
   selectedItem;
-  selectedType;
-  selectedPriority;
+  filterTypes = [
+    {value: '', name: 'all types'},
+    {value: 'S', name: 'story'},
+    {value: 'B', name: 'bug'},
+    {value: 'T', name: 'task'}];
+
+  filterPriorities = [
+    {value: '', name: 'all priorities'},
+    {value: '1', name: 'blocker'},
+    {value: '2', name: 'high'},
+    {value: '3', name: 'medium'},
+    {value: '4', name: 'low'}];
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;

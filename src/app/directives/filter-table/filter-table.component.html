@@ -21,10 +21,10 @@
       <tr class="table-light">
         <td></td>
         <td>
-          <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()" [(ngModel)]="selectedType">
-            <option value="all">All</option>
-            <option *ngFor="let type of items" value="{{type.type}}" >
-              {{type}}
+          <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()"
+                  [(ngModel)]="filter[0].value">
+            <option *ngFor="let type of filterTypes" value="{{type.value}}">
+              {{type.name}}
             </option>
           </select>
         </td>
@@ -40,10 +40,10 @@
           </div>
         </td>
         <td>
-          <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()" [(ngModel)]="selectedPriority">
-            <option value="all">All</option>
-            <option *ngFor="let type of items" value="{{type.type}}" >
-              {{type}}
+          <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()"
+                  [(ngModel)]="filter[2].value">
+            <option *ngFor="let prio of filterPriorities" value="{{prio.value}}">
+              {{prio.name}}
             </option>
           </select>
         </td>
@@ -96,15 +96,34 @@
 </div>
 
 <div *ngIf="innerWidth <= 767" class="container">
-  <div class="input-group">
-    <input [(ngModel)]="globalFilter" (keyup)="filterItems()" type="text" class="form-control" placeholder="Filter"
-           aria-label="Filter" aria-describedby="button-addon2">
+
+
+  <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()"
+          [(ngModel)]="filter[0].value">
+    <option *ngFor="let type of filterTypes" value="{{type.value}}">
+      {{type.name}}
+    </option>
+  </select>
+  <br>
+
+  <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()"
+          [(ngModel)]="filter[2].value">
+    <option *ngFor="let prio of filterPriorities" value="{{prio.value}}">
+      {{prio.name}}
+    </option>
+  </select>
+  <br>
+
+  <div class="input-group input-group-sm">
+    <input [(ngModel)]="filter[1].value" (keyup)="filterItems()" type="text" class="form-control"
+           placeholder="Filter" aria-label="Filter" aria-describedby="filter-field">
     <div class="input-group-append">
-      <button [disabled]="!globalFilter" class="btn btn-outline-secondary" type="button" id="globalFilterButton"
-              (click)="globalFilter = ''; filterItems()">X
+      <button [disabled]="!filter[1].value" class="btn btn-outline-secondary" type="button" id="filterButton2"
+              (click)="filter[1].value = ''; filterItems()">X
       </button>
     </div>
   </div>
+
   <br>
   <div class="table-responsive-sm">
     <table class="table table-hover table-striped" (click)="disableContextMenu()" oncontextmenu="return false;">
@@ -152,5 +171,6 @@
   </div>
 </div>
 <div *ngIf="contextmenu.visible">
-  <app-context-menu [x]="contextmenu.posX" [y]="contextmenu.posY" [actions]="contextmenuActions" (action)="onAction($event)"></app-context-menu>
+  <app-context-menu [x]="contextmenu.posX" [y]="contextmenu.posY" [actions]="contextmenuActions"
+                    (action)="onAction($event)"></app-context-menu>
 </div>
