@@ -1,7 +1,7 @@
 {
   "__comment": "TODO translations to each component",
   "commons.validation.field.required": "This field is required.",
-  "commons.validation.field.minlength": "This field must be min 30 characters long.",
+  "commons.validation.field.minlength": "This field must be min 3 characters long.",
   "commons.validation.field.maxlength": "This field must be max 30 characters long.",
 
   "app.sprint-backlog": "Sprint-Backlog",
@@ -27,10 +27,11 @@
   "issue-board.type.task": "Task",
   "issue-board.priority": "Priority",
   "issue-board.priority.placeholder": "choose priority",
-  "issue-board.priority.blocker": "Blocker",
-  "issue-board.priority.high": "High",
+  "issue-board.priority.critical": "Critical",
+  "issue-board.priority.major": "Major",
   "issue-board.priority.medium": "Medium",
-  "issue-board.priority.low": "Low",
+  "issue-board.priority.minor": "Minor",
+  "issue-board.priority.trivial": "Trivial",
   "issue-board.assignee": "Assignee",
   "issue-board.assignee.placeholder": "choose assignee",
   "issue-board.assignee.new.placeholder": "add assignee",

@@ -1,43 +1,37 @@
 <div class="container">
   <h1>
-    {{'app.issue-board' | translate}}
+    {{'app.issue-board' | translate}} Reactive Form
   </h1>
 
-  <form (ngSubmit)="onSave()" #issueForm="ngForm" novalidate>
+  <form [formGroup]="theForm" (ngSubmit)="theForm.valid && onSave(theForm.value)">
     <div class="row">
       <div class="form-group col-md-6">
-        <label id="titleLabel" for="titleInput">{{'issue-board.title' | translate }}</label>
-        <input id="titleInput"
+        <label id="titleLabel" for="title">{{'issue-board.title' | translate }}</label>
+        <input id="title"
                class="form-control"
-               name="title"
                type="text"
                placeholder="{{'issue-board.title.placeholder' | translate }}"
-               required
-               mixlength="3"
-               maxlength="30"
-               [(ngModel)]="currentIssue.title" #title="ngModel">
+               formControlName="title"
+        >
         <div *ngIf="title.invalid && (title.dirty || title.touched)"
              class="alert alert-danger">
-          <small *ngIf="title.hasError('required')">
-            {{'commons.validation.field.required' | translate }}
+          <small *ngIf="title.errors.required">
+            {{'commons.validation.field.required' | translate}}
           </small>
-          <small *ngIf="title.hasError('minlength')">
-            {{'commons.validation.field.minlength' | translate }}
+          <small *ngIf="title.errors.minlength">
+            {{'commons.validation.field.minlength' | translate}}
           </small>
-          <small *ngIf="title.hasError('maxlength')">
-            {{'commons.validation.field.maxlength' | translate }}
+          <small *ngIf="title.errors.maxlength">
+            {{'commons.validation.field.maxlength' | translate}}
           </small>
         </div>
-        <!--TODO sbs interpolation of params. e.g. number of char-->
-        <!--TODO sbs min/max validation doesn't work-->
       </div>
       <div class="form-group col-md-6">
-        <label id="sprintLabel" for="sprintInput">{{'issue-board.sprint' | translate }}</label>
-        <select id="sprintInput"
+        <label id="sprintLabel" for="sprint">{{'issue-board.sprint' | translate }}</label>
+        <select id="sprint"
                 class="form-control"
-                name="sprint"
-                [(ngModel)]="currentIssue.sprintId"
-                [disabled]="issueService.isMutationIssueAllowed(currentIssue)">
+                formControlName="sprintId"
+        >
           <option value="" disabled selected>{{'issue-board.sprint.placeholder' | translate}}</option>
           <option *ngFor="let sprint of sprintService.getAll()" [ngValue]="sprint.id">
             {{sprint.name}} ({{sprint.begin | date:"dd.MM.yyyy"}} - {{sprint.end | date:"dd.MM.yyyy"}})
@@ -48,21 +42,23 @@
 
     <div class="row">
       <div class="form-group col-md-12">
-        <label id="descriptionLabel" for="descriptionInput">{{'issue-board.description' | translate }}</label>
-        <textarea id="descriptionInput"
+        <label id="descriptionLabel" for="description">{{'issue-board.description' | translate }}</label>
+        <textarea id="description"
                   class="form-control"
-                  name="description"
                   type="text"
                   placeholder="{{'issue-board.description.placeholder' | translate }}"
                   rows="3"
-                  required
-                  maxlength="2000"
-                  [(ngModel)]="currentIssue.description" #description="ngModel">
-               <div [hidden]="description.valid || description.pristine"
-                    class="alert alert-danger">
-                    {{'commons.validation.field.required' | translate }}
-               </div>
-        </textarea>
+                  formControlName="description"
+        ></textarea>
+        <div *ngIf="description.invalid && (description.dirty || description.touched)"
+             class="alert alert-danger">
+          <small *ngIf="description.errors.required">
+            {{'commons.validation.field.required' | translate}}
+          </small>
+          <small *ngIf="description.errors.maxlength">
+            {{'commons.validation.field.maxlength' | translate}}
+          </small>
+        </div>
         <small id="descriptionHelp"
                class="form-text text-muted">{{'issue-board.description.help' | translate }}
         </small>
@@ -71,26 +67,24 @@
 
     <div class="row">
       <div class="form-group col-md-6">
-        <label id="typeLabel" for="typeInput">{{'issue-board.type' | translate}}</label>
-        <select id="typeInput"
+        <label id="typeLabel" for="type">{{'issue-board.type' | translate}}</label>
+        <select id="type"
                 class="form-control"
-                name="type"
-                required
-                [(ngModel)]="currentIssue.type" #type="ngModel">
+                formControlName="type"
+                >
           <option value="" disabled selected>{{'issue-board.type.placeholder' | translate}}</option>
-          <option value="{{issueTypes.story}}">{{'issue-board.type.story' | translate}}</option>
-          <option value="{{issueTypes.bug}}">{{'issue-board.type.bug' | translate}}</option>
-          <option value="{{issueTypes.task}}">{{'issue-board.type.task' | translate}}</option>
+          <option *ngFor="let issueType of issueTypes" value="{{issueType.id}}">{{('issue-board.type.' + issueType.value) |
+            translate}}</option>
         </select>
       </div>
 
-
       <div class="form-group col-md-6">
-        <label id="assigneeLabel" for="assigneeInput">{{'issue-board.assignee' | translate }}</label>
+        <label id="assigneeLabel" for="assignee">{{'issue-board.assignee' | translate }}</label>
         <div class="input-group mb-3" [hidden]="isAssigneeEditable">
-          <select id="assigneeInput"
+          <select id="assignee"
                   class="custom-select"
-                  [(ngModel)]="currentIssue.assigneeId" [ngModelOptions]="{standalone: true}">
+                  formControlName="assigneeId"
+          >
             <option value="" disabled selected>{{'issue-board.assignee.placeholder' | translate}}</option>
             <option *ngFor="let assignee of assigneeService.getAll()" [ngValue]="assignee.id">
               {{assignee.nickname}}
@@ -98,7 +92,7 @@
           </select>
           <div class="input-group-append"
                (click)="addAssignee()">
-            <label class="input-group-text" for="assigneeInput">+</label>
+            <label class="input-group-text" for="assignee">+</label>
           </div>
         </div>
         <div class="input-group mb-3" [hidden]="!isAssigneeEditable">
@@ -118,50 +112,45 @@
 
     <div class="row">
       <div class="form-group col-md-6">
-        <label id="priorityLabel" for="priorityInput">{{'issue-board.priority' | translate}}</label>
-        <select id="priorityInput"
+        <label id="priorityLabel" for="priority">{{'issue-board.priority' | translate}}</label>
+        <select id="priority"
                 class="form-control"
-                name="priority"
-                [(ngModel)]="currentIssue.priority" #priority="ngModel">
+                formControlName="priority">
           <option value="" disabled selected>{{'issue-board.priority.placeholder' | translate}}</option>
-          <option value="{{issuePriorities.blocker}}">{{'issue-board.priority.blocker' | translate}}</option>
-          <option value="{{issuePriorities.high}}">{{'issue-board.priority.high' | translate}}</option>
-          <option value="{{issuePriorities.medium}}">{{'issue-board.priority.medium' | translate}}</option>
-          <option value="{{issuePriorities.low}}">{{'issue-board.priority.low' | translate}}</option>
+          <option *ngFor="let issuePriority of issuePriorities"
+                  value="{{issuePriority.id}}">{{('issue-board.priority.' + issuePriority.value) |
+            translate}}</option>
         </select>
       </div>
       <div class="form-group col-md-6">
-        <label id="dueDateLabel" for="dueDateInput">{{'issue-board.dueDate' | translate}}</label>
-        <input id="dueDateInput"
+        <label id="dueDateLabel" for="dueDate">{{'issue-board.dueDate' | translate}}</label>
+        <input id="dueDate"
                class="form-control"
-               name="dueDate"
+               formControlName="dueDate"
                type="date"
-               [(ngModel)]="currentIssue.dueDate" #dueDate="ngModel">
+               >
       </div>
     </div>
 
     <div class="row">
       <div class="form-group col-md-6">
-        <label id="stateLabel" for="stateInput">{{'issue-board.state' | translate}}</label>
-        <select id="stateInput"
+        <label id="stateLabel" for="state">{{'issue-board.state' | translate}}</label>
+        <select id="state"
                 class="form-control"
-                name="state"
-                [(ngModel)]="currentIssue.state" #state="ngModel">
+                formControlName="state"
+                >
           <option value="" disabled selected>{{'issue-board.state.placeholder' | translate}}</option>
-          <option value="{{issueStates.open}}">{{'issue-board.state.open' | translate}}</option>
-          <option value="{{issueStates.inwork}}">{{'issue-board.state.inwork' | translate}}</option>
-          <option value="{{issueStates.intest}}">{{'issue-board.state.intest' | translate}}</option>
-          <option value="{{issueStates.done}}">{{'issue-board.state.done' | translate}}</option>
+          <option *ngFor="let issueState of issueStates" value="{{issueState.id}}">{{('issue-board.state.' + issueState.value)|
+            translate}}</option>
         </select>
       </div>
       <div class="form-group col-md-6">
-        <label id="estimatedLabel" for="estimatedInput">{{'issue-board.estimated' | translate}}</label>
-        <input id="estimatedInput"
+        <label id="estimatedLabel" for="estimated">{{'issue-board.estimated' | translate}}</label>
+        <input id="estimated"
                class="form-control"
-               name="estimated"
+               formControlName="estimated"
                type="number"
-               min="0"
-               [(ngModel)]="currentIssue.estimated" #estimated="ngModel">
+               >
       </div>
     </div>
 
@@ -170,31 +159,27 @@
         <label id="resolutionLabel" for="resolutionInput">{{'issue-board.resolution' | translate}}</label>
         <select id="resolutionInput"
                 class="form-control"
-                name="resolution"
-                [(ngModel)]="currentIssue.resolution" #priority="ngModel">
-          <option value="" disabled selected>{{'issue-board.resolution.placeholder' | translate}}</option>
-          <option value="{{issueResolutions.unresolved}}">{{'issue-board.resolution.unresolved' | translate}}</option>
-          <option value="{{issueResolutions.fixed}}">{{'issue-board.resolution.fixed' | translate}}</option>
-          <option value="{{issueResolutions.wontfix}}">{{'issue-board.resolution.wontfix' | translate}}</option>
-          <option value="{{issueResolutions.duplicate}}">{{'issue-board.resolution.duplicate' | translate}}</option>
-          <option value="{{issueResolutions.incomplete}}">{{'issue-board.resolution.incomplete' | translate}}</option>
+                formControlName="resolution">
+          <option value="" selected>{{'issue-board.resolution.placeholder' | translate}}</option>
+          <option *ngFor="let issueResolution of issueResolutions"
+                  value="{{issueResolution.id}}">{{('issue-board.resolution.' + issueResolution.value) |
+            translate}}</option>
         </select>
       </div>
       <div class="form-group col-md-6">
         <label id="elapsedLabel" for="elapsedInput">{{'issue-board.elapsed' | translate}}</label>
         <input id="elapsedInput"
                class="form-control"
-               name="elapsed"
+               formControlName="elapsed"
                type="number"
-               min="0"
-               [(ngModel)]="currentIssue.elapsed" #elapsed="ngModel">
+               >
       </div>
     </div>
 
     <button type="button"
             class="btn btn-primary"
             (click)="onSave()"
-            [disabled]="!issueForm.form.valid">
+            [disabled]="!theForm.valid">
       {{'issue-board.buttonSave' | translate }}
     </button>
     <button type="button"

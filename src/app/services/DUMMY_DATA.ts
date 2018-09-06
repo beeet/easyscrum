@@ -90,7 +90,8 @@ export let sprintData = [
   }
 ];
 export let issueData = [];
-issueData = [{
+issueData = [
+  {
   id: 1,
   title: 'Animation not working',
   description: 'Angular 6 Animation is not working in IE',

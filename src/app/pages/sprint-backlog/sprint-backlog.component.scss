@@ -29,21 +29,32 @@ div {
   .material-icons {
     text-align: right;
   }
-  @media (min-width: 768px) {
-    #swimmlane-open, #swimmlane-inwork, #swimmlane-intest, #swimmlane-done {
-      border-right: ridge var(--color-black);
-    }
-    #swimmlane-open {
-      border-left: ridge var(--color-black);
-    }
+}
+
+@media (min-width: 769px) {
+  #swimmlane-open, #swimmlane-inwork, #swimmlane-intest, #swimmlane-done {
+    border-right: ridge var(--color-black);
+  }
+  #swimmlane-open {
+    border-left: ridge var(--color-black);
+  }
+}
+
+@media (max-width: 768px) {
+  #swimmlane-open, #swimmlane-inwork, #swimmlane-intest {
+    border-right: ridge var(--color-black);
+  }
+}
+
+@media (max-width: 767px) {
+  #swimmlane-open, #swimmlane-inwork, #swimmlane-intest {
+    border-right: none;
   }
 }
 
 
   //obsolete
-  #createTask {
-    display: block;
-    margin: 0 auto;
-  }
-
-
+#createTask {
+  display: block;
+  margin: 0 auto;
+}
