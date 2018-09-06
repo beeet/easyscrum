@@ -1,26 +1,66 @@
-div.card {
-  margin: 1rem;
-  background-color: var(--color-card-blue);
-  list-style-type:none;
-}
-img.card-img-top {
-  margin: 1rem;
-  width: 20%;
-}
-span.card-text {
-  color: var(--color-white);
+div {
+  .card {
+    margin: 1rem;
+    background-color: var(--color-card-blue);
+    list-style-type: none;
+  }
+  .card-header {
+
+  }
+  .card-body {
+
+  }
+  .card-img-avatar {
+    width: 30%;
+  }
+  .card-img-type {
+    width: 10%;
+    position: absolute;
+    right: 20%;
+  }
+  .card-img-priority {
+    width: 10%;
+    position: absolute;
+    right: 5%;
+  }
+  .card-img-subtask {
+    width: 10%;
+    position: absolute;
+    right: 5%;
+    bottom: 5%;
+  }
+  span.card-text {
+    color: var(--color-white);
+  }
+  .material-icons {
+    text-align: right;
+  }
 }
 
-#createTask {
-  display: block;
-  margin: 0 auto;
-}
-
-@media (min-width: 768px) {
+@media (min-width: 769px) {
   #swimmlane-open, #swimmlane-inwork, #swimmlane-intest, #swimmlane-done {
     border-right: ridge var(--color-black);
   }
   #swimmlane-open {
     border-left: ridge var(--color-black);
   }
+}
+
+@media (max-width: 768px) {
+  #swimmlane-open, #swimmlane-inwork, #swimmlane-intest {
+    border-right: ridge var(--color-black);
+  }
+}
+
+@media (max-width: 767px) {
+  #swimmlane-open, #swimmlane-inwork, #swimmlane-intest {
+    border-right: none;
+  }
+}
+
+
+  //obsolete
+#createTask {
+  display: block;
+  margin: 0 auto;
 }

@@ -25,17 +25,17 @@ export class Enum {
 }
 
 export const IssueTypes = [
-  new Enum('S', 'story', require('../../assets/pics/story.png')),
-  new Enum('B', 'bug', require('../../assets/pics/bug.png')),
-  new Enum('T', 'task', require('../../assets/pics/task.png'))
+  new Enum('S', 'story', require('../../assets/pics/issue-types/story.png')),
+  new Enum('B', 'bug', require('../../assets/pics/issue-types/bug.png')),
+  new Enum('T', 'task', require('../../assets/pics/issue-types/task.png'))
 ];
 
 export const IssuePriorities = [
-  new Enum('1', 'critical', require('../../assets/pics/critical.png')),
-  new Enum('2', 'major', require('../../assets/pics/major.png')),
-  new Enum('3', 'medium', require('../../assets/pics/medium.png')),
-  new Enum('4', 'minor', require('../../assets/pics/minor.png')),
-  new Enum('5', 'trivial', require('../../assets/pics/trivial.png'))
+  new Enum('1', 'critical', require('../../assets/pics/issue-priorities/critical.png')),
+  new Enum('2', 'major', require('../../assets/pics/issue-priorities/major.png')),
+  new Enum('3', 'medium', require('../../assets/pics/issue-priorities/medium.png')),
+  new Enum('4', 'minor', require('../../assets/pics/issue-priorities/minor.png')),
+  new Enum('5', 'trivial', require('../../assets/pics/issue-priorities/trivial.png'))
 ];
 
 export const Done = new Enum('D', 'done');
