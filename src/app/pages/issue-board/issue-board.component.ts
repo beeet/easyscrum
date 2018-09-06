@@ -5,7 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {AssigneeService} from '../../services/assignee.service';
 import {SprintService} from '../../services/sprint.service';
 import {IssueState} from '../../services/issueState';
-import {IssueType, IssueTypes} from '../../services/issueType';
+import {IssuePriorities, IssueResolutions, IssueStates, IssueType, IssueTypes} from '../../services/issueType';
 import {IssuePriority} from '../../services/issuePriority';
 import {IssueResolution} from '../../services/issueResolution';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
@@ -18,15 +18,15 @@ import {Issue} from "../../services/issue";
 })
 export class IssueBoardComponent implements OnInit {
   currentIssue: Issue;
-  issueStates = IssueState;
+  issueStates = IssueStates;
   issueTypes = IssueTypes;
-  issuePriorities = IssuePriority;
-  issueResolutions = IssueResolution;
+  issuePriorities = IssuePriorities;
+  issueResolutions = IssueResolutions;
 
   theForm: FormGroup;
 
   constructor(translate: TranslateService, private route: ActivatedRoute, router: Router,
-              public issueService: IssueService, assigneeService: AssigneeService, public sprintService: SprintService,
+              public issueService: IssueService, public assigneeService: AssigneeService, public sprintService: SprintService,
   private formBuilder: FormBuilder) {}
 
   ngOnInit() {
@@ -35,41 +35,57 @@ export class IssueBoardComponent implements OnInit {
       this.currentIssue = this.issueService.get(urlParam);
     } else {
       this.currentIssue = this.issueService.create();
-      // TODO: remove
-      this.currentIssue.type = IssueType.story;
     }
 
     this.theForm = this.formBuilder.group({
-      'title': new FormControl(this.currentIssue.title, [
+      title: new FormControl(this.currentIssue.title, [
         Validators.required,
         Validators.minLength(3),
-        Validators.maxLength(30)
+        Validators.maxLength(300)
       ]),
-      'sprint': new FormControl(this.currentIssue.sprintId, []),
-      'description': new FormControl(this.currentIssue.description, [
+      sprintId: new FormControl(this.currentIssue.sprintId, []),
+      description: new FormControl(this.currentIssue.description, [
         Validators.required,
-        Validators.maxLength(3000)
+        Validators.maxLength(30000)
       ]),
-      'type': new FormControl(this.currentIssue.type, [
+      type: new FormControl(this.currentIssue.type, [
         Validators.required
+      ]),
+      assigneeId: new FormControl(this.currentIssue.assigneeId, []),
+      priority: new FormControl(this.currentIssue.priority, []),
+      dueDate: new FormControl(this.currentIssue.dueDate, []),
+      state: new FormControl(this.currentIssue.state, []),
+      estimated: new FormControl(this.currentIssue.estimated, [
+        Validators.min(0)
+      ]),
+      resolution: new FormControl({
+        name: this.currentIssue.resolution,
+        disabled: true
+      }, []),
+      elapsed: new FormControl(this.currentIssue.elapsed, [
+        Validators.min(0)
       ])
     });
   }
 
   get title() { return this.theForm.get('title'); }
   get description() { return this.theForm.get('description'); }
+  get state() { return this.theForm.get('state').value; }
 
   onSave() {
+    const a = this.state;
     console.log(this.theForm);
     console.log('raw', this.theForm.getRawValue());
-    console.log('radio', this.theForm.get('type'));
-    this.currentIssue.title = this.theForm.get('title').value;
-    this.currentIssue.sprintId = this.theForm.get('sprint').value;
-    this.currentIssue.description = this.theForm.get('description').value;
-    this.currentIssue.type = this.theForm.get('type').value;
-    console.log(this.currentIssue);
-    // this.currentIssue = this.theForm.getRawValue(); TODO geht das ev. so einfacher?
+    console.log('currentIssue1', this.currentIssue.title);
+    this.currentIssue = Object.assign(this.currentIssue, this.theForm.getRawValue());
+    console.log('currentIssue2', this.currentIssue.title);
+    // this.currentIssue.title = this.theForm.get('title').value;
+    // this.currentIssue.sprintId = this.theForm.get('sprint').value;
+    // this.currentIssue.description = this.theForm.get('description').value;
+    // this.currentIssue.type = this.theForm.get('type').value;
+    // console.log('currentIssue', this.currentIssue);
     this.issueService.put(this.currentIssue);
+    console.log('saved', this.issueService.getAll());
     // this.router.navigate(['/sprint-backlog'])
     //   .catch(reason =>
     //     console.log('error while navigate to sprint-backlog' + JSON.stringify(reason))

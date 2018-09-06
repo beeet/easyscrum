@@ -6,17 +6,51 @@ export enum IssueType {
   task = 'T'
 }
 
-export class IssueType2 {
+export class Enum {
 
-  constructor(private _id: string, private  _value: string, private _imageSrc: string) {}
+  constructor(private _id: string, private  _value: string, private _imageSrc?: string) {
+  }
 
-  get id() {return this._id;}
-  get value() {return this._value;}
-  get imageSrc() {return this._imageSrc;}
+  get id() {
+    return this._id;
+  }
+
+  get value() {
+    return this._value;
+  }
+
+  get imageSrc() {
+    return this._imageSrc;
+  }
 }
 
 export const IssueTypes = [
-  new IssueType2('S', 'Story', require('../../assets/pics/story.png')),
-  new IssueType2('B', 'Bug', require('../../assets/pics/bug.png')),
-  new IssueType2('T', 'Task', require('../../assets/pics/task.png'))
+  new Enum('S', 'story', require('../../assets/pics/story.png')),
+  new Enum('B', 'bug', require('../../assets/pics/bug.png')),
+  new Enum('T', 'task', require('../../assets/pics/task.png'))
+];
+
+export const IssuePriorities = [
+  new Enum('1', 'critical', require('../../assets/pics/critical.png')),
+  new Enum('2', 'major', require('../../assets/pics/major.png')),
+  new Enum('3', 'medium', require('../../assets/pics/medium.png')),
+  new Enum('4', 'minor', require('../../assets/pics/minor.png')),
+  new Enum('5', 'trivial', require('../../assets/pics/trivial.png'))
+];
+
+export const IssueStates = [
+  new Enum('O', 'open', require('../../assets/pics/open.png')),
+  new Enum('W', 'inwork', require('../../assets/pics/working.png')),
+  new Enum('T', 'intest', require('../../assets/pics/testing.png')),
+  new Enum('D', 'done', require('../../assets/pics/testing.png')),
+];
+
+export const IssueResolutions = [
+  new Enum('D', 'done'),
+  new Enum('WD', 'wontdo'),
+  new Enum('F', 'fixed'),
+  new Enum('WF', 'wontfix'),
+  new Enum('U', 'unresolved'),
+  new Enum('I', 'incomplete'),
+  new Enum('DU', 'duplicate')
 ];

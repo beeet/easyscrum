@@ -33,8 +33,8 @@
         <label id="sprintLabel" for="sprint">{{'issue-board.sprint' | translate }}</label>
         <select id="sprint"
                 class="form-control"
-                formControlName="sprint"
-                [disabled]="issueService.isMutationIssueAllowed(currentIssue)">
+                formControlName="sprintId"
+        >
           <option value="" disabled selected>{{'issue-board.sprint.placeholder' | translate}}</option>
           <option *ngFor="let sprint of sprintService.getAll()" [ngValue]="sprint.id">
             {{sprint.name}} ({{sprint.begin | date:"dd.MM.yyyy"}} - {{sprint.end | date:"dd.MM.yyyy"}})
@@ -71,33 +71,128 @@
     <div class="row">
       <div class="form-group col-md-6">
         <label id="typeLabel" for="type">{{'issue-board.type' | translate}}</label>
-        <!--<select id="type"-->
-                <!--class="form-control"-->
-                <!--formControlName="type"-->
-        <!--&gt;-->
-          <!--<option value="" disabled selected>{{'issue-board.type.placeholder' | translate}}</option>-->
-          <!--<option value="{{issueTypes.story}}">{{'issue-board.type.story' | translate}}</option>-->
-          <!--<option value="{{issueTypes.bug}}">{{'issue-board.type.bug' | translate}}</option>-->
-          <!--<option value="{{issueTypes.task}}">{{'issue-board.type.task' | translate}}</option>-->
-        <!--</select>-->
-        <fieldset>
-          <div *ngFor="let issueType of issueTypes">
-            <input value="{{issueType.id}}" id="type1-{{issueType.id}}" class="form-control" type="radio" name="type"
-                   formControlName="type" checked="{{issueType.id === currentIssue.type ? 'checked' : ''}}"/>
-            <label class="es-radio" for="type1-{{issueType.id}}">
-              <img src="{{issueType.imageSrc}}" width="15px">
-              Bug
-            </label>
-
-            <!--<label>-->
-              <!--<img src="{{issueType.imageSrc}}">-->
-              <!--{{issueType.value}}-->
-            <!--</label>-->
-            <!--<input type="radio" value="{{issueType.id}}" id="type1-{{issueType.id}}" class="form-control"-->
-                   <!--formControlName="type" checked="{{issueType.id === currentIssue.type ? 'checked' : ''}}">-->
-          </div>
-        </fieldset>
+        <select id="type"
+                class="form-control"
+                formControlName="type"
+                >
+          <option value="" disabled selected>{{'issue-board.type.placeholder' | translate}}</option>
+          <option *ngFor="let issueType of issueTypes" value="{{issueType.id}}">{{('issue-board.type.' + issueType.value) |
+            translate}}</option>
+        </select>
       </div>
+
+      <div class="form-group col-md-6">
+        <label id="assigneeLabel" for="assignee">{{'issue-board.assignee' | translate }}</label>
+        <select id="assignee"
+                class="form-control"
+                formControlName="assigneeId"
+                >
+          <option value="" disabled selected>{{'issue-board.assignee.placeholder' | translate}}</option>
+          <option *ngFor="let assignee of assigneeService.getAll()" [ngValue]="assignee.id">
+            {{assignee.nickname}}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label id="priorityLabel" for="priority">{{'issue-board.priority' | translate}}</label>
+        <select id="priority"
+                class="form-control"
+                formControlName="priority">
+          <option value="" disabled selected>{{'issue-board.priority.placeholder' | translate}}</option>
+          <option *ngFor="let issuePriority of issuePriorities"
+                  value="{{issuePriority.id}}">{{('issue-board.priority.' + issuePriority.value) |
+            translate}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label id="dueDateLabel" for="dueDate">{{'issue-board.dueDate' | translate}}</label>
+        <input id="dueDate"
+               class="form-control"
+               formControlName="dueDate"
+               type="date"
+               >
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label id="stateLabel" for="state">{{'issue-board.state' | translate}}</label>
+        <select id="state"
+                class="form-control"
+                formControlName="state"
+                >
+          <option value="" disabled selected>{{'issue-board.state.placeholder' | translate}}</option>
+          <option *ngFor="let issueState of issueStates" value="{{issueState.id}}">{{('issue-board.state.' + issueState.value)|
+            translate}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label id="estimatedLabel" for="estimated">{{'issue-board.estimated' | translate}}</label>
+        <input id="estimated"
+               class="form-control"
+               formControlName="estimated"
+               type="number"
+               >
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label id="resolutionLabel" for="resolutionInput">{{'issue-board.resolution' | translate}}</label>
+        <select id="resolutionInput"
+                class="form-control"
+                formControlName="resolution">
+          <option value="" selected>{{'issue-board.resolution.placeholder' | translate}}</option>
+          <option *ngFor="let issueResolution of issueResolutions"
+                  value="{{issueResolution.id}}">{{('issue-board.resolution.' + issueResolution.value) |
+            translate}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label id="elapsedLabel" for="elapsedInput">{{'issue-board.elapsed' | translate}}</label>
+        <input id="elapsedInput"
+               class="form-control"
+               formControlName="elapsed"
+               type="number"
+               >
+      </div>
+    </div>
+
+    <div>{{state}} / {{state !== 'D'}}</div>
+
+    <!--<div class="row">-->
+      <!--<div class="form-group col-md-6">-->
+        <!--<label id="typeLabel" for="type">{{'issue-board.type' | translate}}</label>-->
+        <!--&lt;!&ndash;<select id="type"&ndash;&gt;-->
+                <!--&lt;!&ndash;class="form-control"&ndash;&gt;-->
+                <!--&lt;!&ndash;formControlName="type"&ndash;&gt;-->
+        <!--&lt;!&ndash;&gt;&ndash;&gt;-->
+          <!--&lt;!&ndash;<option value="" disabled selected>{{'issue-board.type.placeholder' | translate}}</option>&ndash;&gt;-->
+          <!--&lt;!&ndash;<option value="{{issueTypes.story}}">{{'issue-board.type.story' | translate}}</option>&ndash;&gt;-->
+          <!--&lt;!&ndash;<option value="{{issueTypes.bug}}">{{'issue-board.type.bug' | translate}}</option>&ndash;&gt;-->
+          <!--&lt;!&ndash;<option value="{{issueTypes.task}}">{{'issue-board.type.task' | translate}}</option>&ndash;&gt;-->
+        <!--&lt;!&ndash;</select>&ndash;&gt;-->
+        <!--<fieldset>-->
+          <!--<div *ngFor="let issueType of issueTypes">-->
+            <!--<input value="{{issueType.id}}" id="type1-{{issueType.id}}" class="form-control" type="radio" name="type"-->
+                   <!--formControlName="type" checked="{{issueType.id === currentIssue.type ? 'checked' : ''}}"/>-->
+            <!--<label class="es-radio" for="type1-{{issueType.id}}">-->
+              <!--<img src="{{issueType.imageSrc}}" width="15px">-->
+              <!--Bug-->
+            <!--</label>-->
+
+            <!--&lt;!&ndash;<label>&ndash;&gt;-->
+              <!--&lt;!&ndash;<img src="{{issueType.imageSrc}}">&ndash;&gt;-->
+              <!--&lt;!&ndash;{{issueType.value}}&ndash;&gt;-->
+            <!--&lt;!&ndash;</label>&ndash;&gt;-->
+            <!--&lt;!&ndash;<input type="radio" value="{{issueType.id}}" id="type1-{{issueType.id}}" class="form-control"&ndash;&gt;-->
+                   <!--&lt;!&ndash;formControlName="type" checked="{{issueType.id === currentIssue.type ? 'checked' : ''}}">&ndash;&gt;-->
+          <!--</div>-->
+        <!--</fieldset>-->
+      <!--</div>-->
 
       <!--<div class="form-group col-md-6">-->
         <!--<label id="assigneeLabel" for="assigneeInput">{{'issue-board.assignee' | translate }}</label>-->
@@ -111,6 +206,12 @@
           <!--</option>-->
         <!--</select>-->
       <!--</div>-->
+    <!--</div>-->
+    <div>
+      Save Button disabled: {{!theForm.valid}}
+      <div *ngIf="!theForm.valid">
+        {{theForm.errors | json}}
+      </div>
     </div>
 
     <button type="button"
