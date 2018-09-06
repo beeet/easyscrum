@@ -29,7 +29,6 @@ export class SprintBacklogComponent implements OnInit {
     states: State[] = [];
     isSubtaskFilterAcitve = false;
     selectedAssigneeFilter: string;
-    doHighlight: boolean;
 
     constructor(translate: TranslateService,
                 route: ActivatedRoute,
@@ -129,10 +128,8 @@ export class SprintBacklogComponent implements OnInit {
     setAssigneeFilter(filterAssignee: string) {
         if (filterAssignee === this.selectedAssigneeFilter) {
             this.selectedAssigneeFilter = ''; // reset filter
-            this.doHighlight = false;
         } else {
             this.selectedAssigneeFilter = filterAssignee;
-            this.doHighlight = true;
         }
     }
 }
