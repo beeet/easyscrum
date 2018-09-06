@@ -31,6 +31,7 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 // import drag'n'drop
 import {DragulaModule} from 'ng2-dragula';
 import { FilterTableComponent } from './directives/filter-table/filter-table.component';
+import { ContextMenuComponent } from './directives/context-menu/context-menu.component';
 
 const appRoutes: Routes = [
   { path: '', component: SprintBacklogComponent },
@@ -57,7 +58,8 @@ export function createTranslateLoader(http: HttpClient) {
     BurndownChartComponent,
     PageNotFoundComponent,
     SprintIssueRatioComponent,
-    FilterTableComponent
+    FilterTableComponent,
+    ContextMenuComponent
   ],
   imports: [
     BrowserModule,

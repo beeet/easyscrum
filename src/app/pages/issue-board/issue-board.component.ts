@@ -22,6 +22,8 @@ export class IssueBoardComponent implements OnInit {
   issueTypes = IssueTypes;
   issuePriorities = IssuePriorities;
   issueResolutions = IssueResolutions;
+  isAssigneeEditable: boolean;
+  newAssignee: string;
 
   theForm: FormGroup;
 
@@ -30,6 +32,7 @@ export class IssueBoardComponent implements OnInit {
   private formBuilder: FormBuilder) {}
 
   ngOnInit() {
+    this.isAssigneeEditable = false;
     const urlParam = this.route.snapshot.paramMap.get('id');
     if (urlParam) {
       this.currentIssue = this.issueService.get(urlParam);
@@ -97,5 +100,21 @@ export class IssueBoardComponent implements OnInit {
 
   onDelete() {
     this.issueService.delete(this.currentIssue.id);
+  }
+
+  addAssignee() {
+    this.isAssigneeEditable = true;
+    return this.isAssigneeEditable;
+  }
+
+  saveAssignee() {
+    if (this.newAssignee && this.newAssignee !== '') {
+      const assignee = this.assigneeService.create();
+      assignee.nickname = this.newAssignee;
+      this.assigneeService.put(assignee);
+      this.currentIssue.assigneeId = assignee.id;
+    }
+    this.isAssigneeEditable = false;
+    return this.isAssigneeEditable;
   }
 }

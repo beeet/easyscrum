@@ -1,0 +1,13 @@
+<div class="contextmenu" [ngStyle]="{'left.px': x, 'top.px': y}">
+  <div>
+    <ul class="list-group">
+      <li *ngFor="let action of actions" class="list-group-item" (click)="onAction(action)"><i *ngIf="action.icon"
+                                                                                               class="material-icons">{{action.icon}}</i>{{'context-menu.'+
+        action.action |
+        translate}}
+      </li>
+    </ul>
+  </div>
+</div>
+
+

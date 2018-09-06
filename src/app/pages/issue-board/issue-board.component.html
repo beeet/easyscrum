@@ -3,7 +3,6 @@
     {{'app.issue-board' | translate}} Reactive Form
   </h1>
 
-  <!--<form (ngSubmit)="onSave()" #issueForm="ngForm" novalidate>-->
   <form [formGroup]="theForm" (ngSubmit)="theForm.valid && onSave(theForm.value)">
     <div class="row">
       <div class="form-group col-md-6">
@@ -14,7 +13,6 @@
                placeholder="{{'issue-board.title.placeholder' | translate }}"
                formControlName="title"
         >
-                    <!--TODO sbs interpolation of params. e.g. number of char-->
         <div *ngIf="title.invalid && (title.dirty || title.touched)"
              class="alert alert-danger">
           <small *ngIf="title.errors.required">
@@ -28,7 +26,6 @@
           </small>
         </div>
       </div>
-
       <div class="form-group col-md-6">
         <label id="sprintLabel" for="sprint">{{'issue-board.sprint' | translate }}</label>
         <select id="sprint"
@@ -82,16 +79,33 @@
       </div>
 
       <div class="form-group col-md-6">
-        <label id="assigneeLabel" for="assignee">{{'issue-board.assignee' | translate }}</label>
-        <select id="assignee"
-                class="form-control"
-                formControlName="assigneeId"
-                >
-          <option value="" disabled selected>{{'issue-board.assignee.placeholder' | translate}}</option>
-          <option *ngFor="let assignee of assigneeService.getAll()" [ngValue]="assignee.id">
-            {{assignee.nickname}}
-          </option>
-        </select>
+        <label id="assigneeLabel" for="assigneeInput">{{'issue-board.assignee' | translate }}</label>
+        <div class="input-group mb-3" [hidden]="isAssigneeEditable">
+          <select id="assigneeInput"
+                  class="custom-select"
+                  [(ngModel)]="currentIssue.assigneeId" [ngModelOptions]="{standalone: true}">
+            <option value="" disabled selected>{{'issue-board.assignee.placeholder' | translate}}</option>
+            <option *ngFor="let assignee of assigneeService.getAll()" [ngValue]="assignee.id">
+              {{assignee.nickname}}
+            </option>
+          </select>
+          <div class="input-group-append"
+               (click)="addAssignee()">
+            <label class="input-group-text" for="assigneeInput">+</label>
+          </div>
+        </div>
+        <div class="input-group mb-3" [hidden]="!isAssigneeEditable">
+          <input type="text"
+                 class="form-control"
+                 placeholder="{{'issue-board.assignee.new.placeholder' | translate}}"
+                [(ngModel)]="newAssignee" [ngModelOptions]="{standalone: true}">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary"
+                    type="button"
+                    id="button-addon2" (click)="saveAssignee()">Save
+            </button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -163,50 +177,6 @@
 
     <div>{{state}} / {{state !== 'D'}}</div>
 
-    <!--<div class="row">-->
-      <!--<div class="form-group col-md-6">-->
-        <!--<label id="typeLabel" for="type">{{'issue-board.type' | translate}}</label>-->
-        <!--&lt;!&ndash;<select id="type"&ndash;&gt;-->
-                <!--&lt;!&ndash;class="form-control"&ndash;&gt;-->
-                <!--&lt;!&ndash;formControlName="type"&ndash;&gt;-->
-        <!--&lt;!&ndash;&gt;&ndash;&gt;-->
-          <!--&lt;!&ndash;<option value="" disabled selected>{{'issue-board.type.placeholder' | translate}}</option>&ndash;&gt;-->
-          <!--&lt;!&ndash;<option value="{{issueTypes.story}}">{{'issue-board.type.story' | translate}}</option>&ndash;&gt;-->
-          <!--&lt;!&ndash;<option value="{{issueTypes.bug}}">{{'issue-board.type.bug' | translate}}</option>&ndash;&gt;-->
-          <!--&lt;!&ndash;<option value="{{issueTypes.task}}">{{'issue-board.type.task' | translate}}</option>&ndash;&gt;-->
-        <!--&lt;!&ndash;</select>&ndash;&gt;-->
-        <!--<fieldset>-->
-          <!--<div *ngFor="let issueType of issueTypes">-->
-            <!--<input value="{{issueType.id}}" id="type1-{{issueType.id}}" class="form-control" type="radio" name="type"-->
-                   <!--formControlName="type" checked="{{issueType.id === currentIssue.type ? 'checked' : ''}}"/>-->
-            <!--<label class="es-radio" for="type1-{{issueType.id}}">-->
-              <!--<img src="{{issueType.imageSrc}}" width="15px">-->
-              <!--Bug-->
-            <!--</label>-->
-
-            <!--&lt;!&ndash;<label>&ndash;&gt;-->
-              <!--&lt;!&ndash;<img src="{{issueType.imageSrc}}">&ndash;&gt;-->
-              <!--&lt;!&ndash;{{issueType.value}}&ndash;&gt;-->
-            <!--&lt;!&ndash;</label>&ndash;&gt;-->
-            <!--&lt;!&ndash;<input type="radio" value="{{issueType.id}}" id="type1-{{issueType.id}}" class="form-control"&ndash;&gt;-->
-                   <!--&lt;!&ndash;formControlName="type" checked="{{issueType.id === currentIssue.type ? 'checked' : ''}}">&ndash;&gt;-->
-          <!--</div>-->
-        <!--</fieldset>-->
-      <!--</div>-->
-
-      <!--<div class="form-group col-md-6">-->
-        <!--<label id="assigneeLabel" for="assigneeInput">{{'issue-board.assignee' | translate }}</label>-->
-        <!--<select id="assigneeInput"-->
-                <!--class="form-control"-->
-                <!--name="assignee"-->
-                <!--[(ngModel)]="currentIssue.assigneeId">-->
-          <!--<option value="" disabled selected>{{'issue-board.assignee.placeholder' | translate}}</option>-->
-          <!--<option *ngFor="let assignee of assigneeService.getAll()" [ngValue]="assignee.id">-->
-            <!--{{assignee.nickname}}-->
-          <!--</option>-->
-        <!--</select>-->
-      <!--</div>-->
-    <!--</div>-->
     <div>
       Save Button disabled: {{!theForm.valid}}
       <div *ngIf="!theForm.valid">
@@ -218,13 +188,13 @@
             class="btn btn-primary"
             (click)="onSave()"
             [disabled]="!theForm.valid">
-            {{'issue-board.buttonSave' | translate }}
+      {{'issue-board.buttonSave' | translate }}
     </button>
     <button type="button"
             class="btn btn-light"
             routerLink="/sprint-backlog/"
             (click)="onCancel()">
-            {{'issue-board.buttonCancel' | translate }}
+      {{'issue-board.buttonCancel' | translate }}
     </button>
     <button type="button"
             class="btn btn-danger"

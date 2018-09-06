@@ -43,44 +43,44 @@ export let sprintData = [
   {
     sprintId: 'SPR18-00002',
     name: 'Sprint KW26-27',
-    begin: dateUtil.newDate(2018, 5, 25),
-    end: dateUtil.newDate(2018, 6, 8)
+    begin: dateUtil.newDate(2018, 7, 25),
+    end: dateUtil.newDate(2018, 8, 8)
   },
   {
     sprintId: 'SPR18-00003',
     name: 'Sprint KW28-29',
-    begin: dateUtil.newDate(2018, 6, 9),
-    end: dateUtil.newDate(2018, 6, 22)
+    begin: dateUtil.newDate(2018, 8, 9),
+    end: dateUtil.newDate(2018, 8, 22)
   },
   {
     sprintId: 'SPR18-00004',
     name: 'Sprint KW30-31',
-    begin: dateUtil.newDate(2018, 6, 23),
-    end: dateUtil.newDate(2018, 7, 5)
+    begin: dateUtil.newDate(2018, 8, 23),
+    end: dateUtil.newDate(2018, 9, 5)
   },
   {
     sprintId: 'SPR18-00005',
     name: 'Sprint KW32-33',
-    begin: dateUtil.newDate(2018, 7, 6),
-    end: dateUtil.newDate(2018, 7, 19)
+    begin: dateUtil.newDate(2018, 9, 6),
+    end: dateUtil.newDate(2018, 9, 19)
   },
   {
     sprintId: 'SPR18-00006',
     name: 'Sprint KW34-35',
-    begin: dateUtil.newDate(2018, 7, 20),
-    end: dateUtil.newDate(2018, 8, 2)
+    begin: dateUtil.newDate(2018, 9, 20),
+    end: dateUtil.newDate(2018, 10, 2)
   },
   {
     sprintId: 'SPR18-00007',
     name: 'Sprint KW36-37',
-    begin: dateUtil.newDate(2018, 8, 3),
-    end: dateUtil.newDate(2018, 8, 16)
+    begin: dateUtil.newDate(2018, 10, 3),
+    end: dateUtil.newDate(2018, 10, 16)
   },
   {
     sprintId: 'SPR18-00008',
     name: 'Sprint KW38-39',
-    begin: dateUtil.newDate(2018, 8, 17),
-    end: dateUtil.newDate(2018, 8, 30)
+    begin: dateUtil.newDate(2018, 10, 17),
+    end: dateUtil.newDate(2018, 10, 30)
   }
 ];
 export let issueData = [];
