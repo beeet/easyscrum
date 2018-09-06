@@ -5,7 +5,7 @@
 
   <div class="filter-avatar" *ngFor="let filterAssignee of getInvolvedAssignees()">
     <img class="filter-img-avatar"
-         highlight="filterAssignee === selectedAssigneeFilter"
+         appHighlight
          src="{{getAvatar(filterAssignee)}}"
          (click)="setAssigneeFilter(filterAssignee)"
          alt="filter of assignees">
@@ -38,11 +38,11 @@
           <span class="card-text">{{issue.title}}</span><br>
           <img class="card-img-subtask"
                *ngIf="hasSubtask(issue) && !isSubtaskFilterAcitve"
-               src="{{'http://localhost:4200/assets/pics/issue-subtasks/more.png'}}"
+               src="{{'http://localhost:4200/assets/pics/issue-subissues/more.png'}}"
                alt="more">
           <img class="card-img-subtask"
                *ngIf="isSubtaskFilterAcitve"
-               src="{{'http://localhost:4200/assets/pics/issue-subtasks/more.png'}}"
+               src="{{'http://localhost:4200/assets/pics/issue-subissues/more.png'}}"
                alt="more">
         </div>
 

@@ -95,25 +95,25 @@ export class SprintBacklogComponent implements OnInit {
 
     getTaskType(type: IssueType): string {
         if (IssueType.bug === type) {
-            return 'http://localhost:4200/assets/pics/bug.png';
+            return 'http://localhost:4200/assets/pics/issue-types/bug.png';
         } else if (IssueType.story === type) {
-            return 'http://localhost:4200/assets/pics/story.png';
+            return 'http://localhost:4200/assets/pics/issue-types/story.png';
         } else if (IssueType.task === type) {
-            return 'http://localhost:4200/assets/pics/task.png';
+            return 'http://localhost:4200/assets/pics/issue-types/task.png';
         }
     }
 
     getTaskPriority(priority: IssuePriority): string {
         if (IssuePriority.blocker === priority) {
-            return 'http://localhost:4200/assets/pics/critical.png';
+            return 'http://localhost:4200/assets/pics/issue-priorities/critical.png';
         } else if (IssuePriority.high === priority) {
-            return 'http://localhost:4200/assets/pics/major.png';
+            return 'http://localhost:4200/assets/pics/issue-priorities/major.png';
         } else if (IssuePriority.medium === priority) {
-            return 'http://localhost:4200/assets/pics/medium.png';
+            return 'http://localhost:4200/assets/pics/issue-priorities/medium.png';
         } else if (IssuePriority.low === priority) {
-            return 'http://localhost:4200/assets/pics/minor.png';
+            return 'http://localhost:4200/assets/pics/issue-priorities/minor.png';
         } else {
-            return 'http://localhost:4200/assets/pics/trivial0.png';
+            return 'http://localhost:4200/assets/pics/issue-priorities/trivial0.png';
         }
     }
 
