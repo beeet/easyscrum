@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import {IssueState} from '../../services/issueState';
 import {Component, OnInit} from '@angular/core';
-import {filteredByState, IssueService} from '../../services/issue.service';
+import {filteredByAssignee, filteredByState, IssueService} from '../../services/issue.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {DragulaService} from 'ng2-dragula';
@@ -31,6 +31,7 @@ export class SprintBacklogComponent implements OnInit {
     private router: Router;
     states: State[] = [];
     isSubtaskFilterAcitve = false;
+    selectedAssigneeFilter: string;
 
     constructor(translate: TranslateService,
                 route: ActivatedRoute,
@@ -63,7 +64,14 @@ export class SprintBacklogComponent implements OnInit {
 
     getIssues(issueState: IssueState): Issue[] {
         const sprintId = this.sprintService.getCurrent().id;
-        return this.issueService.getAllFilteredBySprint(sprintId).filter(filteredByState(issueState));
+
+        const sprintIssues = this.issueService.getAllFilteredBySprint(sprintId);
+        const issuesByState = sprintIssues.filter(filteredByState(issueState));
+        if (this.selectedAssigneeFilter && this.selectedAssigneeFilter !== ''){
+            return issuesByState.filter(filteredByAssignee(this.selectedAssigneeFilter));
+        } else {
+            return issuesByState;
+        }
     }
 
     getInvolvedAssignees(): string[] {
@@ -120,4 +128,11 @@ export class SprintBacklogComponent implements OnInit {
         // TODO sbs filter handling subtasks anzeigen (ein/aus)
     }
 
+    setAssigneeFilter(filterAssignee: string) {
+        if (filterAssignee === this.selectedAssigneeFilter){
+            this.selectedAssigneeFilter = ''; // reset filter
+        } else {
+            this.selectedAssigneeFilter = filterAssignee;
+        }
+    }
 }

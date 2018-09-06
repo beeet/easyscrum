@@ -5,7 +5,9 @@
 
   <div class="filter-avatar" *ngFor="let filterAssignee of getInvolvedAssignees()">
     <img class="filter-img-avatar"
+         highlight="filterAssignee === selectedAssigneeFilter"
          src="{{getAvatar(filterAssignee)}}"
+         (click)="setAssigneeFilter(filterAssignee)"
          alt="filter of assignees">
   </div>
 

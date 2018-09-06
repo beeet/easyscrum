@@ -21,7 +21,7 @@ export function filteredByState(issueState: IssueState) {
   return issue => issue.state === issueState;
 }
 
-export function filteredByAllignee(assigneeId: string) {
+export function filteredByAssignee(assigneeId: string) {
     return issue => issue.assigneeId === assigneeId;
 }
 
