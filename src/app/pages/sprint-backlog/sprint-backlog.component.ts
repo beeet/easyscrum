@@ -78,16 +78,7 @@ export class SprintBacklogComponent implements OnInit {
                 }
                 return a;
                 }, []);
-
-        // const set = new Set();
-        // assignees.forEach(id => {
-        //     if (value.avatar && value.avatar !== '') {
-        //         set.add(value.avatar);
-        //     }
-        // });
         return assignees;
-
-        // return Array.from(this.assigneeService.resolveAvatarInUse());
     }
 
     getAvatar(assigneeId: string): string {
