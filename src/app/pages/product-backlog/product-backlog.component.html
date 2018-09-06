@@ -9,7 +9,7 @@
           <div class="input-group-prepend sm-6">
             <button type="button" class="btn btn-outline-secondary btn-sm" (click)="sprintBackward()"><</button>
             <div class="input-group-append">
-              <select name="sprintSelect" class="form-control" (change)="changeSprint($event.target.value)" [(ngModel)]="selectedSprint">
+              <select name="sprintSelect" class="form-control form-control-sm" (change)="changeSprint($event.target.value)" [(ngModel)]="selectedSprint">
                 <option value="default">{{'product-backlog.sprint.placeholder' | translate}}</option>
                 <option *ngFor="let sprint of sprints" value="{{sprint.id}}" >
                   {{sprint.name}} ({{sprint.begin | date:"dd.MM.yyyy"}} - {{sprint.end | date:"dd.MM.yyyy"}})
@@ -23,7 +23,7 @@
         <div align="right" class="form-group col-md-6">
           <button type="button" class="btn btn-outline-secondary btn-sm" (click)="changeSprint(nextSprint.id)">
             {{nextSprint.name}} Estimated (h):
-            <span class="badge badge-primary">5</span>
+            <span class="badge badge-primary">{{nextIssuesEstimated}}</span>
           </button>
         </div>
 

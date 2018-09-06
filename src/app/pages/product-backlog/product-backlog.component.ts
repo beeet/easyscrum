@@ -12,6 +12,8 @@ export class ProductBacklogComponent {
   issueService: IssueService;
   sprintService: SprintService;
   issues;
+  nextIssues;
+  nextIssuesEstimated = 0;
   sprints;
   selectedSprint;
   nextSprint;
@@ -28,6 +30,8 @@ export class ProductBacklogComponent {
     this.issues = this.issueService.getAllWithoutSprintAssignment();
     this.sprints = this.sprintService.getAll();
     this.nextSprint = this.sprintService.getNext();
+    this.nextIssues = this.issueService.getAllFilteredBySprint(this.nextSprint.id);
+    this.nextIssues.forEach(i => this.nextIssuesEstimated += i.estimated);
     this.selectedSprint = 'default';
   }
 

@@ -21,6 +21,8 @@ export class FilterTableComponent implements OnInit, OnChanges {
   innerWidth: any;
   contextmenu = {visible: false, posX: 0, posY: 0};
   selectedItem;
+  selectedType;
+  selectedPriority;
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
