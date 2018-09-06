@@ -19,11 +19,21 @@
       <div class="card"
            *ngFor="let issue of getIssues(state.state)" id="{{issue.id}}"
            routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">
-        <!--https://www.google.ch/search?q=avatar+png&rlz=1C1CHBD_deCH790CH790&tbm=isch&tbo=u&source=univ&sa=X&ved=0ahUKEwjH0ePqxuDbAhXMkywKHdFUDYQQsAQIKA&biw=1904&bih=879-->
-        <img class="card-img-top" src="{{imageSrc}}" alt="avatar">
-        <div class="card-body">
-          <span class="card-text">{{issue.type}}<br/>{{issue.title}}</span>
+
+        <div class="card-header">
+          <img class="card-img-avatar" src="{{getAvatar(issue.assigneeId)}}" alt="avatar">
+            <img class="card-img-type" src="{{getTaskType(issue.type)}}" alt="type">
+            <img class="card-img-priority" src="{{getTaskPriority(issue.priority)}}" alt="priority">
         </div>
+
+        <div class="card-body">
+          <span class="card-text">{{issue.title}}</span><br>
+          <i class="material-icons"
+             *ngIf="hasSubtask(issue) && !isSubtaskFilterAcitve">arrow_forward_ios</i>
+          <i class="material-icons"
+             *ngIf="isSubtaskFilterAcitve">arrow_back_ios</i>
+        </div>
+
       </div>
     </div>
   </div>

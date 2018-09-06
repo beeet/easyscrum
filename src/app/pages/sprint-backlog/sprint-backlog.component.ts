@@ -8,6 +8,9 @@ import {DragulaService} from 'ng2-dragula';
 import {Issue} from '../../services/issue';
 import {State} from '../../services/state';
 import {SprintService} from '../../services/sprint.service';
+import {AssigneeService} from '../../services/assignee.service';
+import {IssueType} from '../../services/issueType';
+import {IssuePriority} from '../../services/issuePriority';
 
 declare function require(path: string);
 
@@ -18,26 +21,29 @@ declare function require(path: string);
 })
 
 export class SprintBacklogComponent implements OnInit {
-  imageSrc = require('../../../assets/pics/avatar.png');
   issueService: IssueService;
   sprintService: SprintService;
+  assigneeService: AssigneeService;
   issueStates = IssueState;
   private translate;
   private route: ActivatedRoute;
   private router: Router;
   states: State[] = [];
+  isSubtaskFilterAcitve = false;
 
   constructor(translate: TranslateService,
               route: ActivatedRoute,
               router: Router,
               issueService: IssueService,
               sprintService: SprintService,
+              assigneeService: AssigneeService,
               private dragula: DragulaService) {
     this.translate = translate;
     this.route = route;
     this.router = router;
     this.issueService = issueService;
     this.sprintService = sprintService;
+    this.assigneeService = assigneeService;
   }
 
   public getIssues(issueState: IssueState): Issue[] {
@@ -58,4 +64,43 @@ export class SprintBacklogComponent implements OnInit {
       this.issueService.get(id).state = state.state;
       });
   }
+
+    getAvatar(assigneeId: string): string {
+      return this.assigneeService.getAvatar(assigneeId);
+    }
+
+    getTaskType(type: IssueType): string {
+      if (IssueType.bug === type) {
+          return 'http://localhost:4200/assets/pics/bug.png';
+      } else if (IssueType.story === type) {
+          return 'http://localhost:4200/assets/pics/story.png';
+      } else if (IssueType.task === type) {
+          return 'http://localhost:4200/assets/pics/task.png';
+      }
+    }
+
+    getTaskPriority(priority: IssuePriority): string {
+        if (IssuePriority.blocker === priority) {
+            return 'http://localhost:4200/assets/pics/critical.png';
+        } else if (IssuePriority.high === priority) {
+            return 'http://localhost:4200/assets/pics/major.png';
+        } else if (IssuePriority.medium === priority) {
+            return 'http://localhost:4200/assets/pics/medium.png';
+        } else if (IssuePriority.low === priority) {
+            return 'http://localhost:4200/assets/pics/minor.png';
+        } else {
+            return 'http://localhost:4200/assets/pics/trivial0.png';
+        }
+    }
+
+    hasSubtask(issue: Issue): boolean {
+      return true; // TODO sbs wie werden subtasks ermittelt? via links?
+    }
+
+    setSubtaskFilterAcitve(event: any): void {
+      console.log('setSubtaskFilterAcitve clicked')
+      this.isSubtaskFilterAcitve = true;
+      // TODO sbs filter handling subtasks anzeigen (ein/aus)
+    }
+
 }
