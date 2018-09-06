@@ -7,6 +7,7 @@ import {SprintService} from './sprint.service';
 import {Injectable} from '@angular/core';
 import {DateUtil} from '../utils/date.util';
 import {issueData} from './DUMMY_DATA';
+import {IssuePriority} from './issuePriority';
 
 
 export function filterdByType(issueType: IssueType) {
@@ -40,8 +41,12 @@ export class IssueService implements Crud<Issue> {
   create(): Issue {
     const newIssue = new Issue();
     newIssue.id = UUID.UUID();
-    newIssue.state = IssueState.open;
     newIssue.creationDate = this.dateUtil.now();
+    // defaults
+    newIssue.type = IssueType.story;
+    newIssue.state = IssueState.open;
+    newIssue.priority = IssuePriority.medium;
+    // newIssue.assigneeId = TODO: unassigned setzten
     return newIssue;
   }
 
