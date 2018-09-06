@@ -4,9 +4,9 @@ import {IssueService} from '../../services/issue.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AssigneeService} from '../../services/assignee.service';
 import {SprintService} from '../../services/sprint.service';
-import {Done, IssuePriorities, IssueResolutions, IssueStates, IssueTypes} from '../../services/issueType';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Issue} from '../../services/issue';
+import {IssuePriority, IssueResolution, IssueState, IssueType} from '../../services/Enums';
 
 @Component({
   selector: 'app-issue-board',
@@ -15,11 +15,11 @@ import {Issue} from '../../services/issue';
 })
 export class IssueBoardComponent implements OnInit {
   currentIssue: Issue;
-  issueStates = IssueStates;
-  done = Done;
-  issueTypes = IssueTypes;
-  issuePriorities = IssuePriorities;
-  issueResolutions = IssueResolutions;
+  issueStates = IssueState.IssueStates;
+  done = IssueState.done;
+  issueTypes = IssueType.IssueTypes;
+  issuePriorities = IssuePriority.IssuePriorities;
+  issueResolutions = IssueResolution.IssueResolutions;
   isAssigneeEditable: boolean;
   newAssignee: string;
 
@@ -38,16 +38,16 @@ export class IssueBoardComponent implements OnInit {
       this.currentIssue = this.issueService.create();
     }
 
-    const state = new FormControl(this.currentIssue.state, [
+    const state = new FormControl(this.currentIssue.state.id, [
       Validators.required
     ]);
     const resolution = new FormControl({
-      value: this.currentIssue.resolution,
-      disabled: this.currentIssue.state !== this.done.id
+      value: this.currentIssue.resolution.id,
+      disabled: this.currentIssue.state !== this.done
     });
     const sprintId = new FormControl({
       value: this.currentIssue.sprintId,
-      disabled: this.currentIssue.state === this.done.id
+      disabled: this.currentIssue.state === this.done
     });
 
     this.theForm = this.formBuilder.group({
@@ -61,11 +61,11 @@ export class IssueBoardComponent implements OnInit {
         Validators.required,
         Validators.maxLength(30000)
       ]),
-      type: new FormControl(this.currentIssue.type, [
+      type: new FormControl(this.currentIssue.type.id, [
         Validators.required
       ]),
       assigneeId: new FormControl(this.currentIssue.assigneeId),
-      priority: new FormControl(this.currentIssue.priority,),
+      priority: new FormControl(this.currentIssue.priority.id),
       dueDate: new FormControl(this.currentIssue.dueDate),
       stateGroup: new FormGroup({
           state,
@@ -141,7 +141,7 @@ function validateResolution(control: AbstractControl) {
   const state = control.get('state');
   const resolution = control.get('resolution');
 
-  if (state.value === Done.id && !resolution.value) {
+  if (state.value === IssueState.done && !resolution.value) {
     return { invalidResolution: true };
   }
 

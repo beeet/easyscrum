@@ -1,9 +1,6 @@
 import {Injectable} from '@angular/core';
-import {IssuePriority} from './issuePriority';
-import {IssueType} from './issueType';
-import {IssueState} from './issueState';
-import {IssueResolution} from './issueResolution';
 import {DateUtil} from '../utils/date.util';
+import {IssuePriority, IssueResolution, IssueState, IssueType} from './Enums';
 
 @Injectable({
     providedIn: 'root'

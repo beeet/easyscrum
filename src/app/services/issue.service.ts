@@ -1,13 +1,11 @@
 import {Crud} from './crud';
 import {UUID} from 'angular2-uuid';
 import {Issue} from './issue';
-import {IssueType} from './issueType';
-import {IssueState} from './issueState';
 import {SprintService} from './sprint.service';
 import {Injectable} from '@angular/core';
 import {DateUtil} from '../utils/date.util';
 import {issueData} from './DUMMY_DATA';
-import {IssuePriority} from './issuePriority';
+import {IssuePriority, IssueState, IssueType} from './Enums';
 
 
 export function filterdByType(issueType: IssueType) {
@@ -15,6 +13,8 @@ export function filterdByType(issueType: IssueType) {
 }
 
 export function filteredBySprintId(sprintId: string) {
+  // console.log('sprintId', sprintId, 'issue', this.issue.sprintId);
+  // console.log('issue', this.issue);
   return issue => issue.sprintId === sprintId;
 }
 
