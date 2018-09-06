@@ -46,6 +46,13 @@ export class SprintService implements Crud<Sprint> {
     return this.sprints.slice(-1)[0];
   }
 
+  getNext(): Sprint {
+    const current = this.getCurrent();
+    const nextSprints = this.sprints.filter(s => isAfter(s.begin, current.end));
+    nextSprints.sort((a, b) => a.end > b.end ? 1 : -1);
+    return nextSprints[0];
+  }
+
   isSprintAlreadyStarted(id: string): boolean {
     const sprint = this.get(id);
     if (!sprint) {
