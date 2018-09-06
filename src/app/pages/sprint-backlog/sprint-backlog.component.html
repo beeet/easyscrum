@@ -6,7 +6,6 @@
   <div class="filter-avatar" *ngFor="let filterAssignee of getInvolvedAssignees()">
     <img class="filter-img-avatar"
          appHighlight
-         [doHighlight]="doHighlight"
          src="{{getAvatar(filterAssignee)}}"
          (click)="setAssigneeFilter(filterAssignee)"
          alt="filter of assignees">
