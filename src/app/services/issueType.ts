@@ -39,10 +39,10 @@ export const IssuePriorities = [
 ];
 
 export const IssueStates = [
-  new Enum('O', 'open', require('../../assets/pics/open.png')),
-  new Enum('W', 'inwork', require('../../assets/pics/working.png')),
-  new Enum('T', 'intest', require('../../assets/pics/testing.png')),
-  new Enum('D', 'done', require('../../assets/pics/testing.png')),
+  new Enum('O', 'open'),
+  new Enum('W', 'inwork'),
+  new Enum('T', 'intest'),
+  new Enum('D', 'done'),
 ];
 
 export const IssueResolutions = [
