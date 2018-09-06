@@ -4,8 +4,8 @@ import {IssueService} from '../../services/issue.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AssigneeService} from '../../services/assignee.service';
 import {SprintService} from '../../services/sprint.service';
-import {IssuePriorities, IssueResolutions, IssueStates, IssueTypes} from '../../services/issueType';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Done, IssuePriorities, IssueResolutions, IssueStates, IssueTypes} from '../../services/issueType';
+import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Issue} from '../../services/issue';
 
 @Component({
@@ -16,6 +16,7 @@ import {Issue} from '../../services/issue';
 export class IssueBoardComponent implements OnInit {
   currentIssue: Issue;
   issueStates = IssueStates;
+  done = Done;
   issueTypes = IssueTypes;
   issuePriorities = IssuePriorities;
   issueResolutions = IssueResolutions;
@@ -37,13 +38,25 @@ export class IssueBoardComponent implements OnInit {
       this.currentIssue = this.issueService.create();
     }
 
+    const state = new FormControl(this.currentIssue.state, [
+      Validators.required
+    ]);
+    const resolution = new FormControl({
+      value: this.currentIssue.resolution,
+      disabled: this.currentIssue.state !== this.done.id
+    });
+    const sprintId = new FormControl({
+      value: this.currentIssue.sprintId,
+      disabled: this.currentIssue.state === this.done.id
+    });
+
     this.theForm = this.formBuilder.group({
       title: new FormControl(this.currentIssue.title, [
         Validators.required,
         Validators.minLength(3),
         Validators.maxLength(300)
       ]),
-      sprintId: new FormControl(this.currentIssue.sprintId, []),
+      sprintId,
       description: new FormControl(this.currentIssue.description, [
         Validators.required,
         Validators.maxLength(30000)
@@ -51,25 +64,45 @@ export class IssueBoardComponent implements OnInit {
       type: new FormControl(this.currentIssue.type, [
         Validators.required
       ]),
-      assigneeId: new FormControl(this.currentIssue.assigneeId, []),
-      priority: new FormControl(this.currentIssue.priority, []),
-      dueDate: new FormControl(this.currentIssue.dueDate, []),
-      state: new FormControl(this.currentIssue.state, []),
+      assigneeId: new FormControl(this.currentIssue.assigneeId),
+      priority: new FormControl(this.currentIssue.priority,),
+      dueDate: new FormControl(this.currentIssue.dueDate),
+      stateGroup: new FormGroup({
+          state,
+          resolution
+        }, [validateResolution]
+      ),
       estimated: new FormControl(this.currentIssue.estimated, [
         Validators.min(0)
       ]),
-      resolution: new FormControl({
-        name: this.currentIssue.resolution,
-        disabled: true
-      }, []),
       elapsed: new FormControl(this.currentIssue.elapsed, [
         Validators.min(0)
       ])
     });
+
+    this.onChanges(state, resolution, sprintId);
   }
 
   get title() { return this.theForm.get('title'); }
   get description() { return this.theForm.get('description'); }
+  get stateGroup() {
+    return this.theForm.get('stateGroup');
+  }
+
+  onChanges(state, resolution, sprint): void {
+    state.valueChanges.subscribe(val => {
+      console.log(`My new state is ${val}.`);
+      if (val === this.done.id) {
+        resolution.enable();
+        sprint.disable();
+      } else {
+        sprint.enable();
+        resolution.disable();
+        resolution.setValue(undefined);
+        this.currentIssue.resolution = undefined;
+      }
+    });
+  }
 
   onSave() {
     console.log(this.theForm);
@@ -102,4 +135,15 @@ export class IssueBoardComponent implements OnInit {
     this.isAssigneeEditable = false;
     return this.isAssigneeEditable;
   }
+}
+
+function validateResolution(control: AbstractControl) {
+  const state = control.get('state');
+  const resolution = control.get('resolution');
+
+  if (state.value === Done.id && !resolution.value) {
+    return { invalidResolution: true };
+  }
+
+  return null;
 }

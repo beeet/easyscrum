@@ -133,7 +133,7 @@
     </div>
 
     <div class="row">
-      <div class="form-group col-md-6">
+      <div formGroupName="stateGroup" class="form-group col-md-6">
         <label id="stateLabel" for="state">{{'issue-board.state' | translate}}</label>
         <select id="state"
                 class="form-control"
@@ -155,7 +155,7 @@
     </div>
 
     <div class="row">
-      <div class="form-group col-md-6">
+      <div formGroupName="stateGroup" class="form-group col-md-6">
         <label id="resolutionLabel" for="resolutionInput">{{'issue-board.resolution' | translate}}</label>
         <select id="resolutionInput"
                 class="form-control"
@@ -165,6 +165,12 @@
                   value="{{issueResolution.id}}">{{('issue-board.resolution.' + issueResolution.value) |
             translate}}</option>
         </select>
+        <div *ngIf="stateGroup.invalid"
+             class="alert alert-danger">
+          <small *ngIf="stateGroup.errors.invalidResolution">
+            {{'resolution.validation.invalid' | translate}}
+          </small>
+        </div>
       </div>
       <div class="form-group col-md-6">
         <label id="elapsedLabel" for="elapsedInput">{{'issue-board.elapsed' | translate}}</label>

@@ -38,11 +38,12 @@ export const IssuePriorities = [
   new Enum('5', 'trivial', require('../../assets/pics/trivial.png'))
 ];
 
+export const Done = new Enum('D', 'done');
 export const IssueStates = [
   new Enum('O', 'open'),
   new Enum('W', 'inwork'),
   new Enum('T', 'intest'),
-  new Enum('D', 'done'),
+  Done,
 ];
 
 export const IssueResolutions = [
