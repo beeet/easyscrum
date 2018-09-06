@@ -113,30 +113,7 @@ issueData = [
     {comment: 'No Comment #3'},
     {comment: 'No Comment #4'}
   ],
-  issueLinks: [],
-  subissues: [
-      {
-          id: 4,
-          title: 'Test for new changelog.',
-          description: 'Test for new changelog.',
-          type: IssueType.task,
-          priority: IssuePriority.medium,
-          state: IssueState.done,
-          sprintId: 'SPR18-00001',
-          assigneeID: 'ASG18-00004',
-          creationDate: '2018-06-10',
-          dueDate: '2018-06-18',
-          estimated: 6,
-          elapsed: 3,
-          highlighting: false,
-          resolution: IssueResolution.fixed,
-          resolutionDate: '2018-06-18',
-          comments: [
-              {comment: 'No Comment #1'}
-          ],
-          issueLinks: []
-      }
-  ]
+  issueLinks: []
 },
   {
     id: 2,
@@ -329,7 +306,31 @@ issueData = [
       {comment: 'No Comment #2'},
       {comment: 'No Comment #3'}
     ],
-    issueLinks: []
+    issueLinks: [],
+    subissues: [
+        {
+            id: 12,
+            title: 'Test hangs if a TSCompiler rule fails',
+            description: 'Test hangs if a TSCompiler rule fails',
+            type: IssueType.task,
+            priority: IssuePriority.low,
+            state: IssueState.done,
+            sprintId: 'SPR18-00002',
+            assigneeID: 'ASG18-00006',
+            creationDate: '2018-06-15',
+            dueDate: '2018-07-05',
+            estimated: 9,
+            elapsed: 13,
+            highlighting: false,
+            resolution: IssueResolution.duplicate,
+            resolutionDate: '2018-07-07',
+            comments: [
+                {comment: 'No Comment #1'},
+                {comment: 'No Comment #2'}
+            ],
+            issueLinks: []
+        }
+    ]
   },
   {
     id: 11,
