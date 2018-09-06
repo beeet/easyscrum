@@ -11,9 +11,6 @@ import {SprintService} from '../../services/sprint.service';
 import {AssigneeService} from '../../services/assignee.service';
 import {IssueType} from '../../services/issueType';
 import {IssuePriority} from '../../services/issuePriority';
-import {issueData} from '../../services/DUMMY_DATA';
-
-declare function require(path: string);
 
 @Component({
     selector: 'app-sprint-backlog',

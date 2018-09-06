@@ -1,29 +1,26 @@
-import {Directive, ElementRef, HostListener, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Directive, ElementRef, HostListener} from '@angular/core';
 
 @Directive({
-  selector: '[appHighlight]'
+    selector: '[appHighlight]'
 })
-export class HighlightDirective implements OnChanges {
-    el: ElementRef;
+export class HighlightDirective {
+    color = '';
 
-  @Input('doHighlight') doHighlight: boolean;
-
-  @HostListener('mouseenter') onMouseEnter() {
-      this.doHighlight = false;
-  }
-
-  constructor(el: ElementRef) {
-      this.el = el;
-      this.el.nativeElement.style.backgroundColor = '';
-  }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (this.doHighlight) {
-            this.el.nativeElement.style.backgroundColor = 'yellow';
+    @HostListener('click', ['$event.target']) onClick(btn) {
+        if (this.color === '') {
+            this.highlight('yellow');
         } else {
-            this.el.nativeElement.style.backgroundColor = '';
+            this.highlight('');
         }
-        this.doHighlight = !this.doHighlight;
+    }
+
+    constructor(private el: ElementRef) {
+
+    }
+
+    private highlight(color: string) {
+        this.el.nativeElement.style.backgroundColor = color;
+        this.color = color;
     }
 
 }
