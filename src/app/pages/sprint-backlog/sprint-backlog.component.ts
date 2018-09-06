@@ -32,6 +32,7 @@ export class SprintBacklogComponent implements OnInit {
     states: State[] = [];
     isSubtaskFilterAcitve = false;
     selectedAssigneeFilter: string;
+    doHighlight: boolean;
 
     constructor(translate: TranslateService,
                 route: ActivatedRoute,
@@ -67,7 +68,7 @@ export class SprintBacklogComponent implements OnInit {
 
         const sprintIssues = this.issueService.getAllFilteredBySprint(sprintId);
         const issuesByState = sprintIssues.filter(filteredByState(issueState));
-        if (this.selectedAssigneeFilter && this.selectedAssigneeFilter !== ''){
+        if (this.selectedAssigneeFilter && this.selectedAssigneeFilter !== '') {
             return issuesByState.filter(filteredByAssignee(this.selectedAssigneeFilter));
         } else {
             return issuesByState;
@@ -129,10 +130,12 @@ export class SprintBacklogComponent implements OnInit {
     }
 
     setAssigneeFilter(filterAssignee: string) {
-        if (filterAssignee === this.selectedAssigneeFilter){
+        if (filterAssignee === this.selectedAssigneeFilter) {
             this.selectedAssigneeFilter = ''; // reset filter
+            this.doHighlight = false;
         } else {
             this.selectedAssigneeFilter = filterAssignee;
+            this.doHighlight = true;
         }
     }
 }
