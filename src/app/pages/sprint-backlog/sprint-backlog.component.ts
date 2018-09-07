@@ -1,16 +1,13 @@
 import _ from 'lodash';
-import {IssueState} from '../../services/issueState';
-import { Component, OnInit } from '@angular/core';
-import {IssueService, filteredByState, filterdByType, filteredBySprintId} from '../../services/issue.service';
+import {Component, OnInit} from '@angular/core';
+import {filteredByState, IssueService} from '../../services/issue.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 import {DragulaService} from 'ng2-dragula';
 import {Issue} from '../../services/issue';
-import {State} from '../../services/state';
 import {SprintService} from '../../services/sprint.service';
 import {AssigneeService} from '../../services/assignee.service';
-import {IssueType} from '../../services/issueType';
-import {IssuePriority} from '../../services/issuePriority';
+import {IssueState} from '../../services/Enums';
 
 declare function require(path: string);
 
@@ -24,11 +21,10 @@ export class SprintBacklogComponent implements OnInit {
   issueService: IssueService;
   sprintService: SprintService;
   assigneeService: AssigneeService;
-  issueStates = IssueState;
   private translate;
   private route: ActivatedRoute;
   private router: Router;
-  states: State[] = [];
+  states: IssueState[] = [];
   isSubtaskFilterAcitve = false;
 
   constructor(translate: TranslateService,
@@ -52,10 +48,10 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.states.push(new State('open', IssueState.open));
-    this.states.push(new State('inwork', IssueState.inwork));
-    this.states.push(new State('intest', IssueState.intest));
-    this.states.push(new State('done', IssueState.done));
+    this.states.push(IssueState.open);
+    this.states.push(IssueState.inWork);
+    this.states.push(IssueState.inTest);
+    this.states.push(IssueState.done);
     this.dragula.drop.subscribe(value => {
       const id = value[1].id;
       const from = value[3].id.split('-')[1];
@@ -65,42 +61,18 @@ export class SprintBacklogComponent implements OnInit {
       });
   }
 
-    getAvatar(assigneeId: string): string {
-      return this.assigneeService.getAvatar(assigneeId);
-    }
+  getAvatar(assigneeId: string): string {
+    return this.assigneeService.getAvatar(assigneeId);
+  }
 
-    getTaskType(type: IssueType): string {
-      if (IssueType.bug === type) {
-          return 'http://localhost:4200/assets/pics/bug.png';
-      } else if (IssueType.story === type) {
-          return 'http://localhost:4200/assets/pics/story.png';
-      } else if (IssueType.task === type) {
-          return 'http://localhost:4200/assets/pics/task.png';
-      }
-    }
+  hasSubtask(issue: Issue): boolean {
+    return true; // TODO sbs wie werden subtasks ermittelt? via links?
+  }
 
-    getTaskPriority(priority: IssuePriority): string {
-        if (IssuePriority.blocker === priority) {
-            return 'http://localhost:4200/assets/pics/critical.png';
-        } else if (IssuePriority.high === priority) {
-            return 'http://localhost:4200/assets/pics/major.png';
-        } else if (IssuePriority.medium === priority) {
-            return 'http://localhost:4200/assets/pics/medium.png';
-        } else if (IssuePriority.low === priority) {
-            return 'http://localhost:4200/assets/pics/minor.png';
-        } else {
-            return 'http://localhost:4200/assets/pics/trivial0.png';
-        }
-    }
-
-    hasSubtask(issue: Issue): boolean {
-      return true; // TODO sbs wie werden subtasks ermittelt? via links?
-    }
-
-    setSubtaskFilterAcitve(event: any): void {
-      console.log('setSubtaskFilterAcitve clicked')
-      this.isSubtaskFilterAcitve = true;
-      // TODO sbs filter handling subtasks anzeigen (ein/aus)
-    }
+  setSubtaskFilterAcitve(event: any): void {
+    console.log('setSubtaskFilterAcitve clicked');
+    this.isSubtaskFilterAcitve = true;
+    // TODO sbs filter handling subtasks anzeigen (ein/aus)
+  }
 
 }

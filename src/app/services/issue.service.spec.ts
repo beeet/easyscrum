@@ -1,9 +1,8 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {inject, TestBed} from '@angular/core/testing';
 
 import {IssueService} from './issue.service';
 import {Issue} from './issue';
-import {IssueType} from './issueType';
-import {IssueState} from './issueState';
+import {IssueState, IssueType} from './Enums';
 
 describe('IssueService', () => {
   beforeEach(() => {
@@ -40,7 +39,7 @@ describe('IssueService', () => {
     expect(service.getAllFilteredByType(IssueType.task)).toEqual([one]);
 
     expect(service.getAllFilteredByState(IssueState.done)).toEqual([two]);
-    expect(service.getAllFilteredByState(IssueState.intest)).toEqual([]);
+    expect(service.getAllFilteredByState(IssueState.inTest)).toEqual([]);
   }));
 
   it('is deletion allowed', inject([IssueService], (service: IssueService) => {

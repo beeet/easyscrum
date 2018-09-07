@@ -1,4 +1,4 @@
-import {Component, ContentChild, OnInit, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {IssueService} from '../../services/issue.service';
 import {Router} from '@angular/router';
 
@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 export class ProductBacklogComponent {
   issueService: IssueService;
   issues;
-  tableColumns = ['type', 'title', 'priority', 'estimated'];
+  tableColumns = ['type.id', 'title', 'priority.id', 'estimated'];
   contextmenuActions = [
     {action: 'edit', icon: 'edit'},
     {action: 'change', icon: 'rotate_left'},

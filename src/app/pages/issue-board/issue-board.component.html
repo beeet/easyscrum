@@ -72,7 +72,6 @@
                 class="form-control"
                 formControlName="type"
                 >
-          <option value="" disabled selected>{{'issue-board.type.placeholder' | translate}}</option>
           <option *ngFor="let issueType of issueTypes" value="{{issueType.id}}">{{('issue-board.type.' + issueType.value) |
             translate}}</option>
         </select>
@@ -116,7 +115,6 @@
         <select id="priority"
                 class="form-control"
                 formControlName="priority">
-          <option value="" disabled selected>{{'issue-board.priority.placeholder' | translate}}</option>
           <option *ngFor="let issuePriority of issuePriorities"
                   value="{{issuePriority.id}}">{{('issue-board.priority.' + issuePriority.value) |
             translate}}</option>
@@ -133,13 +131,12 @@
     </div>
 
     <div class="row">
-      <div class="form-group col-md-6">
+      <div formGroupName="stateGroup" class="form-group col-md-6">
         <label id="stateLabel" for="state">{{'issue-board.state' | translate}}</label>
         <select id="state"
                 class="form-control"
                 formControlName="state"
                 >
-          <option value="" disabled selected>{{'issue-board.state.placeholder' | translate}}</option>
           <option *ngFor="let issueState of issueStates" value="{{issueState.id}}">{{('issue-board.state.' + issueState.value)|
             translate}}</option>
         </select>
@@ -155,7 +152,7 @@
     </div>
 
     <div class="row">
-      <div class="form-group col-md-6">
+      <div formGroupName="stateGroup" class="form-group col-md-6">
         <label id="resolutionLabel" for="resolutionInput">{{'issue-board.resolution' | translate}}</label>
         <select id="resolutionInput"
                 class="form-control"
@@ -165,6 +162,12 @@
                   value="{{issueResolution.id}}">{{('issue-board.resolution.' + issueResolution.value) |
             translate}}</option>
         </select>
+        <div *ngIf="stateGroup.invalid"
+             class="alert alert-danger">
+          <small *ngIf="stateGroup.errors.invalidResolution">
+            {{'resolution.validation.invalid' | translate}}
+          </small>
+        </div>
       </div>
       <div class="form-group col-md-6">
         <label id="elapsedLabel" for="elapsedInput">{{'issue-board.elapsed' | translate}}</label>

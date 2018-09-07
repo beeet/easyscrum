@@ -12,18 +12,18 @@
   </div>
 
   <div class="row">
-    <div *ngFor="let state of states" id="{{'swimmlane-' + state.label}}" class="col-sm-3" [dragula]='"bag-items"'>
+    <div *ngFor="let state of states" id="{{'swimmlane-' + state.value}}" class="col-sm-3" [dragula]='"bag-items"'>
       <h3>
-        {{'issue-board.state.' + state.label | translate}}
+        {{'issue-board.state.' + state.value | translate}}
       </h3>
       <div class="card"
-           *ngFor="let issue of getIssues(state.state)" id="{{issue.id}}"
+           *ngFor="let issue of getIssues(state)" id="{{issue.id}}"
            routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">
 
         <div class="card-header">
           <img class="card-img-avatar" src="{{getAvatar(issue.assigneeId)}}" alt="avatar">
-          <img class="card-img-type" src="{{getTaskType(issue.type)}}" alt="type">
-          <img class="card-img-priority" src="{{getTaskPriority(issue.priority)}}" alt="priority">
+          <img class="card-img-type" src="{{issue.type.imageSrc}}" alt="type">
+          <img class="card-img-priority" src="{{issue.priority.imageSrc}}" alt="priority">
         </div>
 
         <div class="card-body">

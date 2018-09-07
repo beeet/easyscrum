@@ -1,4 +1,5 @@
 import {Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Issue} from '../../services/issue';
 
 @Component({
   selector: 'app-filter-table',
@@ -44,7 +45,7 @@ export class FilterTableComponent implements OnInit, OnChanges {
     for ( const f of this.filter ) {
       if (f.value) {
         const value = f.value.toLocaleLowerCase();
-        this.filteredItems = this.filteredItems.filter(i => i[f.key].toString().toLocaleLowerCase().indexOf(value) >= 0);
+        this.filteredItems = this.filteredItems.filter(i => this.getValue(i, f.key).toString().toLocaleLowerCase().indexOf(value) >= 0);
       }
     }
 
@@ -52,7 +53,7 @@ export class FilterTableComponent implements OnInit, OnChanges {
       const value = this.globalFilter.toLocaleLowerCase();
       this.filteredItems = this.filteredItems.filter(i => {
         for ( const f of this.filter ) {
-          if (i[f.key].toString().toLocaleLowerCase().indexOf(value) >= 0) {
+          if (this.getValue(i, f.key).toString().toLocaleLowerCase().indexOf(value) >= 0) {
             return true;
           }
         }
@@ -110,5 +111,12 @@ export class FilterTableComponent implements OnInit, OnChanges {
     this.action.emit({action: e.action, item: this.selectedItem});
   }
 
-
+  getValue(item: Issue, key: string) {
+    const keys = key.split('.');
+    let value = item;
+    for (const k of keys) {
+      value = value[k];
+    }
+    return value;
+  }
 }
