@@ -16,6 +16,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { IssueService } from './services/issue.service';
 import { AssigneeService } from './services/assignee.service';
 import { SprintService } from './services/sprint.service';
+import { SprintLabelPipe } from './pipes/sprint-label.pipe';
 
 // import Translation FW
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -59,7 +60,8 @@ export function createTranslateLoader(http: HttpClient) {
     PageNotFoundComponent,
     SprintIssueRatioComponent,
     FilterTableComponent,
-    ContextMenuComponent
+    ContextMenuComponent,
+    SprintLabelPipe
   ],
   imports: [
     BrowserModule,
