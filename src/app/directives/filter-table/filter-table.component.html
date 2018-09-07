@@ -97,6 +97,7 @@
 
 <div *ngIf="innerWidth <= 767" class="container">
 
+  <h5> Filters </h5>
 
   <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()"
           [(ngModel)]="filter[0].value">
