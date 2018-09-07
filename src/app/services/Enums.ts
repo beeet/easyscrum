@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 declare function require(path: string);
 
 class Enum {
@@ -27,6 +29,10 @@ export class IssueType extends Enum {
   public static readonly IssueTypes = [
     IssueType.story, IssueType.bug, IssueType.task
   ];
+
+  static get(type: string): IssueType {
+    return _.head(this.IssueTypes.filter(t => type === t.id));
+  }
 }
 
 export class IssuePriority extends Enum {
@@ -40,6 +46,10 @@ export class IssuePriority extends Enum {
   public static readonly IssuePriorities = [
     IssuePriority.critical, IssuePriority.major, IssuePriority.medium, IssuePriority.minor, IssuePriority.trivial
   ];
+
+  static get(priority: string): IssuePriority {
+    return _.head(this.IssuePriorities.filter(p => priority === p.id));
+  }
 }
 
 export class IssueState extends Enum {
@@ -52,6 +62,10 @@ export class IssueState extends Enum {
   public static readonly IssueStates = [
     IssueState.open, IssueState.inWork, IssueState.inTest, IssueState.done
   ];
+
+  static get(state: string): IssueState {
+    return _.head(this.IssueStates.filter(s => state === s.id));
+  }
 }
 
 export class IssueResolution extends Enum {
@@ -68,4 +82,8 @@ export class IssueResolution extends Enum {
     IssueResolution.done, IssueResolution.wontDo, IssueResolution.fixed, IssueResolution.wontFix, IssueResolution.unresolved,
     IssueResolution.incomplete, IssueResolution.duplicate
   ];
+
+  static get(resolution: string): IssueResolution {
+    return _.head(this.IssueResolutions.filter(r => resolution === r.id));
+  }
 }
