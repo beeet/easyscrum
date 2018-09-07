@@ -9,17 +9,15 @@ import {IssuePriority, IssueState, IssueType} from './Enums';
 
 
 export function filterdByType(issueType: IssueType) {
-  return issue => issue.type === issueType;
+    return issue => issue.type === issueType;
 }
 
 export function filteredBySprintId(sprintId: string) {
-  // console.log('sprintId', sprintId, 'issue', this.issue.sprintId);
-  // console.log('issue', this.issue);
-  return issue => issue.sprintId === sprintId;
+    return issue => issue.sprintId === sprintId;
 }
 
 export function filteredByState(issueState: IssueState) {
-  return issue => issue.state === issueState;
+    return issue => issue.state === issueState;
 }
 
 export function filteredByAssignee(assigneeId: string) {
@@ -27,110 +25,110 @@ export function filteredByAssignee(assigneeId: string) {
 }
 
 @Injectable({
-  // we declare that this service should be created by the root application injector.
-  providedIn: 'root',
+    // we declare that this service should be created by the root application injector.
+    providedIn: 'root',
 })
 
 
 export class IssueService implements Crud<Issue> {
-  private issues: Issue[] = [];
-  private sprintService: SprintService;
+    private issues: Issue[] = [];
+    private sprintService: SprintService;
 
-  private dateUtil = new DateUtil();
+    private dateUtil = new DateUtil();
 
-  constructor(sprintService: SprintService) {
-    this.sprintService = sprintService;
-  }
-
-  create(): Issue {
-    const newIssue = new Issue();
-    newIssue.id = UUID.UUID();
-    newIssue.creationDate = this.dateUtil.now();
-    // defaults
-    newIssue.type = IssueType.story;
-    newIssue.state = IssueState.open;
-    newIssue.priority = IssuePriority.medium;
-    // newIssue.assigneeId = TODO: unassigned setzten
-    return newIssue;
-  }
-
-  getAll(): Issue[] {
-    return this.issues;
-  }
-
-  get(id: string): Issue {
-    return this.issues.find(i => i.id === id);
-  }
-
-  put(issue: Issue): number {
-    if (this.get(issue.id) === undefined) {
-      return this.issues.push(issue);
-    } else {
-      return -1;
+    constructor(sprintService: SprintService) {
+        this.sprintService = sprintService;
     }
-  }
 
-  delete(id: string): void {
-    if (!this.isDeletionIssueAllowed(this.get(id))) {
-      throw new Error('Deletion is not allowed because of sprint assignment.');
+    create(): Issue {
+        const newIssue = new Issue();
+        newIssue.id = UUID.UUID();
+        newIssue.creationDate = this.dateUtil.now();
+        // defaults
+        newIssue.type = IssueType.story;
+        newIssue.state = IssueState.open;
+        newIssue.priority = IssuePriority.medium;
+        // newIssue.assigneeId = TODO: unassigned setzten
+        return newIssue;
     }
-    const index = this.issues.findIndex(i => i.id === id);
-    this.issues.splice(index, 1);
-  }
 
-  getAllFiltered(predicate: (issue) => boolean): Issue[] {
-    return this.issues.filter(predicate);
-  }
-
-  getAllFilteredByState(issueState: IssueState): Issue[] {
-    return this.issues.filter(filteredByState(issueState));
-  }
-
-  getAllFilteredByType(issueType: IssueType): Issue[] {
-    return this.issues.filter(filterdByType(issueType));
-  }
-
-  getAllFilteredBySprint(sprintId: string): Issue[] {
-    return this.issues.filter(filteredBySprintId(sprintId));
-  }
-
-  getAllNotClosed(): Issue[] {
-    return this.issues.filter(issure => issure.state !== IssueState.done);
-  }
-
-  getAllWithoutSprintAssignment(): Issue[] {
-    return this.issues.filter(issure => issure.sprintId === undefined);
-  }
-
-  isDeletionIssueAllowed(issue: Issue): boolean {
-    return !issue.sprintId;
-  }
-
-  isMutationIssueAllowed(issue: Issue): boolean {
-    return this.sprintService.isSprintAlreadyStarted(issue.sprintId);
-  }
-
-  setupDummyData() {
-    for ( const d of issueData ) {
-      const dummy = this.create();
-      dummy.title = d.title;
-      dummy.description = d.description;
-      dummy.priority = d.priority;
-      dummy.type = d.type;
-      dummy.state = d.state;
-      dummy.sprintId = d.sprintId;
-      dummy.assigneeId = d.assigneeID;
-      dummy.creationDate = d.creationDate;
-      dummy.dueDate = d.dueDate;
-      dummy.estimated = d.estimated;
-      dummy.elapsed = d.elapsed;
-      dummy.highlighting = d.highlighting;
-      dummy.resolution = d.resolution;
-      dummy.resolutionDate = d.resolutionDate;
-      dummy.comments = d.comments;
-      dummy.issueLinks = d.issueLinks;
-      dummy.subissues = d.subissues;
-      this.put(dummy);
+    getAll(): Issue[] {
+        return this.issues;
     }
-  }
+
+    get(id: string): Issue {
+        return this.issues.find(i => i.id === id);
+    }
+
+    put(issue: Issue): number {
+        if (this.get(issue.id) === undefined) {
+            return this.issues.push(issue);
+        } else {
+            return -1;
+        }
+    }
+
+    delete(id: string): void {
+        if (!this.isDeletionIssueAllowed(this.get(id))) {
+            throw new Error('Deletion is not allowed because of sprint assignment.');
+        }
+        const index = this.issues.findIndex(i => i.id === id);
+        this.issues.splice(index, 1);
+    }
+
+    getAllFiltered(predicate: (issue) => boolean): Issue[] {
+        return this.issues.filter(predicate);
+    }
+
+    getAllFilteredByState(issueState: IssueState): Issue[] {
+        return this.issues.filter(filteredByState(issueState));
+    }
+
+    getAllFilteredByType(issueType: IssueType): Issue[] {
+        return this.issues.filter(filterdByType(issueType));
+    }
+
+    getAllFilteredBySprint(sprintId: string): Issue[] {
+        return this.issues.filter(filteredBySprintId(sprintId));
+    }
+
+    getAllNotClosed(): Issue[] {
+        return this.issues.filter(issure => issure.state !== IssueState.done);
+    }
+
+    getAllWithoutSprintAssignment(): Issue[] {
+        return this.issues.filter(issure => issure.sprintId === undefined);
+    }
+
+    isDeletionIssueAllowed(issue: Issue): boolean {
+        return !issue.sprintId;
+    }
+
+    isMutationIssueAllowed(issue: Issue): boolean {
+        return this.sprintService.isSprintAlreadyStarted(issue.sprintId);
+    }
+
+    setupDummyData() {
+        for (const d of issueData) {
+            const dummy = this.create();
+            dummy.title = d.title;
+            dummy.description = d.description;
+            dummy.priority = d.priority;
+            dummy.type = d.type;
+            dummy.state = d.state;
+            dummy.sprintId = d.sprintId;
+            dummy.assigneeId = d.assigneeID;
+            dummy.creationDate = d.creationDate;
+            dummy.dueDate = d.dueDate;
+            dummy.estimated = d.estimated;
+            dummy.elapsed = d.elapsed;
+            dummy.highlighting = d.highlighting;
+            dummy.resolution = d.resolution;
+            dummy.resolutionDate = d.resolutionDate;
+            dummy.comments = d.comments;
+            dummy.issueLinks = d.issueLinks;
+            dummy.subissues = d.subissues;
+            this.put(dummy);
+        }
+    }
 }

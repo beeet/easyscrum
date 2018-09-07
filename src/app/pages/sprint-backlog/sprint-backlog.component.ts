@@ -23,17 +23,9 @@ export class SprintBacklogComponent implements OnInit {
     private translate;
     private route: ActivatedRoute;
     private router: Router;
-    states: State[] = [];
+    states: IssueState[] = [];
     isSubtaskFilterAcitve = false;
     selectedAssigneeFilter: string;
-  issueService: IssueService;
-  sprintService: SprintService;
-  assigneeService: AssigneeService;
-  private translate;
-  private route: ActivatedRoute;
-  private router: Router;
-  states: IssueState[] = [];
-  isSubtaskFilterAcitve = false;
 
     constructor(translate: TranslateService,
                 route: ActivatedRoute,
@@ -50,25 +42,19 @@ export class SprintBacklogComponent implements OnInit {
         this.assigneeService = assigneeService;
     }
 
-
-  ngOnInit() {
-    this.states.push(IssueState.open);
-    this.states.push(IssueState.inWork);
-    this.states.push(IssueState.inTest);
-    this.states.push(IssueState.done);
-    this.dragula.drop.subscribe(value => {
-      const id = value[1].id;
-      const from = value[3].id.split('-')[1];
-      const to = value[2].id.split('-')[1];
-      const state = _.find(this.states, {'label': to});
-      this.issueService.get(id).state = state.state;
-      });
-  }
-
-  public getIssues(issueState: IssueState): Issue[] {
-    const sprintId = this.sprintService.getCurrent().id;
-    return this.issueService.getAllFilteredBySprint(sprintId).filter(filteredByState(issueState));
-  }
+    ngOnInit() {
+        this.states.push(IssueState.open);
+        this.states.push(IssueState.inWork);
+        this.states.push(IssueState.inTest);
+        this.states.push(IssueState.done);
+        this.dragula.drop.subscribe(value => {
+            const id = value[1].id;
+            const from = value[3].id.split('-')[1];
+            const to = value[2].id.split('-')[1];
+            const state = _.find(this.states, {'label': to});
+            this.issueService.get(id).state = state.state;
+        });
+    }
 
     getIssues(issueState: IssueState): Issue[] {
         const sprintId = this.sprintService.getCurrent().id;
@@ -88,19 +74,18 @@ export class SprintBacklogComponent implements OnInit {
         const assignees = sprintIssues
             .map(value => value.assigneeId)
             .sort()
-            .reduce(function(a, b) {
+            .reduce(function (a, b) {
                 if (b !== a[0]) {
                     a.unshift(b);
                 }
                 return a;
-                }, []);
+            }, []);
         return assignees;
     }
 
     getAvatar(assigneeId: string): string {
         return this.assigneeService.getAvatar(assigneeId);
     }
-
 
 
     hasSubtask(issue: Issue): boolean {
@@ -114,7 +99,6 @@ export class SprintBacklogComponent implements OnInit {
         this.isSubtaskFilterAcitve = true;
         // TODO sbs filter handling subtasks anzeigen (ein/aus)
     }
-
 
     setAssigneeFilter(filterAssignee: string) {
         if (filterAssignee === this.selectedAssigneeFilter) {

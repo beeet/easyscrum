@@ -310,7 +310,7 @@ issueData = [
             title: 'Test hangs if a TSCompiler rule fails',
             description: 'Test hangs if a TSCompiler rule fails',
             type: IssueType.task,
-            priority: IssuePriority.low,
+            priority: IssuePriority.minor,
             state: IssueState.done,
             sprintId: 'SPR18-00002',
             assigneeID: 'ASG18-00006',
