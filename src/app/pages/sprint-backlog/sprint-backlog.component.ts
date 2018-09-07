@@ -42,11 +42,6 @@ export class SprintBacklogComponent implements OnInit {
         this.assigneeService = assigneeService;
     }
 
-  public getIssues(issueState: IssueState): Issue[] {
-    const sprintId = this.sprintService.getCurrent().id;
-    return this.issueService.getAllFilteredBySprint(sprintId).filter(filteredByState(issueState));
-  }
-
   ngOnInit() {
     this.states.push(IssueState.open);
     this.states.push(IssueState.inWork);

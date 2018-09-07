@@ -34,7 +34,7 @@
         >
           <option value="" disabled selected>{{'issue-board.sprint.placeholder' | translate}}</option>
           <option *ngFor="let sprint of sprintService.getAll()" [ngValue]="sprint.id">
-            {{sprint.name}} ({{sprint.begin | date:"dd.MM.yyyy"}} - {{sprint.end | date:"dd.MM.yyyy"}})
+						{{sprint | sprintLabel}}
           </option>
         </select>
       </div>
