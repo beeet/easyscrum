@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {IssueService} from '../../services/issue.service';
@@ -20,10 +21,15 @@ export class IssueBoardComponent implements OnInit {
   issueTypes = IssueType.IssueTypes;
   issuePriorities = IssuePriority.IssuePriorities;
   issueResolutions = IssueResolution.IssueResolutions;
+
   isAssigneeEditable: boolean;
   newAssignee: string;
 
   theForm: FormGroup;
+
+  readonly titleMaxLength = 100;
+  readonly titleMinLength = 3;
+  readonly descriptionMaxLength = 3000;
 
   constructor(translate: TranslateService, private route: ActivatedRoute, router: Router,
               public issueService: IssueService, public assigneeService: AssigneeService, public sprintService: SprintService,
@@ -42,7 +48,7 @@ export class IssueBoardComponent implements OnInit {
       Validators.required
     ]);
     const resolution = new FormControl({
-      value: this.currentIssue.resolution.id,
+      value: _.get(this.currentIssue, 'resolution.id'),
       disabled: this.currentIssue.state !== this.done
     });
     const sprintId = new FormControl({
@@ -53,13 +59,13 @@ export class IssueBoardComponent implements OnInit {
     this.theForm = this.formBuilder.group({
       title: new FormControl(this.currentIssue.title, [
         Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(300)
+        Validators.minLength(this.titleMinLength),
+        Validators.maxLength(this.titleMaxLength)
       ]),
       sprintId,
       description: new FormControl(this.currentIssue.description, [
         Validators.required,
-        Validators.maxLength(30000)
+        Validators.maxLength(this.descriptionMaxLength)
       ]),
       type: new FormControl(this.currentIssue.type.id, [
         Validators.required
@@ -105,8 +111,6 @@ export class IssueBoardComponent implements OnInit {
   }
 
   onSave() {
-    console.log(this.theForm);
-    console.log('raw', this.theForm.getRawValue());
     // hier werden alle Eingabewerte aus dem Formular ans aktuelle Issue übergeben. Dazu müssen die Felder im Form genau gleich heissen wie
     // in der Issue Klasse
     this.currentIssue = Object.assign(this.currentIssue, this.theForm.getRawValue());

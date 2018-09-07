@@ -19,10 +19,10 @@
             {{'commons.validation.field.required' | translate}}
           </small>
           <small *ngIf="title.errors.minlength">
-            {{'commons.validation.field.minlength' | translate}}
+            {{'commons.validation.field.minlength' | translate:{'minLength':titleMinLength} }}
           </small>
           <small *ngIf="title.errors.maxlength">
-            {{'commons.validation.field.maxlength' | translate}}
+            {{'commons.validation.field.maxlength' | translate:{'maxLength':titleMaxLength} }}
           </small>
         </div>
       </div>
@@ -56,11 +56,11 @@
             {{'commons.validation.field.required' | translate}}
           </small>
           <small *ngIf="description.errors.maxlength">
-            {{'commons.validation.field.maxlength' | translate}}
+            {{'commons.validation.field.maxlength' | translate:{'maxLength':descriptionMaxLength} }}
           </small>
         </div>
         <small id="descriptionHelp"
-               class="form-text text-muted">{{'issue-board.description.help' | translate }}
+               class="form-text text-muted">{{'issue-board.description.help' | translate:{'maxLength':descriptionMaxLength} }}
         </small>
       </div>
     </div>
