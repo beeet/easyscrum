@@ -32,8 +32,9 @@ div {
   span.card-text {
     color: var(--color-white);
   }
-  .material-icons {
-    text-align: right;
+  .filter-img-avatar {
+    width: 5%;
+    margin: 0.5rem;
   }
 }
 
@@ -58,8 +59,7 @@ div {
   }
 }
 
-
-  //obsolete
+//obsolete
 #createTask {
   display: block;
   margin: 0 auto;

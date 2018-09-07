@@ -22,7 +22,7 @@ export let assigneeData = [
   {
     id: 'ASG18-00004',
     nickname: 'Justine Buckthought',
-    avatar: 'batman'
+    avatar: 'eminem'
   },
   {
     id: 'ASG18-00005',
@@ -303,7 +303,31 @@ issueData = [
       {comment: 'No Comment #2'},
       {comment: 'No Comment #3'}
     ],
-    issueLinks: []
+    issueLinks: [],
+    subissues: [
+        {
+            id: 12,
+            title: 'Test hangs if a TSCompiler rule fails',
+            description: 'Test hangs if a TSCompiler rule fails',
+            type: IssueType.task,
+            priority: IssuePriority.low,
+            state: IssueState.done,
+            sprintId: 'SPR18-00002',
+            assigneeID: 'ASG18-00006',
+            creationDate: '2018-06-15',
+            dueDate: '2018-07-05',
+            estimated: 9,
+            elapsed: 13,
+            highlighting: false,
+            resolution: IssueResolution.duplicate,
+            resolutionDate: '2018-07-07',
+            comments: [
+                {comment: 'No Comment #1'},
+                {comment: 'No Comment #2'}
+            ],
+            issueLinks: []
+        }
+    ]
   },
   {
     id: 11,

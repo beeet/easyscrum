@@ -4,20 +4,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-// import App Components
-import { AppComponent } from './app.component';
-import { SprintBacklogComponent } from './pages/sprint-backlog/sprint-backlog.component';
-import { IssueBoardComponent } from './pages/issue-board/issue-board.component';
-import { ProductBacklogComponent } from './pages/product-backlog/product-backlog.component';
-import { ChartBoardComponent } from './pages/chart-board/chart-board.component';
-import { BurndownChartComponent } from './pages/chart-board/burndown-chart/burndown-chart.component';
-import { SprintIssueRatioComponent } from './pages/chart-board/sprint-issue-ratio/sprint-issue-ratio.component';
-import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { IssueService } from './services/issue.service';
-import { AssigneeService } from './services/assignee.service';
-import { SprintService } from './services/sprint.service';
-import { SprintLabelPipe } from './pipes/sprint-label.pipe';
-
 // import Translation FW
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -31,8 +17,23 @@ import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 // import drag'n'drop
 import {DragulaModule} from 'ng2-dragula';
+
+// import App Components
+import { AppComponent } from './app.component';
+import { SprintBacklogComponent } from './pages/sprint-backlog/sprint-backlog.component';
+import { IssueBoardComponent } from './pages/issue-board/issue-board.component';
+import { ProductBacklogComponent } from './pages/product-backlog/product-backlog.component';
+import { ChartBoardComponent } from './pages/chart-board/chart-board.component';
+import { BurndownChartComponent } from './pages/chart-board/burndown-chart/burndown-chart.component';
+import { SprintIssueRatioComponent } from './pages/chart-board/sprint-issue-ratio/sprint-issue-ratio.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { IssueService } from './services/issue.service';
+import { AssigneeService } from './services/assignee.service';
+import { SprintService } from './services/sprint.service';
 import { FilterTableComponent } from './directives/filter-table/filter-table.component';
 import { ContextMenuComponent } from './directives/context-menu/context-menu.component';
+import { HighlightDirective } from './directives/highlight/highlight.directive';
+import { SprintLabelPipe } from './pipes/sprint-label.pipe';
 
 const appRoutes: Routes = [
   { path: '', component: SprintBacklogComponent },
@@ -61,6 +62,7 @@ export function createTranslateLoader(http: HttpClient) {
     SprintIssueRatioComponent,
     FilterTableComponent,
     ContextMenuComponent,
+    HighlightDirective,
     SprintLabelPipe
   ],
   imports: [

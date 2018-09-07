@@ -22,9 +22,9 @@ export class Issue {
     private _resolution: IssueResolution;
     private _resolutionDate: Date;
     private _highlighting: boolean;
-    private _comments: Array<Object>;
-    private _issueLinks: Array<Issue>;
-    private _subissues: Array<Issue>;
+    private _comments: Array<Object> = [];
+    private _issueLinks: Array<Issue> = [];
+    private _subissues: Array<Issue> = [];
 
     private dateUtil = new DateUtil();
 
@@ -175,20 +175,22 @@ export class Issue {
         this.issueLinks.push(value);
     }
 
-    get subIssue(): Array<Issue> {
+    get subissue(): Array<Issue> {
         return this._subissues;
     }
 
-    set subIssues(issues: Array<Issue>) {
-        issues.forEach(issue => {
-            this.assertIssueTypeOfTask(issue);
-        });
-        this._subissues = issues;
+    set subissues(issues: Array<Issue>) {
+        if (issues) {
+            issues.forEach(issue => this.assertIssueTypeOfTask(issue));
+            this._subissues = issues;
+        }
     }
 
-    addSubIssue(issue: Issue) {
-        this.assertIssueTypeOfTask(issue);
-        this.issueLinks.push(issue);
+    addSubissue(issue: Issue) {
+        if (issue) {
+            this.assertIssueTypeOfTask(issue);
+            this._subissues.push(issue);
+        }
     }
 
     private assertIssueTypeOfTask(issue: Issue) {

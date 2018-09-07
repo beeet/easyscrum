@@ -45,13 +45,18 @@ export class AssigneeService implements Crud<Assignee> {
         return 'http://localhost:4200/assets/pics/avatar/' + avatar + '.png';
     }
 
-    resolveAvailableAvatar(): string {
+    resolveAvatarInUse(): Set<string> {
         const inUse = new Set();
         this.assignees.forEach(value => {
             if (value.avatar && value.avatar !== '') {
                 inUse.add(value.avatar);
             }
         });
+        return inUse;
+    }
+
+    resolveAvailableAvatar(): string {
+        const inUse = this.resolveAvatarInUse();
         for (const item of this.availableAvatar) {
             if (!inUse.has(item)) {
                 return item;
