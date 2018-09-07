@@ -54,10 +54,9 @@ export class SprintBacklogComponent implements OnInit {
     this.states.push(IssueState.done);
     this.dragula.drop.subscribe(value => {
       const id = value[1].id;
-      const from = value[3].id.split('-')[1];
       const to = value[2].id.split('-')[1];
-      const state = _.find(this.states, {'label': to});
-      this.issueService.get(id).state = state.state;
+      const state = _.find(this.states, {'value': to});
+      this.issueService.get(id).state = state;
       });
   }
 
