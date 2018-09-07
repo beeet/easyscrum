@@ -113,7 +113,22 @@ export class IssueBoardComponent implements OnInit {
   onSave() {
     // hier werden alle Eingabewerte aus dem Formular ans aktuelle Issue übergeben. Dazu müssen die Felder im Form genau gleich heissen wie
     // in der Issue Klasse
-    this.currentIssue = Object.assign(this.currentIssue, this.theForm.getRawValue());
+    // this.currentIssue = Object.assign(this.currentIssue, this.theForm.getRawValue());
+
+    const values = this.theForm.value;
+    this.currentIssue.title = values.title;
+    // wenn der Sprint disabled ist, ist er nicht in den values drin
+    this.currentIssue.sprintId = values.sprintId || this.currentIssue.sprintId;
+    this.currentIssue.description = values.description;
+    this.currentIssue.type = IssueType.get(values.type);
+    this.currentIssue.assigneeId = values.assigneeId;
+    this.currentIssue.priority = IssuePriority.get(values.priority);
+    this.currentIssue.dueDate = values.dueDate;
+    this.currentIssue.state = IssueState.get(values.stateGroup.state);
+    this.currentIssue.estimated = values.estimated;
+    this.currentIssue.resolution = IssueResolution.get(values.stateGroup.resolution);
+    this.currentIssue.elapsed = values.elapsed;
+
     this.issueService.put(this.currentIssue);
 
     this.router.navigate(['/sprint-backlog'])
@@ -149,10 +164,8 @@ export class IssueBoardComponent implements OnInit {
 function validateResolution(control: AbstractControl) {
   const state = control.get('state');
   const resolution = control.get('resolution');
-
-  if (state.value === IssueState.done && !resolution.value) {
+  if (state.value === IssueState.done.id && !resolution.value) {
     return { invalidResolution: true };
   }
-
   return null;
 }
