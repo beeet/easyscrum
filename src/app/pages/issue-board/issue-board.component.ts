@@ -31,7 +31,7 @@ export class IssueBoardComponent implements OnInit {
   readonly titleMinLength = 3;
   readonly descriptionMaxLength = 3000;
 
-  constructor(translate: TranslateService, private route: ActivatedRoute, router: Router,
+  constructor(translate: TranslateService, private route: ActivatedRoute, private router: Router,
               public issueService: IssueService, public assigneeService: AssigneeService, public sprintService: SprintService,
   private formBuilder: FormBuilder) {}
 
@@ -115,6 +115,11 @@ export class IssueBoardComponent implements OnInit {
     // in der Issue Klasse
     this.currentIssue = Object.assign(this.currentIssue, this.theForm.getRawValue());
     this.issueService.put(this.currentIssue);
+
+    this.router.navigate(['/sprint-backlog'])
+      .catch(reason =>
+        console.log('error while navigate to sprint-backlog' + JSON.stringify(reason))
+      );
   }
 
   onCancel() {
