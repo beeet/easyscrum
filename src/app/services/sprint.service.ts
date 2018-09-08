@@ -48,6 +48,13 @@ export class SprintService implements Crud<Sprint> {
     return this.sprints.slice(-1)[0];
   }
 
+  getAllWithoutSprintInTheFuture(): Sprint[] {
+    const now = this.dateUtil.now();
+    return this.sprints.filter(s => {
+      return isBefore(s.begin, now) || isEqual(s.begin, now);
+    });
+  }
+
   isSprintAlreadyStarted(id: string): boolean {
     const sprint = this.get(id);
     if (!sprint) {
