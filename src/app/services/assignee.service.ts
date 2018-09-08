@@ -45,7 +45,7 @@ export class AssigneeService implements Crud<Assignee> {
           const avatar = this.get(assigneeId).avatar;
           return 'http://localhost:4200/assets/pics/avatar/' + avatar + '.png';
         }
-        return '';
+        return 'http://localhost:4200/assets/pics/avatar/unbekannt.png';
     }
 
     resolveAvatarInUse(): Set<string> {
