@@ -106,4 +106,11 @@ export class SprintBacklogComponent implements OnInit {
             this.selectedAssigneeFilter = filterAssignee;
         }
     }
+
+  navigateToIssueBoard() {
+    this.router.navigate(['/issue-board'])
+      .catch(reason =>
+        console.log('error while navigate to sprint-backlog' + JSON.stringify(reason))
+      );
+  }
 }
