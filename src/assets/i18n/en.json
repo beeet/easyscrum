@@ -61,6 +61,7 @@
 
   "product-backlog.row": "Row",
   "product-backlog.sum": "Sum",
+  "product-backlog.sprint.placeholder": "issues without sprint",
 
   "chart-board.burndownChart": "Burndown-Chart",
   "chart-board.burndownchart.toottip": "The burn down chart is a graphical representation of work left to do versus time.",
