@@ -187,14 +187,12 @@
     </button>
     <button type="button"
             class="btn btn-light"
-            routerLink="/sprint-backlog/"
             (click)="onCancel()">
       {{'issue-board.buttonCancel' | translate }}
     </button>
     <button type="button"
             class="btn btn-danger"
             (click)="onDelete()"
-            routerLink="/sprint-backlog/"
             [hidden]="!issueService.isDeletionIssueAllowed(currentIssue)">
       {{'issue-board.buttonDelete' | translate }}
     </button>
