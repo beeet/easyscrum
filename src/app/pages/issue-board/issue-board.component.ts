@@ -140,7 +140,10 @@ export class IssueBoardComponent implements OnInit {
 
     this.issueService.put(this.currentIssue);
 
-    this.navigate();
+    if (!this.navigate()) {
+      this.theForm.reset(this.resetValues);
+      this.currentIssue = this.issueService.create();
+    }
   }
 
   onCancel() {
@@ -153,10 +156,12 @@ export class IssueBoardComponent implements OnInit {
     this.navigate();
   }
 
-  private navigate() {
+  private navigate(): boolean {
     if (this.urlParam) {
       this.location.back();
+      return true;
     }
+    return false;
   }
 
   addAssignee() {
