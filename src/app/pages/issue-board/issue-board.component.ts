@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import {Component, OnInit} from '@angular/core';
+import {Location} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 import {IssueService} from '../../services/issue.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {AssigneeService} from '../../services/assignee.service';
 import {SprintService} from '../../services/sprint.service';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -31,15 +32,22 @@ export class IssueBoardComponent implements OnInit {
   readonly titleMinLength = 3;
   readonly descriptionMaxLength = 3000;
 
-  constructor(translate: TranslateService, private route: ActivatedRoute, private router: Router,
+  private urlParam;
+  private resetValues;
+
+  constructor(translate: TranslateService, private route: ActivatedRoute, private location: Location,
               public issueService: IssueService, public assigneeService: AssigneeService, public sprintService: SprintService,
   private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.isAssigneeEditable = false;
-    const urlParam = this.route.snapshot.paramMap.get('id');
-    if (urlParam) {
-      this.currentIssue = this.issueService.get(urlParam);
+    this.urlParam = this.route.snapshot.paramMap.get('id');
+    if (this.urlParam) {
+      this.currentIssue = this.issueService.get(this.urlParam);
+      if (!this.currentIssue) {
+        // es gibt kein Issue mit dieser ID
+        this.currentIssue = this.issueService.create();
+      }
     } else {
       this.currentIssue = this.issueService.create();
     }
@@ -86,6 +94,8 @@ export class IssueBoardComponent implements OnInit {
       ])
     });
 
+    this.resetValues = this.theForm.value;
+
     this.onChanges(state, resolution, sprintId);
   }
 
@@ -97,7 +107,6 @@ export class IssueBoardComponent implements OnInit {
 
   onChanges(state, resolution, sprint): void {
     state.valueChanges.subscribe(val => {
-      console.log(`My new state is ${val}.`);
       if (val === this.done.id) {
         resolution.enable();
         sprint.disable();
@@ -131,17 +140,28 @@ export class IssueBoardComponent implements OnInit {
 
     this.issueService.put(this.currentIssue);
 
-    this.router.navigate(['/sprint-backlog'])
-      .catch(reason =>
-        console.log('error while navigate to sprint-backlog' + JSON.stringify(reason))
-      );
+    if (!this.navigate()) {
+      this.theForm.reset(this.resetValues);
+      this.currentIssue = this.issueService.create();
+    }
   }
 
   onCancel() {
+    this.theForm.reset(this.resetValues);
+    this.navigate();
   }
 
   onDelete() {
     this.issueService.delete(this.currentIssue.id);
+    this.navigate();
+  }
+
+  private navigate(): boolean {
+    if (this.urlParam) {
+      this.location.back();
+      return true;
+    }
+    return false;
   }
 
   addAssignee() {
