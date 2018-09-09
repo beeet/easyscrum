@@ -8,7 +8,7 @@
 			        name="sprint"
 			        [(ngModel)]="sprintSelectedId"
 			        (change)="renderChart()">
-				<option *ngFor="let sprint of sprintService.getAll()" [ngValue]="sprint.id">
+				<option *ngFor="let sprint of sprintService.getAllWithoutSprintInTheFuture()" [ngValue]="sprint.id">
 					{{sprint | sprintLabel}}
 				</option>
 			</select>
@@ -31,3 +31,6 @@
 	</div>
 
 </div>
+{{lineChartLabels}}
+<br>
+{{lineChartData | json}}
