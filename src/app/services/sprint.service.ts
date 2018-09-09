@@ -52,9 +52,8 @@ export class SprintService implements Crud<Sprint> {
     const now = this.dateUtil.now();
     return this.sprints.filter(s => {
       return isBefore(s.begin, now) || isEqual(s.begin, now);
-    });
-  }
-
+  });
+    
   getNext(): Sprint {
     const current = this.getCurrent();
     const nextSprints = this.sprints.filter(s => isAfter(s.begin, current.end));
