@@ -1,8 +1,8 @@
 {
   "__comment": "TODO translations to each component",
   "commons.validation.field.required": "This field is required.",
-  "commons.validation.field.minlength": "This field must be min 3 characters long.",
-  "commons.validation.field.maxlength": "This field must be max 30 characters long.",
+  "commons.validation.field.minlength": "This field must be min {{minLength}} characters long.",
+  "commons.validation.field.maxlength": "This field must be max {{maxLength}} characters long.",
 
   "resolution.validation.invalid": "When state is done the resolution hast to be set too.",
 
@@ -15,7 +15,7 @@
   "issue-board.title.placeholder": "Enter title",
   "issue-board.description": "Description",
   "issue-board.description.placeholder": "Enter description",
-  "issue-board.description.help": "Max 2000 characters allowed",
+  "issue-board.description.help": "Max {{maxLength}} characters allowed",
   "issue-board.state": "State",
   "issue-board.state.placeholder": "choose state",
   "issue-board.state.open": "open",

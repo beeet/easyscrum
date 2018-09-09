@@ -42,19 +42,18 @@ export class SprintBacklogComponent implements OnInit {
         this.assigneeService = assigneeService;
     }
 
-    ngOnInit() {
-        this.states.push(IssueState.open);
-        this.states.push(IssueState.inWork);
-        this.states.push(IssueState.inTest);
-        this.states.push(IssueState.done);
-        this.dragula.drop.subscribe(value => {
-            const id = value[1].id;
-            const from = value[3].id.split('-')[1];
-            const to = value[2].id.split('-')[1];
-            const state = _.find(this.states, {'label': to});
-            this.issueService.get(id).state = state.state;
-        });
-    }
+  ngOnInit() {
+    this.states.push(IssueState.open);
+    this.states.push(IssueState.inWork);
+    this.states.push(IssueState.inTest);
+    this.states.push(IssueState.done);
+    this.dragula.drop.subscribe(value => {
+      const id = value[1].id;
+      const to = value[2].id.split('-')[1];
+      const state = _.find(this.states, {'value': to});
+      this.issueService.get(id).state = state;
+      });
+  }
 
     getIssues(issueState: IssueState): Issue[] {
         const sprintId = this.sprintService.getCurrent().id;
@@ -107,4 +106,11 @@ export class SprintBacklogComponent implements OnInit {
             this.selectedAssigneeFilter = filterAssignee;
         }
     }
+
+  navigateToIssueBoard() {
+    this.router.navigate(['/issue-board/new'])
+      .catch(reason =>
+        console.log('error while navigate to sprint-backlog' + JSON.stringify(reason))
+      );
+  }
 }

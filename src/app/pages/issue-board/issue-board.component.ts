@@ -1,7 +1,9 @@
+import _ from 'lodash';
 import {Component, OnInit} from '@angular/core';
+import {Location} from '@angular/common';
 import {TranslateService} from '@ngx-translate/core';
 import {IssueService} from '../../services/issue.service';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {AssigneeService} from '../../services/assignee.service';
 import {SprintService} from '../../services/sprint.service';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -20,20 +22,32 @@ export class IssueBoardComponent implements OnInit {
   issueTypes = IssueType.IssueTypes;
   issuePriorities = IssuePriority.IssuePriorities;
   issueResolutions = IssueResolution.IssueResolutions;
+
   isAssigneeEditable: boolean;
   newAssignee: string;
 
   theForm: FormGroup;
 
-  constructor(translate: TranslateService, private route: ActivatedRoute, router: Router,
+  readonly titleMaxLength = 100;
+  readonly titleMinLength = 3;
+  readonly descriptionMaxLength = 3000;
+
+  private urlParam;
+  private resetValues;
+
+  constructor(translate: TranslateService, private route: ActivatedRoute, private location: Location,
               public issueService: IssueService, public assigneeService: AssigneeService, public sprintService: SprintService,
   private formBuilder: FormBuilder) {}
 
   ngOnInit() {
     this.isAssigneeEditable = false;
-    const urlParam = this.route.snapshot.paramMap.get('id');
-    if (urlParam) {
-      this.currentIssue = this.issueService.get(urlParam);
+    this.urlParam = this.route.snapshot.paramMap.get('id');
+    if (this.urlParam) {
+      this.currentIssue = this.issueService.get(this.urlParam);
+      if (!this.currentIssue) {
+        // es gibt kein Issue mit dieser ID
+        this.currentIssue = this.issueService.create();
+      }
     } else {
       this.currentIssue = this.issueService.create();
     }
@@ -42,7 +56,7 @@ export class IssueBoardComponent implements OnInit {
       Validators.required
     ]);
     const resolution = new FormControl({
-      value: this.currentIssue.resolution.id,
+      value: _.get(this.currentIssue, 'resolution.id'),
       disabled: this.currentIssue.state !== this.done
     });
     const sprintId = new FormControl({
@@ -53,13 +67,13 @@ export class IssueBoardComponent implements OnInit {
     this.theForm = this.formBuilder.group({
       title: new FormControl(this.currentIssue.title, [
         Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(300)
+        Validators.minLength(this.titleMinLength),
+        Validators.maxLength(this.titleMaxLength)
       ]),
       sprintId,
       description: new FormControl(this.currentIssue.description, [
         Validators.required,
-        Validators.maxLength(30000)
+        Validators.maxLength(this.descriptionMaxLength)
       ]),
       type: new FormControl(this.currentIssue.type.id, [
         Validators.required
@@ -80,6 +94,8 @@ export class IssueBoardComponent implements OnInit {
       ])
     });
 
+    this.resetValues = this.theForm.value;
+
     this.onChanges(state, resolution, sprintId);
   }
 
@@ -91,7 +107,6 @@ export class IssueBoardComponent implements OnInit {
 
   onChanges(state, resolution, sprint): void {
     state.valueChanges.subscribe(val => {
-      console.log(`My new state is ${val}.`);
       if (val === this.done.id) {
         resolution.enable();
         sprint.disable();
@@ -105,19 +120,48 @@ export class IssueBoardComponent implements OnInit {
   }
 
   onSave() {
-    console.log(this.theForm);
-    console.log('raw', this.theForm.getRawValue());
     // hier werden alle Eingabewerte aus dem Formular ans aktuelle Issue übergeben. Dazu müssen die Felder im Form genau gleich heissen wie
     // in der Issue Klasse
-    this.currentIssue = Object.assign(this.currentIssue, this.theForm.getRawValue());
+    // this.currentIssue = Object.assign(this.currentIssue, this.theForm.getRawValue());
+
+    const values = this.theForm.value;
+    this.currentIssue.title = values.title;
+    // wenn der Sprint disabled ist, ist er nicht in den values drin
+    this.currentIssue.sprintId = values.sprintId || this.currentIssue.sprintId;
+    this.currentIssue.description = values.description;
+    this.currentIssue.type = IssueType.get(values.type);
+    this.currentIssue.assigneeId = values.assigneeId;
+    this.currentIssue.priority = IssuePriority.get(values.priority);
+    this.currentIssue.dueDate = values.dueDate;
+    this.currentIssue.state = IssueState.get(values.stateGroup.state);
+    this.currentIssue.estimated = values.estimated;
+    this.currentIssue.resolution = IssueResolution.get(values.stateGroup.resolution);
+    this.currentIssue.elapsed = values.elapsed;
+
     this.issueService.put(this.currentIssue);
+
+    if (!this.navigate()) {
+      this.theForm.reset(this.resetValues);
+      this.currentIssue = this.issueService.create();
+    }
   }
 
   onCancel() {
+    this.theForm.reset(this.resetValues);
+    this.navigate();
   }
 
   onDelete() {
     this.issueService.delete(this.currentIssue.id);
+    this.navigate();
+  }
+
+  private navigate(): boolean {
+    if (this.urlParam) {
+      this.location.back();
+      return true;
+    }
+    return false;
   }
 
   addAssignee() {
@@ -140,10 +184,8 @@ export class IssueBoardComponent implements OnInit {
 function validateResolution(control: AbstractControl) {
   const state = control.get('state');
   const resolution = control.get('resolution');
-
-  if (state.value === IssueState.done && !resolution.value) {
+  if (state.value === IssueState.done.id && !resolution.value) {
     return { invalidResolution: true };
   }
-
   return null;
 }

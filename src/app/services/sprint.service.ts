@@ -3,7 +3,7 @@ import {UUID} from 'angular2-uuid';
 import {Sprint} from './sprint';
 import {DateUtil} from '../utils/date.util';
 import {sprintData} from './DUMMY_DATA';
-import {isAfter, isBefore} from 'date-fns';
+import {isAfter, isBefore, isEqual} from 'date-fns';
 
 export class SprintService implements Crud<Sprint> {
   private sprints: Sprint[] = [];
@@ -38,12 +38,21 @@ export class SprintService implements Crud<Sprint> {
 
   getCurrent(): Sprint {
     const now = this.dateUtil.now();
-    return this.sprints.find(s => isBefore(s.begin, now) && isAfter(s.end, now));
+    return this.sprints.find(s =>
+      (isBefore(s.begin, now) || isEqual(s.begin, now))
+      && (isAfter(s.end, now) || isEqual(s.end, now)));
   }
 
   getLatest(): Sprint {
     const now = this.dateUtil.now();
     return this.sprints.slice(-1)[0];
+  }
+
+  getAllWithoutSprintInTheFuture(): Sprint[] {
+    const now = this.dateUtil.now();
+    return this.sprints.filter(s => {
+      return isBefore(s.begin, now) || isEqual(s.begin, now);
+    });
   }
 
   getNext(): Sprint {

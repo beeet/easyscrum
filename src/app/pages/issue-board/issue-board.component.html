@@ -3,65 +3,67 @@
 		{{'app.issue-board' | translate}}
 	</h1>
 
-	<form [formGroup]="theForm" (ngSubmit)="theForm.valid && onSave(theForm.value)">
-		<div class="row">
-			<div class="form-group col-md-6">
-				<label id="titleLabel" for="title">{{'issue-board.title' | translate }}</label>
-				<input id="title"
-				       class="form-control"
-				       type="text"
-				       placeholder="{{'issue-board.title.placeholder' | translate }}"
-				       formControlName="title">
-				<div *ngIf="title.invalid && (title.dirty || title.touched)"
-				     class="alert alert-danger">
-					<small *ngIf="title.errors.required">
-						{{'commons.validation.field.required' | translate}}
-					</small>
-					<small *ngIf="title.errors.minlength">
-						{{'commons.validation.field.minlength' | translate}}
-					</small>
-					<small *ngIf="title.errors.maxlength">
-						{{'commons.validation.field.maxlength' | translate}}
-					</small>
-				</div>
-			</div>
-			<div class="form-group col-md-6">
-				<label id="sprintLabel" for="sprint">{{'issue-board.sprint' | translate }}</label>
-				<select id="sprint"
-				        class="form-control"
-				        formControlName="sprintId">
-					<option value="" disabled selected>{{'issue-board.sprint.placeholder' | translate}}</option>
-					<option *ngFor="let sprint of sprintService.getAll()" [ngValue]="sprint.id">
+  <form [formGroup]="theForm" (ngSubmit)="theForm.valid && onSave(theForm.value)">
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label id="titleLabel" for="title">{{'issue-board.title' | translate }}</label>
+        <input id="title"
+               class="form-control"
+               type="text"
+               placeholder="{{'issue-board.title.placeholder' | translate }}"
+               formControlName="title"
+        >
+        <div *ngIf="title.invalid && (title.dirty || title.touched)"
+             class="alert alert-danger">
+          <small *ngIf="title.errors.required">
+            {{'commons.validation.field.required' | translate}}
+          </small>
+          <small *ngIf="title.errors.minlength">
+            {{'commons.validation.field.minlength' | translate:{'minLength':titleMinLength} }}
+          </small>
+          <small *ngIf="title.errors.maxlength">
+            {{'commons.validation.field.maxlength' | translate:{'maxLength':titleMaxLength} }}
+          </small>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label id="sprintLabel" for="sprint">{{'issue-board.sprint' | translate }}</label>
+        <select id="sprint"
+                class="form-control"
+                formControlName="sprintId"
+        >
+          <option value="" disabled selected>{{'issue-board.sprint.placeholder' | translate}}</option>
+          <option *ngFor="let sprint of sprintService.getAll()" [ngValue]="sprint.id">
 						{{sprint | sprintLabel}}
-					</option>
-				</select>
-			</div>
-		</div>
+          </option>
+        </select>
+      </div>
+    </div>
 
-		<div class="row">
-			<div class="form-group col-md-12">
-				<label id="descriptionLabel" for="description">{{'issue-board.description' | translate }}</label>
-				<textarea id="description"
-				          class="form-control"
-				          type="text"
-				          placeholder="{{'issue-board.description.placeholder' | translate }}"
-				          rows="3"
-				          formControlName="description">
-				</textarea>
-				<div *ngIf="description.invalid && (description.dirty || description.touched)"
-				     class="alert alert-danger">
-					<small *ngIf="description.errors.required">
-						{{'commons.validation.field.required' | translate}}
-					</small>
-					<small *ngIf="description.errors.maxlength">
-						{{'commons.validation.field.maxlength' | translate}}
-					</small>
-				</div>
-				<small id="descriptionHelp"
-				       class="form-text text-muted">{{'issue-board.description.help' | translate }}
-				</small>
-			</div>
-		</div>
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label id="descriptionLabel" for="description">{{'issue-board.description' | translate }}</label>
+        <textarea id="description"
+                  class="form-control"
+                  type="text"
+                  placeholder="{{'issue-board.description.placeholder' | translate }}"
+                  rows="3"
+                  formControlName="description"
+        ></textarea>
+        <div *ngIf="description.invalid && (description.dirty || description.touched)"
+             class="alert alert-danger">
+          <small *ngIf="description.errors.required">
+            {{'commons.validation.field.required' | translate}}
+          </small>
+          <small *ngIf="description.errors.maxlength">
+            {{'commons.validation.field.maxlength' | translate:{'maxLength':descriptionMaxLength} }}
+          </small>
+        </div>
+        <small id="descriptionHelp"
+               class="form-text text-muted">{{'issue-board.description.help' | translate:{'maxLength':descriptionMaxLength} }}
+        </small>
+      </div>
+    </div>
 
 		<div class="row">
 			<div class="form-group col-md-6">
@@ -174,25 +176,26 @@
 			</div>
 		</div>
 
-		<button type="button"
-		        class="btn btn-primary"
-		        (click)="onSave()"
-		        [disabled]="!theForm.valid">
-			{{'issue-board.buttonSave' | translate }}
-		</button>
-		<button type="button"
-		        class="btn btn-light"
-		        routerLink="/sprint-backlog/"
-		        (click)="onCancel()">
-			{{'issue-board.buttonCancel' | translate }}
-		</button>
-		<button type="button"
-		        class="btn btn-danger"
-		        (click)="onDelete()"
-		        routerLink="/sprint-backlog/"
-		        [hidden]="!issueService.isDeletionIssueAllowed(currentIssue)">
-			{{'issue-board.buttonDelete' | translate }}
-		</button>
-	</form>
+    <div>Creation Date: {{currentIssue.creationDate}}</div>
+    <div>Resolution Date: {{currentIssue.resolutionDate}}</div>
+
+    <button type="button"
+            class="btn btn-primary"
+            (click)="onSave()"
+            [disabled]="!theForm.valid">
+      {{'issue-board.buttonSave' | translate }}
+    </button>
+    <button type="button"
+            class="btn btn-light"
+            (click)="onCancel()">
+      {{'issue-board.buttonCancel' | translate }}
+    </button>
+    <button type="button"
+            class="btn btn-danger"
+            (click)="onDelete()"
+            [hidden]="!issueService.isDeletionIssueAllowed(currentIssue)">
+      {{'issue-board.buttonDelete' | translate }}
+    </button>
+  </form>
 
 </div>
