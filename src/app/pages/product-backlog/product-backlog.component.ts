@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {IssueService} from '../../services/issue.service';
 import {Router} from '@angular/router';
+import {SprintService} from '../../services/sprint.service';
 
 @Component({
   selector: 'app-product-backlog',
@@ -9,7 +10,13 @@ import {Router} from '@angular/router';
 })
 export class ProductBacklogComponent {
   issueService: IssueService;
+  sprintService: SprintService;
   issues;
+  nextIssues;
+  nextIssuesEstimated = 0;
+  sprints;
+  selectedSprint;
+  nextSprint;
   tableColumns = ['type.id', 'title', 'priority.id', 'estimated'];
   contextmenuActions = [
     {action: 'edit', icon: 'edit'},
@@ -17,9 +24,15 @@ export class ProductBacklogComponent {
     {action: 'delete', icon: 'close'}
   ];
 
-  constructor(issueService: IssueService, private router: Router) {
+  constructor(issueService: IssueService, sprintService: SprintService, private router: Router) {
     this.issueService = issueService;
+    this.sprintService = sprintService;
     this.issues = this.issueService.getAllWithoutSprintAssignment();
+    this.sprints = this.sprintService.getAll();
+    this.nextSprint = this.sprintService.getNext();
+    this.nextIssues = this.issueService.getAllFilteredBySprint(this.nextSprint.id);
+    this.nextIssues.forEach(i => this.nextIssuesEstimated += i.estimated);
+    this.selectedSprint = 'default';
   }
 
   editItem(issue) {
@@ -44,6 +57,35 @@ export class ProductBacklogComponent {
       this.changeItemSprint(e.item);
     } else if (e.action === 'delete') {
       this.deleteItem(e.item);
+    }
+  }
+
+  changeSprint(value) {
+    this.selectedSprint = value;
+    if (this.selectedSprint !== 'default') {
+      this.issues = this.issueService.getAllFilteredBySprint(this.selectedSprint);
+    } else {
+      this.issues = this.issueService.getAllWithoutSprintAssignment();
+    }
+  }
+
+  sprintBackward() {
+    const index = this.sprints.findIndex(s => s.id === this.selectedSprint);
+    if (index > 0) {
+      this.changeSprint(this.sprints[index - 1].id);
+    } else if (this.selectedSprint === 'default') {
+      this.changeSprint(this.sprints[this.sprints.length - 1].id);
+    } else {
+      this.changeSprint('default');
+    }
+  }
+
+  sprintForward() {
+    const index = this.sprints.findIndex(s => s.id === this.selectedSprint);
+    if (index + 1 < this.sprints.length) {
+      this.changeSprint(this.sprints[index + 1].id);
+    } else {
+      this.changeSprint('default');
     }
   }
 }
