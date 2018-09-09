@@ -16,15 +16,6 @@
 		     alt="filter of assignees">
 	</div>
 
-	<!--<div class="container">-->
-		<!--<button id="createTask"-->
-		        <!--type="submit"-->
-		        <!--class="btn btn-light"-->
-		        <!--routerLink="/issue-board/new">-->
-			<!--{{"sprint-backlog.createTask" | translate}}-->
-		<!--</button>-->
-	<!--</div>-->
-
 	<div class="row">
 		<div *ngFor="let state of states" id="{{'swimmlane-' + state.value}}" class="col-sm-3" [dragula]='"bag-items"'>
 			<h3>
