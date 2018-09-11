@@ -74,7 +74,7 @@ export class SprintBacklogComponent implements OnInit {
             .map(value => value.assigneeId)
             .sort()
             .reduce(function (a, b) {
-                if (b !== a[0]) {
+                if (b !== null && b !== a[0]) {
                     a.unshift(b);
                 }
                 return a;
