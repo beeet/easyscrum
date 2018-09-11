@@ -58,7 +58,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
   - npm install node-sass
   - ng config schematics.@schematics/angular:component.styleext scss
   
- -install serviceworker
+- install serviceworker
   - ng add @angular/pwa --project *project-name*
   - https://angular.io/guide/service-worker-getting-started
 
