@@ -85,11 +85,11 @@ export class SprintIssueRatioComponent implements OnInit {
 
   // events
   public chartClicked(event: any): void {
-    console.log(event);
+    // console.log(event);
   }
 
   public chartHovered(event: any): void {
-    console.log(event);
+    // console.log(event);
   }
 
 }
