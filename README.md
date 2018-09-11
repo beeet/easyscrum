@@ -60,5 +60,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
   
 - install serviceworker
   - ng add @angular/pwa --project *project-name*
-  - https://angular.io/guide/service-worker-getting-started
+  - details: https://angular.io/guide/service-worker-getting-started
+  - configuration details: https://angular.io/guide/service-worker-config
 
