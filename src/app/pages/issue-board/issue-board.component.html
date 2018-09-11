@@ -3,7 +3,7 @@
 		{{'app.issue-board' | translate}}
 	</h1>
 
-  <form [formGroup]="theForm" (ngSubmit)="theForm.valid && onSave(theForm.value)">
+  <form [formGroup]="theForm" (ngSubmit)="theForm.valid && onSave()">
     <div class="row">
       <div class="form-group col-md-6">
         <label id="titleLabel" for="title">{{'issue-board.title' | translate }}</label>

@@ -34,6 +34,8 @@ import {FilterTableComponent} from './directives/filter-table/filter-table.compo
 import {ContextMenuComponent} from './directives/context-menu/context-menu.component';
 import {HighlightDirective} from './directives/highlight/highlight.directive';
 import {SprintLabelPipe} from './pipes/sprint-label.pipe';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 const appRoutes: Routes = [
     {path: '', component: SprintBacklogComponent},
@@ -83,7 +85,8 @@ export function createTranslateLoader(http: HttpClient) {
         FormsModule,
         ReactiveFormsModule,
         ChartsModule,
-        DragulaModule
+        DragulaModule,
+        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
     ],
     exports: [
         CommonModule
