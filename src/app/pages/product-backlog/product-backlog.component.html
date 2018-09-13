@@ -11,7 +11,7 @@
             <div class="input-group-append">
               <select name="sprintSelect" class="form-control form-control-sm" (change)="changeSprint($event.target.value)" [(ngModel)]="selectedSprint">
                 <option value="default">{{'product-backlog.sprint.placeholder' | translate}}</option>
-                <option *ngFor="let sprint of sprints" value="{{sprint.id}}" >
+                <option *ngFor="let sprint of sprints" value="{{sprint.id}}">
                   {{sprint.name}} ({{sprint.begin | date:"dd.MM.yyyy"}} - {{sprint.end | date:"dd.MM.yyyy"}})
                 </option>
               </select>
@@ -20,9 +20,9 @@
           </div>
         </div>
 
-        <div align="right" class="form-group col-md-6">
+        <div *ngIf="selectedSprint === 'default'" align="right" class="form-group col-md-6">
           <button type="button" class="btn btn-outline-secondary btn-sm" (click)="changeSprint(nextSprint.id)">
-            {{nextSprint.name}} Estimated (h):
+            {{nextSprint.name}} {{'product-backlog.estimated' | translate}}:
             <span class="badge badge-primary">{{nextIssuesEstimated}}</span>
           </button>
         </div>

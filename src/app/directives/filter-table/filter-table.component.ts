@@ -14,32 +14,32 @@ export class FilterTableComponent implements OnInit, OnChanges {
   filter = [];
   filteredItems;
   globalFilter = '';
-  sum = 0;
   orderType: any;
-  sortAscending = true;
-  selectedPage = 0;
-  pagedItems;
+  sortAscending = false;
+  smallScreen: boolean;
   innerWidth: any;
   contextmenu = {visible: false, posX: 0, posY: 0};
   selectedItem;
   filterTypes = [
-    {value: '', name: 'all types'},
+    {value: '', name: 'all'},
     {value: 'S', name: 'story'},
     {value: 'B', name: 'bug'},
     {value: 'T', name: 'task'}];
 
   filterPriorities = [
-    {value: '', name: 'all priorities'},
-    {value: '1', name: 'blocker'},
-    {value: '2', name: 'high'},
+    {value: '', name: 'all'},
+    {value: '1', name: 'critical'},
+    {value: '2', name: 'major'},
     {value: '3', name: 'medium'},
-    {value: '4', name: 'low'}];
+    {value: '4', name: 'minor'},
+    {value: '5', name: 'trivial'}];
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.filteredItems = this.items;
-    this.settingUpPagedItems();
     this.tableColumns.forEach(col => this.filter.push({key: col, value: ''}));
+    this.sortItems(this.tableColumns[2]);
+    this.evaluateScreenSize();
   }
 
   ngOnChanges() {
@@ -50,6 +50,15 @@ export class FilterTableComponent implements OnInit, OnChanges {
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.innerWidth = window.innerWidth;
+    this.evaluateScreenSize();
+  }
+
+  private evaluateScreenSize() {
+    if (this.innerWidth <= 767) {
+      this.smallScreen = true;
+    } else {
+      this.smallScreen = false;
+    }
   }
 
   filterItems(): void {
@@ -72,7 +81,6 @@ export class FilterTableComponent implements OnInit, OnChanges {
         return false;
       });
     }
-    this.settingUpPagedItems();
   }
 
   sortItems(orderType: any): void {
@@ -82,29 +90,20 @@ export class FilterTableComponent implements OnInit, OnChanges {
       this.sortAscending = true;
     }
     this.orderType = orderType;
-    if (this.sortAscending) {
-      this.filteredItems.sort((a, b) => a[orderType] > b[orderType] ? 1 : -1);
+    if (orderType === 'type' || orderType === 'priority') {
+      if (this.sortAscending) {
+        this.filteredItems.sort((a, b) => a[orderType].id > b[orderType].id ? 1 : -1);
+      } else {
+        this.filteredItems.sort((a, b) => a[orderType].id > b[orderType].id ? -1 : 1);
+      }
     } else {
-      this.filteredItems.sort((a, b) => a[orderType] > b[orderType] ? -1 : 1);
+      if (this.sortAscending) {
+        this.filteredItems.sort((a, b) => a[orderType] > b[orderType] ? 1 : -1);
+      } else {
+        this.filteredItems.sort((a, b) => a[orderType] > b[orderType] ? -1 : 1);
+      }
     }
-    this.settingUpPagedItems();
-  }
 
-  selectPage(selectedPage: number) {
-    this.selectedPage = selectedPage;
-    this.sum = 0;
-    if (this.pagedItems[selectedPage]) {
-      this.pagedItems[selectedPage].forEach(item => this.sum += item.estimated);
-    }
-  }
-
-  settingUpPagedItems() {
-    this.pagedItems = [];
-    for ( let i = 0; i < this.filteredItems.length / 10; i++ ) {
-      const startindex = i * 10;
-      this.pagedItems.push(this.filteredItems.slice(startindex, startindex + 10));
-    }
-    this.selectPage(0);
   }
 
   onrightClick(event, item) {
@@ -118,6 +117,12 @@ export class FilterTableComponent implements OnInit, OnChanges {
     this.contextmenu.visible = false;
   }
 
+  editItem(e, item) {
+    e.action = 'edit';
+    this.selectedItem = item;
+    this.onAction(e);
+  }
+
   onAction(e) {
     this.disableContextMenu();
     this.action.emit({action: e.action, item: this.selectedItem});
@@ -126,8 +131,12 @@ export class FilterTableComponent implements OnInit, OnChanges {
   getValue(item: Issue, key: string) {
     const keys = key.split('.');
     let value = item;
-    for (const k of keys) {
-      value = value[k];
+    for ( const k of keys ) {
+      if (value[k] instanceof Object) {
+        value = value[k].id;
+      } else {
+        value = value[k];
+      }
     }
     return value;
   }

@@ -1,4 +1,4 @@
-import {Component, ContentChild, OnInit, ViewChild} from '@angular/core';
+import {Component} from '@angular/core';
 import {IssueService} from '../../services/issue.service';
 import {Router} from '@angular/router';
 import {SprintService} from '../../services/sprint.service';
@@ -17,7 +17,7 @@ export class ProductBacklogComponent {
   sprints;
   selectedSprint;
   nextSprint;
-  tableColumns = ['type.id', 'title', 'priority.id', 'estimated'];
+  tableColumns = ['type', 'title', 'priority', 'estimated'];
   contextmenuActions = [
     {action: 'edit', icon: 'edit'},
     {action: 'change', icon: 'rotate_left'},
@@ -50,7 +50,6 @@ export class ProductBacklogComponent {
   }
 
   onAction(e) {
-    console.log(e);
     if (e.action === 'edit') {
       this.editItem(e.item);
     } else if (e.action === 'change') {

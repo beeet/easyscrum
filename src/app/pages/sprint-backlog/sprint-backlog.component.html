@@ -2,7 +2,7 @@
 <i id="new" class="material-icons" (click)="navigateToIssueBoard()">add_circle_outline</i>
 
 
-<div class="container">
+<div class="container" (click)="disableContextMenu()" oncontextmenu="return false;">
 	<h1>
 		{{'app.sprint-backlog' | translate}}
 	</h1>
@@ -23,7 +23,8 @@
 			</h3>
 			<div class="card"
 			     *ngFor="let issue of getIssues(state)" id="{{issue.id}}"
-			     routerLink="/issue-board/{{issue.id}}" routerLinkActive="active">
+			     routerLink="/issue-board/{{issue.id}}" routerLinkActive="active"
+           (contextmenu)="onrightClick($event, issue)">
 				<div class="card-header">
 					<img class="card-img-avatar" src="{{getAvatar(issue.assigneeId)}}" alt="avatar">
 					<img class="card-img-type" src="{{issue.type.imageSrc}}" alt="type">
@@ -44,4 +45,7 @@
 			</div>
 		</div>
 	</div>
+</div>
+<div *ngIf="contextmenu.visible">
+  <app-context-menu [x]="contextmenu.posX" [y]="contextmenu.posY" [actions]="contextmenu.actions" (action)="onAction($event)"></app-context-menu>
 </div>

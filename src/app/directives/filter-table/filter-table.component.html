@@ -1,55 +1,40 @@
-<div *ngIf="innerWidth > 767" class="container">
+<div *ngIf="!smallScreen" class="container">
   <div class="table-responsive-sm">
     <table class="table table-hover table-striped" (click)="disableContextMenu()" oncontextmenu="return false;">
       <thead class="thead-light">
       <tr>
         <th scope="col">{{'product-backlog.row' | translate}}</th>
-        <th class="sorting" *ngFor="let column of tableColumns" scope="col" (click)="sortItems(column)">{{'issue-board.'+ column | translate}}
+        <th class="sorting" *ngFor="let column of tableColumns" scope="col" (click)="sortItems(column)">{{'product-backlog.'+ column | translate}}
           <i class="material-icons" *ngIf="orderType === column && sortAscending">arrow_drop_up</i>
           <i class="material-icons" *ngIf="orderType === column && !sortAscending">arrow_drop_down</i>
         </th>
       </tr>
       </thead>
-      <tfoot class="table-dark">
-      <th scope="col">{{'product-backlog.sum' | translate}}</th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-      <th scope="col"></th>
-      <th scope="col">{{sum}}</th>
-      </tfoot>
       <tr class="table-light">
         <td></td>
         <td>
-          <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()"
-                  [(ngModel)]="filter[0].value">
-            <option *ngFor="let type of filterTypes" value="{{type.value}}">
-              {{type.name}}
-            </option>
+          <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()" [(ngModel)]="filter[0].value">
+            <option *ngFor="let type of filterTypes" value="{{type.value}}">{{'product-backlog.filter.type.'+type.name | translate}}</option>
           </select>
         </td>
         <td>
           <div class="input-group input-group-sm">
-            <input [(ngModel)]="filter[1].value" (keyup)="filterItems()" type="text" class="form-control"
-                   placeholder="Filter" aria-label="Filter" aria-describedby="filter-field">
+            <input [(ngModel)]="filter[1].value" (keyup)="filterItems()" type="text" class="form-control" placeholder="{{'product-backlog.filter' | translate}}">
             <div class="input-group-append">
-              <button [disabled]="!filter[1].value" class="btn btn-outline-secondary" type="button" id="filterButton2"
+              <button [disabled]="!filter[1].value" class="btn btn-outline-secondary" type="button" id="filterButton1"
                       (click)="filter[1].value = ''; filterItems()">X
               </button>
             </div>
           </div>
         </td>
         <td>
-          <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()"
-                  [(ngModel)]="filter[2].value">
-            <option *ngFor="let prio of filterPriorities" value="{{prio.value}}">
-              {{prio.name}}
-            </option>
+          <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()" [(ngModel)]="filter[2].value">
+            <option *ngFor="let prio of filterPriorities" value="{{prio.value}}">{{'product-backlog.filter.prio.'+prio.name | translate}}</option>
           </select>
         </td>
         <td>
           <div class="input-group input-group-sm">
-            <input [(ngModel)]="filter[3].value" (keyup)="filterItems()" type="text" class="form-control"
-                   placeholder="Filter" aria-label="Filter" aria-describedby="filter-field">
+            <input [(ngModel)]="filter[3].value" (keyup)="filterItems()" type="text" class="form-control" placeholder="{{'product-backlog.filter' | translate}}">
             <div class="input-group-append">
               <button [disabled]="!filter[3].value" class="btn btn-outline-secondary" type="button" id="filterButton2"
                       (click)="filter[3].value = ''; filterItems()">X
@@ -59,118 +44,72 @@
         </td>
       </tr>
       <tbody>
-      <tr *ngFor="let item of pagedItems[selectedPage]; let i = index" (contextmenu)="onrightClick($event, item)">
+      <tr *ngFor="let item of filteredItems; let i = index" (contextmenu)="onrightClick($event, item)" (click)="editItem($event, item)">
         <th scope="row">{{i+1}}</th>
-        <td *ngFor="let att of filter">{{getValue(item, att.key)}}</td>
+        <td align="center"><img height="20" src="{{item.type.imageSrc}}" alt="{{item.type.id}}"></td>
+        <td >{{item.title}}</td>
+        <td align="center"><img height="15" src="{{item.priority.imageSrc}}" alt="{{item.priority.id}}"></td>
+        <td >{{item.estimated}}</td>
       </tr>
       </tbody>
+      <tfoot class="table-secondary">
+      <tr>
+        <td scope="col"></td>
+        <td scope="col"></td>
+        <td scope="col"></td>
+        <td scope="col"></td>
+        <td scope="col"></td>
+      </tr>
+      </tfoot>
     </table>
-    <div *ngIf="pagedItems.length > 1">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" (click)="selectPage(0)" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-              <span class="sr-only">Previous</span>
-            </a>
-          </li>
-          <div *ngFor="let pages of pagedItems; let i = index">
-            <div *ngIf="selectedPage !== i; else activePage">
-              <li class="page-item"><a class="page-link" (click)="selectPage(i)">{{i+1}}</a></li>
-            </div>
-            <ng-template #activePage>
-              <li class="page-item active"><a class="page-link" (click)="selectPage(i)">{{i+1}}</a></li>
-            </ng-template>
-          </div>
-          <li class="page-item">
-            <a class="page-link" (click)="selectPage(pagedItems.length-1)" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-              <span class="sr-only">Next</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
   </div>
 </div>
 
-<div *ngIf="innerWidth <= 767" class="container">
+<div *ngIf="smallScreen" class="container">
 
-  <h5> Filters </h5>
+  <h5> Filter </h5>
 
-  <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()"
-          [(ngModel)]="filter[0].value">
-    <option *ngFor="let type of filterTypes" value="{{type.value}}">
-      {{type.name}}
-    </option>
+  <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()" [(ngModel)]="filter[0].value">
+    <option *ngFor="let type of filterTypes" value="{{type.value}}">{{'product-backlog.filter.type.'+type.name | translate}}</option>
   </select>
   <br>
-
-  <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()"
-          [(ngModel)]="filter[2].value">
-    <option *ngFor="let prio of filterPriorities" value="{{prio.value}}">
-      {{prio.name}}
-    </option>
+  <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()" [(ngModel)]="filter[2].value">
+    <option *ngFor="let prio of filterPriorities" value="{{prio.value}}">{{'product-backlog.filter.prio.'+prio.name | translate}}</option>
   </select>
   <br>
 
   <div class="input-group input-group-sm">
-    <input [(ngModel)]="filter[1].value" (keyup)="filterItems()" type="text" class="form-control"
-           placeholder="Filter" aria-label="Filter" aria-describedby="filter-field">
+    <input [(ngModel)]="filter[1].value" (keyup)="filterItems()" type="text" class="form-control" placeholder="{{'product-backlog.filter' | translate}}">
     <div class="input-group-append">
-      <button [disabled]="!filter[1].value" class="btn btn-outline-secondary" type="button" id="filterButton2"
+      <button [disabled]="!filter[1].value" class="btn btn-outline-secondary" type="button" id="filterButton3"
               (click)="filter[1].value = ''; filterItems()">X
       </button>
     </div>
   </div>
-
   <br>
   <div class="table-responsive-sm">
     <table class="table table-hover table-striped" (click)="disableContextMenu()" oncontextmenu="return false;">
       <thead class="thead-light">
       <tr>
-        <th scope="col" (click)="sortItems(tableColumns[1])">{{'issue-board.'+ tableColumns[1] |
-          translate}}
+        <th scope="col" (click)="sortItems(tableColumns[1])">{{'product-backlog.'+ tableColumns[1] | translate}}
           <i class="material-icons" *ngIf="orderType === tableColumns[1] && sortAscending">arrow_drop_up</i>
           <i class="material-icons" *ngIf="orderType === tableColumns[1] && !sortAscending">arrow_drop_down</i>
         </th>
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let item of pagedItems[selectedPage]; let i = index" (contextmenu)="onrightClick($event, item)">
+      <tr *ngFor="let item of filteredItems" (contextmenu)="onrightClick($event, item)">
         <td>{{item[filter[1].key]}}</td>
       </tr>
       </tbody>
+      <tfoot class="table-secondary">
+      <tr>
+        <th scope="col"></th>
+      </tr>
+      </tfoot>
     </table>
-    <div *ngIf="pagedItems.length > 1">
-      <nav aria-label="Page navigation example">
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" (click)="selectPage(0)" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-              <span class="sr-only">Previous</span>
-            </a>
-          </li>
-          <div *ngFor="let pages of pagedItems; let i = index">
-            <div *ngIf="selectedPage !== i; else activePage">
-              <li class="page-item"><a class="page-link" (click)="selectPage(i)">{{i+1}}</a></li>
-            </div>
-            <ng-template #activePage>
-              <li class="page-item active"><a class="page-link" (click)="selectPage(i)">{{i+1}}</a></li>
-            </ng-template>
-          </div>
-          <li class="page-item">
-            <a class="page-link" (click)="selectPage(pagedItems.length-1)" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-              <span class="sr-only">Next</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
   </div>
 </div>
 <div *ngIf="contextmenu.visible">
-  <app-context-menu [x]="contextmenu.posX" [y]="contextmenu.posY" [actions]="contextmenuActions"
-                    (action)="onAction($event)"></app-context-menu>
+  <app-context-menu [x]="contextmenu.posX" [y]="contextmenu.posY" [actions]="contextmenuActions" (action)="onAction($event)"></app-context-menu>
 </div>
