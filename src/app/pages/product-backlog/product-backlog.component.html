@@ -22,7 +22,7 @@
 
         <div *ngIf="selectedSprint === 'default'" align="right" class="form-group col-md-6">
           <button type="button" class="btn btn-outline-secondary btn-sm" (click)="changeSprint(nextSprint.id)">
-            {{nextSprint.name}} Estimated (h):
+            {{nextSprint.name}} {{'product-backlog.estimated' | translate}}:
             <span class="badge badge-primary">{{nextIssuesEstimated}}</span>
           </button>
         </div>

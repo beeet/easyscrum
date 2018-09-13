@@ -21,13 +21,13 @@ export class FilterTableComponent implements OnInit, OnChanges {
   contextmenu = {visible: false, posX: 0, posY: 0};
   selectedItem;
   filterTypes = [
-    {value: '', name: 'all types'},
+    {value: '', name: 'all'},
     {value: 'S', name: 'story'},
     {value: 'B', name: 'bug'},
     {value: 'T', name: 'task'}];
 
   filterPriorities = [
-    {value: '', name: 'all priorities'},
+    {value: '', name: 'all'},
     {value: '1', name: 'critical'},
     {value: '2', name: 'major'},
     {value: '3', name: 'medium'},
