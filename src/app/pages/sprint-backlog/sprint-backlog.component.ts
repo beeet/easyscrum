@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {filteredByAssignee, filteredByState, IssueService} from '../../services/issue.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
@@ -26,6 +26,8 @@ export class SprintBacklogComponent implements OnInit {
     states: IssueState[] = [];
     isSubtaskFilterAcitve = false;
     selectedAssigneeFilter: string;
+    selectedIssue: Issue;
+    contextmenu;
 
     constructor(translate: TranslateService,
                 route: ActivatedRoute,
@@ -53,6 +55,7 @@ export class SprintBacklogComponent implements OnInit {
       const state = _.find(this.states, {'value': to});
       this.issueService.get(id).state = state;
       });
+    this.contextmenu = {visible: false, posX: 0, posY: 0, actions: [{action: 'highlighting', icon: 'new_releases'}]};
   }
 
     getIssues(issueState: IssueState): Issue[] {
@@ -126,5 +129,27 @@ export class SprintBacklogComponent implements OnInit {
       .catch(reason =>
         console.log('error while navigate to sprint-backlog' + JSON.stringify(reason))
       );
+  }
+
+  highlighting(issue) {
+      alert('TODO: ' + this.selectedIssue.title + ' highlighting!');
+  }
+
+  onrightClick(event, issue) {
+    this.contextmenu.posX = event.clientX + 10;
+    this.contextmenu.posY = event.clientY + 20;
+    this.contextmenu.visible = true;
+    this.selectedIssue = issue;
+  }
+
+  disableContextMenu() {
+    this.contextmenu.visible = false;
+  }
+
+  onAction(e) {
+    this.disableContextMenu();
+    if (e.action === 'highlighting') {
+      this.highlighting(e);
+    }
   }
 }
