@@ -3,12 +3,7 @@ div {
     margin: 1rem;
     background-color: var(--color-card-blue);
     list-style-type: none;
-  }
-  .card-header {
-
-  }
-  .card-body {
-
+    cursor: pointer;
   }
   .card-img-avatar {
     width: 30%;
@@ -34,6 +29,7 @@ div {
   }
   .filter-img-avatar {
     margin: 0.5rem;
+    cursor: pointer;
     @media (max-width: 767px) {
       width: 10%;
     }
@@ -125,7 +121,3 @@ div {
     top: 190px;
   }
 }
-
-
-
-
