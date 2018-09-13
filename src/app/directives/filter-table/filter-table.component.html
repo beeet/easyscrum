@@ -46,10 +46,13 @@
       <tbody>
       <tr *ngFor="let item of filteredItems; let i = index" (contextmenu)="onrightClick($event, item)">
         <th scope="row">{{i+1}}</th>
-        <td *ngFor="let att of filter">{{getValue(item, att.key)}}</td>
+        <td align="center"><img height="20" src="{{item.type.imageSrc}}" alt="{{item.type.id}}"></td>
+        <td >{{item.title}}</td>
+        <td align="center"><img height="15" src="{{item.priority.imageSrc}}" alt="{{item.priority.id}}"></td>
+        <td >{{item.estimated}}</td>
       </tr>
       </tbody>
-      <tfoot class="table-dark">
+      <tfoot class="table-secondary">
       <tr>
         <td scope="col"></td>
         <td scope="col"></td>
@@ -64,7 +67,7 @@
 
 <div *ngIf="innerWidth <= 767" class="container">
 
-  <h5> Filters </h5>
+  <h5> Filter </h5>
 
   <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()" [(ngModel)]="filter[0].value">
     <option *ngFor="let type of filterTypes" value="{{type.value}}">{{type.name}}</option>
@@ -99,7 +102,7 @@
         <td>{{item[filter[1].key]}}</td>
       </tr>
       </tbody>
-      <tfoot class="table-dark">
+      <tfoot class="table-secondary">
       <tr>
         <th scope="col"></th>
       </tr>

@@ -60,9 +60,9 @@
   "sprint-backlog.createTask": "Create Task",
 
   "product-backlog.row": "Row",
-  "product-backlog.type.id": "Type",
+  "product-backlog.type": "Type",
   "product-backlog.title": "Title",
-  "product-backlog.priority.id": "Priority",
+  "product-backlog.priority": "Priority",
   "product-backlog.estimated": "Estimated (h)",
   "product-backlog.sprint.placeholder": "issues without sprint",
 

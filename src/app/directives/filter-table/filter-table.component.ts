@@ -15,7 +15,7 @@ export class FilterTableComponent implements OnInit, OnChanges {
   filteredItems;
   globalFilter = '';
   orderType: any;
-  sortAscending = true;
+  sortAscending = false;
   innerWidth: any;
   contextmenu = {visible: false, posX: 0, posY: 0};
   selectedItem;
@@ -36,6 +36,7 @@ export class FilterTableComponent implements OnInit, OnChanges {
     this.innerWidth = window.innerWidth;
     this.filteredItems = this.items;
     this.tableColumns.forEach(col => this.filter.push({key: col, value: ''}));
+    this.sortItems(this.tableColumns[2]);
   }
 
   ngOnChanges() {
@@ -77,11 +78,20 @@ export class FilterTableComponent implements OnInit, OnChanges {
       this.sortAscending = true;
     }
     this.orderType = orderType;
-    if (this.sortAscending) {
-      this.filteredItems.sort((a, b) => a[orderType] > b[orderType] ? 1 : -1);
+    if (orderType === 'type' || orderType === 'priority') {
+      if (this.sortAscending) {
+        this.filteredItems.sort((a, b) => a[orderType].id > b[orderType].id ? 1 : -1);
+      } else {
+        this.filteredItems.sort((a, b) => a[orderType].id > b[orderType].id ? -1 : 1);
+      }
     } else {
-      this.filteredItems.sort((a, b) => a[orderType] > b[orderType] ? -1 : 1);
+      if (this.sortAscending) {
+        this.filteredItems.sort((a, b) => a[orderType] > b[orderType] ? 1 : -1);
+      } else {
+        this.filteredItems.sort((a, b) => a[orderType] > b[orderType] ? -1 : 1);
+      }
     }
+
   }
 
   onrightClick(event, item) {
@@ -104,7 +114,11 @@ export class FilterTableComponent implements OnInit, OnChanges {
     const keys = key.split('.');
     let value = item;
     for ( const k of keys ) {
-      value = value[k];
+      if (value[k] instanceof Object) {
+        value = value[k].id;
+      } else {
+        value = value[k];
+      }
     }
     return value;
   }
