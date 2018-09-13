@@ -56,7 +56,14 @@ export class SprintBacklogComponent implements OnInit {
   }
 
     getIssues(issueState: IssueState): Issue[] {
-        const sprintId = this.sprintService.getCurrent().id;
+      const sprint = this.sprintService.getCurrent();
+      if (!sprint) {
+        // TODO: was machen wir hier?
+        // alert('kein aktueller Sprint vorhanden');
+        // console.log('getIssues: kein aktueller Sprint vorhanden');
+        return;
+      }
+      const sprintId = sprint.id;
 
         const sprintIssues = this.issueService.getAllFilteredBySprint(sprintId);
         const issuesByState = sprintIssues.filter(filteredByState(issueState));
@@ -68,7 +75,14 @@ export class SprintBacklogComponent implements OnInit {
     }
 
     getInvolvedAssignees(): string[] {
-        const sprintId = this.sprintService.getCurrent().id;
+        const sprint = this.sprintService.getCurrent();
+        if (!sprint) {
+          // TODO: was machen wir hier?
+          // alert('kein aktueller Sprint vorhanden');
+          // console.log('getInvolvedAssignees: kein aktueller Sprint vorhanden');
+          return;
+        }
+        const sprintId = sprint.id;
         const sprintIssues = this.issueService.getAllFilteredBySprint(sprintId);
         const assignees = sprintIssues
             .map(value => value.assigneeId)

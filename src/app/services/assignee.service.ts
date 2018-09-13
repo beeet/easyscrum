@@ -2,9 +2,14 @@ import {Crud} from './crud';
 import {UUID} from 'angular2-uuid';
 import {Assignee} from './assignee';
 import {assigneeData} from './DUMMY_DATA';
+import {Injectable} from '@angular/core';
+import {PersistenceService} from './persistence.service';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class AssigneeService implements Crud<Assignee> {
-    private availableAvatar = [
+  private availableAvatar = [
         'barca', 'batman', 'calimero', 'capt.america', 'cowboy',
         'devil', 'elvis', 'eminem', 'firefighter', 'gandalf',
         'gladiator', 'king', 'mickey', 'motherboard', 'mr.t',
@@ -12,10 +17,14 @@ export class AssigneeService implements Crud<Assignee> {
         'surgeon', 'tux', 'wikinger'];
     private assignees: Assignee[] = [];
 
-    constructor() {
-
+    constructor(private persistence: PersistenceService) {
     }
 
+  load() {
+    this.persistence.loadAssignees().then(assignees => {
+      this.assignees = assignees;
+    });
+  }
     create(): Assignee {
         const newAssignee = new Assignee();
         newAssignee.id = UUID.UUID();
@@ -69,12 +78,16 @@ export class AssigneeService implements Crud<Assignee> {
     }
 
     setupDummyData() {
+      const assignees: Assignee[] = [];
         for (const d of assigneeData) {
             const dummy = this.create();
             dummy.id = d.id;
             dummy.nickname = d.nickname;
             dummy.avatar = d.avatar;
-            this.put(dummy);
+            assignees.push(dummy);
         }
+        this.persistence.storeAssignees(assignees)
+          .then(r => console.log(r))
+          .catch(e => console.error(e));
     }
 }

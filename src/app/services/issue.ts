@@ -7,7 +7,7 @@ import {IssuePriority, IssueResolution, IssueState, IssueType} from './Enums';
 })
 
 export class Issue {
-    private _id: string;
+    id: string;
     private _title: string;
     private _description: string;
     private _type: IssueType;
@@ -28,13 +28,14 @@ export class Issue {
 
     private dateUtil = new DateUtil();
 
-    public get id(): string {
-        return this._id;
-    }
-
-    public set id(value: string) {
-        this._id = value;
-    }
+  static get(issue: any) {
+    issue.dateUtil = new DateUtil();
+    issue.type = IssueType.get(issue.type['_id']);
+    issue.state = IssueState.get(issue.state['_id']);
+    issue.priority = IssuePriority.get(issue.priority['_id']);
+    issue.resolution = IssueResolution.get(issue.resolution['_id']);
+    return issue;
+  }
 
     public get title(): string {
         return this._title;

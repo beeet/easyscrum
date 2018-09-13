@@ -36,6 +36,7 @@ import {HighlightDirective} from './directives/highlight/highlight.directive';
 import {SprintLabelPipe} from './pipes/sprint-label.pipe';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import {PersistenceService} from './services/persistence.service';
 
 const appRoutes: Routes = [
     {path: '', component: SprintBacklogComponent},
@@ -94,7 +95,8 @@ export function createTranslateLoader(http: HttpClient) {
     providers: [
         IssueService,
         AssigneeService,
-        SprintService
+        SprintService,
+      PersistenceService
     ],
     bootstrap: [AppComponent]
 })

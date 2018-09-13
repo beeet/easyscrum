@@ -1,15 +1,9 @@
 export class Sprint {
-  private _id: string;
+  id: string;
   private _name: string;
   private _begin: Date;
   private _end: Date;
 
-  get id(): string {
-    return this._id;
-  }
-  set id(value: string) {
-    this._id = value;
-  }
   get name(): string {
     return this._name;
   }

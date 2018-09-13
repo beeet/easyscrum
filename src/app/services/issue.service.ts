@@ -6,6 +6,7 @@ import {Injectable} from '@angular/core';
 import {DateUtil} from '../utils/date.util';
 import {issueData} from './DUMMY_DATA';
 import {IssuePriority, IssueState, IssueType} from './Enums';
+import {PersistenceService} from './persistence.service';
 
 
 export function filterdByType(issueType: IssueType) {
@@ -29,16 +30,24 @@ export function filteredByAssignee(assigneeId: string) {
     providedIn: 'root',
 })
 
-
+@Injectable({
+  providedIn: 'root'
+})
 export class IssueService implements Crud<Issue> {
-    private issues: Issue[] = [];
+  private issues: Issue[] = [];
     private sprintService: SprintService;
 
     private dateUtil = new DateUtil();
 
-    constructor(sprintService: SprintService) {
+    constructor(sprintService: SprintService, private persistence: PersistenceService) {
         this.sprintService = sprintService;
     }
+
+  load() {
+    this.persistence.loadIssues().then(issues => {
+      this.issues = issues;
+    });
+  }
 
     create(): Issue {
         const newIssue = new Issue();
@@ -109,6 +118,7 @@ export class IssueService implements Crud<Issue> {
     }
 
     setupDummyData() {
+      const issues: Issue[] = [];
         for (const d of issueData) {
             const dummy = this.create();
             dummy.title = d.title;
@@ -128,7 +138,10 @@ export class IssueService implements Crud<Issue> {
             dummy.comments = d.comments;
             dummy.issueLinks = d.issueLinks;
             dummy.subissues = d.subissues;
-            this.put(dummy);
+            issues.push(dummy);
         }
+        this.persistence.storeIssues(issues)
+          .then(r => console.log(r))
+          .catch(e => console.error(e));
     }
 }
