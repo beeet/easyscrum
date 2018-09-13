@@ -19,7 +19,7 @@ import {ChartsModule} from 'ng2-charts/ng2-charts';
 import {DragulaModule} from 'ng2-dragula';
 
 // Routing
-import {routing} from './app.routing.module';
+import {AppRouting} from './app.routing.module';
 
 // import App Components
 import {AppComponent} from './app.component';
@@ -63,7 +63,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   imports: [
     BrowserModule,
-    routing,
+    AppRouting,
     HttpClientModule,
     TranslateModule.forRoot({
       loader: {
