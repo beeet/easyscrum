@@ -79,5 +79,6 @@
 
   "context-menu.edit": "Edit Issue",
   "context-menu.change": "Set Sprint",
-  "context-menu.delete": "Delete Issue"
+  "context-menu.delete": "Delete Issue",
+  "context-menu.highlighting": "Highlighting"
 }

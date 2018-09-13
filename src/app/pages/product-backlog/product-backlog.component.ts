@@ -50,7 +50,6 @@ export class ProductBacklogComponent {
   }
 
   onAction(e) {
-    console.log(e);
     if (e.action === 'edit') {
       this.editItem(e.item);
     } else if (e.action === 'change') {
