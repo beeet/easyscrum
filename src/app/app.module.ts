@@ -1,7 +1,7 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
+
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // import Translation FW
@@ -17,6 +17,9 @@ import {ChartsModule} from 'ng2-charts/ng2-charts';
 
 // import drag'n'drop
 import {DragulaModule} from 'ng2-dragula';
+
+// Routing
+import {routing} from './app.routing.module';
 
 // import App Components
 import {AppComponent} from './app.component';
@@ -34,69 +37,59 @@ import {FilterTableComponent} from './directives/filter-table/filter-table.compo
 import {ContextMenuComponent} from './directives/context-menu/context-menu.component';
 import {HighlightDirective} from './directives/highlight/highlight.directive';
 import {SprintLabelPipe} from './pipes/sprint-label.pipe';
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { environment } from '../environments/environment';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import {environment} from '../environments/environment';
 
-const appRoutes: Routes = [
-    {path: '', component: SprintBacklogComponent},
-    {path: 'sprint-backlog', component: SprintBacklogComponent},
-    {path: 'issue-board', component: IssueBoardComponent},
-    {path: 'issue-board/:id', component: IssueBoardComponent},
-    {path: 'chart-board', component: ChartBoardComponent},
-    {path: 'product-backlog', component: ProductBacklogComponent},
-    {path: '**', component: PageNotFoundComponent}
-];
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
-    return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        SprintBacklogComponent,
-        IssueBoardComponent,
-        ProductBacklogComponent,
-        ChartBoardComponent,
-        BurndownChartComponent,
-        PageNotFoundComponent,
-        SprintIssueRatioComponent,
-        FilterTableComponent,
-        ContextMenuComponent,
-        HighlightDirective,
-        SprintLabelPipe
-    ],
-    imports: [
-        BrowserModule,
-        RouterModule.forRoot(
-            appRoutes,
-            {enableTracing: false} // <-- true: debugging purposes only
-        ),
-        HttpClientModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: (createTranslateLoader),
-                deps: [HttpClient]
-            }
-        }),
-        NgbModule.forRoot(),
-        FormsModule,
-        ReactiveFormsModule,
-        ChartsModule,
-        DragulaModule,
-        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
-    ],
-    exports: [
-        CommonModule
-    ],
-    providers: [
-        IssueService,
-        AssigneeService,
-        SprintService
-    ],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    SprintBacklogComponent,
+    IssueBoardComponent,
+    ProductBacklogComponent,
+    ChartBoardComponent,
+    BurndownChartComponent,
+    PageNotFoundComponent,
+    SprintIssueRatioComponent,
+    FilterTableComponent,
+    ContextMenuComponent,
+    HighlightDirective,
+    SprintLabelPipe
+  ],
+  imports: [
+    BrowserModule,
+    routing,
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: (createTranslateLoader),
+        deps: [HttpClient]
+      }
+    }),
+    NgbModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+    ChartsModule,
+    DragulaModule,
+    ServiceWorkerModule.register(
+      '/ngsw-worker.js',
+      {enabled: environment.production})
+  ],
+  exports: [
+    CommonModule
+  ],
+  providers: [
+    IssueService,
+    AssigneeService,
+    SprintService
+  ],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 }
