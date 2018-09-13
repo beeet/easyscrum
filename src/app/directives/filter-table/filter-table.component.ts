@@ -16,6 +16,7 @@ export class FilterTableComponent implements OnInit, OnChanges {
   globalFilter = '';
   orderType: any;
   sortAscending = false;
+  smallScreen: boolean;
   innerWidth: any;
   contextmenu = {visible: false, posX: 0, posY: 0};
   selectedItem;
@@ -27,16 +28,18 @@ export class FilterTableComponent implements OnInit, OnChanges {
 
   filterPriorities = [
     {value: '', name: 'all priorities'},
-    {value: '1', name: 'blocker'},
-    {value: '2', name: 'high'},
+    {value: '1', name: 'critical'},
+    {value: '2', name: 'major'},
     {value: '3', name: 'medium'},
-    {value: '4', name: 'low'}];
+    {value: '4', name: 'minor'},
+    {value: '5', name: 'trivial'}];
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.filteredItems = this.items;
     this.tableColumns.forEach(col => this.filter.push({key: col, value: ''}));
     this.sortItems(this.tableColumns[2]);
+    this.evaluateScreenSize();
   }
 
   ngOnChanges() {
@@ -47,6 +50,15 @@ export class FilterTableComponent implements OnInit, OnChanges {
   @HostListener('window:resize', ['$event'])
   onResize(event) {
     this.innerWidth = window.innerWidth;
+    this.evaluateScreenSize();
+  }
+
+  private evaluateScreenSize() {
+    if (this.innerWidth <= 767) {
+      this.smallScreen = true;
+    } else {
+      this.smallScreen = false;
+    }
   }
 
   filterItems(): void {
@@ -103,6 +115,12 @@ export class FilterTableComponent implements OnInit, OnChanges {
 
   disableContextMenu() {
     this.contextmenu.visible = false;
+  }
+
+  editItem(e, item) {
+    e.action = 'edit';
+    this.selectedItem = item;
+    this.onAction(e);
   }
 
   onAction(e) {

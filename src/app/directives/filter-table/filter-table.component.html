@@ -1,4 +1,4 @@
-<div *ngIf="innerWidth > 767" class="container">
+<div *ngIf="!smallScreen" class="container">
   <div class="table-responsive-sm">
     <table class="table table-hover table-striped" (click)="disableContextMenu()" oncontextmenu="return false;">
       <thead class="thead-light">
@@ -44,7 +44,7 @@
         </td>
       </tr>
       <tbody>
-      <tr *ngFor="let item of filteredItems; let i = index" (contextmenu)="onrightClick($event, item)">
+      <tr *ngFor="let item of filteredItems; let i = index" (contextmenu)="onrightClick($event, item)" (click)="editItem($event, item)">
         <th scope="row">{{i+1}}</th>
         <td align="center"><img height="20" src="{{item.type.imageSrc}}" alt="{{item.type.id}}"></td>
         <td >{{item.title}}</td>
@@ -65,7 +65,7 @@
   </div>
 </div>
 
-<div *ngIf="innerWidth <= 767" class="container">
+<div *ngIf="smallScreen" class="container">
 
   <h5> Filter </h5>
 
