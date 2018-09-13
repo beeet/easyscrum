@@ -14,11 +14,8 @@ export class FilterTableComponent implements OnInit, OnChanges {
   filter = [];
   filteredItems;
   globalFilter = '';
-  sum = 0;
   orderType: any;
   sortAscending = true;
-  selectedPage = 0;
-  pagedItems;
   innerWidth: any;
   contextmenu = {visible: false, posX: 0, posY: 0};
   selectedItem;
@@ -38,7 +35,6 @@ export class FilterTableComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.filteredItems = this.items;
-    this.settingUpPagedItems();
     this.tableColumns.forEach(col => this.filter.push({key: col, value: ''}));
   }
 
@@ -72,7 +68,6 @@ export class FilterTableComponent implements OnInit, OnChanges {
         return false;
       });
     }
-    this.settingUpPagedItems();
   }
 
   sortItems(orderType: any): void {
@@ -87,24 +82,6 @@ export class FilterTableComponent implements OnInit, OnChanges {
     } else {
       this.filteredItems.sort((a, b) => a[orderType] > b[orderType] ? -1 : 1);
     }
-    this.settingUpPagedItems();
-  }
-
-  selectPage(selectedPage: number) {
-    this.selectedPage = selectedPage;
-    this.sum = 0;
-    if (this.pagedItems[selectedPage]) {
-      this.pagedItems[selectedPage].forEach(item => this.sum += item.estimated);
-    }
-  }
-
-  settingUpPagedItems() {
-    this.pagedItems = [];
-    for ( let i = 0; i < this.filteredItems.length / 10; i++ ) {
-      const startindex = i * 10;
-      this.pagedItems.push(this.filteredItems.slice(startindex, startindex + 10));
-    }
-    this.selectPage(0);
   }
 
   onrightClick(event, item) {
@@ -126,7 +103,7 @@ export class FilterTableComponent implements OnInit, OnChanges {
   getValue(item: Issue, key: string) {
     const keys = key.split('.');
     let value = item;
-    for (const k of keys) {
+    for ( const k of keys ) {
       value = value[k];
     }
     return value;

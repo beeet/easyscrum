@@ -60,7 +60,10 @@
   "sprint-backlog.createTask": "Create Task",
 
   "product-backlog.row": "Row",
-  "product-backlog.sum": "Sum",
+  "product-backlog.type.id": "Type",
+  "product-backlog.title": "Title",
+  "product-backlog.priority.id": "Priority",
+  "product-backlog.estimated": "Estimated (h)",
   "product-backlog.sprint.placeholder": "issues without sprint",
 
   "chart-board.burndownChart": "Burndown-Chart",
