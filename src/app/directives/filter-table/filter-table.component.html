@@ -4,7 +4,7 @@
       <thead class="thead-light">
       <tr>
         <th scope="col">{{'product-backlog.row' | translate}}</th>
-        <th *ngFor="let column of tableColumns" scope="col" (click)="sortItems(column)">{{'product-backlog.'+ column | translate}}
+        <th class="sorting" *ngFor="let column of tableColumns" scope="col" (click)="sortItems(column)">{{'product-backlog.'+ column | translate}}
           <i class="material-icons" *ngIf="orderType === column && sortAscending">arrow_drop_up</i>
           <i class="material-icons" *ngIf="orderType === column && !sortAscending">arrow_drop_down</i>
         </th>

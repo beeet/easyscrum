@@ -175,6 +175,7 @@ export class IssueBoardComponent implements OnInit {
       assignee.nickname = this.newAssignee;
       this.assigneeService.put(assignee);
       this.currentIssue.assigneeId = assignee.id;
+      this.theForm.patchValue({assigneeId: this.currentIssue.assigneeId});
     }
     this.isAssigneeEditable = false;
     return this.isAssigneeEditable;
