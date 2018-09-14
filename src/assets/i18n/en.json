@@ -91,5 +91,14 @@
   "context-menu.edit": "Edit Issue",
   "context-menu.change": "Set Sprint",
   "context-menu.delete": "Delete Issue",
-  "context-menu.highlighting": "Highlighting"
+  "context-menu.highlighting": "Highlighting",
+
+  "new-sprint.title": "Create new sprint",
+  "new-sprint.current": "Current sprint",
+  "new-sprint.latest": "Latest sprint",
+  "new-sprint.name": "Name",
+  "new-sprint.begin": "Begin",
+  "new-sprint.end": "End",
+  "new-sprint.save": "Save",
+  "new-sprint.cancel": "Cancel"
 }

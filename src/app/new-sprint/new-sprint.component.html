@@ -1,0 +1,48 @@
+<div class="container">
+  <h3>
+    {{'new-sprint.title' | translate}}
+  </h3>
+
+  <form>
+    <div class="row">
+      <div class="col-sm-6form-group col-md-12">
+        <label>{{'new-sprint.current' | translate}}:<br>
+          {{sprintService.getCurrent() | sprintLabel}}</label>
+        <br>
+        <label>{{'new-sprint.latest' | translate}}:<br>
+          {{sprintService.getLatest() | sprintLabel}}</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-sm-6">
+        <label id="nameLabel" for="name" >{{'new-sprint.name' | translate}}</label>
+        <input id="name"
+               name="name"
+               type="text"
+               [(ngModel)]="sprint.name"
+               required>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-6">
+        <label id="beginLabel" for="begin" >{{'new-sprint.begin' | translate}}</label>
+        <input id="begin"
+               name="begin"
+               type="date"
+               [(ngModel)]="sprint.begin"
+               required>
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-group col-sm-6">
+        <label id="endLabel" for="end" >{{'new-sprint.end' | translate}}</label>
+        <input id="end"
+               name="end"
+               type="date"
+               [(ngModel)]="sprint.end"
+               required>
+      </div>
+    </div>
+  </form>
+</div>

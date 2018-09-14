@@ -63,3 +63,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
   - details: https://angular.io/guide/service-worker-getting-started
   - configuration details: https://angular.io/guide/service-worker-config
 
+- install modal dialog
+  - npm install --save ngx-modal-dialog
+  - https://github.com/Greentube/ngx-modal
