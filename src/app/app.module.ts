@@ -44,7 +44,7 @@ import {FilterTableComponent} from './directives/filter-table/filter-table.compo
 import {ContextMenuComponent} from './directives/context-menu/context-menu.component';
 import {HighlightDirective} from './directives/highlight/highlight.directive';
 import {SprintLabelPipe} from './pipes/sprint-label.pipe';
-import { NewSprintComponent } from './new-sprint/new-sprint.component';
+import { NewSprintComponent } from './directives/new-sprint/new-sprint.component';
 
 
 // AoT requires an exported function for factories

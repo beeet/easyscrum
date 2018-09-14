@@ -1,7 +1,7 @@
 <div class="container">
-	<h1>
-		{{'app.issue-board' | translate}}
-	</h1>
+  <h1>
+    {{'app.issue-board' | translate}}
+  </h1>
 
   <form [formGroup]="theForm" (ngSubmit)="theForm.valid && onSave()">
     <div class="row">
@@ -27,14 +27,20 @@
       </div>
       <div class="form-group col-md-6">
         <label id="sprintLabel" for="sprint">{{'issue-board.sprint' | translate }}</label>
-        <select id="sprint"
-                class="form-control"
-                formControlName="sprintId">
-          <option value="" disabled selected>{{'issue-board.sprint.placeholder' | translate}}</option>
-          <option *ngFor="let sprint of sprintService.getAll()" [ngValue]="sprint.id">
-						{{sprint | sprintLabel}}
-          </option>
-        </select>
+        <div class="input-group mb-3">
+          <select id="sprint"
+                  class="form-control"
+                  formControlName="sprintId">
+            <option value="" disabled selected>{{'issue-board.sprint.placeholder' | translate}}</option>
+            <option *ngFor="let sprint of sprintService.getAll()" [ngValue]="sprint.id">
+              {{sprint | sprintLabel}}
+            </option>
+          </select>
+          <div class="input-group-append"
+               (click)="createNewSprint()">
+            <label class="input-group-text" for="sprint">+</label>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -58,123 +64,121 @@
           </small>
         </div>
         <small id="descriptionHelp"
-               class="form-text text-muted">{{'issue-board.description.help' | translate:{'maxLength':descriptionMaxLength} }}
+               class="form-text text-muted">{{'issue-board.description.help' |
+          translate:{'maxLength':descriptionMaxLength} }}
         </small>
       </div>
     </div>
 
-		<div class="row">
-			<div class="form-group col-md-6">
-				<label id="typeLabel" for="type">{{'issue-board.type' | translate}}</label>
-				<select id="type"
-				        class="form-control"
-				        formControlName="type">
-					<option *ngFor="let issueType of issueTypes"
-					        value="{{issueType.id}}">{{('issue-board.type.' + issueType.value) | translate}}
-					</option>
-				</select>
-			</div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label id="typeLabel" for="type">{{'issue-board.type' | translate}}</label>
+        <select id="type"
+                class="form-control"
+                formControlName="type">
+          <option *ngFor="let issueType of issueTypes"
+                  value="{{issueType.id}}">{{('issue-board.type.' + issueType.value) | translate}}
+          </option>
+        </select>
+      </div>
 
-			<div class="form-group col-md-6">
-				<label id="assigneeLabel" for="assignee">{{'issue-board.assignee' | translate }}</label>
-				<div class="input-group mb-3" [hidden]="isAssigneeEditable">
-					<select id="assignee"
-					        class="custom-select"
-					        formControlName="assigneeId">
-						<option value="" disabled selected>{{'issue-board.assignee.placeholder' | translate}}</option>
-						<option *ngFor="let assignee of assigneeService.getAll()" [ngValue]="assignee.id">
-							{{assignee.nickname}}
-						</option>
-					</select>
-					<div class="input-group-append"
-					     (click)="addAssignee()">
-						<label class="input-group-text" for="assignee">+</label>
-					</div>
-				</div>
-				<div class="input-group mb-3" [hidden]="!isAssigneeEditable">
-					<input type="text"
-					       class="form-control"
-					       placeholder="{{'issue-board.assignee.new.placeholder' | translate}}"
-					       [(ngModel)]="newAssignee" [ngModelOptions]="{standalone: true}">
-					<div class="input-group-append">
-						<button class="btn btn-outline-secondary"
-						        type="button"
-						        id="button-addon2" (click)="saveAssignee()">Save
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
+      <div class="form-group col-md-6">
+        <label id="assigneeLabel" for="assignee">{{'issue-board.assignee' | translate }}</label>
+        <div class="input-group mb-3" [hidden]="isAssigneeEditable">
+          <select id="assignee"
+                  class="custom-select"
+                  formControlName="assigneeId">
+            <option value="" disabled selected>{{'issue-board.assignee.placeholder' | translate}}</option>
+            <option *ngFor="let assignee of assigneeService.getAll()" [ngValue]="assignee.id">
+              {{assignee.nickname}}
+            </option>
+          </select>
+          <div class="input-group-append"
+               (click)="addAssignee()">
+            <label class="input-group-text" for="assignee">+</label>
+          </div>
+        </div>
+        <div class="input-group mb-3" [hidden]="!isAssigneeEditable">
+          <input type="text"
+                 class="form-control"
+                 placeholder="{{'issue-board.assignee.new.placeholder' | translate}}"
+                 [(ngModel)]="newAssignee" [ngModelOptions]="{standalone: true}">
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary"
+                    type="button"
+                    id="button-addon2" (click)="saveAssignee()">Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-		<div class="row">
-			<div class="form-group col-md-6">
-				<label id="priorityLabel" for="priority">{{'issue-board.priority' | translate}}</label>
-				<select id="priority"
-				        class="form-control"
-				        formControlName="priority">
-					<option *ngFor="let issuePriority of issuePriorities"
-					        value="{{issuePriority.id}}">{{('issue-board.priority.' + issuePriority.value) | translate}}
-					</option>
-				</select>
-			</div>
-			<div class="form-group col-md-6">
-				<label id="dueDateLabel" for="dueDate">{{'issue-board.dueDate' | translate}}</label>
-				<input id="dueDate"
-				       class="form-control"
-				       formControlName="dueDate"
-				       type="date">
-			</div>
-		</div>
+    <div class="row">
+      <div class="form-group col-md-6">
+        <label id="priorityLabel" for="priority">{{'issue-board.priority' | translate}}</label>
+        <select id="priority"
+                class="form-control"
+                formControlName="priority">
+          <option *ngFor="let issuePriority of issuePriorities"
+                  value="{{issuePriority.id}}">{{('issue-board.priority.' + issuePriority.value) | translate}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label id="dueDateLabel" for="dueDate">{{'issue-board.dueDate' | translate}}</label>
+        <input id="dueDate"
+               class="form-control"
+               formControlName="dueDate"
+               type="date">
+      </div>
+    </div>
 
-		<div class="row">
-			<div formGroupName="stateGroup" class="form-group col-md-6">
-				<label id="stateLabel" for="state">{{'issue-board.state' | translate}}</label>
-				<select id="state"
-				        class="form-control"
-				        formControlName="state">
-					<option *ngFor="let issueState of issueStates"
-					        value="{{issueState.id}}">{{('issue-board.state.' + issueState.value) | translate}}
-					</option>
-				</select>
-			</div>
-			<div class="form-group col-md-6">
-				<label id="estimatedLabel" for="estimated">{{'issue-board.estimated' | translate}}</label>
-				<input id="estimated"
-				       class="form-control"
-				       formControlName="estimated"
-				       type="number">
-			</div>
-		</div>
+    <div class="row">
+      <div formGroupName="stateGroup" class="form-group col-md-6">
+        <label id="stateLabel" for="state">{{'issue-board.state' | translate}}</label>
+        <select id="state"
+                class="form-control"
+                formControlName="state">
+          <option *ngFor="let issueState of issueStates"
+                  value="{{issueState.id}}">{{('issue-board.state.' + issueState.value) | translate}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-md-6">
+        <label id="estimatedLabel" for="estimated">{{'issue-board.estimated' | translate}}</label>
+        <input id="estimated"
+               class="form-control"
+               formControlName="estimated"
+               type="number">
+      </div>
+    </div>
 
-		<div class="row">
-			<div formGroupName="stateGroup" class="form-group col-md-6">
-				<label id="resolutionLabel" for="resolutionInput">{{'issue-board.resolution' | translate}}</label>
-				<select id="resolutionInput"
-				        class="form-control"
-				        formControlName="resolution">
-					<option value="" selected>{{'issue-board.resolution.placeholder' | translate}}</option>
-					<option *ngFor="let issueResolution of issueResolutions"
-					        value="{{issueResolution.id}}">{{('issue-board.resolution.' + issueResolution.value) | translate}}
-					</option>
-				</select>
-				<div *ngIf="stateGroup.invalid"
-				     class="alert alert-danger">
-					<small *ngIf="stateGroup.errors.invalidResolution">
-						{{'resolution.validation.invalid' | translate}}
-					</small>
-				</div>
-			</div>
-			<div class="form-group col-md-6">
-				<label id="elapsedLabel" for="elapsedInput">{{'issue-board.elapsed' | translate}}</label>
-				<input id="elapsedInput"
-				       class="form-control"
-				       formControlName="elapsed"
-				       type="number">
-			</div>
-		</div>
-
-    <div>Creation Date: {{currentIssue.creationDate}}</div>
-    <div>Resolution Date: {{currentIssue.resolutionDate}}</div>
+    <div class="row">
+      <div formGroupName="stateGroup" class="form-group col-md-6">
+        <label id="resolutionLabel" for="resolutionInput">{{'issue-board.resolution' | translate}}</label>
+        <select id="resolutionInput"
+                class="form-control"
+                formControlName="resolution">
+          <option value="" selected>{{'issue-board.resolution.placeholder' | translate}}</option>
+          <option *ngFor="let issueResolution of issueResolutions"
+                  value="{{issueResolution.id}}">{{('issue-board.resolution.' + issueResolution.value) | translate}}
+          </option>
+        </select>
+        <div *ngIf="stateGroup.invalid"
+             class="alert alert-danger">
+          <small *ngIf="stateGroup.errors.invalidResolution">
+            {{'resolution.validation.invalid' | translate}}
+          </small>
+        </div>
+      </div>
+      <div class="form-group col-md-6">
+        <label id="elapsedLabel" for="elapsedInput">{{'issue-board.elapsed' | translate}}</label>
+        <input id="elapsedInput"
+               class="form-control"
+               formControlName="elapsed"
+               type="number">
+      </div>
+    </div>
 
     <button type="button"
             class="btn btn-primary"

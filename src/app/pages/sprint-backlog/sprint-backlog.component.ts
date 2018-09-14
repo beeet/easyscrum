@@ -9,7 +9,7 @@ import {SprintService} from '../../services/sprint.service';
 import {AssigneeService} from '../../services/assignee.service';
 import {IssueState} from '../../services/Enums';
 import {ModalDialogService, SimpleModalComponent} from 'ngx-modal-dialog';
-import {NewSprintComponent} from '../../new-sprint/new-sprint.component';
+import {NewSprintComponent} from '../../directives/new-sprint/new-sprint.component';
 
 @Component({
   selector: 'app-sprint-backlog',
@@ -147,6 +147,5 @@ export class SprintBacklogComponent implements OnInit {
     this.modalService.openDialog(this.viewRef, {
       childComponent: NewSprintComponent,
     });
-
   }
 }

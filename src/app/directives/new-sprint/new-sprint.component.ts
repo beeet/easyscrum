@@ -1,7 +1,7 @@
 import {Component, ComponentRef, OnInit} from '@angular/core';
 import {IModalDialog, IModalDialogOptions, IModalDialogButton, IModalDialogSettings} from 'ngx-modal-dialog';
-import {Sprint} from '../services/sprint';
-import {SprintService} from '../services/sprint.service';
+import {Sprint} from '../../services/sprint';
+import {SprintService} from '../../services/sprint.service';
 import {TranslateService} from '@ngx-translate/core';
 
 
