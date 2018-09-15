@@ -57,10 +57,17 @@ export class SprintBacklogComponent implements OnInit {
       const id = value[1].id;
       const to = value[2].id.split('-')[1];
       const state = _.find(this.states, {'value': to});
+      const issue = this.issueService.get(id);
+      if (state === issue.state) {
+        return;
+      }
       if (state === IssueState.done) {
-        this.setResolution(this.issueService.get(id));
+        this.setResolution(issue);
       } else {
-        this.issueService.get(id).state = state;
+        if (issue.state === IssueState.done) {
+          issue.resolution = undefined;
+        }
+        issue.state = state;
       }
     });
     this.contextmenu = {visible: false, posX: 0, posY: 0, actions: [{action: 'highlighting', icon: 'new_releases'}]};

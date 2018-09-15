@@ -11,7 +11,7 @@ import {Issue} from '../../services/issue';
   templateUrl: './set-resolution.component.html',
   styleUrls: ['./set-resolution.component.scss']
 })
-export class SetResolutionComponent implements OnInit, IModalDialog {
+export class SetResolutionComponent implements IModalDialog {
   actionButtons: IModalDialogButton[];
 
   resolution;
@@ -19,9 +19,6 @@ export class SetResolutionComponent implements OnInit, IModalDialog {
   private issue: Issue;
 
   constructor(public translate: TranslateService) {
-  }
-
-  ngOnInit(): void {
     this.actionButtons = [
       {
         text: this.translate.instant('set-resolution.save'),

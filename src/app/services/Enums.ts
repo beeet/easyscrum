@@ -70,7 +70,7 @@ export class IssueState extends Enum {
 
 export class IssueResolution extends Enum {
 
-  public static readonly done = new Enum('WD', 'wontdo');
+  public static readonly done = new Enum('D', 'done');
   public static readonly wontDo = new Enum('WD', 'wontdo');
   public static readonly fixed = new Enum('F', 'fixed');
   public static readonly wontFix = new Enum('WF', 'wontfix');
