@@ -16,32 +16,19 @@ import {IssueState} from '../../services/Enums';
 })
 
 export class SprintBacklogComponent implements OnInit {
-    issueService: IssueService;
-    sprintService: SprintService;
-    assigneeService: AssigneeService;
-    issueStates = IssueState;
-    private translate;
-    private route: ActivatedRoute;
-    private router: Router;
     states: IssueState[] = [];
     isSubtaskFilterAcitve = false;
     selectedAssigneeFilter: string;
     selectedIssue: Issue;
     contextmenu;
 
-    constructor(translate: TranslateService,
-                route: ActivatedRoute,
-                router: Router,
-                issueService: IssueService,
-                sprintService: SprintService,
-                assigneeService: AssigneeService,
+    constructor(private translate: TranslateService,
+                private route: ActivatedRoute,
+                private router: Router,
+                public issueService: IssueService,
+                public sprintService: SprintService,
+                public assigneeService: AssigneeService,
                 private dragula: DragulaService) {
-        this.translate = translate;
-        this.route = route;
-        this.router = router;
-        this.issueService = issueService;
-        this.sprintService = sprintService;
-        this.assigneeService = assigneeService;
     }
 
   ngOnInit() {

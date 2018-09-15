@@ -35,7 +35,7 @@ export class IssueBoardComponent implements OnInit {
   private urlParam;
   private resetValues;
 
-  constructor(translate: TranslateService, private route: ActivatedRoute, private location: Location,
+  constructor(private route: ActivatedRoute, private location: Location,
               public issueService: IssueService, public assigneeService: AssigneeService, public sprintService: SprintService,
   private formBuilder: FormBuilder) {}
 

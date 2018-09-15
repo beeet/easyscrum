@@ -48,16 +48,11 @@ export class SprintIssueRatioComponent implements OnInit {
   public lineChartLegend = true;
   public lineChartType = 'pie';
 
-
-  private issueService: IssueService;
   private issues: Array<Issue>;
-  public sprintService: SprintService;
   public sprintSelected: Sprint;
   public sprintSelectedId: string;
 
-  constructor(issueService: IssueService, sprintService: SprintService) {
-    this.issueService = issueService;
-    this.sprintService = sprintService;
+  constructor(private issueService: IssueService, public sprintService: SprintService) {
   }
 
   ngOnInit() {

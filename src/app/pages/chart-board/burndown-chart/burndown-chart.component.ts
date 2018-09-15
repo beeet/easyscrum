@@ -31,16 +31,11 @@ export class BurndownChartComponent implements OnInit {
   public lineChartLegend = false;
   public lineChartType = 'line';
 
-
-  private issueService: IssueService;
   private issues: Issue[];
-  public sprintService: SprintService;
   public sprintSelected: Sprint;
   public sprintSelectedId: string;
 
-  constructor(issueService: IssueService, sprintService: SprintService) {
-    this.issueService = issueService;
-    this.sprintService = sprintService;
+  constructor(private issueService: IssueService, public sprintService: SprintService) {
   }
 
   ngOnInit() {
