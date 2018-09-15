@@ -15,12 +15,9 @@ export class SprintService implements Crud<Sprint> {
   private dateUtil = new DateUtil();
 
   constructor(private persistence: PersistenceService) {
-  }
-
-  load() {
-    this.persistence.loadSprints().then(sprints => {
-      this.sprints = sprints;
-    });
+    this.persistence.loadSprints()
+      .then(sprints => this.sprints = sprints)
+      .catch(e => console.error(e));
   }
 
   create(): Sprint {
@@ -38,13 +35,20 @@ export class SprintService implements Crud<Sprint> {
     return this.sprints.find(s => s.id === id);
   }
 
-  put(sprint: Sprint) {
-    return this.sprints.push(sprint);
+  put(sprint: Sprint): void {
+    this.persistence.insertSprint(sprint)
+      .then(() => this.sprints.push(sprint))
+      .catch(e => console.error(e));
+    return ;
   }
 
   delete(id: string) {
-    const index = this.sprints.findIndex(s => s.id === id);
-    this.sprints.splice(index, 1);
+    this.persistence.deleteSprint(id)
+      .then(() => {
+        const index = this.sprints.findIndex(s => s.id === id);
+        this.sprints.splice(index, 1);
+      })
+      .catch(e => console.error(e));
   }
 
   getCurrent(): Sprint {

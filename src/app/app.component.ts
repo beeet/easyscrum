@@ -29,10 +29,6 @@ export class AppComponent {
     this.assigneeService.setupDummyData();
     this.sprintService.setupDummyData();
     this.issueService.setupDummyData();
-    // TODO remove later end
-    this.assigneeService.load();
-    this.sprintService.load();
-    this.issueService.load();
   }
 
   public switchLang(lang: string): void {
