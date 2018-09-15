@@ -10,6 +10,7 @@ import {AssigneeService} from '../../services/assignee.service';
 import {IssueState} from '../../services/Enums';
 import {ModalDialogService, SimpleModalComponent} from 'ngx-modal-dialog';
 import {NewSprintComponent} from '../../directives/new-sprint/new-sprint.component';
+import {SetResolutionComponent} from '../../directives/set-resolution/set-resolution.component';
 
 @Component({
   selector: 'app-sprint-backlog',
@@ -21,7 +22,6 @@ export class SprintBacklogComponent implements OnInit {
   issueService: IssueService;
   sprintService: SprintService;
   assigneeService: AssigneeService;
-  issueStates = IssueState;
   private translate;
   private route: ActivatedRoute;
   private router: Router;
@@ -57,7 +57,11 @@ export class SprintBacklogComponent implements OnInit {
       const id = value[1].id;
       const to = value[2].id.split('-')[1];
       const state = _.find(this.states, {'value': to});
-      this.issueService.get(id).state = state;
+      if (state === IssueState.done) {
+        this.setResolution(this.issueService.get(id));
+      } else {
+        this.issueService.get(id).state = state;
+      }
     });
     this.contextmenu = {visible: false, posX: 0, posY: 0, actions: [{action: 'highlighting', icon: 'new_releases'}]};
   }
@@ -146,6 +150,14 @@ export class SprintBacklogComponent implements OnInit {
   createNewSprint() {
     this.modalService.openDialog(this.viewRef, {
       childComponent: NewSprintComponent,
+    });
+  }
+
+  setResolution(issue: Issue) {
+    this.modalService.openDialog(this.viewRef, {
+      childComponent: SetResolutionComponent,
+      // onClose: this.f/*.bind(this)*/,
+      data: {issue}
     });
   }
 }

@@ -45,6 +45,7 @@ import {ContextMenuComponent} from './directives/context-menu/context-menu.compo
 import {HighlightDirective} from './directives/highlight/highlight.directive';
 import {SprintLabelPipe} from './pipes/sprint-label.pipe';
 import { NewSprintComponent } from './directives/new-sprint/new-sprint.component';
+import {SetResolutionComponent} from './directives/set-resolution/set-resolution.component';
 
 
 // AoT requires an exported function for factories
@@ -66,7 +67,8 @@ export function createTranslateLoader(http: HttpClient) {
     ContextMenuComponent,
     HighlightDirective,
     SprintLabelPipe,
-    NewSprintComponent
+    NewSprintComponent,
+    SetResolutionComponent
   ],
   imports: [
     BrowserModule,
@@ -90,7 +92,8 @@ export function createTranslateLoader(http: HttpClient) {
       {enabled: environment.production})
   ],
   entryComponents: [
-    NewSprintComponent
+    NewSprintComponent,
+    SetResolutionComponent
   ],
   exports: [
     CommonModule
