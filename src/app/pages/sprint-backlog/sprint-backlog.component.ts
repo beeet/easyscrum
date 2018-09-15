@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {Component, EventEmitter, Input, OnInit, Output, ViewContainerRef} from '@angular/core';
+import {Component, OnInit, ViewContainerRef} from '@angular/core';
 import {filteredByAssignee, filteredByState, IssueService} from '../../services/issue.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
@@ -8,7 +8,7 @@ import {Issue} from '../../services/issue';
 import {SprintService} from '../../services/sprint.service';
 import {AssigneeService} from '../../services/assignee.service';
 import {IssueState} from '../../services/Enums';
-import {ModalDialogService, SimpleModalComponent} from 'ngx-modal-dialog';
+import {ModalDialogService} from 'ngx-modal-dialog';
 import {NewSprintComponent} from '../../directives/new-sprint/new-sprint.component';
 import {SetResolutionComponent} from '../../directives/set-resolution/set-resolution.component';
 
@@ -19,33 +19,21 @@ import {SetResolutionComponent} from '../../directives/set-resolution/set-resolu
 })
 
 export class SprintBacklogComponent implements OnInit {
-  issueService: IssueService;
-  sprintService: SprintService;
-  assigneeService: AssigneeService;
-  private translate;
-  private route: ActivatedRoute;
-  private router: Router;
   states: IssueState[] = [];
   isSubtaskFilterAcitve = false;
   selectedAssigneeFilter: string;
   selectedIssue: Issue;
   contextmenu;
 
-  constructor(translate: TranslateService,
-              route: ActivatedRoute,
-              router: Router,
-              issueService: IssueService,
-              sprintService: SprintService,
-              assigneeService: AssigneeService,
+  constructor(private translate: TranslateService,
+              private route: ActivatedRoute,
+              private router: Router,
+              public issueService: IssueService,
+              public sprintService: SprintService,
+              public assigneeService: AssigneeService,
               private dragula: DragulaService,
               private modalService: ModalDialogService,
               private viewRef: ViewContainerRef) {
-    this.translate = translate;
-    this.route = route;
-    this.router = router;
-    this.issueService = issueService;
-    this.sprintService = sprintService;
-    this.assigneeService = assigneeService;
   }
 
   ngOnInit() {

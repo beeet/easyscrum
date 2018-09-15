@@ -62,6 +62,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
   - ng add @angular/pwa --project *project-name*
   - details: https://angular.io/guide/service-worker-getting-started
   - configuration details: https://angular.io/guide/service-worker-config
+  
+- install dexie
+  - npm install dexie --save
+  - http://dexie.org
 
 - install modal dialog
   - npm install --save ngx-modal-dialog

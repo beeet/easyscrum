@@ -11,16 +11,11 @@ import {SprintService} from './services/sprint.service';
 })
 export class AppComponent {
   title = 'EasyScum';
-  translate;
-  private issueService: IssueService;
-  private assigneeService: AssigneeService;
-  private sprintService: SprintService;
 
-  constructor(translate: TranslateService,
-              issueService: IssueService,
-              assigneeService: AssigneeService,
-              sprintService: SprintService) {
-    this.translate = translate;
+  constructor(public translate: TranslateService,
+              private issueService: IssueService,
+              private assigneeService: AssigneeService,
+              private sprintService: SprintService) {
     this.setUserLanguage();
     this.assigneeService = assigneeService;
     this.sprintService = sprintService;
