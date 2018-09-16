@@ -18,8 +18,15 @@ import {ChartsModule} from 'ng2-charts/ng2-charts';
 // import drag'n'drop
 import {DragulaModule} from 'ng2-dragula';
 
+// import Modal Dialog
+import { ModalDialogModule } from 'ngx-modal-dialog';
+
 // Routing
 import {AppRouting} from './app.routing.module';
+
+// Service Worker
+import {environment} from '../environments/environment';
+import {ServiceWorkerModule} from '@angular/service-worker';
 
 // import App Components
 import {AppComponent} from './app.component';
@@ -37,8 +44,8 @@ import {FilterTableComponent} from './directives/filter-table/filter-table.compo
 import {ContextMenuComponent} from './directives/context-menu/context-menu.component';
 import {HighlightDirective} from './directives/highlight/highlight.directive';
 import {SprintLabelPipe} from './pipes/sprint-label.pipe';
-import {ServiceWorkerModule} from '@angular/service-worker';
-import {environment} from '../environments/environment';
+import { NewSprintComponent } from './directives/new-sprint/new-sprint.component';
+import {SetResolutionComponent} from './directives/set-resolution/set-resolution.component';
 
 
 // AoT requires an exported function for factories
@@ -59,7 +66,9 @@ export function createTranslateLoader(http: HttpClient) {
     FilterTableComponent,
     ContextMenuComponent,
     HighlightDirective,
-    SprintLabelPipe
+    SprintLabelPipe,
+    NewSprintComponent,
+    SetResolutionComponent
   ],
   imports: [
     BrowserModule,
@@ -77,9 +86,14 @@ export function createTranslateLoader(http: HttpClient) {
     ReactiveFormsModule,
     ChartsModule,
     DragulaModule,
+    ModalDialogModule.forRoot(),
     ServiceWorkerModule.register(
       '/ngsw-worker.js',
       {enabled: environment.production})
+  ],
+  entryComponents: [
+    NewSprintComponent,
+    SetResolutionComponent
   ],
   exports: [
     CommonModule

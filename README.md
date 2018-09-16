@@ -67,3 +67,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
   - npm install dexie --save
   - http://dexie.org
 
+- install modal dialog
+  - npm install --save ngx-modal-dialog
+  - https://github.com/Greentube/ngx-modal

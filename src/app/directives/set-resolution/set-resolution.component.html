@@ -1,0 +1,20 @@
+<div class="container">
+  <h3>
+    {{'set-resolution.title' | translate}} </h3>
+
+  <div class="row">
+    <div class="col-sm-6form-group col-md-12">
+      <label>{{'set-resolution.choose' | translate}}:</label>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="form-group col-sm-6">
+      <label id="resolutionLabel" for="resolution">{{'set-resolution.resolution' | translate}}</label>
+      <select id="resolution" name="resolution" class="form-control" [(ngModel)]="resolution" required>
+        <option *ngFor="let r of issueResolutions" value="{{r.id}}">{{('issue-board.resolution.' + r.value) | translate}}
+        </option>
+      </select>
+    </div>
+  </div>
+</div>
