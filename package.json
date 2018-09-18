@@ -32,6 +32,7 @@
     "dexie": "2.0.4",
     "ng2-charts": "^1.6.0",
     "ng2-dragula": "1.5.0",
+    "ngx-modal-dialog": "^3.0.0",
     "node-sass": "^4.9.3",
     "rxjs": "^6.3.2",
     "zone.js": "^0.8.26"

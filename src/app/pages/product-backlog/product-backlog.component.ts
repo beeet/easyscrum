@@ -9,8 +9,6 @@ import {SprintService} from '../../services/sprint.service';
   styleUrls: ['./product-backlog.component.scss']
 })
 export class ProductBacklogComponent {
-  issueService: IssueService;
-  sprintService: SprintService;
   issues;
   nextIssues;
   nextIssuesEstimated = 0;
@@ -24,9 +22,7 @@ export class ProductBacklogComponent {
     {action: 'delete', icon: 'close'}
   ];
 
-  constructor(issueService: IssueService, sprintService: SprintService, private router: Router) {
-    this.issueService = issueService;
-    this.sprintService = sprintService;
+  constructor(public issueService: IssueService, public sprintService: SprintService, private router: Router) {
     this.issues = this.issueService.getAllWithoutSprintAssignment();
     this.sprints = this.sprintService.getAll();
     this.nextSprint = this.sprintService.getNext();
