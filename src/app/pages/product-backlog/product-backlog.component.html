@@ -7,7 +7,7 @@
       <div class="row">
         <div class="form-group col-md-6">
           <div class="input-group-prepend sm-6">
-            <button type="button" class="btn btn-outline-secondary btn-sm" (click)="sprintBackward()"><</button>
+            <button *ngIf="issues.length > 0" type="button" class="btn btn-outline-secondary btn-sm" (click)="sprintBackward()"><</button>
             <div class="input-group-append">
               <select name="sprintSelect" class="form-control form-control-sm" (change)="changeSprint($event.target.value)" [(ngModel)]="selectedSprint">
                 <option value="default">{{'product-backlog.sprint.placeholder' | translate}}</option>
@@ -15,14 +15,14 @@
                   {{sprint.name}} ({{sprint.begin | date:"dd.MM.yyyy"}} - {{sprint.end | date:"dd.MM.yyyy"}})
                 </option>
               </select>
-              <button type="button" class="btn btn-outline-secondary btn-sm" (click)="sprintForward()">></button>
+              <button *ngIf="issues.length > 0" type="button" class="btn btn-outline-secondary btn-sm" (click)="sprintForward()">></button>
             </div>
           </div>
         </div>
 
-        <div *ngIf="selectedSprint === 'default'" align="right" class="form-group col-md-6">
-          <button type="button" class="btn btn-outline-secondary btn-sm" (click)="changeSprint(nextSprint.id)">
-            {{nextSprint.name}} {{'product-backlog.estimated' | translate}}:
+        <div *ngIf="selectedSprint === 'default' && issues.length > 0" align="right" class="form-group col-md-6">
+          <button type="button" class="btn btn-outline-secondary btn-sm" (click)="changeSprint(nextSprint?.id)">
+            {{nextSprint?.name}} {{'product-backlog.estimated' | translate}}:
             <span class="badge badge-primary">{{nextIssuesEstimated}}</span>
           </button>
         </div>

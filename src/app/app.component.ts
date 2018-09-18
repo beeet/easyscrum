@@ -20,10 +20,10 @@ export class AppComponent {
     this.assigneeService = assigneeService;
     this.sprintService = sprintService;
     this.issueService = issueService;
-    // TODO remove later
-    this.assigneeService.setupDummyData();
-    this.sprintService.setupDummyData();
-    this.issueService.setupDummyData();
+    // TODO remove later start
+    // this.assigneeService.setupDummyData();
+    // this.sprintService.setupDummyData();
+    // this.issueService.setupDummyData();
   }
 
   public switchLang(lang: string): void {

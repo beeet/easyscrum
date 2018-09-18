@@ -19,15 +19,18 @@ export class ProductBacklogComponent {
   contextmenuActions = [
     {action: 'edit', icon: 'edit'},
     {action: 'change', icon: 'rotate_left'},
-    {action: 'delete', icon: 'close'}
+    {action: 'delete', icon: 'close'},
+    {action: 'add', icon: 'add_box'}
   ];
 
   constructor(public issueService: IssueService, public sprintService: SprintService, private router: Router) {
     this.issues = this.issueService.getAllWithoutSprintAssignment();
     this.sprints = this.sprintService.getAll();
     this.nextSprint = this.sprintService.getNext();
-    this.nextIssues = this.issueService.getAllFilteredBySprint(this.nextSprint.id);
-    this.nextIssues.forEach(i => this.nextIssuesEstimated += i.estimated);
+    if (this.nextSprint) {
+      this.nextIssues = this.issueService.getAllFilteredBySprint(this.nextSprint.id);
+      this.nextIssues.forEach(i => this.nextIssuesEstimated += i.estimated);
+    }
     this.selectedSprint = 'default';
   }
 
@@ -45,6 +48,10 @@ export class ProductBacklogComponent {
     console.log('change Item: ' + issue.title);
   }
 
+  addNewSprint() {
+    console.log('TODO Add New Sprint');
+  }
+
   onAction(e) {
     if (e.action === 'edit') {
       this.editItem(e.item);
@@ -52,6 +59,8 @@ export class ProductBacklogComponent {
       this.changeItemSprint(e.item);
     } else if (e.action === 'delete') {
       this.deleteItem(e.item);
+    } else if (e.action === 'add') {
+      this.addNewSprint();
     }
   }
 

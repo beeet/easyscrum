@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import {Injectable} from '@angular/core';
 import {DateUtil} from '../utils/date.util';
 import {IssuePriority, IssueResolution, IssueState, IssueType} from './Enums';
@@ -7,7 +8,7 @@ import {IssuePriority, IssueResolution, IssueState, IssueType} from './Enums';
 })
 
 export class Issue {
-    private _id: string;
+    id: string;
     private _title: string;
     private _description: string;
     private _type: IssueType;
@@ -28,13 +29,14 @@ export class Issue {
 
     private dateUtil = new DateUtil();
 
-    public get id(): string {
-        return this._id;
-    }
-
-    public set id(value: string) {
-        this._id = value;
-    }
+  static get(issue: any) {
+    issue.dateUtil = new DateUtil();
+    issue.type = IssueType.get(_.get(issue.type, '_id'));
+    issue.state = IssueState.get(_.get(issue.state, '_id'));
+    issue.priority = IssuePriority.get(_.get(issue.priority, '_id'));
+    issue.resolution = IssueResolution.get(_.get(issue.resolution, '_id'));
+    return issue;
+  }
 
     public get title(): string {
         return this._title;

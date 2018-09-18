@@ -44,7 +44,8 @@ import {FilterTableComponent} from './directives/filter-table/filter-table.compo
 import {ContextMenuComponent} from './directives/context-menu/context-menu.component';
 import {HighlightDirective} from './directives/highlight/highlight.directive';
 import {SprintLabelPipe} from './pipes/sprint-label.pipe';
-import { NewSprintComponent } from './directives/new-sprint/new-sprint.component';
+import {PersistenceService} from './services/persistence.service';
+import {NewSprintComponent} from './directives/new-sprint/new-sprint.component';
 import {SetResolutionComponent} from './directives/set-resolution/set-resolution.component';
 
 
@@ -101,7 +102,8 @@ export function createTranslateLoader(http: HttpClient) {
   providers: [
     IssueService,
     AssigneeService,
-    SprintService
+    SprintService,
+    PersistenceService
   ],
   bootstrap: [AppComponent]
 })

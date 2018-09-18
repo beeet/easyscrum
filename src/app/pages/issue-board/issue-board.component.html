@@ -194,7 +194,14 @@
       </div>
     </div>
 
-    <button type="button" class="btn btn-primary" (click)="onSave()" [disabled]="!theForm.valid">
+    <div>Creation Date: {{currentIssue.creationDate}}</div>
+    <div>Resolution Date: {{currentIssue.resolutionDate}}</div>
+    <div>ID: {{currentIssue.id}}</div>
+
+    <button type="button"
+            class="btn btn-primary"
+            (click)="onSave()"
+            [disabled]="!theForm.valid">
       {{'issue-board.buttonSave' | translate }}
     </button>
     <button type="button" class="btn btn-light" (click)="onCancel()">
