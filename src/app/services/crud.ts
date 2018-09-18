@@ -5,9 +5,9 @@ export interface Crud<T> {
 
   getAll(): T[];
 
-  get(id: string);
+  get(id: string): T;
 
-  put(item: T);
+  put(item: T): void;
 
-  delete(id: string);
+  delete(id: string): void;
 }

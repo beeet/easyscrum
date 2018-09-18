@@ -56,13 +56,21 @@ export class SprintBacklogComponent implements OnInit {
           issue.resolution = undefined;
         }
         issue.state = state;
+        this.issueService.put(issue);
       }
     });
     this.contextmenu = {visible: false, posX: 0, posY: 0, actions: [{action: 'highlighting', icon: 'new_releases'}]};
   }
 
   getIssues(issueState: IssueState): Issue[] {
-    const sprintId = this.sprintService.getCurrent().id;
+      const sprint = this.sprintService.getCurrent();
+      if (!sprint) {
+        // TODO: was machen wir hier?
+        // alert('kein aktueller Sprint vorhanden');
+        // console.log('getIssues: kein aktueller Sprint vorhanden');
+        return;
+      }
+      const sprintId = sprint.id;
 
     const sprintIssues = this.issueService.getAllFilteredBySprint(sprintId);
     const issuesByState = sprintIssues.filter(filteredByState(issueState));
@@ -74,18 +82,25 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   getInvolvedAssignees(): string[] {
-    const sprintId = this.sprintService.getCurrent().id;
-    const sprintIssues = this.issueService.getAllFilteredBySprint(sprintId);
-    const assignees = sprintIssues
-      .map(value => value.assigneeId)
-      .sort()
-      .reduce(function (a, b) {
-        if (b !== null && b !== a[0]) {
-          a.unshift(b);
-        }
-        return a;
-      }, []);
-    return assignees;
+      const sprint = this.sprintService.getCurrent();
+      if (!sprint) {
+        // TODO: was machen wir hier?
+        // alert('kein aktueller Sprint vorhanden');
+        // console.log('getInvolvedAssignees: kein aktueller Sprint vorhanden');
+        return;
+      }
+      const sprintId = sprint.id;
+      const sprintIssues = this.issueService.getAllFilteredBySprint(sprintId);
+      const assignees = sprintIssues
+          .map(value => value.assigneeId)
+          .sort()
+          .reduce(function (a, b) {
+              if (b !== null && b !== a[0]) {
+                  a.unshift(b);
+              }
+              return a;
+          }, []);
+      return assignees;
   }
 
   getAvatar(assigneeId: string): string {
@@ -151,7 +166,6 @@ export class SprintBacklogComponent implements OnInit {
   setResolution(issue: Issue) {
     this.modalService.openDialog(this.viewRef, {
       childComponent: SetResolutionComponent,
-      // onClose: this.f/*.bind(this)*/,
       data: {issue}
     });
   }

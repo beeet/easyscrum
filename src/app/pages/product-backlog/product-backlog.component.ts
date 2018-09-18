@@ -27,8 +27,10 @@ export class ProductBacklogComponent {
     this.issues = this.issueService.getAllWithoutSprintAssignment();
     this.sprints = this.sprintService.getAll();
     this.nextSprint = this.sprintService.getNext();
-    this.nextIssues = this.issueService.getAllFilteredBySprint(this.nextSprint.id);
-    this.nextIssues.forEach(i => this.nextIssuesEstimated += i.estimated);
+    if (this.nextSprint) {
+      this.nextIssues = this.issueService.getAllFilteredBySprint(this.nextSprint.id);
+      this.nextIssues.forEach(i => this.nextIssuesEstimated += i.estimated);
+    }
     this.selectedSprint = 'default';
   }
 

@@ -4,18 +4,26 @@ import {Sprint} from './sprint';
 import {DateUtil} from '../utils/date.util';
 import {sprintData} from './DUMMY_DATA';
 import {isAfter, isBefore, isEqual} from 'date-fns';
+import {PersistenceService} from './persistence.service';
+import {Injectable} from '@angular/core';
 
+@Injectable({
+  providedIn: 'root'
+})
 export class SprintService implements Crud<Sprint> {
   private sprints: Sprint[] = [];
   private dateUtil = new DateUtil();
 
-  constructor() {
-
+  constructor(private persistence: PersistenceService) {
+    this.persistence.loadSprints()
+      .then(sprints => this.sprints = sprints)
+      .catch(e => console.error(e));
   }
 
   create(): Sprint {
     const newSprint = new Sprint();
     newSprint.id = UUID.UUID();
+    console.log('Sprint created 2', newSprint);
     return newSprint;
   }
 
@@ -27,13 +35,20 @@ export class SprintService implements Crud<Sprint> {
     return this.sprints.find(s => s.id === id);
   }
 
-  put(sprint: Sprint) {
-    return this.sprints.push(sprint);
+  put(sprint: Sprint): void {
+    this.persistence.insertSprint(sprint)
+      .then(() => this.sprints.push(sprint))
+      .catch(e => console.error(e));
+    return ;
   }
 
   delete(id: string) {
-    const index = this.sprints.findIndex(s => s.id === id);
-    this.sprints.splice(index, 1);
+    this.persistence.deleteSprint(id)
+      .then(() => {
+        const index = this.sprints.findIndex(s => s.id === id);
+        this.sprints.splice(index, 1);
+      })
+      .catch(e => console.error(e));
   }
 
   getCurrent(): Sprint {
@@ -71,13 +86,17 @@ export class SprintService implements Crud<Sprint> {
   }
 
   setupDummyData() {
-    for ( const d of sprintData ) {
+    const sprints: Sprint[] = [];
+    for (const d of sprintData) {
       const dummy = this.create();
       dummy.id = d.sprintId;
       dummy.name = d.name;
       dummy.begin = d.begin;
       dummy.end = d.end;
-      this.put(dummy);
+      sprints.push(dummy);
     }
+    this.persistence.storeSprints(sprints)
+      .then(r => console.log(r))
+      .catch(e => console.error(e));
   }
 }

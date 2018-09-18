@@ -4,6 +4,7 @@ import {Sprint} from '../../services/sprint';
 import {TranslateService} from '@ngx-translate/core';
 import {IssueResolution, IssueState} from '../../services/Enums';
 import {Issue} from '../../services/issue';
+import {IssueService} from '../../services/issue.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class SetResolutionComponent implements IModalDialog {
   issueResolutions = IssueResolution.IssueResolutions;
   private issue: Issue;
 
-  constructor(public translate: TranslateService) {
+  constructor(public translate: TranslateService, private issueService: IssueService) {
     this.actionButtons = [
       {
         text: this.translate.instant('set-resolution.save'),
@@ -27,6 +28,7 @@ export class SetResolutionComponent implements IModalDialog {
           if (this.resolution) {
             this.issue.state = IssueState.done;
             this.issue.resolution = IssueResolution.get(this.resolution);
+            this.issueService.put(this.issue);
             return true;
           } else {
             return false;
