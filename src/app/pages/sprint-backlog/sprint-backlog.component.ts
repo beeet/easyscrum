@@ -56,6 +56,7 @@ export class SprintBacklogComponent implements OnInit {
           issue.resolution = undefined;
         }
         issue.state = state;
+        this.issueService.put(issue);
       }
     });
     this.contextmenu = {visible: false, posX: 0, posY: 0, actions: [{action: 'highlighting', icon: 'new_releases'}]};
@@ -165,7 +166,6 @@ export class SprintBacklogComponent implements OnInit {
   setResolution(issue: Issue) {
     this.modalService.openDialog(this.viewRef, {
       childComponent: SetResolutionComponent,
-      // onClose: this.f/*.bind(this)*/,
       data: {issue}
     });
   }

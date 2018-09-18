@@ -21,9 +21,9 @@ export class AppComponent {
     this.sprintService = sprintService;
     this.issueService = issueService;
     // TODO remove later start
-    this.assigneeService.setupDummyData();
-    this.sprintService.setupDummyData();
-    this.issueService.setupDummyData();
+    // this.assigneeService.setupDummyData();
+    // this.sprintService.setupDummyData();
+    // this.issueService.setupDummyData();
   }
 
   public switchLang(lang: string): void {
