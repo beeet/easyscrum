@@ -1,7 +1,6 @@
 import _ from 'lodash';
-import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
-import {TranslateService} from '@ngx-translate/core';
 import {IssueService} from '../../services/issue.service';
 import {ActivatedRoute} from '@angular/router';
 import {AssigneeService} from '../../services/assignee.service';
@@ -10,7 +9,7 @@ import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '
 import {Issue} from '../../services/issue';
 import {IssuePriority, IssueResolution, IssueState, IssueType} from '../../services/Enums';
 import {NewSprintComponent} from '../../directives/new-sprint/new-sprint.component';
-import {ModalDialogService} from 'ngx-modal-dialog';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-issue-board',
@@ -43,8 +42,7 @@ export class IssueBoardComponent implements OnInit {
               private route: ActivatedRoute,
               private location: Location,
               private formBuilder: FormBuilder,
-              private modalService: ModalDialogService,
-              private viewRef: ViewContainerRef) {}
+              private modalService: NgbModal) {}
 
   ngOnInit() {
     this.isAssigneeEditable = false;
@@ -189,9 +187,11 @@ export class IssueBoardComponent implements OnInit {
   }
 
   createNewSprint() {
-    this.modalService.openDialog(this.viewRef, {
-      childComponent: NewSprintComponent
-    });
+    const modalRef = this.modalService.open(NewSprintComponent,
+      {
+        size: 'lg'
+      });
+    modalRef.componentInstance.issue = this.currentIssue;
   }
 
 }
