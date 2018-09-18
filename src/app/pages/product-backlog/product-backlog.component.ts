@@ -19,7 +19,8 @@ export class ProductBacklogComponent {
   contextmenuActions = [
     {action: 'edit', icon: 'edit'},
     {action: 'change', icon: 'rotate_left'},
-    {action: 'delete', icon: 'close'}
+    {action: 'delete', icon: 'close'},
+    {action: 'add', icon: 'add_box'}
   ];
 
   constructor(public issueService: IssueService, public sprintService: SprintService, private router: Router) {
@@ -45,6 +46,10 @@ export class ProductBacklogComponent {
     console.log('change Item: ' + issue.title);
   }
 
+  addNewSprint() {
+    console.log('TODO Add New Sprint');
+  }
+
   onAction(e) {
     if (e.action === 'edit') {
       this.editItem(e.item);
@@ -52,6 +57,8 @@ export class ProductBacklogComponent {
       this.changeItemSprint(e.item);
     } else if (e.action === 'delete') {
       this.deleteItem(e.item);
+    } else if (e.action === 'add') {
+      this.addNewSprint();
     }
   }
 
