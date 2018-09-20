@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {IssueService} from '../../services/issue.service';
 import {Router} from '@angular/router';
 import {SprintService} from '../../services/sprint.service';
+import {NewSprintComponent} from '../../directives/new-sprint/new-sprint.component';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-product-backlog',
@@ -23,7 +25,10 @@ export class ProductBacklogComponent {
     {action: 'add', icon: 'add_box'}
   ];
 
-  constructor(public issueService: IssueService, public sprintService: SprintService, private router: Router) {
+  constructor(public issueService: IssueService,
+              public sprintService: SprintService,
+              private router: Router,
+              private modalService: NgbModal) {
     this.issues = this.issueService.getAllWithoutSprintAssignment();
     this.sprints = this.sprintService.getAll();
     this.nextSprint = this.sprintService.getNext();
@@ -48,8 +53,12 @@ export class ProductBacklogComponent {
     console.log('change Item: ' + issue.title);
   }
 
-  addNewSprint() {
-    console.log('TODO Add New Sprint');
+  createNewSprint(issue) {
+    const modalRef = this.modalService.open(NewSprintComponent,
+      {
+        size: 'lg'
+      });
+    modalRef.componentInstance.issue = issue;
   }
 
   onAction(e) {
@@ -60,7 +69,7 @@ export class ProductBacklogComponent {
     } else if (e.action === 'delete') {
       this.deleteItem(e.item);
     } else if (e.action === 'add') {
-      this.addNewSprint();
+      this.createNewSprint(e.item);
     }
   }
 
