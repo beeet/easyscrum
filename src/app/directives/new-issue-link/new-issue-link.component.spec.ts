@@ -1,20 +1,24 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NewSprintComponent } from './new-issue-link.component';
+import {NewIssueLinkComponent} from './new-issue-link.component';
+import {TranslateModule} from '@ngx-translate/core';
+import {FormsModule} from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
-describe('NewSprintComponent', () => {
-  let component: NewSprintComponent;
-  let fixture: ComponentFixture<NewSprintComponent>;
+describe('NewIssueLinkComponent', () => {
+  let component: NewIssueLinkComponent;
+  let fixture: ComponentFixture<NewIssueLinkComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewSprintComponent ]
+      declarations: [ NewIssueLinkComponent ],
+      imports: [TranslateModule.forRoot(), FormsModule, NgbModule.forRoot()]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewSprintComponent);
+    fixture = TestBed.createComponent(NewIssueLinkComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

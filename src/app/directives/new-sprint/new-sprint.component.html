@@ -22,7 +22,7 @@
     </div>
 
     <div class="row">
-      <div class="form-group col-sm-6">
+      <div class="form-group col-md-12">
         <label id="nameLabel" for="name">{{'new-sprint.name' | translate}}</label>
         <input id="name"
                class="form-control"
@@ -33,7 +33,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="form-group col-sm-6">
+      <div class="form-group col-md-6">
         <label id="beginLabel" for="begin">{{'new-sprint.begin' | translate}}</label>
         <input id="begin"
                class="form-control"
@@ -42,9 +42,7 @@
                [(ngModel)]="sprint.begin"
                required>
       </div>
-    </div>
-    <div class="row">
-      <div class="form-group col-sm-6">
+      <div class="form-group col-md-6">
         <label id="endLabel" for="end">{{'new-sprint.end' | translate}}</label>
         <input id="end"
                class="form-control"
