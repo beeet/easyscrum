@@ -154,12 +154,14 @@
     <div class="row" *ngIf="!tempIssue">
       <div class="form-group col-md-12">
         <div class="input-group mb-3">
-          <label id="issueLinks">{{('issue-board.issueLinks' | translate)}}</label>
+          <label id="issueLinks" (click)="issueLinksCollapsed = !issueLinksCollapsed">
+            {{('issue-board.issueLinks' | translate)}} ({{currentIssue.issueLinks.length}})
+          </label>
           <div class="input-group" (click)="addIssueLink()">
             <label class="input-group-text" for="sprint">+</label>
           </div>
         </div>
-        <div class="table-light">
+        <div class="table-light" id="collapseIssueLinks" [ngbCollapse]="issueLinksCollapsed">
           <table width="100%">
             <tbody>
             <tr *ngFor="let issueLink of currentIssue.issueLinks; let i = index">
@@ -213,5 +215,4 @@
       {{'issue-board.buttonDelete' | translate }}
     </button>
   </form>
-
 </div>

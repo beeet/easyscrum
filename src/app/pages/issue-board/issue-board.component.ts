@@ -41,6 +41,8 @@ export class IssueBoardComponent implements OnInit, DoCheck {
   private urlParam;
   private resetValues;
 
+  issueLinksCollapsed = true;
+
   constructor(public issueService: IssueService,
               public assigneeService: AssigneeService,
               public sprintService: SprintService,
