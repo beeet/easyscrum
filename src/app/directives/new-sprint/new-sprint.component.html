@@ -25,6 +25,7 @@
       <div class="form-group col-sm-6">
         <label id="nameLabel" for="name">{{'new-sprint.name' | translate}}</label>
         <input id="name"
+               class="form-control"
                name="name"
                type="text"
                [(ngModel)]="sprint.name"
@@ -35,6 +36,7 @@
       <div class="form-group col-sm-6">
         <label id="beginLabel" for="begin">{{'new-sprint.begin' | translate}}</label>
         <input id="begin"
+               class="form-control"
                name="begin"
                type="date"
                [(ngModel)]="sprint.begin"
@@ -45,6 +47,7 @@
       <div class="form-group col-sm-6">
         <label id="endLabel" for="end">{{'new-sprint.end' | translate}}</label>
         <input id="end"
+               class="form-control"
                name="end"
                type="date"
                [(ngModel)]="sprint.end"
@@ -67,5 +70,3 @@
     {{'new-sprint.cancel' | translate }}
   </button>
 </div>
-issue: {{issue.sprintId}}
-sprint: {{sprint|json}}
