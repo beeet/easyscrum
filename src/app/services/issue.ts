@@ -2,6 +2,7 @@ import _ from 'lodash';
 import {Injectable} from '@angular/core';
 import {DateUtil} from '../utils/date.util';
 import {IssuePriority, IssueResolution, IssueState, IssueType} from './Enums';
+import {IssueLink} from './IssueLink';
 
 @Injectable({
     providedIn: 'root'
@@ -24,17 +25,20 @@ export class Issue {
     private _resolutionDate: Date;
     private _highlighting: boolean;
     private _comments: Array<Object> = [];
-    private _issueLinks: Array<Issue> = [];
+    private _issueLinks: Array<IssueLink> = [];
     private _subissues: Array<Issue> = [];
 
     private dateUtil = new DateUtil();
 
-  static get(issue: any) {
+  static get(issue: Issue) {
     issue.dateUtil = new DateUtil();
+    // beim Speichern der Klassen in der IndexedDB gehen die Klasseninformationen verloren
     issue.type = IssueType.get(_.get(issue.type, '_id'));
     issue.state = IssueState.get(_.get(issue.state, '_id'));
     issue.priority = IssuePriority.get(_.get(issue.priority, '_id'));
     issue.resolution = IssueResolution.get(_.get(issue.resolution, '_id'));
+    const issueLinks = _.get(issue, '_issueLinks');
+    issue.issueLinks = issueLinks.map(l => new IssueLink(_.get(l, '_relatedIssueId'), _.get(l, '_linkType')));
     return issue;
   }
 
@@ -167,16 +171,20 @@ export class Issue {
         this._comments.push({comment: comment});
     }
 
-    get issueLinks(): Array<Issue> {
+    get issueLinks(): Array<IssueLink> {
         return this._issueLinks;
     }
 
-    set issueLinks(value: Array<Issue>) {
+    set issueLinks(value: Array<IssueLink>) {
         this._issueLinks = value;
     }
 
-    addIssueLink(value: Issue) {
+    addIssueLink(value: IssueLink) {
         this.issueLinks.push(value);
+    }
+
+    removeIssueLink(value: IssueLink) {
+        _.pull(this.issueLinks, value);
     }
 
     get subissue(): Array<Issue> {

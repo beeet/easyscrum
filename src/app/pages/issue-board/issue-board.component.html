@@ -151,42 +151,31 @@
       </div>
     </div>
 
-    <!--<div class="row">-->
-    <!--<div class="form-group col-md-12">-->
-    <!--<label id="issueLinks">{{'issue-board.issueLinks' | translate }}</label>-->
-    <!--<div *ngFor="let issueLink of currentIssue.issueLinks">-->
-    <!--<dl class="dl-horizontal">-->
-    <!--<dt class="form-group col-md-1">Relation</dt>-->
-    <!--<dd class="form-group col-md-11">-->
-    <!--<div>-->
-    <!--&lt;!&ndash;<img src="{{issueLink.type.}}">&ndash;&gt;-->
-    <!--{{issueLink.id}} ->-->
-    <!--{{issueLink.title}}-->
-    <!--</div>-->
-    <!--<div></div>-->
-    <!--</dd>-->
-    <!--</dl>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--</div>-->
-
     <div class="row">
       <div class="form-group col-md-12">
-        <label id="issueLinks2">{{('issue-board.issueLinks' | translate) + '2'}}</label>
+        <label id="issueLinks">{{('issue-board.issueLinks' | translate)}}</label>
+        <div class="input-group-append" (click)="addIssueLink()">
+          <label class="input-group-text" for="sprint">+</label>
+        </div>
         <div class="table-light">
           <table width="100%">
             <tbody>
-            <tr *ngFor="let issueLink of currentIssue.issueLinks">
-              <td width="15%">relate to</td>
-              <td width="5%" align="center"><img width="16" src="{{issueLink.type.imageSrc}}" alt="{{issueLink.type.id}}"></td>
-              <td width="55%"><a class="nav-item nav-link" [routerLink]="['/issue-board', issueLink.id]" routerLinkActive="active">
-                {{issueLink.title}}</a></td>
-              <td width="5%" align="center"><img width="16" src="{{issueLink.priority.imageSrc}}" alt="{{issueLink.priority.id}}">
-              </td>
-              <td width="20%" class="badge state" [ngClass]="issueLink.state.value">{{'issue-board.state.' + issueLink.state.value |
-                  translate | uppercase}}</td>
-              <!--<td width="20%" [ngClass]="['badge', 'done']" >{{'issue-board.state.' + issueLink.state.value |-->
-                  <!--translate}}</td>-->
+            <tr *ngFor="let issueLink of currentIssue.issueLinks; let i = index">
+              <ng-container *ngLet="getIssue(issueLink.relatedIssueId) as relIssue">
+                <td width="15%">{{issueLink.linkType}}</td>
+                <td width="5%" align="center"><img width="16" src="{{relIssue.type.imageSrc}}" alt="{{relIssue.type.id}}"></td>
+                <td width="55%"><a class="nav-item nav-link"
+                                   [routerLink]="['/issue-board', relIssue.id]"
+                                   >
+                  {{relIssue.title}}</a></td>
+                <td width="5%" align="center"><img width="16"
+                                                   src="{{relIssue.priority.imageSrc}}"
+                                                   alt="{{relIssue.priority.id}}">
+                </td>
+                <td width="20%" class="badge state" [ngClass]="relIssue.state.value">{{'issue-board.state.' + relIssue.state.value |
+                  translate | uppercase}}
+                </td>
+              </ng-container>
             </tr>
             </tbody>
           </table>
