@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { FormsModule } from '@angular/forms';
 import { FilterTableComponent } from './filter-table.component';
+import {TranslateModule} from '@ngx-translate/core';
+import {ContextMenuComponent} from '../context-menu/context-menu.component';
 
 describe('FilterTableComponent', () => {
   let component: FilterTableComponent;
@@ -8,7 +10,8 @@ describe('FilterTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FilterTableComponent ]
+      declarations: [ FilterTableComponent, ContextMenuComponent],
+      imports: [TranslateModule.forRoot(), FormsModule]
     })
     .compileComponents();
   }));

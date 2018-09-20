@@ -20,8 +20,8 @@ describe('IssueService', () => {
     // arrange
     const {one, two} = setupTestdata();
     // act + assert
-    expect(service.put(one)).toBe(1);
-    expect(service.put(two)).toBe(2);
+    expect(service.put(one));
+    expect(service.put(two));
     expect(service.getAll().length).toBe(2);
     expect(service.get('1')).toBe(one);
     expect(service.get('2')).toBe(two);

@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { IssueBoardComponent } from './issue-board.component';
+import {IssueBoardComponent} from './issue-board.component';
+import {TranslateModule} from '@ngx-translate/core';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {SprintLabelPipe} from '../../pipes/sprint-label.pipe';
+import {RouterTestingModule} from '@angular/router/testing';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 describe('IssueBoardComponent', () => {
   let component: IssueBoardComponent;
@@ -8,7 +13,9 @@ describe('IssueBoardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IssueBoardComponent ]
+      declarations: [ IssueBoardComponent, SprintLabelPipe ],
+      imports: [TranslateModule.forRoot(), FormsModule, ReactiveFormsModule,
+          RouterTestingModule, NgbModule.forRoot()]
     })
     .compileComponents();
   }));
