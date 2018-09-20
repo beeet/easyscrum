@@ -47,6 +47,7 @@ import {SprintLabelPipe} from './pipes/sprint-label.pipe';
 import {PersistenceService} from './services/persistence.service';
 import {NewSprintComponent} from './directives/new-sprint/new-sprint.component';
 import {SetResolutionComponent} from './directives/set-resolution/set-resolution.component';
+import {SetSprintComponent} from './directives/set-sprint/set-sprint.component';
 
 
 // AoT requires an exported function for factories
@@ -69,7 +70,8 @@ export function createTranslateLoader(http: HttpClient) {
     HighlightDirective,
     SprintLabelPipe,
     NewSprintComponent,
-    SetResolutionComponent
+    SetResolutionComponent,
+    SetSprintComponent
   ],
   imports: [
     BrowserModule,
