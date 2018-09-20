@@ -151,7 +151,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="!tempIssue">
       <div class="form-group col-md-12">
         <div class="input-group mb-3">
           <label id="issueLinks">{{('issue-board.issueLinks' | translate)}}</label>
@@ -189,20 +189,27 @@
       </div>
     </div>
 
-    <div>Creation Date: {{currentIssue.creationDate}}</div>
-    <div>Resolution Date: {{currentIssue.resolutionDate}}</div>
-    <div>ID: {{currentIssue.id}}</div>
-
     <button type="button"
             class="btn btn-primary"
             (click)="onSave()"
             [disabled]="!theForm.valid">
       {{'issue-board.buttonSave' | translate }}
     </button>
-    <button type="button" class="btn btn-light" (click)="onCancel()">
+    <button *ngIf="canMakeNewIssues"
+            type="button"
+            class="btn btn-primary"
+            (click)="onNew()">
+      {{'issue-board.buttonNew' | translate }}
+    </button>
+    <button type="button"
+            class="btn btn-light"
+            (click)="onCancel()">
       {{'issue-board.buttonCancel' | translate }}
     </button>
-    <button type="button" class="btn btn-danger" (click)="onDelete()" [hidden]="!issueService.isDeletionIssueAllowed(currentIssue)">
+    <button type="button"
+            class="btn btn-danger"
+            (click)="onDelete()"
+            [hidden]="!issueService.isDeletionIssueAllowed(currentIssue) || tempIssue">
       {{'issue-board.buttonDelete' | translate }}
     </button>
   </form>

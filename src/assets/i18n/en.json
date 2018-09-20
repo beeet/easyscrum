@@ -53,9 +53,10 @@
   "issue-board.resolution.wontfix": "wontfix",
   "issue-board.resolution.duplicate": "duplicate",
   "issue-board.resolution.incomplete": "incomplete",
-  "issue-board.buttonSave": "Save",
+  "issue-board.buttonSave": "Save Issue",
+  "issue-board.buttonNew": "New Issue",
   "issue-board.buttonCancel": "Cancel",
-  "issue-board.buttonDelete": "Delete",
+  "issue-board.buttonDelete": "Delete Issue",
   "issue-board.issueLinks": "Issue Links",
 
   "sprint-backlog.createTask": "Create Task",
