@@ -136,7 +136,7 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   highlightIssue(issue) {
-    issue.highlighting = !issue.highlighting;
+    this.selectedIssue.highlighting = !this.selectedIssue.highlighting;
    }
 
   onrightClick(event, issue) {

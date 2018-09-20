@@ -5,6 +5,12 @@ div {
     list-style-type: none;
     cursor: pointer;
   }
+  .card-highlighted {
+    margin: 1rem;
+    background-color: var(--color-card-yellow);
+    list-style-type: none;
+    cursor: pointer;
+  }
   .card-img-avatar {
     width: 30%;
   }

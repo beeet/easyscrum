@@ -17,7 +17,7 @@
 			<h3>
 				{{'issue-board.state.' + state.value | translate}}
 			</h3>
-			<div class="card"
+			<div [ngClass]="issue.highlighting ? 'card-highlighted' : 'card'"
 			     *ngFor="let issue of getIssues(state)" id="{{issue.id}}"
 			     routerLink="/issue-board/{{issue.id}}" routerLinkActive="active"
            (contextmenu)="onrightClick($event, issue)">
