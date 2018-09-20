@@ -59,18 +59,22 @@ export class SprintBacklogComponent implements OnInit {
         this.issueService.put(issue);
       }
     });
-    this.contextmenu = {visible: false, posX: 0, posY: 0, actions: [{action: 'highlighting', icon: 'new_releases'}]};
+    this.contextmenu = {
+      visible: false, posX: 0, posY: 0, actions: [
+        {action: 'new', icon: 'add_box'},
+        {action: 'highlighting', icon: 'new_releases'}]
+    };
   }
 
   getIssues(issueState: IssueState): Issue[] {
-      const sprint = this.sprintService.getCurrent();
-      if (!sprint) {
-        // TODO: was machen wir hier?
-        // alert('kein aktueller Sprint vorhanden');
-        // console.log('getIssues: kein aktueller Sprint vorhanden');
-        return;
-      }
-      const sprintId = sprint.id;
+    const sprint = this.sprintService.getCurrent();
+    if (!sprint) {
+      // TODO: was machen wir hier?
+      // alert('kein aktueller Sprint vorhanden');
+      // console.log('getIssues: kein aktueller Sprint vorhanden');
+      return;
+    }
+    const sprintId = sprint.id;
 
     const sprintIssues = this.issueService.getAllFilteredBySprint(sprintId);
     const issuesByState = sprintIssues.filter(filteredByState(issueState));
@@ -82,25 +86,25 @@ export class SprintBacklogComponent implements OnInit {
   }
 
   getInvolvedAssignees(): string[] {
-      const sprint = this.sprintService.getCurrent();
-      if (!sprint) {
-        // TODO: was machen wir hier?
-        // alert('kein aktueller Sprint vorhanden');
-        // console.log('getInvolvedAssignees: kein aktueller Sprint vorhanden');
-        return;
-      }
-      const sprintId = sprint.id;
-      const sprintIssues = this.issueService.getAllFilteredBySprint(sprintId);
-      const assignees = sprintIssues
-          .map(value => value.assigneeId)
-          .sort()
-          .reduce(function (a, b) {
-              if (b !== null && b !== a[0]) {
-                  a.unshift(b);
-              }
-              return a;
-          }, []);
-      return assignees;
+    const sprint = this.sprintService.getCurrent();
+    if (!sprint) {
+      // TODO: was machen wir hier?
+      // alert('kein aktueller Sprint vorhanden');
+      // console.log('getInvolvedAssignees: kein aktueller Sprint vorhanden');
+      return;
+    }
+    const sprintId = sprint.id;
+    const sprintIssues = this.issueService.getAllFilteredBySprint(sprintId);
+    const assignees = sprintIssues
+      .map(value => value.assigneeId)
+      .sort()
+      .reduce(function (a, b) {
+        if (b !== null && b !== a[0]) {
+          a.unshift(b);
+        }
+        return a;
+      }, []);
+    return assignees;
   }
 
   getAvatar(assigneeId: string): string {
@@ -137,7 +141,7 @@ export class SprintBacklogComponent implements OnInit {
 
   highlightIssue(issue) {
     this.selectedIssue.highlighting = !this.selectedIssue.highlighting;
-   }
+  }
 
   onrightClick(event, issue) {
     this.contextmenu.posX = event.clientX + 10;
@@ -152,7 +156,9 @@ export class SprintBacklogComponent implements OnInit {
 
   onAction(e) {
     this.disableContextMenu();
-    if (e.action === 'highlighting') {
+    if (e.action === 'new') {
+      this.navigateToIssueBoard();
+    } else if (e.action === 'highlighting') {
       this.highlightIssue(e);
     }
   }

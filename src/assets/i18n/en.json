@@ -92,6 +92,7 @@
   "context-menu.change": "Set Sprint",
   "context-menu.delete": "Delete Issue",
   "context-menu.highlighting": "Highlighting",
+  "context-menu.new": "New Issue",
   "context-menu.add": "New Sprint",
 
   "new-sprint.title": "Create new sprint",
