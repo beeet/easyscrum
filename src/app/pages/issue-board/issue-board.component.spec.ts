@@ -6,6 +6,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SprintLabelPipe} from '../../pipes/sprint-label.pipe';
 import {RouterTestingModule} from '@angular/router/testing';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {CommonModule} from '@angular/common';
+import {LetDirective} from '../../directives/ngLet/LetDirective';
 
 describe('IssueBoardComponent', () => {
   let component: IssueBoardComponent;
@@ -13,8 +15,9 @@ describe('IssueBoardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IssueBoardComponent, SprintLabelPipe ],
-      imports: [TranslateModule.forRoot(), FormsModule, ReactiveFormsModule,
+      declarations: [ IssueBoardComponent, SprintLabelPipe, LetDirective ],
+      imports: [CommonModule, TranslateModule.forRoot(),
+          FormsModule, ReactiveFormsModule,
           RouterTestingModule, NgbModule.forRoot()]
     })
     .compileComponents();

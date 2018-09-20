@@ -33,12 +33,12 @@ export class Issue {
   static get(issue: Issue) {
     issue.dateUtil = new DateUtil();
     // beim Speichern der Klassen in der IndexedDB gehen die Klasseninformationen verloren
-    issue.type = IssueType.get(_.get(issue.type, '_id'));
-    issue.state = IssueState.get(_.get(issue.state, '_id'));
-    issue.priority = IssuePriority.get(_.get(issue.priority, '_id'));
-    issue.resolution = IssueResolution.get(_.get(issue.resolution, '_id'));
-    const issueLinks = _.get(issue, '_issueLinks');
-    issue.issueLinks = issueLinks.map(l => new IssueLink(_.get(l, '_relatedIssueId'), _.get(l, '_linkType')));
+      issue.type = IssueType.get((<any>issue.type)._id);
+      issue.state = IssueState.get((<any>issue.state)._id);
+      issue.priority = issue.priority ? IssuePriority.get((<any>issue.priority)._id) : undefined;
+      issue.resolution = issue.resolution ? IssueResolution.get((<any>issue.resolution)._id) : undefined;
+      const issueLinks = issue._issueLinks;
+      issue.issueLinks = issueLinks.map((link: any) => new IssueLink(link._relatedIssueId, link._linkType));
     return issue;
   }
 

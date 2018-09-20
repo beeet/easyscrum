@@ -25,12 +25,12 @@ export class SprintBacklogComponent implements OnInit {
   selectedIssue: Issue;
   contextmenu;
 
-  constructor(private translate: TranslateService,
-              private route: ActivatedRoute,
-              private router: Router,
-              public issueService: IssueService,
+  constructor(public issueService: IssueService,
               public sprintService: SprintService,
               public assigneeService: AssigneeService,
+              private translate: TranslateService,
+              private route: ActivatedRoute,
+              private router: Router,
               private dragula: DragulaService,
               private modalService: ModalDialogService,
               private viewRef: ViewContainerRef) {
