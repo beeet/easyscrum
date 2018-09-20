@@ -1,0 +1,24 @@
+.state {
+  border-style: solid;
+  border-width: 1px;
+}
+
+.done {
+  color: #14892c;
+  border-color: #b2d8b9;
+}
+
+.open {
+  color: #4a6785;
+  border-color: #e4e8ed;
+}
+
+.inwork {
+  color: #594300;
+  border-color: #ffe28c;
+}
+
+.intest {
+  color: #7f2626;
+  border-color: #ff4c4c;
+}

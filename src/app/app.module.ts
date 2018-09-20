@@ -47,6 +47,8 @@ import {SprintLabelPipe} from './pipes/sprint-label.pipe';
 import {PersistenceService} from './services/persistence.service';
 import {NewSprintComponent} from './directives/new-sprint/new-sprint.component';
 import {SetResolutionComponent} from './directives/set-resolution/set-resolution.component';
+import {NewIssueLinkComponent} from './directives/new-issue-link/new-issue-link.component';
+import {LetDirective} from './directives/ngLet/LetDirective';
 import {SetSprintComponent} from './directives/set-sprint/set-sprint.component';
 
 
@@ -71,7 +73,10 @@ export function createTranslateLoader(http: HttpClient) {
     SprintLabelPipe,
     NewSprintComponent,
     SetResolutionComponent,
-    SetSprintComponent
+    SetSprintComponent,
+    NewIssueLinkComponent,
+    SetResolutionComponent,
+    LetDirective
   ],
   imports: [
     BrowserModule,
@@ -96,6 +101,7 @@ export function createTranslateLoader(http: HttpClient) {
   ],
   entryComponents: [
     NewSprintComponent,
+    NewIssueLinkComponent,
     SetResolutionComponent
   ],
   exports: [

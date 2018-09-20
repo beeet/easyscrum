@@ -1169,3 +1169,12 @@ issueData = [
     issueLinks: []
   }
 ];
+issueData[6].issueLinks = [
+  issueData[24],
+  issueData[25],
+  issueData[28],
+  issueData[30],
+];
+// for (const i of issueData) {
+//   issueData[6].issueLinks.push(i);
+// }

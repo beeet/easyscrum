@@ -2,7 +2,7 @@ import _ from 'lodash';
 import {Component, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {IssueService} from '../../services/issue.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AssigneeService} from '../../services/assignee.service';
 import {SprintService} from '../../services/sprint.service';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -10,6 +10,7 @@ import {Issue} from '../../services/issue';
 import {IssuePriority, IssueResolution, IssueState, IssueType} from '../../services/Enums';
 import {NewSprintComponent} from '../../directives/new-sprint/new-sprint.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {NewIssueLinkComponent} from '../../directives/new-issue-link/new-issue-link.component';
 
 @Component({
   selector: 'app-issue-board',
@@ -40,6 +41,7 @@ export class IssueBoardComponent implements OnInit {
               public assigneeService: AssigneeService,
               public sprintService: SprintService,
               private route: ActivatedRoute,
+              private router: Router,
               private location: Location,
               private formBuilder: FormBuilder,
               private modalService: NgbModal) {}
@@ -108,6 +110,10 @@ export class IssueBoardComponent implements OnInit {
   get description() { return this.theForm.get('description'); }
   get stateGroup() {
     return this.theForm.get('stateGroup');
+  }
+
+  getIssue(id: string): Issue {
+    return this.issueService.get(id);
   }
 
   onChanges(state, resolution, sprint): void {
@@ -194,6 +200,13 @@ export class IssueBoardComponent implements OnInit {
     modalRef.componentInstance.issue = this.currentIssue;
   }
 
+  addIssueLink() {
+    const modalRef = this.modalService.open(NewIssueLinkComponent,
+      {
+        size: 'lg'
+      });
+    modalRef.componentInstance.baseIssue = this.currentIssue;
+  }
 }
 
 function validateResolution(control: AbstractControl) {
