@@ -175,6 +175,7 @@ export class IssueBoardComponent implements OnInit, DoCheck {
   }
 
   onDelete() {
+    this.currentIssue.issueLinks.forEach(l => this.deleteIssueLink(l));
     this.issueService.delete(this.currentIssue.id);
     this.navigate();
   }
