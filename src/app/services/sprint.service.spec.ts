@@ -15,7 +15,7 @@ function setupData(service: SprintService, begin: Date, end: Date) {
 const dateUtil = new DateUtil();
 const now = dateUtil.now();
 
-fdescribe('SprintService', () => {
+describe('SprintService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [SprintService]

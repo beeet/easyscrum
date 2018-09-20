@@ -135,9 +135,9 @@ export class SprintBacklogComponent implements OnInit {
       );
   }
 
-  highlighting(issue) {
-    alert('TODO: ' + this.selectedIssue.title + ' highlighting!');
-  }
+  highlightIssue(issue) {
+    this.selectedIssue.highlighting = !this.selectedIssue.highlighting;
+   }
 
   onrightClick(event, issue) {
     this.contextmenu.posX = event.clientX + 10;
@@ -153,7 +153,7 @@ export class SprintBacklogComponent implements OnInit {
   onAction(e) {
     this.disableContextMenu();
     if (e.action === 'highlighting') {
-      this.highlighting(e);
+      this.highlightIssue(e);
     }
   }
 

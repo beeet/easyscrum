@@ -34,8 +34,10 @@ export class NewSprintComponent implements OnInit {
 
   save(): void {
     this.sprintService.put(this.sprint);
-    this.issue.sprintId = this.sprint.id;
-    this.issueService.put(this.issue);
+    if (this.issue) {
+      this.issue.sprintId = this.sprint.id;
+      this.issueService.put(this.issue);
+    }
     this.activeModal.close(this.sprint);
   }
 

@@ -49,6 +49,7 @@ import {NewSprintComponent} from './directives/new-sprint/new-sprint.component';
 import {SetResolutionComponent} from './directives/set-resolution/set-resolution.component';
 import {NewIssueLinkComponent} from './directives/new-issue-link/new-issue-link.component';
 import {LetDirective} from './directives/ngLet/LetDirective';
+import {SetSprintComponent} from './directives/set-sprint/set-sprint.component';
 
 
 // AoT requires an exported function for factories
@@ -71,6 +72,8 @@ export function createTranslateLoader(http: HttpClient) {
     HighlightDirective,
     SprintLabelPipe,
     NewSprintComponent,
+    SetResolutionComponent,
+    SetSprintComponent,
     NewIssueLinkComponent,
     SetResolutionComponent,
     LetDirective

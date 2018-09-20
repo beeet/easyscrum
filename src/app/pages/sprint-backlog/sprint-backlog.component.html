@@ -1,8 +1,4 @@
-<i id="menu" class="material-icons" (click)="createNewSprint()">menu</i>
-<i id="new" class="material-icons" (click)="navigateToIssueBoard()">add_circle_outline</i>
-
-
-<div class="container" (click)="disableContextMenu()" oncontextmenu="return false;">
+<div class="container" (click)="disableContextMenu()">
 	<h1>
 		{{'app.sprint-backlog' | translate}}
 	</h1>
@@ -21,7 +17,7 @@
 			<h3>
 				{{'issue-board.state.' + state.value | translate}}
 			</h3>
-			<div class="card"
+			<div [ngClass]="issue.highlighting ? 'card-highlighted' : 'card'"
 			     *ngFor="let issue of getIssues(state)" id="{{issue.id}}"
 			     routerLink="/issue-board/{{issue.id}}" routerLinkActive="active"
            (contextmenu)="onrightClick($event, issue)">
