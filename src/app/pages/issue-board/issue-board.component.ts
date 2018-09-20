@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {Component, OnInit} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {IssueService} from '../../services/issue.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -11,13 +11,14 @@ import {IssuePriority, IssueResolution, IssueState, IssueType} from '../../servi
 import {NewSprintComponent} from '../../directives/new-sprint/new-sprint.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NewIssueLinkComponent} from '../../directives/new-issue-link/new-issue-link.component';
+import {IssueLink} from '../../services/IssueLink';
 
 @Component({
   selector: 'app-issue-board',
   templateUrl: './issue-board.component.html',
   styleUrls: ['./issue-board.component.scss']
 })
-export class IssueBoardComponent implements OnInit {
+export class IssueBoardComponent implements OnInit, DoCheck {
   currentIssue: Issue;
   issueStates = IssueState.IssueStates;
   done = IssueState.done;
@@ -46,9 +47,20 @@ export class IssueBoardComponent implements OnInit {
               private formBuilder: FormBuilder,
               private modalService: NgbModal) {}
 
+  ngDoCheck() {
+    const urlParamTemp = this.route.snapshot.paramMap.get('id');
+    if (urlParamTemp !== this.urlParam) {
+      this.init();
+    }
+  }
+
   ngOnInit() {
-    this.isAssigneeEditable = false;
+    this.init();
+  }
+
+  private init() {
     this.urlParam = this.route.snapshot.paramMap.get('id');
+    this.isAssigneeEditable = false;
     if (this.urlParam) {
       this.currentIssue = this.issueService.get(this.urlParam);
       if (!this.currentIssue) {
@@ -206,6 +218,13 @@ export class IssueBoardComponent implements OnInit {
         size: 'lg'
       });
     modalRef.componentInstance.baseIssue = this.currentIssue;
+  }
+
+  deleteIssueLink(issueLink: IssueLink) {
+    const relatedIssue = this.issueService.get(issueLink.relatedIssueId);
+    this.currentIssue.removeIssueLink(issueLink.id);
+    relatedIssue.removeIssueLink(issueLink.relatedIssueLinkId);
+    this.issueService.putBulk(this.currentIssue, relatedIssue);
   }
 }
 

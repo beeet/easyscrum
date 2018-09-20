@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import {UUID} from 'angular2-uuid';
 
 enum LinkType {
   related = 'related',
@@ -6,9 +7,38 @@ enum LinkType {
   isBlockedBy = 'isBlockedBy'
 }
 
-export class IssueLink {
+export class IssueLinkPair {
+  baseIssueLink;
+  relatedIssueLink;
 
-  constructor(private _relatedIssueId: string, private _linkType: LinkType) {}
+  constructor(issueLinkTypeString: string, baseIssueId: string, relatedIssueId: string) {
+    const issueLinkType = IssueLinkType.getIssueLinkType(issueLinkTypeString);
+    this.baseIssueLink = new IssueLink(relatedIssueId, issueLinkType.type);
+    this.relatedIssueLink = new IssueLink(baseIssueId, issueLinkType.counterType);
+    this.baseIssueLink.relatedIssueLinkId = this.relatedIssueLink.id;
+    this.relatedIssueLink.relatedIssueLinkId = this.baseIssueLink.id;
+  }
+}
+
+export class IssueLink {
+  private _id;
+  private _relatedIssueLinkId;
+
+  constructor(private _relatedIssueId: string, private _linkType: LinkType) {
+    this._id = UUID.UUID();
+  }
+
+  get id() {
+    return this._id;
+  }
+
+  get relatedIssueLinkId() {
+    return this._relatedIssueLinkId;
+  }
+
+  set relatedIssueLinkId(value) {
+    this._relatedIssueLinkId = value;
+  }
 
   get relatedIssueId(): string {
     return this._relatedIssueId;
@@ -26,12 +56,7 @@ export class IssueLinkType {
   public static readonly issueLinkTypes = [ IssueLinkType.related, IssueLinkType.blocks, IssueLinkType.isBlockedBy ];
 
   public static getIssueLinkType(type: string): IssueLinkType {
-    console.log('IssueType: input=', type);
-    console.log('IssueType: types=', IssueLinkType.issueLinkTypes);
-    return _.find(IssueLinkType.issueLinkTypes, t => {
-      console.log(' - IssueType: type=', t, t.type === type);
-      return t.type === type;
-    });
+    return _.find(IssueLinkType.issueLinkTypes, t => t.type === type);
   }
 
   constructor(private _type: LinkType, private _counterType: LinkType) {}

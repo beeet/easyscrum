@@ -70,6 +70,10 @@ export class IssueService implements Crud<Issue> {
       .catch(e => console.error(e));
   }
 
+  putBulk(...issues: Issue[]) {
+    this.persistence.upsertIssues(issues);
+  }
+
   delete(id: string): void {
     if (!this.isDeletionIssueAllowed(this.get(id))) {
       throw new Error('Deletion is not allowed because of sprint assignment.');

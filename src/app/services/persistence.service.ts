@@ -28,6 +28,10 @@ export class PersistenceService {
     return this.dexieService.issues.put(issue);
   }
 
+  upsertIssues(issues: Issue[]): Promise<string> {
+    return this.dexieService.issues.bulkPut(issues);
+  }
+
   deleteIssue(id: string): Promise<void> {
     return this.dexieService.issues.delete(id);
   }
