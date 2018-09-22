@@ -89,5 +89,4 @@ export class ContextMenuComponent implements OnInit {
       this.highlightIssue(this.contextmenu.target);
     }
   }
-
 }
