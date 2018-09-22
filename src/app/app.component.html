@@ -1,16 +1,22 @@
-<div class="container">
+<div (contextmenu)="onrightClick($event)" (click)="closeContextMenu()">
+  <div class="container">
 
-  <nav>
-    <div class="nav nav-tabs" id="nav-tab">
-      <a class="nav-item nav-link" routerLink="/sprint-backlog" routerLinkActive="active">{{'app.sprint-backlog' | translate}}</a>
-      <a class="nav-item nav-link" routerLink="/issue-board" routerLinkActive="active">{{'app.issue-board' | translate}}</a>
-      <a class="nav-item nav-link" routerLink="/product-backlog" routerLinkActive="active">{{'app.product-backlog' | translate}}</a>
-      <a class="nav-item nav-link" routerLink="/chart-board" routerLinkActive="active">{{'app.chart-board' | translate}}</a>
-      <div class="nav-item nav-link">
-        <button id="de" type="button" class="btn btn-outline-dark btn-sm" name="de" (click)="switchLang('de')">DE</button>
-        <button id="en" type="button" class="btn btn-outline-dark btn-sm" name="en" (click)="switchLang('en')">EN</button>
+    <nav>
+      <div class="nav nav-tabs" id="nav-tab">
+        <a class="nav-item nav-link" routerLink="/sprint-backlog" routerLinkActive="active">{{'app.sprint-backlog' | translate}}</a>
+        <a class="nav-item nav-link" routerLink="/issue-board" routerLinkActive="active">{{'app.issue-board' | translate}}</a>
+        <a class="nav-item nav-link" routerLink="/product-backlog" routerLinkActive="active">{{'app.product-backlog' | translate}}</a>
+        <a class="nav-item nav-link" routerLink="/chart-board" routerLinkActive="active">{{'app.chart-board' | translate}}</a>
+        <div class="nav-item nav-link">
+          <button id="de" type="button" class="btn btn-outline-dark btn-sm" name="de" (click)="switchLang('de')">DE</button>
+          <button id="en" type="button" class="btn btn-outline-dark btn-sm" name="en" (click)="switchLang('en')">EN</button>
+        </div>
       </div>
-    </div>
-  </nav>
-  <router-outlet></router-outlet>
+    </nav>
+    <router-outlet></router-outlet>
+  </div>
+
+  <div *ngIf="contextmenu.visible">
+    <app-context-menu [contextmenu]="contextmenu"></app-context-menu>
+  </div>
 </div>

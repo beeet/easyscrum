@@ -19,17 +19,8 @@ export class ProductBacklogComponent {
   selectedSprint;
   nextSprint;
   tableColumns = ['type', 'title', 'priority', 'estimated'];
-  contextmenuActions = [
-    {action: 'edit', icon: 'edit'},
-    {action: 'change', icon: 'rotate_left'},
-    {action: 'delete', icon: 'close'},
-    {action: 'add', icon: 'add_box'}
-  ];
 
-  constructor(public issueService: IssueService,
-              public sprintService: SprintService,
-              private router: Router,
-              private modalService: NgbModal) {
+  constructor(public issueService: IssueService, public sprintService: SprintService) {
     this.issues = this.issueService.getAllWithoutSprintAssignment();
     this.sprints = this.sprintService.getAll();
     this.nextSprint = this.sprintService.getNext();
@@ -38,45 +29,6 @@ export class ProductBacklogComponent {
       this.nextIssues.forEach(i => this.nextIssuesEstimated += i.estimated);
     }
     this.selectedSprint = 'default';
-  }
-
-  editItem(issue) {
-    this.router.navigate(['/issue-board/' + issue.id]);
-    console.log('edit Item: ' + issue.title);
-  }
-
-  deleteItem(issue) {
-    this.issueService.delete(issue.id);
-    this.issues = this.issueService.getAllWithoutSprintAssignment();
-  }
-
-  setItemSprint(issue) {
-    const modalRef = this.modalService.open(SetSprintComponent,
-      {
-        size: 'lg'
-      });
-    modalRef.componentInstance.issue = issue;
-    this.issues = this.issueService.getAllWithoutSprintAssignment();
-  }
-
-  createNewSprint(issue) {
-    const modalRef = this.modalService.open(NewSprintComponent,
-      {
-        size: 'lg'
-      });
-    modalRef.componentInstance.issue = issue;
-  }
-
-  onAction(e) {
-    if (e.action === 'edit') {
-      this.editItem(e.item);
-    } else if (e.action === 'change') {
-      this.setItemSprint(e.item);
-    } else if (e.action === 'delete') {
-      this.deleteItem(e.item);
-    } else if (e.action === 'add') {
-      this.createNewSprint(e.item);
-    }
   }
 
   changeSprint(value) {
