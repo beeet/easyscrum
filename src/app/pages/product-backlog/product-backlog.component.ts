@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {SprintService} from '../../services/sprint.service';
 import {NewSprintComponent} from '../../directives/new-sprint/new-sprint.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {SetSprintComponent} from '../../directives/set-sprint/set-sprint.component';
 
 @Component({
   selector: 'app-product-backlog',
@@ -49,8 +50,13 @@ export class ProductBacklogComponent {
     this.issues = this.issueService.getAllWithoutSprintAssignment();
   }
 
-  changeItemSprint(issue) {
-    console.log('change Item: ' + issue.title);
+  setItemSprint(issue) {
+    const modalRef = this.modalService.open(SetSprintComponent,
+      {
+        size: 'lg'
+      });
+    modalRef.componentInstance.issue = issue;
+    this.issues = this.issueService.getAllWithoutSprintAssignment();
   }
 
   createNewSprint(issue) {
@@ -65,7 +71,7 @@ export class ProductBacklogComponent {
     if (e.action === 'edit') {
       this.editItem(e.item);
     } else if (e.action === 'change') {
-      this.changeItemSprint(e.item);
+      this.setItemSprint(e.item);
     } else if (e.action === 'delete') {
       this.deleteItem(e.item);
     } else if (e.action === 'add') {

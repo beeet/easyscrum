@@ -109,6 +109,11 @@
   "set-resolution.resolution": "Resolution",
   "set-resolution.save": "Save",
 
+  "set-sprint.title": "Set sprint",
+  "set-sprint.sprint": "Select a sprint",
+  "set-sprint.save": "Save",
+  "set-sprint.cancel": "Cancel",
+
   "new-issue-link.title": "Link an issue",
   "new-issue-link.type": "Issue type",
   "new-issue-link.issue": "Linked issue",

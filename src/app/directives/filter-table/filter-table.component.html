@@ -98,7 +98,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let item of filteredItems" (contextmenu)="onrightClick($event, item)">
+      <tr *ngFor="let item of filteredItems" (contextmenu)="onrightClick($event, item)" (click)="editItem($event, item)">
         <td>{{item[filter[1].key]}}</td>
       </tr>
       </tbody>
