@@ -1,6 +1,6 @@
 <div *ngIf="!smallScreen" class="container">
   <div class="table-responsive-sm">
-    <table class="table table-hover table-striped" (click)="disableContextMenu()">
+    <table class="table table-hover table-striped">
       <thead class="thead-light">
       <tr>
         <th scope="col">{{'product-backlog.row' | translate}}</th>
@@ -44,7 +44,7 @@
         </td>
       </tr>
       <tbody>
-      <tr *ngFor="let item of filteredItems; let i = index" (contextmenu)="onrightClick($event, item)" (click)="editItem($event, item)">
+      <tr *ngFor="let item of filteredItems; let i = index" (contextmenu)="onrightClick($event, item)" routerLink="/issue-board/{{item.id}}">
         <th scope="row">{{i+1}}</th>
         <td align="center"><img height="20" src="{{item.type.imageSrc}}" alt="{{item.type.id}}"></td>
         <td >{{item.title}}</td>
@@ -88,7 +88,7 @@
   </div>
   <br>
   <div class="table-responsive-sm">
-    <table class="table table-hover table-striped" (click)="disableContextMenu()" oncontextmenu="return false;">
+    <table class="table table-hover table-striped">
       <thead class="thead-light">
       <tr>
         <th scope="col" (click)="sortItems(tableColumns[1])">{{'product-backlog.'+ tableColumns[1] | translate}}
@@ -98,7 +98,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let item of filteredItems" (contextmenu)="onrightClick($event, item)" (click)="editItem($event, item)">
+      <tr *ngFor="let item of filteredItems" (contextmenu)="onrightClick($event, item)" routerLink="/issue-board/{{item.id}}">
         <td>{{item[filter[1].key]}}</td>
       </tr>
       </tbody>
@@ -109,7 +109,4 @@
       </tfoot>
     </table>
   </div>
-</div>
-<div *ngIf="contextmenu.visible">
-  <app-context-menu [x]="contextmenu.posX" [y]="contextmenu.posY" [actions]="contextmenuActions" (action)="onAction($event)"></app-context-menu>
 </div>

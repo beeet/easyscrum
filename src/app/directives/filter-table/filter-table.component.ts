@@ -9,8 +9,7 @@ import {Issue} from '../../services/issue';
 export class FilterTableComponent implements OnInit, OnChanges {
   @Input() items: any[];
   @Input() tableColumns: string[];
-  @Input() contextmenuActions;
-  @Output() action = new EventEmitter();
+  @Output() eventEmitterClick = new EventEmitter();
   filter = [];
   filteredItems;
   globalFilter = '';
@@ -18,8 +17,7 @@ export class FilterTableComponent implements OnInit, OnChanges {
   sortAscending = false;
   smallScreen: boolean;
   innerWidth: any;
-  contextmenu = {visible: false, posX: 0, posY: 0};
-  selectedItem;
+
   filterTypes = [
     {value: '', name: 'all'},
     {value: 'S', name: 'story'},
@@ -44,7 +42,6 @@ export class FilterTableComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.filterItems();
-    this.disableContextMenu();
   }
 
   @HostListener('window:resize', ['$event'])
@@ -106,28 +103,6 @@ export class FilterTableComponent implements OnInit, OnChanges {
 
   }
 
-  onrightClick(event, item) {
-    this.selectedItem = item;
-    this.contextmenu.posX = event.clientX + 10;
-    this.contextmenu.posY = event.clientY + 20;
-    this.contextmenu.visible = true;
-  }
-
-  disableContextMenu() {
-    this.contextmenu.visible = false;
-  }
-
-  editItem(e, item) {
-    e.action = 'edit';
-    this.selectedItem = item;
-    this.onAction(e);
-  }
-
-  onAction(e) {
-    this.disableContextMenu();
-    this.action.emit({action: e.action, item: this.selectedItem});
-  }
-
   getValue(item: Issue, key: string) {
     const keys = key.split('.');
     let value = item;
@@ -139,5 +114,11 @@ export class FilterTableComponent implements OnInit, OnChanges {
       }
     }
     return value;
+  }
+
+  onrightClick(event, item) {
+    event.item = item;
+    event.source = 'pb';
+    this.eventEmitterClick.emit(event);
   }
 }
