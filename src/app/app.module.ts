@@ -102,7 +102,8 @@ export function createTranslateLoader(http: HttpClient) {
   entryComponents: [
     NewSprintComponent,
     NewIssueLinkComponent,
-    SetResolutionComponent
+    SetResolutionComponent,
+    SetSprintComponent
   ],
   exports: [
     CommonModule

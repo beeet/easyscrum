@@ -86,6 +86,11 @@ export class IssueService implements Crud<Issue> {
       .catch(e => console.error(e));
   }
 
+  highlightIssue(issue: Issue) {
+    const i = this.issues.find(e => e.id === issue.id);
+    i.highlighting = !i.highlighting;
+  }
+
   getAllFiltered(predicate: (issue) => boolean): Issue[] {
     return this.issues.filter(predicate);
   }

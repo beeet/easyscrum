@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 declare function require(path: string);
 
 class Enum {
@@ -31,7 +29,7 @@ export class IssueType extends Enum {
   ];
 
   static get(type: string): IssueType {
-    return _.head(this.IssueTypes.filter(t => type === t.id));
+      return this.IssueTypes.find(t => type === t.id);
   }
 }
 
@@ -48,7 +46,7 @@ export class IssuePriority extends Enum {
   ];
 
   static get(priority: string): IssuePriority {
-    return _.head(this.IssuePriorities.filter(p => priority === p.id));
+    return this.IssuePriorities.find(p => priority === p.id);
   }
 }
 
@@ -64,7 +62,7 @@ export class IssueState extends Enum {
   ];
 
   static get(state: string): IssueState {
-    return _.head(this.IssueStates.filter(s => state === s.id));
+    return this.IssueStates.find(s => state === s.id);
   }
 }
 
@@ -84,6 +82,6 @@ export class IssueResolution extends Enum {
   ];
 
   static get(resolution: string): IssueResolution {
-    return _.head(this.IssueResolutions.filter(r => resolution === r.id));
+    return this.IssueResolutions.find(r => resolution === r.id);
   }
 }

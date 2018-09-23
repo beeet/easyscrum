@@ -1,3 +1,34 @@
-<p>
-  set-sprint works!
-</p>
+<div class="modal-header">
+  <h4 class="modal-title">
+    {{'set-sprint.title' | translate}}
+  </h4>
+</div>
+
+<div class="container">
+  <form #modalForm="ngForm">
+
+    <div class="row">
+      <div class="form-group col-md-12">
+        <label id="sprintLabel" for="sprint">{{'set-sprint.sprint' | translate}}</label>
+        <select id="sprint" name="sprint" class="form-control" [(ngModel)]="sprintId">
+          <option *ngFor="let s of sprints" value="{{s.id}}">
+            {{s.name}} ({{s.begin | date:"dd.MM.yyyy"}} - {{s.end | date:"dd.MM.yyyy"}})
+          </option>
+        </select>
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button"
+          class="btn btn-primary"
+          (click)="save()"
+          [disabled]="!sprintId">
+    {{'set-sprint.save' | translate }}
+  </button>
+  <button type="button"
+          class="btn btn-light"
+          (click)="cancel()">
+    {{'set-sprint.cancel' | translate }}
+  </button>
+</div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {IssueService} from './services/issue.service';
 import {AssigneeService} from './services/assignee.service';
@@ -11,6 +11,7 @@ import {SprintService} from './services/sprint.service';
 })
 export class AppComponent {
   title = 'EasyScum';
+  contextmenu;
 
   constructor(public translate: TranslateService,
               private issueService: IssueService,
@@ -20,6 +21,11 @@ export class AppComponent {
     this.assigneeService = assigneeService;
     this.sprintService = sprintService;
     this.issueService = issueService;
+    this.contextmenu = {
+      visible: false,
+      posX: 0,
+      posY: 0
+    };
     // TODO remove later start
     // this.assigneeService.setupDummyData();
     // this.sprintService.setupDummyData();
@@ -52,5 +58,20 @@ export class AppComponent {
         break;
     }
     return lang;
+  }
+
+  onrightClick(event) {
+    this.contextmenu.visible = !this.contextmenu.visible;
+    if (this.contextmenu.visible) {
+      this.contextmenu.posX = event.clientX + 10;
+      this.contextmenu.posY = event.clientY + 20;
+      this.contextmenu.target = event.item;
+      this.contextmenu.source = event.source;
+      this.contextmenu.visible = true;
+    }
+  }
+
+  closeContextMenu() {
+    this.contextmenu.visible = false;
   }
 }

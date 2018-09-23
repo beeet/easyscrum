@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {Component, OnInit, ViewContainerRef} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ViewContainerRef} from '@angular/core';
 import {filteredByAssignee, filteredByState, IssueService} from '../../services/issue.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
@@ -19,18 +19,18 @@ import {SetResolutionComponent} from '../../directives/set-resolution/set-resolu
 })
 
 export class SprintBacklogComponent implements OnInit {
+  @Output() eventEmitterClick = new EventEmitter();
   states: IssueState[] = [];
   isSubtaskFilterAcitve = false;
   selectedAssigneeFilter: string;
   selectedIssue: Issue;
-  contextmenu;
 
-  constructor(private translate: TranslateService,
-              private route: ActivatedRoute,
-              private router: Router,
-              public issueService: IssueService,
+  constructor(public issueService: IssueService,
               public sprintService: SprintService,
               public assigneeService: AssigneeService,
+              private translate: TranslateService,
+              private route: ActivatedRoute,
+              private router: Router,
               private dragula: DragulaService,
               private modalService: ModalDialogService,
               private viewRef: ViewContainerRef) {
@@ -59,11 +59,6 @@ export class SprintBacklogComponent implements OnInit {
         this.issueService.put(issue);
       }
     });
-    this.contextmenu = {
-      visible: false, posX: 0, posY: 0, actions: [
-        {action: 'new', icon: 'add_box'},
-        {action: 'highlighting', icon: 'new_releases'}]
-    };
   }
 
   getIssues(issueState: IssueState): Issue[] {
@@ -139,30 +134,6 @@ export class SprintBacklogComponent implements OnInit {
       );
   }
 
-  highlightIssue(issue) {
-    this.selectedIssue.highlighting = !this.selectedIssue.highlighting;
-  }
-
-  onrightClick(event, issue) {
-    this.contextmenu.posX = event.clientX + 10;
-    this.contextmenu.posY = event.clientY + 20;
-    this.contextmenu.visible = true;
-    this.selectedIssue = issue;
-  }
-
-  disableContextMenu() {
-    this.contextmenu.visible = false;
-  }
-
-  onAction(e) {
-    this.disableContextMenu();
-    if (e.action === 'new') {
-      this.navigateToIssueBoard();
-    } else if (e.action === 'highlighting') {
-      this.highlightIssue(e);
-    }
-  }
-
   createNewSprint() {
     this.modalService.openDialog(this.viewRef, {
       childComponent: NewSprintComponent,
@@ -174,5 +145,11 @@ export class SprintBacklogComponent implements OnInit {
       childComponent: SetResolutionComponent,
       data: {issue}
     });
+  }
+
+  onrightClick(event, item) {
+    event.item = item;
+    event.source = 'sp';
+    this.eventEmitterClick.emit(event);
   }
 }

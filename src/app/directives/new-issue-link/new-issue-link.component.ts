@@ -12,20 +12,16 @@ import {IssueLink, IssueLinkPair, IssueLinkType} from '../../services/IssueLink'
   styleUrls: ['./new-issue-link.component.scss']
 })
 export class NewIssueLinkComponent implements OnInit {
-  activeModal: NgbActiveModal;
-
-  issueService: IssueService;
   issueLinkTypes = IssueLinkType.issueLinkTypes;
+  issueLinkTypeString: string;
   issues: Issue[];
   issueLinkTypeString: string;
   relatedIssueId: string;
 
   @Input() baseIssue: Issue;
 
-  constructor(issueService: IssueService,
-              activeModal: NgbActiveModal) {
-    this.issueService = issueService;
-    this.activeModal = activeModal;
+  constructor(public issueService: IssueService,
+              public activeModal: NgbActiveModal) {
   }
 
   ngOnInit(): void {

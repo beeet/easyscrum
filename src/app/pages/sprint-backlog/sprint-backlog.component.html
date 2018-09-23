@@ -1,4 +1,4 @@
-<div class="container" (click)="disableContextMenu()">
+<div class="container">
 	<h1>
 		{{'app.sprint-backlog' | translate}}
 	</h1>
@@ -41,7 +41,4 @@
 			</div>
 		</div>
 	</div>
-</div>
-<div *ngIf="contextmenu.visible">
-  <app-context-menu [x]="contextmenu.posX" [y]="contextmenu.posY" [actions]="contextmenu.actions" (action)="onAction($event)"></app-context-menu>
 </div>

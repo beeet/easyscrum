@@ -6,6 +6,7 @@ import {FormsModule} from '@angular/forms';
 import {FilterTableComponent} from '../../directives/filter-table/filter-table.component';
 import {ContextMenuComponent} from '../../directives/context-menu/context-menu.component';
 import {RouterTestingModule} from '@angular/router/testing';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 describe('ProductBacklogComponent', () => {
   let component: ProductBacklogComponent;
@@ -14,7 +15,7 @@ describe('ProductBacklogComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ProductBacklogComponent, FilterTableComponent, ContextMenuComponent ],
-      imports: [TranslateModule.forRoot(), FormsModule, RouterTestingModule]
+      imports: [TranslateModule.forRoot(), FormsModule, RouterTestingModule, NgbModule.forRoot()]
     })
     .compileComponents();
   }));

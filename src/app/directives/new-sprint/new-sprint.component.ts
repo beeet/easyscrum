@@ -13,19 +13,13 @@ import {IssueService} from '../../services/issue.service';
   styleUrls: ['./new-sprint.component.scss']
 })
 export class NewSprintComponent implements OnInit {
-  sprintService: SprintService;
   sprint: Sprint;
-  issueService: IssueService;
-  activeModal: NgbActiveModal;
 
   @Input() issue: Issue;
 
-  constructor(sprintService: SprintService,
-              issueService: IssueService,
-              activeModal: NgbActiveModal) {
-    this.sprintService = sprintService;
-    this.issueService = issueService;
-    this.activeModal = activeModal;
+  constructor(public sprintService: SprintService,
+              public issueService: IssueService,
+              public activeModal: NgbActiveModal) {
   }
 
   ngOnInit(): void {
