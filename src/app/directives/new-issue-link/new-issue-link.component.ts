@@ -13,7 +13,6 @@ import {IssueLink, IssueLinkPair, IssueLinkType} from '../../services/IssueLink'
 })
 export class NewIssueLinkComponent implements OnInit {
   issueLinkTypes = IssueLinkType.issueLinkTypes;
-  issueLinkTypeString: string;
   issues: Issue[];
   issueLinkTypeString: string;
   relatedIssueId: string;
