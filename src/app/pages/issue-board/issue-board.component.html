@@ -151,20 +151,24 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" *ngIf="!tempIssue">
       <div class="form-group col-md-12">
-        <label id="issueLinks">{{('issue-board.issueLinks' | translate)}}</label>
-        <div class="input-group-append" (click)="addIssueLink()">
-          <label class="input-group-text" for="sprint">+</label>
+        <div class="input-group mb-3">
+          <label id="issueLinks" (click)="issueLinksCollapsed = !issueLinksCollapsed">
+            {{('issue-board.issueLinks' | translate)}} ({{currentIssue.issueLinks.length}})
+          </label>
+          <div class="input-group" (click)="addIssueLink()">
+            <label class="input-group-text" for="sprint">+</label>
+          </div>
         </div>
-        <div class="table-light">
+        <div class="table-light" id="collapseIssueLinks" [ngbCollapse]="issueLinksCollapsed">
           <table width="100%">
             <tbody>
             <tr *ngFor="let issueLink of currentIssue.issueLinks; let i = index">
               <ng-container *ngLet="getIssue(issueLink.relatedIssueId) as relIssue">
-                <td width="15%">{{issueLink.linkType}}</td>
+                <td width="15%">{{'new-issue-link.type.' + issueLink.linkType | translate}}</td>
                 <td width="5%" align="center"><img width="16" src="{{relIssue.type.imageSrc}}" alt="{{relIssue.type.id}}"></td>
-                <td width="55%"><a class="nav-item nav-link"
+                <td width="60%"><a class="nav-item nav-link"
                                    [routerLink]="['/issue-board', relIssue.id]"
                                    >
                   {{relIssue.title}}</a></td>
@@ -172,9 +176,13 @@
                                                    src="{{relIssue.priority.imageSrc}}"
                                                    alt="{{relIssue.priority.id}}">
                 </td>
-                <td width="20%" class="badge state" [ngClass]="relIssue.state.value">{{'issue-board.state.' + relIssue.state.value |
-                  translate | uppercase}}
+                <td width="10%"><label class="badge state" [ngClass]="relIssue.state.value">{{'issue-board.state.' +
+                  relIssue.state.value |
+                  translate | uppercase}}</label>
                 </td>
+                <td width="5%"
+                    align="right"><img width="16" src="../../../assets/pics/trash.png" alt="trash"
+                                       (click)="deleteIssueLink(issueLink)"></td>
               </ng-container>
             </tr>
             </tbody>
@@ -183,22 +191,28 @@
       </div>
     </div>
 
-    <div>Creation Date: {{currentIssue.creationDate}}</div>
-    <div>Resolution Date: {{currentIssue.resolutionDate}}</div>
-    <div>ID: {{currentIssue.id}}</div>
-
     <button type="button"
             class="btn btn-primary"
             (click)="onSave()"
             [disabled]="!theForm.valid">
       {{'issue-board.buttonSave' | translate }}
     </button>
-    <button type="button" class="btn btn-light" (click)="onCancel()">
+    <button *ngIf="canMakeNewIssues"
+            type="button"
+            class="btn btn-primary"
+            (click)="onNew()">
+      {{'issue-board.buttonNew' | translate }}
+    </button>
+    <button type="button"
+            class="btn btn-light"
+            (click)="onCancel()">
       {{'issue-board.buttonCancel' | translate }}
     </button>
-    <button type="button" class="btn btn-danger" (click)="onDelete()" [hidden]="!issueService.isDeletionIssueAllowed(currentIssue)">
+    <button type="button"
+            class="btn btn-danger"
+            (click)="onDelete()"
+            [hidden]="!issueService.isDeletionIssueAllowed(currentIssue) || tempIssue">
       {{'issue-board.buttonDelete' | translate }}
     </button>
   </form>
-
 </div>

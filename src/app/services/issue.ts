@@ -183,8 +183,8 @@ export class Issue {
         this.issueLinks.push(value);
     }
 
-    removeIssueLink(value: IssueLink) {
-        _.pull(this.issueLinks, value);
+    removeIssueLink(id: string) {
+      _.remove(this.issueLinks, l => l.id === id);
     }
 
     get subissue(): Array<Issue> {

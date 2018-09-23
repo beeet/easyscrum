@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {Component, OnInit} from '@angular/core';
+import {Component, DoCheck, OnInit} from '@angular/core';
 import {Location} from '@angular/common';
 import {IssueService} from '../../services/issue.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -11,13 +11,14 @@ import {IssuePriority, IssueResolution, IssueState, IssueType} from '../../servi
 import {NewSprintComponent} from '../../directives/new-sprint/new-sprint.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {NewIssueLinkComponent} from '../../directives/new-issue-link/new-issue-link.component';
+import {IssueLink} from '../../services/IssueLink';
 
 @Component({
   selector: 'app-issue-board',
   templateUrl: './issue-board.component.html',
   styleUrls: ['./issue-board.component.scss']
 })
-export class IssueBoardComponent implements OnInit {
+export class IssueBoardComponent implements OnInit, DoCheck {
   currentIssue: Issue;
   issueStates = IssueState.IssueStates;
   done = IssueState.done;
@@ -30,12 +31,17 @@ export class IssueBoardComponent implements OnInit {
 
   theForm: FormGroup;
 
+  tempIssue: boolean;
+  canMakeNewIssues: boolean;
+
   readonly titleMaxLength = 100;
   readonly titleMinLength = 3;
   readonly descriptionMaxLength = 3000;
 
   private urlParam;
   private resetValues;
+
+  issueLinksCollapsed = true;
 
   constructor(public issueService: IssueService,
               public assigneeService: AssigneeService,
@@ -46,17 +52,34 @@ export class IssueBoardComponent implements OnInit {
               private formBuilder: FormBuilder,
               private modalService: NgbModal) {}
 
+  ngDoCheck() {
+    const urlParamTemp = this.route.snapshot.paramMap.get('id');
+    if (urlParamTemp !== this.urlParam) {
+      this.init();
+    }
+  }
+
   ngOnInit() {
-    this.isAssigneeEditable = false;
+    this.init();
+  }
+
+  private init() {
     this.urlParam = this.route.snapshot.paramMap.get('id');
+    this.isAssigneeEditable = false;
+    this.tempIssue = false;
+    this.canMakeNewIssues = false;
     if (this.urlParam) {
       this.currentIssue = this.issueService.get(this.urlParam);
       if (!this.currentIssue) {
         // es gibt kein Issue mit dieser ID
         this.currentIssue = this.issueService.create();
+        this.tempIssue = true;
+        this.canMakeNewIssues = true;
       }
     } else {
       this.currentIssue = this.issueService.create();
+      this.tempIssue = true;
+      this.canMakeNewIssues = true;
     }
 
     const state = new FormControl(this.currentIssue.state.id, [
@@ -131,10 +154,6 @@ export class IssueBoardComponent implements OnInit {
   }
 
   onSave() {
-    // hier werden alle Eingabewerte aus dem Formular ans aktuelle Issue übergeben. Dazu müssen die Felder im Form genau gleich heissen wie
-    // in der Issue Klasse
-    // this.currentIssue = Object.assign(this.currentIssue, this.theForm.getRawValue());
-
     const values = this.theForm.value;
     this.currentIssue.title = values.title;
     // wenn der Sprint disabled ist, ist er nicht in den values drin
@@ -151,10 +170,15 @@ export class IssueBoardComponent implements OnInit {
 
     this.issueService.put(this.currentIssue);
 
-    if (!this.navigate()) {
-      this.theForm.reset(this.resetValues);
-      this.currentIssue = this.issueService.create();
-    }
+    // Issue ist nun persistiert und es können Links erfasst werden.
+    this.tempIssue = false;
+
+    this.navigate();
+  }
+
+  onNew() {
+    this.currentIssue = this.issueService.create();
+    this.theForm.reset(this.resetValues);
   }
 
   onCancel() {
@@ -163,16 +187,15 @@ export class IssueBoardComponent implements OnInit {
   }
 
   onDelete() {
+    this.currentIssue.issueLinks.forEach(l => this.deleteIssueLink(l));
     this.issueService.delete(this.currentIssue.id);
     this.navigate();
   }
 
-  private navigate(): boolean {
+  private navigate(): void {
     if (this.urlParam) {
       this.location.back();
-      return true;
     }
-    return false;
   }
 
   addAssignee() {
@@ -206,6 +229,13 @@ export class IssueBoardComponent implements OnInit {
         size: 'lg'
       });
     modalRef.componentInstance.baseIssue = this.currentIssue;
+  }
+
+  deleteIssueLink(issueLink: IssueLink) {
+    const relatedIssue = this.issueService.get(issueLink.relatedIssueId);
+    this.currentIssue.removeIssueLink(issueLink.id);
+    relatedIssue.removeIssueLink(issueLink.relatedIssueLinkId);
+    this.issueService.putBulk(this.currentIssue, relatedIssue);
   }
 }
 

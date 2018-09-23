@@ -3,7 +3,7 @@ import { NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {Issue} from '../../services/issue';
 import {IssueService} from '../../services/issue.service';
-import {IssueLink, IssueLinkType} from '../../services/IssueLink';
+import {IssueLink, IssueLinkPair, IssueLinkType} from '../../services/IssueLink';
 
 
 @Component({
@@ -13,8 +13,8 @@ import {IssueLink, IssueLinkType} from '../../services/IssueLink';
 })
 export class NewIssueLinkComponent implements OnInit {
   issueLinkTypes = IssueLinkType.issueLinkTypes;
-  issueLinkTypeString: string;
   issues: Issue[];
+  issueLinkTypeString: string;
   relatedIssueId: string;
 
   @Input() baseIssue: Issue;
@@ -28,12 +28,11 @@ export class NewIssueLinkComponent implements OnInit {
   }
 
   save(): void {
-    const issueLinkType = IssueLinkType.getIssueLinkType(this.issueLinkTypeString);
-    this.baseIssue.issueLinks.push(new IssueLink(this.relatedIssueId, issueLinkType.type));
+    const issueLinkPair = new IssueLinkPair(this.issueLinkTypeString, this.baseIssue.id, this.relatedIssueId);
+    this.baseIssue.issueLinks.push(issueLinkPair.baseIssueLink);
     const relatedIssue = this.issueService.get(this.relatedIssueId);
-    relatedIssue.issueLinks.push(new IssueLink(this.baseIssue.id, issueLinkType.counterType));
-    this.issueService.put(this.baseIssue);
-    this.issueService.put(relatedIssue);
+    relatedIssue.issueLinks.push(issueLinkPair.relatedIssueLink);
+    this.issueService.putBulk(this.baseIssue, relatedIssue);
     this.activeModal.close(this.baseIssue);
   }
 
