@@ -168,12 +168,13 @@ export class IssueBoardComponent implements OnInit, DoCheck {
     this.currentIssue.resolution = IssueResolution.get(values.stateGroup.resolution);
     this.currentIssue.elapsed = values.elapsed;
 
-    this.issueService.put(this.currentIssue);
-
-    // Issue ist nun persistiert und es können Links erfasst werden.
-    this.tempIssue = false;
-
-    this.navigate();
+    this.issueService.put(this.currentIssue).then(() => {
+        // Issue ist nun persistiert und es können Links erfasst werden.
+        this.tempIssue = false;
+        // navigieren falls nötig
+        this.navigate();
+      }
+    );
   }
 
   onNew() {
