@@ -21,6 +21,9 @@
         </div>
 
         <div *ngIf="selectedSprint === 'default' && issues.length > 0" align="right" class="form-group col-md-6">
+          <button type="button" class="btn btn-outline-secondary btn-sm" (click)="changeCustomSort()">
+            {{'CustomSort'}}
+          </button>
           <button type="button" class="btn btn-outline-secondary btn-sm" (click)="changeSprint(nextSprint?.id)">
             {{nextSprint?.name}} {{'product-backlog.estimated' | translate}}:
             <span class="badge badge-primary">{{nextIssuesEstimated}}</span>
@@ -30,5 +33,5 @@
       </div>
     </form>
   </div>
-  <app-filter-table [items]="issues" [tableColumns]="tableColumns"></app-filter-table>
+  <app-filter-table [items]="issues" [tableColumns]="tableColumns" [customSort]="customSort"></app-filter-table>
 </div>

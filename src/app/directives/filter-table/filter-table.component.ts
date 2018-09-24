@@ -9,6 +9,7 @@ import {Issue} from '../../services/issue';
 export class FilterTableComponent implements OnInit, OnChanges {
   @Input() items: any[];
   @Input() tableColumns: string[];
+  @Input() customSort: boolean;
   @Output() eventEmitterClick = new EventEmitter();
   filter = [];
   filteredItems;
@@ -36,12 +37,17 @@ export class FilterTableComponent implements OnInit, OnChanges {
     this.innerWidth = window.innerWidth;
     this.filteredItems = this.items;
     this.tableColumns.forEach(col => this.filter.push({key: col, value: ''}));
-    this.sortItems(this.tableColumns[2]);
+    if (this.customSort) {
+      this.sortItems(this.tableColumns[2]);
+    } else {
+      this.backLogSort();
+    }
     this.evaluateScreenSize();
   }
 
   ngOnChanges() {
     this.filterItems();
+    this.sortItems(undefined);
   }
 
   @HostListener('window:resize', ['$event'])
@@ -81,26 +87,33 @@ export class FilterTableComponent implements OnInit, OnChanges {
   }
 
   sortItems(orderType: any): void {
-    if (this.orderType === orderType) {
-      this.sortAscending = !this.sortAscending;
-    } else {
-      this.sortAscending = true;
-    }
-    this.orderType = orderType;
-    if (orderType === 'type' || orderType === 'priority') {
-      if (this.sortAscending) {
-        this.filteredItems.sort((a, b) => a[orderType].id > b[orderType].id ? 1 : -1);
+    if (this.customSort) {
+      if (this.orderType === orderType) {
+        this.sortAscending = !this.sortAscending;
       } else {
-        this.filteredItems.sort((a, b) => a[orderType].id > b[orderType].id ? -1 : 1);
+        this.sortAscending = true;
+      }
+      this.orderType = orderType;
+      if (orderType === 'type' || orderType === 'priority') {
+        if (this.sortAscending) {
+          this.filteredItems.sort((a, b) => a[orderType].id > b[orderType].id ? 1 : -1);
+        } else {
+          this.filteredItems.sort((a, b) => a[orderType].id > b[orderType].id ? -1 : 1);
+        }
+      } else {
+        if (this.sortAscending) {
+          this.filteredItems.sort((a, b) => a[orderType] > b[orderType] ? 1 : -1);
+        } else {
+          this.filteredItems.sort((a, b) => a[orderType] > b[orderType] ? -1 : 1);
+        }
       }
     } else {
-      if (this.sortAscending) {
-        this.filteredItems.sort((a, b) => a[orderType] > b[orderType] ? 1 : -1);
-      } else {
-        this.filteredItems.sort((a, b) => a[orderType] > b[orderType] ? -1 : 1);
-      }
+      this.backLogSort();
     }
+  }
 
+  private backLogSort() {
+    this.filteredItems.sort((a, b) => a.backlogPriority > b.backlogPriority ? 1 : -1);
   }
 
   getValue(item: Issue, key: string) {

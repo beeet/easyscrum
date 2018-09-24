@@ -19,6 +19,7 @@ export class ProductBacklogComponent {
   selectedSprint;
   nextSprint;
   tableColumns = ['type', 'title', 'priority', 'estimated'];
+  customSort = false;
 
   constructor(public issueService: IssueService, public sprintService: SprintService) {
     this.issues = this.issueService.getAllWithoutSprintAssignment();
@@ -38,6 +39,10 @@ export class ProductBacklogComponent {
     } else {
       this.issues = this.issueService.getAllWithoutSprintAssignment();
     }
+  }
+
+  changeCustomSort() {
+    this.customSort = !this.customSort;
   }
 
   sprintBackward() {

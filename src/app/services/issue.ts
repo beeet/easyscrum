@@ -27,6 +27,7 @@ export class Issue {
     private _comments: Array<Object> = [];
     private _issueLinks: Array<IssueLink> = [];
     private _subissues: Array<Issue> = [];
+    private _backlogPriority: number;
 
     private dateUtil = new DateUtil();
 
@@ -198,7 +199,15 @@ export class Issue {
         }
     }
 
-    addSubissue(issue: Issue) {
+    get backlogPriority(): number {
+        return this._backlogPriority;
+    }
+
+    set backlogPriority(value: number) {
+      this._backlogPriority = value;
+    }
+
+  addSubissue(issue: Issue) {
         if (issue) {
             this.assertIssueTypeOfTask(issue);
             this._subissues.push(issue);
