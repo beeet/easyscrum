@@ -49,7 +49,6 @@ export class IssueService implements Crud<Issue> {
     newIssue.state = IssueState.open;
     newIssue.priority = IssuePriority.medium;
     // newIssue.assigneeId = TODO: unassigned setzten
-    newIssue.backlogPriority = this.getNextPriority();
     return newIssue;
   }
 
@@ -62,6 +61,7 @@ export class IssueService implements Crud<Issue> {
   }
 
   put(issue: Issue): Promise<any> {
+    this.checkAndSetBacklogPriority(issue);
     return this.persistence.upsertIssue(issue)
       .then(() => {
         if (this.get(issue.id) === undefined) {
@@ -72,7 +72,8 @@ export class IssueService implements Crud<Issue> {
   }
 
   putBulk(...issues: Issue[]) {
-    this.persistence.upsertIssues(issues);
+    this.persistence.upsertIssues(issues)
+      .catch(e => console.log(e));
   }
 
   delete(id: string): void {
@@ -136,6 +137,19 @@ export class IssueService implements Crud<Issue> {
       return 1;
     } else {
       return max.backlogPriority + 1;
+    }
+  }
+
+  /*
+   * Nur Issues im Backlog haben diese Priorität
+   */
+  private checkAndSetBacklogPriority(issue: Issue) {
+    if (issue.sprintId) {
+      issue.backlogPriority = null;
+    } else {
+      if (!issue.backlogPriority) {
+        issue.backlogPriority = this.getNextPriority();
+      }
     }
   }
 

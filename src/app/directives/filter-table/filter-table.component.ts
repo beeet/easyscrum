@@ -1,5 +1,9 @@
+import _ from 'lodash';
 import {Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {Issue} from '../../services/issue';
+import {DragulaService} from 'ng2-dragula';
+import {IssueService} from '../../services/issue.service';
+import {AppComponent} from '../../app.component';
 
 @Component({
   selector: 'app-filter-table',
@@ -10,6 +14,7 @@ export class FilterTableComponent implements OnInit, OnChanges {
   @Input() items: any[];
   @Input() tableColumns: string[];
   @Input() customSort: boolean;
+  @Input() isBacklog: boolean;
   @Output() eventEmitterClick = new EventEmitter();
   filter = [];
   filteredItems;
@@ -33,6 +38,8 @@ export class FilterTableComponent implements OnInit, OnChanges {
     {value: '4', name: 'minor'},
     {value: '5', name: 'trivial'}];
 
+  constructor(private dragula: DragulaService, private issueService: IssueService) {}
+
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.filteredItems = this.items;
@@ -43,6 +50,25 @@ export class FilterTableComponent implements OnInit, OnChanges {
       this.backLogSort();
     }
     this.evaluateScreenSize();
+    this.dragula.drop.subscribe(value => {
+      if (this.filteredItems.length === 0) {
+        return;
+      }
+      // Die Backlog-Priorität beginnt bei 1, deswegen 1 abziehen
+      const fromIndex = this.issueService.get(value[1].id).backlogPriority - 1;
+      let toIndex;
+      if (_.hasIn(value[1], 'previousSibling.id')) {
+        toIndex = this.issueService.get(value[1].previousSibling.id).backlogPriority - 1;
+      } else {
+        toIndex = -1;
+      }
+      // Beim Abwärtsschieben wird das Element aus dem Array entfernt und der Index des Ziel ändert sich.
+      const offset = (fromIndex > toIndex) ? 1 : 0;
+      const movedIssue = this.filteredItems[fromIndex];
+      this.filteredItems.splice(fromIndex, 1);
+      this.filteredItems.splice(toIndex + offset, 0, movedIssue);
+      this.reorderPriority();
+    });
   }
 
   ngOnChanges() {
@@ -66,6 +92,7 @@ export class FilterTableComponent implements OnInit, OnChanges {
 
   filterItems(): void {
     this.filteredItems = this.items;
+    this.reorderPriority();
     for ( const f of this.filter ) {
       if (f.value) {
         const value = f.value.toLocaleLowerCase();
@@ -116,6 +143,23 @@ export class FilterTableComponent implements OnInit, OnChanges {
     this.filteredItems.sort((a, b) => a.backlogPriority > b.backlogPriority ? 1 : -1);
   }
 
+  /*
+   * Die Backlog-Priority ist nur im Backlog relevant, deswegen wird diese hier neu anhand der Position im Array berechnet.
+   */
+  private reorderPriority() {
+    if (this.isBacklog) {
+      this.filteredItems.reduce((prev, current) => {
+        if (current) {
+          current.backlogPriority = prev.backlogPriority + 1;
+          this.issueService.put(current);
+          return current;
+        } else {
+          return prev;
+        }
+      }, {backlogPriority: 0});
+    }
+  }
+
   getValue(item: Issue, key: string) {
     const keys = key.split('.');
     let value = item;
@@ -133,5 +177,11 @@ export class FilterTableComponent implements OnInit, OnChanges {
     event.item = item;
     event.source = 'pb';
     this.eventEmitterClick.emit(event);
+  }
+
+  dndClass(): string {
+    if (!this.customSort && this.isBacklog) {
+      return AppComponent.DRAGABLE;
+    }
   }
 }

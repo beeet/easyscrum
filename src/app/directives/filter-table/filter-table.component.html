@@ -4,9 +4,10 @@
       <thead class="thead-light">
       <tr>
         <th scope="col">{{'product-backlog.row' | translate}}</th>
-        <th class="sorting" *ngFor="let column of tableColumns" scope="col" (click)="sortItems(column)">{{'product-backlog.'+ column | translate}}
-            <i class="material-icons" *ngIf="customSort && orderType === column && sortAscending">arrow_drop_up</i>
-            <i class="material-icons" *ngIf="customSort && orderType === column && !sortAscending">arrow_drop_down</i>
+        <th class="sorting" *ngFor="let column of tableColumns" scope="col" (click)="sortItems(column)">{{'product-backlog.'+ column
+          | translate}}
+          <i class="material-icons" *ngIf="customSort && orderType === column && sortAscending">arrow_drop_up</i>
+          <i class="material-icons" *ngIf="customSort && orderType === column && !sortAscending">arrow_drop_down</i>
         </th>
       </tr>
       </thead>
@@ -14,14 +15,23 @@
         <td></td>
         <td>
           <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()" [(ngModel)]="filter[0].value">
-            <option *ngFor="let type of filterTypes" value="{{type.value}}">{{'product-backlog.filter.type.'+type.name | translate}}</option>
+            <option *ngFor="let type of filterTypes" value="{{type.value}}">{{'product-backlog.filter.type.'+type.name |
+              translate}}
+            </option>
           </select>
         </td>
         <td>
           <div class="input-group input-group-sm">
-            <input [(ngModel)]="filter[1].value" (keyup)="filterItems()" type="text" class="form-control" placeholder="{{'product-backlog.filter' | translate}}">
+            <input [(ngModel)]="filter[1].value"
+                   (keyup)="filterItems()"
+                   type="text"
+                   class="form-control"
+                   placeholder="{{'product-backlog.filter' | translate}}">
             <div class="input-group-append">
-              <button [disabled]="!filter[1].value" class="btn btn-outline-secondary" type="button" id="filterButton1"
+              <button [disabled]="!filter[1].value"
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      id="filterButton1"
                       (click)="filter[1].value = ''; filterItems()">X
               </button>
             </div>
@@ -29,28 +39,41 @@
         </td>
         <td>
           <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()" [(ngModel)]="filter[2].value">
-            <option *ngFor="let prio of filterPriorities" value="{{prio.value}}">{{'product-backlog.filter.prio.'+prio.name | translate}}</option>
+            <option *ngFor="let prio of filterPriorities" value="{{prio.value}}">{{'product-backlog.filter.prio.'+prio.name |
+              translate}}
+            </option>
           </select>
         </td>
         <td>
           <div class="input-group input-group-sm">
-            <input [(ngModel)]="filter[3].value" (keyup)="filterItems()" type="text" class="form-control" placeholder="{{'product-backlog.filter' | translate}}">
+            <input [(ngModel)]="filter[3].value"
+                   (keyup)="filterItems()"
+                   type="text"
+                   class="form-control"
+                   placeholder="{{'product-backlog.filter' | translate}}">
             <div class="input-group-append">
-              <button [disabled]="!filter[3].value" class="btn btn-outline-secondary" type="button" id="filterButton2"
+              <button [disabled]="!filter[3].value"
+                      class="btn btn-outline-secondary"
+                      type="button"
+                      id="filterButton2"
                       (click)="filter[3].value = ''; filterItems()">X
               </button>
             </div>
           </div>
         </td>
       </tr>
-      <tbody>
-      <tr *ngFor="let item of filteredItems; let i = index" (contextmenu)="onrightClick($event, item)" routerLink="/issue-board/{{item.id}}">
-        <th scope="row">{{item.backlogPriority}}</th>
-        <td align="center"><img height="20" src="{{item.type.imageSrc}}" alt="{{item.type.id}}"></td>
-        <td >{{item.title}}</td>
-        <td align="center"><img height="15" src="{{item.priority.imageSrc}}" alt="{{item.priority.id}}"></td>
-        <td >{{item.estimated}}</td>
-      </tr>
+      <tbody [dragula]='"backlog-issues"'>
+        <tr *ngFor="let item of filteredItems; let i = index"
+            (contextmenu)="onrightClick($event, item)"
+            routerLink="/issue-board/{{item.id}}"
+            id="{{item.id}}"
+            [ngClass]="dndClass()">
+          <th scope="row">{{item.backlogPriority}}</th>
+          <td align="center"><img height="20" src="{{item.type.imageSrc}}" alt="{{item.type.id}}"></td>
+          <td>{{item.title}}</td>
+          <td align="center"><img height="15" src="{{item.priority.imageSrc}}" alt="{{item.priority.id}}"></td>
+          <td>{{item.estimated}}</td>
+        </tr>
       </tbody>
       <tfoot class="table-secondary">
       <tr>
@@ -70,18 +93,27 @@
   <h5> Filter </h5>
 
   <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()" [(ngModel)]="filter[0].value">
-    <option *ngFor="let type of filterTypes" value="{{type.value}}">{{'product-backlog.filter.type.'+type.name | translate}}</option>
+    <option *ngFor="let type of filterTypes" value="{{type.value}}">{{'product-backlog.filter.type.'+type.name | translate}}
+    </option>
   </select>
   <br>
   <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()" [(ngModel)]="filter[2].value">
-    <option *ngFor="let prio of filterPriorities" value="{{prio.value}}">{{'product-backlog.filter.prio.'+prio.name | translate}}</option>
+    <option *ngFor="let prio of filterPriorities" value="{{prio.value}}">{{'product-backlog.filter.prio.'+prio.name | translate}}
+    </option>
   </select>
   <br>
 
   <div class="input-group input-group-sm">
-    <input [(ngModel)]="filter[1].value" (keyup)="filterItems()" type="text" class="form-control" placeholder="{{'product-backlog.filter' | translate}}">
+    <input [(ngModel)]="filter[1].value"
+           (keyup)="filterItems()"
+           type="text"
+           class="form-control"
+           placeholder="{{'product-backlog.filter' | translate}}">
     <div class="input-group-append">
-      <button [disabled]="!filter[1].value" class="btn btn-outline-secondary" type="button" id="filterButton3"
+      <button [disabled]="!filter[1].value"
+              class="btn btn-outline-secondary"
+              type="button"
+              id="filterButton3"
               (click)="filter[1].value = ''; filterItems()">X
       </button>
     </div>
@@ -97,8 +129,9 @@
         </th>
       </tr>
       </thead>
-      <tbody>
-      <tr *ngFor="let item of filteredItems" (contextmenu)="onrightClick($event, item)" routerLink="/issue-board/{{item.id}}">
+      <tbody [dragula]='"backlog-issues"'>
+      <tr *ngFor="let item of filteredItems" (contextmenu)="onrightClick($event, item)" routerLink="/issue-board/{{item.id}}"
+          [ngClass]="dndClass()">
         <td>{{item[filter[1].key]}}</td>
       </tr>
       </tbody>
