@@ -27,11 +27,6 @@ export class SprintBacklogComponent implements OnInit {
 
   dndEnabled = AppComponent.DRAGABLE;
 
-  static hasSubtask(issue: Issue): boolean {
-    const subissues = issue.subissue;
-    return subissues && subissues.length > 0;
-  }
-
   constructor(public issueService: IssueService,
               public sprintService: SprintService,
               public assigneeService: AssigneeService,
@@ -138,6 +133,11 @@ export class SprintBacklogComponent implements OnInit {
       childComponent: SetResolutionComponent,
       data: {issue}
     });
+  }
+
+  hasSubtask(issue: Issue): boolean {
+    const subissues = issue.subissue;
+    return subissues && subissues.length > 0;
   }
 
   onrightClick(event, item) {
