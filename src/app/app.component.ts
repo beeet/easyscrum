@@ -12,7 +12,7 @@ import {DragulaService} from 'ng2-dragula';
 })
 export class AppComponent {
   public static readonly DRAGABLE = 'dnd-enabled';
-
+  lang;
   title = 'EasyScum';
   contextmenu;
 
@@ -43,7 +43,7 @@ export class AppComponent {
       // das Verhalten beim Droppen kann definiert werden.
       moves: this.canDrag
     });
-    // TODO remove later start
+    // TODO: remove later start
     // this.assigneeService.setupDummyData();
     // this.sprintService.setupDummyData();
     // this.issueService.setupDummyData();
@@ -68,20 +68,19 @@ export class AppComponent {
   }
 
   private determindUserLanguage(): string {
-    let lang;
     switch (navigator.language) {
       case 'de':
       case 'de-DE':
-        lang = 'de';
+        this.lang = 'de';
         break;
       case 'fr':
       case 'it':
       case 'en':
       default:
-        lang = 'en';
+        this.lang = 'en';
         break;
     }
-    return lang;
+    return this.lang;
   }
 
   onrightClick(event) {

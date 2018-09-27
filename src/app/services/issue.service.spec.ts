@@ -46,9 +46,9 @@ describe('IssueService', () => {
     // arrange
     // act + assert
     const issue = new Issue();
-    expect(IssueService.isDeletionIssueAllowed(issue)).toEqual(true);
+    expect(service.isDeletionIssueAllowed(issue)).toEqual(true);
     issue.sprintId = '1';
-    expect(IssueService.isDeletionIssueAllowed(issue)).toEqual(false);
+    expect(service.isDeletionIssueAllowed(issue)).toEqual(false);
   }));
 });
 

@@ -31,14 +31,10 @@ export function filteredByAssignee(assigneeId: string) {
 })
 export class IssueService implements Crud<Issue> {
   private issues: Issue[] = [];
-
   private dateUtil = new DateUtil();
 
-  static isDeletionIssueAllowed(issue: Issue): boolean {
-    return !issue.sprintId;
-  }
-
-  constructor(private sprintService: SprintService, private persistence: PersistenceService) {
+  constructor(private sprintService: SprintService,
+              private persistence: PersistenceService) {
     this.persistence.loadIssues().then(issues => {
       this.issues = issues;
     });
@@ -79,7 +75,7 @@ export class IssueService implements Crud<Issue> {
   }
 
   delete(id: string): void {
-    if (!IssueService.isDeletionIssueAllowed(this.get(id))) {
+    if (!this.isDeletionIssueAllowed(this.get(id))) {
       throw new Error('Deletion is not allowed because of sprint assignment.');
     }
     this.persistence.deleteIssue(id)
@@ -121,6 +117,10 @@ export class IssueService implements Crud<Issue> {
 
   isMutationIssueAllowed(issue: Issue): boolean {
     return this.sprintService.isSprintAlreadyStarted(issue.sprintId);
+  }
+
+  isDeletionIssueAllowed(issue: Issue): boolean {
+    return !issue.sprintId;
   }
 
   private getNextPriority() {

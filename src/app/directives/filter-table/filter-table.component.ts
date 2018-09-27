@@ -16,6 +16,7 @@ export class FilterTableComponent implements OnInit, OnChanges {
   @Input() customSort: boolean;
   @Input() isBacklog: boolean;
   @Output() eventEmitterClick = new EventEmitter();
+
   filter = [];
   filteredItems;
   globalFilter = '';
@@ -38,7 +39,9 @@ export class FilterTableComponent implements OnInit, OnChanges {
     {value: '4', name: 'minor'},
     {value: '5', name: 'trivial'}];
 
-  constructor(private dragula: DragulaService, private issueService: IssueService) {}
+  constructor(private dragula: DragulaService, private issueService: IssueService) {
+
+  }
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;

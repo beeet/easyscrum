@@ -33,7 +33,7 @@ export class ContextMenuComponent implements OnInit {
         {action: 'edit', icon: 'edit'},
         {action: 'change', icon: 'rotate_left'}
       );
-      if (IssueService.isDeletionIssueAllowed(target)) {
+      if (this.issueService.isDeletionIssueAllowed(target)) {
         this.actions.push({action: 'delete', icon: 'close'});
       }
     }

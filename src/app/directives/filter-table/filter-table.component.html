@@ -4,8 +4,7 @@
       <thead class="thead-light">
       <tr>
         <th scope="col">{{'product-backlog.row' | translate}}</th>
-        <th class="sorting" *ngFor="let column of tableColumns" scope="col" (click)="sortItems(column)">{{'product-backlog.'+ column
-          | translate}}
+        <th class="sorting" *ngFor="let column of tableColumns" scope="col" (click)="sortItems(column)">{{'product-backlog.'+ column | translate}}
           <i class="material-icons" *ngIf="customSort && orderType === column && sortAscending">arrow_drop_up</i>
           <i class="material-icons" *ngIf="customSort && orderType === column && !sortAscending">arrow_drop_down</i>
         </th>
@@ -15,8 +14,7 @@
         <td></td>
         <td>
           <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()" [(ngModel)]="filter[0].value">
-            <option *ngFor="let type of filterTypes" value="{{type.value}}">{{'product-backlog.filter.type.'+type.name |
-              translate}}
+            <option *ngFor="let type of filterTypes" value="{{type.value}}">{{'product-backlog.filter.type.'+type.name | translate}}
             </option>
           </select>
         </td>
@@ -39,8 +37,7 @@
         </td>
         <td>
           <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()" [(ngModel)]="filter[2].value">
-            <option *ngFor="let prio of filterPriorities" value="{{prio.value}}">{{'product-backlog.filter.prio.'+prio.name |
-              translate}}
+            <option *ngFor="let prio of filterPriorities" value="{{prio.value}}">{{'product-backlog.filter.prio.'+prio.name | translate}}
             </option>
           </select>
         </td>
