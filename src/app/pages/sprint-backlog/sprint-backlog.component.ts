@@ -11,6 +11,7 @@ import {IssueState} from '../../services/Enums';
 import {ModalDialogService} from 'ngx-modal-dialog';
 import {NewSprintComponent} from '../../directives/new-sprint/new-sprint.component';
 import {SetResolutionComponent} from '../../directives/set-resolution/set-resolution.component';
+import {AppComponent} from '../../app.component';
 
 @Component({
   selector: 'app-sprint-backlog',
@@ -24,6 +25,8 @@ export class SprintBacklogComponent implements OnInit {
   isSubtaskFilterAcitve = false;
   selectedAssigneeFilter: string;
   selectedIssue: Issue;
+
+  dndEnabled = AppComponent.DRAGABLE;
 
   constructor(public issueService: IssueService,
               public sprintService: SprintService,

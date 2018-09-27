@@ -60,18 +60,20 @@ export class IssueService implements Crud<Issue> {
     return this.issues.find(i => i.id === id);
   }
 
-  put(issue: Issue): void {
-    this.persistence.upsertIssue(issue)
+  put(issue: Issue): Promise<any> {
+    this.checkAndSetBacklogPriority(issue);
+    return this.persistence.upsertIssue(issue)
       .then(() => {
         if (this.get(issue.id) === undefined) {
-          return this.issues.push(issue);
+          this.issues.push(issue);
         }
       })
       .catch(e => console.error(e));
   }
 
   putBulk(...issues: Issue[]) {
-    this.persistence.upsertIssues(issues);
+    this.persistence.upsertIssues(issues)
+      .catch(e => console.log(e));
   }
 
   delete(id: string): void {
@@ -123,8 +125,35 @@ export class IssueService implements Crud<Issue> {
     return this.sprintService.isSprintAlreadyStarted(issue.sprintId);
   }
 
+  private getNextPriority() {
+    if (this.issues.length === 0) {
+      return 1;
+    }
+    const max = this.issues.reduce(function getMax(prev, current) {
+        return (prev.backlogPriority > current.backlogPriority) ? prev : current;
+      }
+    );
+    if (max.backlogPriority === undefined) {
+      return 1;
+    } else {
+      return max.backlogPriority + 1;
+    }
+  }
+
+  /*
+   * Nur Issues im Backlog haben diese Priorität
+   */
+  private checkAndSetBacklogPriority(issue: Issue) {
+    if (issue.sprintId) {
+      issue.backlogPriority = null;
+    } else {
+      if (!issue.backlogPriority) {
+        issue.backlogPriority = this.getNextPriority();
+      }
+    }
+  }
+
   setupDummyData() {
-    const issues: Issue[] = [];
     for (const d of issueData) {
       const dummy = this.create();
       dummy.title = d.title;
@@ -144,9 +173,9 @@ export class IssueService implements Crud<Issue> {
       dummy.comments = d.comments;
       dummy.issueLinks = d.issueLinks;
       dummy.subissues = d.subissues;
-      issues.push(dummy);
+      this.issues.push(dummy);
     }
-    this.persistence.storeIssues(issues)
+    this.persistence.storeIssues(this.issues)
       .then(r => console.log(r))
       .catch(e => console.error(e));
   }

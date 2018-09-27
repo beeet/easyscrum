@@ -3,6 +3,7 @@ import {TranslateService} from '@ngx-translate/core';
 import {IssueService} from './services/issue.service';
 import {AssigneeService} from './services/assignee.service';
 import {SprintService} from './services/sprint.service';
+import {DragulaService} from 'ng2-dragula';
 
 @Component({
   selector: 'app-root',
@@ -10,13 +11,16 @@ import {SprintService} from './services/sprint.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  public static readonly DRAGABLE = 'dnd-enabled';
+
   title = 'EasyScum';
   contextmenu;
 
   constructor(public translate: TranslateService,
               private issueService: IssueService,
               private assigneeService: AssigneeService,
-              private sprintService: SprintService) {
+              private sprintService: SprintService,
+              private dragulaService: DragulaService) {
     this.setUserLanguage();
     this.assigneeService = assigneeService;
     this.sprintService = sprintService;
@@ -26,10 +30,30 @@ export class AppComponent {
       posX: 0,
       posY: 0
     };
+    // Dragula Einstellungen für drag'n'drop
+    dragulaService.setOptions('backlog-issues', {
+      // wird das Element ausserhalb der Drop-fähigen Zone fallengelassen, passiert nichts
+      revertOnSpill: true,
+      // das Verhalten beim Droppen kann definiert werden.
+      moves: this.canDrag
+    });
+    dragulaService.setOptions('sprint-issues', {
+      // wird das Element ausserhalb der Drop-fähigen Zone fallengelassen, passiert nichts
+      revertOnSpill: true,
+      // das Verhalten beim Droppen kann definiert werden.
+      moves: this.canDrag
+    });
     // TODO remove later start
     // this.assigneeService.setupDummyData();
     // this.sprintService.setupDummyData();
     // this.issueService.setupDummyData();
+  }
+
+  /*
+   * nur wenn die Klasse aus AppComponent.DRAGABLE gesetzt ist, kann das Element verschoben werden.
+   */
+  private canDrag(el: any): any {
+    return el.classList.contains(AppComponent.DRAGABLE);
   }
 
   public switchLang(lang: string): void {

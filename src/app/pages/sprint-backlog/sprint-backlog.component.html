@@ -13,11 +13,11 @@
 	</div>
 
 	<div class="row">
-		<div *ngFor="let state of states" id="{{'swimmlane-' + state.value}}" class="col-sm-3" [dragula]='"bag-items"'>
+		<div *ngFor="let state of states" id="{{'swimmlane-' + state.value}}" class="col-sm-3" [dragula]='"sprint-issues"'>
 			<h3>
 				{{'issue-board.state.' + state.value | translate}}
 			</h3>
-			<div [ngClass]="issue.highlighting ? 'card-highlighted' : 'card'"
+			<div [ngClass]="[issue.highlighting ? 'card-highlighted' : 'card', dndEnabled]"
 			     *ngFor="let issue of getIssues(state)" id="{{issue.id}}"
 			     routerLink="/issue-board/{{issue.id}}" routerLinkActive="active"
            (contextmenu)="onrightClick($event, issue)">
