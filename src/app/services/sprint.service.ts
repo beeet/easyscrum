@@ -70,9 +70,11 @@ export class SprintService implements Crud<Sprint> {
 
   getNext(): Sprint {
     const current = this.getCurrent();
-    const nextSprints = this.sprints.filter(s => isAfter(s.begin, current.end));
-    nextSprints.sort((a, b) => a.end > b.end ? 1 : -1);
-    return nextSprints[0];
+    if (current) {
+      const nextSprints = this.sprints.filter(s => isAfter(s.begin, current.end));
+      nextSprints.sort((a, b) => a.end > b.end ? 1 : -1);
+      return nextSprints[0];
+    }
   }
 
   isSprintAlreadyStarted(id: string): boolean {
