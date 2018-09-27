@@ -34,6 +34,10 @@ export class IssueService implements Crud<Issue> {
 
   private dateUtil = new DateUtil();
 
+  static isDeletionIssueAllowed(issue: Issue): boolean {
+    return !issue.sprintId;
+  }
+
   constructor(private sprintService: SprintService, private persistence: PersistenceService) {
     this.persistence.loadIssues().then(issues => {
       this.issues = issues;
@@ -44,11 +48,9 @@ export class IssueService implements Crud<Issue> {
     const newIssue = new Issue();
     newIssue.id = UUID.UUID();
     newIssue.creationDate = this.dateUtil.now();
-    // defaults
     newIssue.type = IssueType.story;
     newIssue.state = IssueState.open;
     newIssue.priority = IssuePriority.medium;
-    // newIssue.assigneeId = TODO: unassigned setzten
     return newIssue;
   }
 
@@ -77,7 +79,7 @@ export class IssueService implements Crud<Issue> {
   }
 
   delete(id: string): void {
-    if (!this.isDeletionIssueAllowed(this.get(id))) {
+    if (!IssueService.isDeletionIssueAllowed(this.get(id))) {
       throw new Error('Deletion is not allowed because of sprint assignment.');
     }
     this.persistence.deleteIssue(id)
@@ -115,10 +117,6 @@ export class IssueService implements Crud<Issue> {
 
   getAllWithoutSprintAssignment(): Issue[] {
     return this.issues.filter(issure => issure.sprintId === undefined);
-  }
-
-  isDeletionIssueAllowed(issue: Issue): boolean {
-    return !issue.sprintId;
   }
 
   isMutationIssueAllowed(issue: Issue): boolean {

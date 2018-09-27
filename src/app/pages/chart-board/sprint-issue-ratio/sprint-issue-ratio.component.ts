@@ -78,13 +78,4 @@ export class SprintIssueRatioComponent implements OnInit {
     this.lineChartData.push({data: [storyCounter, taskCounter, bugCounter], label: 'Issues'});
   }
 
-  // events
-  public chartClicked(event: any): void {
-    // console.log(event);
-  }
-
-  public chartHovered(event: any): void {
-    // console.log(event);
-  }
-
 }

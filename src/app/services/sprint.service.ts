@@ -23,7 +23,6 @@ export class SprintService implements Crud<Sprint> {
   create(): Sprint {
     const newSprint = new Sprint();
     newSprint.id = UUID.UUID();
-    console.log('Sprint created 2', newSprint);
     return newSprint;
   }
 
@@ -59,7 +58,6 @@ export class SprintService implements Crud<Sprint> {
   }
 
   getLatest(): Sprint {
-    const now = this.dateUtil.now();
     return this.sprints.slice(-1)[0];
   }
 

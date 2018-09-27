@@ -35,7 +35,6 @@ describe('ContextMenuComponent', () => {
   });
 
   it('should create', () => {
-    console.log('AAA', component);
     expect(component).toBeTruthy();
   });
 });

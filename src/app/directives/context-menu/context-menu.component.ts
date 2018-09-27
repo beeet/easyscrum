@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {NewSprintComponent} from '../new-sprint/new-sprint.component';
 import {SetSprintComponent} from '../set-sprint/set-sprint.component';
 import {SprintService} from '../../services/sprint.service';
@@ -33,7 +33,7 @@ export class ContextMenuComponent implements OnInit {
         {action: 'edit', icon: 'edit'},
         {action: 'change', icon: 'rotate_left'}
       );
-      if (this.issueService.isDeletionIssueAllowed(target)) {
+      if (IssueService.isDeletionIssueAllowed(target)) {
         this.actions.push({action: 'delete', icon: 'close'});
       }
     }
@@ -46,7 +46,6 @@ export class ContextMenuComponent implements OnInit {
 
   editItem(issue) {
     this.router.navigate(['/issue-board/' + issue.id]);
-    console.log('edit Item: ' + issue.title);
   }
 
   deleteItem(issue) {

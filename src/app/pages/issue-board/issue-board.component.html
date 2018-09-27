@@ -211,7 +211,7 @@
     <button type="button"
             class="btn btn-danger"
             (click)="onDelete()"
-            [hidden]="!issueService.isDeletionIssueAllowed(currentIssue) || tempIssue">
+            [hidden]="!IssueService.isDeletionIssueAllowed(currentIssue) || tempIssue">
       {{'issue-board.buttonDelete' | translate }}
     </button>
   </form>

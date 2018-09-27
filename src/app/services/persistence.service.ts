@@ -52,8 +52,8 @@ export class PersistenceService {
     return this.dexieService.sprints.delete(id);
   }
 
-  // TODO: wieder entfernen; diese Methoden braucht es nur um die Dummy-Daten in die indexedDB zu laden.
   storeSprints(sprints) {
+    // TODO: wieder entfernen; diese Methoden braucht es nur um die Dummy-Daten in die indexedDB zu laden.
     return this.dexieService.sprints.bulkAdd(sprints);
   }
 

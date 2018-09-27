@@ -97,13 +97,4 @@ export class BurndownChartComponent implements OnInit {
       .reduce((previousValue, currentValue) => previousValue + currentValue);
   }
 
-  // events
-  public chartClicked(event: any): void {
-    // console.log(event);
-  }
-
-  public chartHovered(event: any): void {
-    // console.log(event);
-  }
-
 }

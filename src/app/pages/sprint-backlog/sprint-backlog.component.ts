@@ -24,9 +24,13 @@ export class SprintBacklogComponent implements OnInit {
   states: IssueState[] = [];
   isSubtaskFilterAcitve = false;
   selectedAssigneeFilter: string;
-  selectedIssue: Issue;
 
   dndEnabled = AppComponent.DRAGABLE;
+
+  static hasSubtask(issue: Issue): boolean {
+    const subissues = issue.subissue;
+    return subissues && subissues.length > 0;
+  }
 
   constructor(public issueService: IssueService,
               public sprintService: SprintService,
@@ -67,9 +71,7 @@ export class SprintBacklogComponent implements OnInit {
   getIssues(issueState: IssueState): Issue[] {
     const sprint = this.sprintService.getCurrent();
     if (!sprint) {
-      // TODO: was machen wir hier?
-      // alert('kein aktueller Sprint vorhanden');
-      // console.log('getIssues: kein aktueller Sprint vorhanden');
+      console.log('Sprint-Backlog#getIssues(): kein aktueller Sprint vorhanden');
       return;
     }
     const sprintId = sprint.id;
@@ -86,14 +88,16 @@ export class SprintBacklogComponent implements OnInit {
   getInvolvedAssignees(): string[] {
     const sprint = this.sprintService.getCurrent();
     if (!sprint) {
-      // TODO: was machen wir hier?
-      // alert('kein aktueller Sprint vorhanden');
-      // console.log('getInvolvedAssignees: kein aktueller Sprint vorhanden');
+      console.log('Sprint-Backlog#getInvolvedAssignees(): kein aktueller Sprint vorhanden');
       return;
     }
     const sprintId = sprint.id;
     const sprintIssues = this.issueService.getAllFilteredBySprint(sprintId);
-    const assignees = sprintIssues
+    return this.distinctAssignees(sprintIssues);
+  }
+
+  private distinctAssignees(sprintIssues) {
+    return sprintIssues
       .map(value => value.assigneeId)
       .sort()
       .reduce(function (a, b) {
@@ -102,24 +106,10 @@ export class SprintBacklogComponent implements OnInit {
         }
         return a;
       }, []);
-    return assignees;
   }
 
   getAvatar(assigneeId: string): string {
     return this.assigneeService.getAvatar(assigneeId);
-  }
-
-
-  hasSubtask(issue: Issue): boolean {
-    const subissues = issue.subissue;
-    return subissues && subissues.length > 0;
-  }
-
-
-  setSubtaskFilterAcitve(event: any): void {
-    console.log('setSubtaskFilterAcitve clicked');
-    this.isSubtaskFilterAcitve = true;
-    // TODO sbs filter handling subtasks anzeigen (ein/aus)
   }
 
   setAssigneeFilter(filterAssignee: string) {

@@ -58,12 +58,10 @@ describe('NewIssueLinkComponent', () => {
     component.baseIssue = issue;
     component.issueLinkTypeString = 'blocks';
     component.relatedIssueId = 'ID';
-    console.log('issue-1', issue);
     // run
     component.save();
     // verify
     expect(issue.issueLinks.length).toBe(1);
-    console.log('issue-2', issue);
   });
 });
 
