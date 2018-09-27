@@ -100,6 +100,7 @@
   "new-sprint.title": "Create new sprint",
   "new-sprint.current": "Current sprint",
   "new-sprint.latest": "Latest sprint",
+  "new-sprint.no.sprint": "No sprint found",
   "new-sprint.name": "Name",
   "new-sprint.begin": "Begin",
   "new-sprint.end": "End",
