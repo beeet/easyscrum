@@ -57,6 +57,7 @@ export class AppComponent {
   }
 
   public switchLang(lang: string): void {
+    this.lang = lang;
     this.translate.use(lang);
   }
 

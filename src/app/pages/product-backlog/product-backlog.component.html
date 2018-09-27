@@ -23,9 +23,9 @@
         <div *ngIf="selectedSprint === 'default' && issues.length > 0" align="right" class="form-group col-md-6">
           <button type="button" class="btn btn-outline-secondary btn-sm" (click)="changeCustomSort()"
                   [ngStyle]="{
-                    'background-color':customSort ? 'yellow' : 'transparent',
+                    'background-color':customSort ? '#23272b' : 'transparent',
                     'border-color':customSort ? 'black' : 'grey',
-                    'color':customSort ? 'black' : 'grey'
+                    'color':customSort ? 'white' : 'grey'
                   }" >
             {{'product-backlog.custom.sort' | translate}}
           </button>
