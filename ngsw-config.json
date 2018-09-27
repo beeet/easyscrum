@@ -8,7 +8,8 @@
         "/favicon.ico",
         "/**/*.html",
         "/*.css",
-        "/*.js"
+        "/*.js",
+        "/assets/**"
       ]
     }
   }, {
@@ -17,7 +18,6 @@
     "updateMode": "prefetch",
     "resources": {
       "files": [
-        "/assets/**"
       ]
     }
   }]

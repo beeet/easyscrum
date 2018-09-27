@@ -59,12 +59,12 @@ export class AssigneeService implements Crud<Assignee> {
     if (assigneeId) {
       const assignee = this.get(assigneeId);
       if (assignee) {
-        url = `http://localhost:4200/assets/pics/avatar/${assignee.avatar}.png`;
+        url = `./assets/pics/avatar/${assignee.avatar}.png`;
       } else {
-        url = 'http://localhost:4200/assets/pics/avatar/unbekannt.png';
+        url = './assets/pics/avatar/unbekannt.png';
       }
     } else {
-      url = 'http://localhost:4200/assets/pics/avatar/unbekannt.png';
+      url = './assets/pics/avatar/unbekannt.png';
     }
     return url;
   }
