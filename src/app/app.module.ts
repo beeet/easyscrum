@@ -1,7 +1,7 @@
+// angular core
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 // import Translation FW
@@ -37,20 +37,23 @@ import {ChartBoardComponent} from './pages/chart-board/chart-board.component';
 import {BurndownChartComponent} from './pages/chart-board/burndown-chart/burndown-chart.component';
 import {SprintIssueRatioComponent} from './pages/chart-board/sprint-issue-ratio/sprint-issue-ratio.component';
 import {PageNotFoundComponent} from './pages/page-not-found/page-not-found.component';
+import {FilterTableComponent} from './directives/filter-table/filter-table.component';
+import {ContextMenuComponent} from './directives/context-menu/context-menu.component';
+import {NewSprintComponent} from './directives/new-sprint/new-sprint.component';
+import {NewIssueLinkComponent} from './directives/new-issue-link/new-issue-link.component';
+import {SetResolutionComponent} from './directives/set-resolution/set-resolution.component';
+import {SetSprintComponent} from './directives/set-sprint/set-sprint.component';
+
+// directives & pipes
+import {HighlightDirective} from './directives/highlight/highlight.directive';
+import {LetDirective} from './directives/ngLet/LetDirective';
+import {SprintLabelPipe} from './pipes/sprint-label.pipe';
+
+// services
 import {IssueService} from './services/issue.service';
 import {AssigneeService} from './services/assignee.service';
 import {SprintService} from './services/sprint.service';
-import {FilterTableComponent} from './directives/filter-table/filter-table.component';
-import {ContextMenuComponent} from './directives/context-menu/context-menu.component';
-import {HighlightDirective} from './directives/highlight/highlight.directive';
-import {SprintLabelPipe} from './pipes/sprint-label.pipe';
 import {PersistenceService} from './services/persistence.service';
-import {NewSprintComponent} from './directives/new-sprint/new-sprint.component';
-import {SetResolutionComponent} from './directives/set-resolution/set-resolution.component';
-import {NewIssueLinkComponent} from './directives/new-issue-link/new-issue-link.component';
-import {LetDirective} from './directives/ngLet/LetDirective';
-import {SetSprintComponent} from './directives/set-sprint/set-sprint.component';
-
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
