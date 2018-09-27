@@ -5,6 +5,7 @@ import {SprintService} from '../../services/sprint.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {IssueService} from '../../services/issue.service';
 import {Router} from '@angular/router';
+import {Issue} from '../../services/issue';
 
 @Component({
   selector: 'app-context-menu',
@@ -22,18 +23,23 @@ export class ContextMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-  const target = this.contextmenu.target;
-  const source = this.contextmenu.source;
-    this.actions.push({action: 'add', icon: 'add_circle'},
+  const target: Issue = this.contextmenu.target;
+  const source: string = this.contextmenu.source;
+    this.actions.push(
+      {action: 'add', icon: 'add_circle'},
       {action: 'new', icon: 'library_add'});
     if (target && source === 'pb') {
-      this.actions.push({action: 'edit', icon: 'edit'},
-        {action: 'change', icon: 'rotate_left'},
-        {action: 'delete', icon: 'close'}
+      this.actions.push(
+        {action: 'edit', icon: 'edit'},
+        {action: 'change', icon: 'rotate_left'}
       );
+      if (this.issueService.isDeletionIssueAllowed(target)) {
+        this.actions.push({action: 'delete', icon: 'close'});
+      }
     }
     if (target && source === 'sp') {
-      this.actions.push({action: 'edit', icon: 'edit'},
+      this.actions.push(
+        {action: 'edit', icon: 'edit'},
         {action: 'highlighting', icon: 'new_releases'});
     }
   }
