@@ -21,8 +21,13 @@
         </div>
 
         <div *ngIf="selectedSprint === 'default' && issues.length > 0" align="right" class="form-group col-md-6">
-          <button type="button" class="btn btn-outline-secondary btn-sm" (click)="changeCustomSort()">
-            {{'CustomSort'}}
+          <button type="button" class="btn btn-outline-secondary btn-sm" (click)="changeCustomSort()"
+                  [ngStyle]="{
+                    'background-color':customSort ? 'yellow' : 'transparent',
+                    'border-color':customSort ? 'black' : 'grey',
+                    'color':customSort ? 'black' : 'grey'
+                  }" >
+            {{'product-backlog.custom.sort' | translate}}
           </button>
           <button type="button" class="btn btn-outline-secondary btn-sm" (click)="changeSprint(nextSprint?.id)">
             {{nextSprint?.name}} {{'product-backlog.estimated' | translate}}:
