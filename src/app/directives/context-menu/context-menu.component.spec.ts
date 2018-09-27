@@ -9,7 +9,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {SprintService} from '../../services/sprint.service';
 import {RouterTestingModule} from '@angular/router/testing';
 
-describe('ContextMenuComponent', () => {
+xdescribe('ContextMenuComponent', () => {
   let component: ContextMenuComponent;
   let fixture: ComponentFixture<ContextMenuComponent>;
 
@@ -34,7 +34,7 @@ describe('ContextMenuComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  xit('should create', () => {
     expect(component).toBeTruthy();
   });
 });
