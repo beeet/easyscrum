@@ -65,9 +65,12 @@ export class FilterTableComponent implements OnInit, OnChanges {
       // Beim Abwärtsschieben wird das Element aus dem Array entfernt und der Index des Ziel ändert sich.
       const offset = (fromIndex > toIndex) ? 1 : 0;
       const movedIssue = this.filteredItems[fromIndex];
-      this.filteredItems.splice(fromIndex, 1);
-      this.filteredItems.splice(toIndex + offset, 0, movedIssue);
-      this.reorderPriority();
+      if (movedIssue) {
+        // Beim Drag'n'Drop wird diese Funktion mehrere Male aufgerufen, wir arbeiten aber nur mit dem Issue, wenn es gefunden wurde.
+        this.filteredItems.splice(fromIndex, 1);
+        this.filteredItems.splice(toIndex + offset, 0, movedIssue);
+        this.reorderPriority();
+      }
     });
   }
 
