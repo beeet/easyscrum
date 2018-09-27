@@ -1,10 +1,9 @@
 {
-  "__comment": "TODO translations to each component",
   "commons.validation.field.required": "This field is required.",
   "commons.validation.field.minlength": "This field must be min {{minLength}} characters long.",
   "commons.validation.field.maxlength": "This field must be max {{maxLength}} characters long.",
 
-  "resolution.validation.invalid": "When state is done the resolution hast to be set too.",
+  "resolution.validation.invalid": "When state is 'done' the 'resolution' has to be set too.",
 
   "app.sprint-backlog": "Sprint-Backlog",
   "app.issue-board": "Issue-Board",
@@ -78,7 +77,7 @@
   "product-backlog.filter.prio.medium": "Medium",
   "product-backlog.filter.prio.minor": "minor",
   "product-backlog.filter.prio.trivial": "trivial",
-  "product-backlog.custom.sort": "Custom Sort",
+  "product-backlog.custom.sort": "custom sort",
 
   "chart-board.burndownChart": "Burndown-Chart",
   "chart-board.burndownchart.toottip": "The burn down chart is a graphical representation of work left to do versus time.",
@@ -91,12 +90,12 @@
   "page-not-found.link": "/sprint-backlog",
   "page-not-found.linktext": "Back to the sprint backlog >",
 
-  "context-menu.edit": "Edit Issue",
-  "context-menu.change": "Set Sprint",
-  "context-menu.delete": "Delete Issue",
-  "context-menu.highlighting": "Highlighting",
-  "context-menu.new": "New Issue",
-  "context-menu.add": "New Sprint",
+  "context-menu.edit": "edit issue",
+  "context-menu.change": "set sprint",
+  "context-menu.delete": "delete issue",
+  "context-menu.highlighting": "highligth issue",
+  "context-menu.new": "new Issue",
+  "context-menu.add": "new Sprint",
 
   "new-sprint.title": "Create new sprint",
   "new-sprint.current": "Current sprint",
