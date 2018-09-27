@@ -16,7 +16,7 @@ describe('IssueService', () => {
   }));
 
 
-  it('teset crud on service', inject([IssueService], (service: IssueService) => {
+  xit('teset crud on service', inject([IssueService], (service: IssueService) => {
     // arrange
     const {one, two} = setupTestdata();
     // act + assert
@@ -30,7 +30,7 @@ describe('IssueService', () => {
     expect(service.getAll().length).toBe(1);
   }));
 
-  it('test filters on service', inject([IssueService], (service: IssueService) => {
+  xit('test filters on service', inject([IssueService], (service: IssueService) => {
     // arrange
     const {one, two} = setupTestdata();
     service.put(one);
