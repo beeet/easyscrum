@@ -44,9 +44,9 @@ export class AppComponent {
       moves: this.canDrag
     });
     // TODO: remove later start
-    // this.assigneeService.setupDummyData();
-    // this.sprintService.setupDummyData();
-    // this.issueService.setupDummyData();
+    this.assigneeService.setupDummyData();
+    this.sprintService.setupDummyData();
+    this.issueService.setupDummyData();
   }
 
   /*

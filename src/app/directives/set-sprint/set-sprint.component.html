@@ -11,7 +11,7 @@
       <div class="form-group col-md-12">
         <label id="sprintLabel" for="sprint">{{'set-sprint.sprint' | translate}}</label>
         <select id="sprint" name="sprint" class="form-control" [(ngModel)]="sprintId">
-          <option *ngFor="let s of sprints" value="{{s.id}}">
+          <option *ngFor="let s of sprintService.getAllWithoutSprintInThePast()" value="{{s.id}}">
             {{s.name}} ({{s.begin | date:"dd.MM.yyyy"}} - {{s.end | date:"dd.MM.yyyy"}})
           </option>
         </select>

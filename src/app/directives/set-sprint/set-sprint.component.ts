@@ -11,14 +11,12 @@ import {IssueService} from '../../services/issue.service';
 })
 export class SetSprintComponent implements OnInit {
   sprintId;
-  sprints;
 
   @Input() issue: Issue;
 
   constructor(public sprintService: SprintService,
               public issueService: IssueService,
               public activeModal: NgbActiveModal) {
-    this.sprints = sprintService.getAll();
   }
 
   ngOnInit(): void {

@@ -68,6 +68,13 @@ export class SprintService implements Crud<Sprint> {
     });
   }
 
+  getAllWithoutSprintInThePast(): Sprint[] {
+    const now = this.dateUtil.now();
+    return this.sprints.filter(s => {
+      return isAfter(s.end, now);
+    });
+  }
+
   getNext(): Sprint {
     const current = this.getCurrent();
     if (current) {

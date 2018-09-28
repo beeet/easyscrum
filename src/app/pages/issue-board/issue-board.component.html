@@ -28,7 +28,7 @@
         <div class="input-group mb-3">
           <select id="sprint" class="form-control" formControlName="sprintId">
             <option value="" disabled selected>{{'issue-board.sprint.placeholder' | translate}}</option>
-            <option *ngFor="let sprint of sprintService.getAll()" [ngValue]="sprint.id">
+            <option *ngFor="let sprint of sprintService.getAllWithoutSprintInThePast()" [ngValue]="sprint.id">
               {{sprint | sprintLabel}}
             </option>
           </select>
