@@ -1,6 +1,6 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {TestBed, inject} from '@angular/core/testing';
 
-import { PersistenceService } from './persistence.service';
+import {PersistenceService} from './persistence.service';
 
 describe('PersistenceService', () => {
   beforeEach(() => {

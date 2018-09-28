@@ -21,7 +21,7 @@ describe('NewIssueLinkComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NewIssueLinkComponent ],
+      declarations: [NewIssueLinkComponent],
       imports: [TranslateModule.forRoot(), FormsModule, NgbModule.forRoot()],
       providers: [
         IssueService,
@@ -30,7 +30,7 @@ describe('NewIssueLinkComponent', () => {
         {provide: NgbActiveModal, useClass: MockModalDialog}
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

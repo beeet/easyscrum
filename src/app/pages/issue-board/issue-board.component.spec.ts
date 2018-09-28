@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {IssueBoardComponent} from './issue-board.component';
 import {TranslateModule} from '@ngx-translate/core';
@@ -15,12 +15,12 @@ xdescribe('IssueBoardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IssueBoardComponent, SprintLabelPipe, LetDirective ],
+      declarations: [IssueBoardComponent, SprintLabelPipe, LetDirective],
       imports: [CommonModule, TranslateModule.forRoot(),
-          FormsModule, ReactiveFormsModule,
-          RouterTestingModule, NgbModule.forRoot()]
+        FormsModule, ReactiveFormsModule,
+        RouterTestingModule, NgbModule.forRoot()]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

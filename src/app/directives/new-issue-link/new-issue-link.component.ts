@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {Issue} from '../../services/issue';
 import {IssueService} from '../../services/issue.service';
-import {IssueLink, IssueLinkPair, IssueLinkType} from '../../services/IssueLink';
+import {IssueLinkPair, IssueLinkType} from '../../services/IssueLink';
 
 
 @Component({

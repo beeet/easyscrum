@@ -67,8 +67,7 @@
       <div class="form-group col-md-6">
         <label id="typeLabel" for="type">{{'issue-board.type' | translate}}</label>
         <select id="type" class="form-control" formControlName="type">
-          <option *ngFor="let issueType of issueTypes" value="{{issueType.id}}">{{('issue-board.type.' + issueType.value) | translate}}
-          </option>
+          <option *ngFor="let issueType of issueTypes" value="{{issueType.id}}">{{('issue-board.type.' + issueType.value) | translate}}</option>
         </select>
       </div>
 
@@ -92,7 +91,9 @@
                  [(ngModel)]="newAssignee"
                  [ngModelOptions]="{standalone: true}">
           <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="saveAssignee()">{{'issue-board.save' | translate}}</button>
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2" (click)="saveAssignee()">
+              {{'issue-board.save' | translate}}
+            </button>
           </div>
         </div>
       </div>
@@ -115,9 +116,7 @@
       <div formGroupName="stateGroup" class="form-group col-md-6">
         <label id="stateLabel" for="state">{{'issue-board.state' | translate}}</label>
         <select id="state" class="form-control" formControlName="state">
-          <option *ngFor="let issueState of issueStates" value="{{issueState.id}}">{{('issue-board.state.' + issueState.value) |
-            translate}}
-          </option>
+          <option *ngFor="let issueState of issueStates" value="{{issueState.id}}">{{('issue-board.state.' + issueState.value) | translate}}</option>
         </select>
       </div>
       <div class="form-group col-md-6">
@@ -131,7 +130,9 @@
         <label id="resolutionLabel" for="resolutionInput">{{'issue-board.resolution' | translate}}</label>
         <select id="resolutionInput" class="form-control" formControlName="resolution">
           <option value="" selected>{{'issue-board.resolution.placeholder' | translate}}</option>
-          <option *ngFor="let issueResolution of issueResolutions" value="{{issueResolution.id}}">{{('issue-board.resolution.' + issueResolution.value) | translate}}</option>
+          <option *ngFor="let issueResolution of issueResolutions" value="{{issueResolution.id}}">
+            {{('issue-board.resolution.' + issueResolution.value) | translate}}
+          </option>
         </select>
         <div *ngIf="stateGroup.invalid" class="alert alert-danger">
           <small *ngIf="stateGroup.errors.invalidResolution">
@@ -161,10 +162,11 @@
             <tr *ngFor="let issueLink of currentIssue.issueLinks; let i = index">
               <ng-container *ngLet="getIssue(issueLink.relatedIssueId) as relIssue">
                 <td width="15%">{{'new-issue-link.type.' + issueLink.linkType | translate}}</td>
-                <td width="5%" align="center"><img width="16" src="{{relIssue.type.imageSrc}}" alt="{{relIssue.type.id}}"></td>
+                <td width="5%" align="center"><img width="16" src="{{relIssue.type.imageSrc}}"
+                                                   alt="{{relIssue.type.id}}"></td>
                 <td width="60%"><a class="nav-item nav-link"
                                    [routerLink]="['/issue-board', relIssue.id]"
-                                   >
+                >
                   {{relIssue.title}}</a></td>
                 <td width="5%" align="center"><img width="16"
                                                    src="{{relIssue.priority.imageSrc}}"
@@ -188,7 +190,8 @@
     <button type="button"
             class="btn btn-primary"
             (click)="onSave()"
-            [disabled]="!theForm.valid">{{'issue-board.buttonSave' | translate }}</button>
+            [disabled]="!theForm.valid">{{'issue-board.buttonSave' | translate }}
+    </button>
     <button *ngIf="canMakeNewIssues"
             type="button"
             class="btn btn-primary"

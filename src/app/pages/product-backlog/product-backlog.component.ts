@@ -1,10 +1,6 @@
 import {Component} from '@angular/core';
 import {IssueService} from '../../services/issue.service';
-import {Router} from '@angular/router';
 import {SprintService} from '../../services/sprint.service';
-import {NewSprintComponent} from '../../directives/new-sprint/new-sprint.component';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {SetSprintComponent} from '../../directives/set-sprint/set-sprint.component';
 
 @Component({
   selector: 'app-product-backlog',
@@ -21,7 +17,8 @@ export class ProductBacklogComponent {
   tableColumns = ['type', 'title', 'priority', 'estimated'];
   customSort = false;
 
-  constructor(public issueService: IssueService, public sprintService: SprintService) {
+  constructor(public issueService: IssueService,
+              public sprintService: SprintService) {
     this.issues = this.issueService.getAllWithoutSprintAssignment();
     this.sprints = this.sprintService.getAll();
     this.nextSprint = this.sprintService.getNext();

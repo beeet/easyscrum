@@ -89,17 +89,13 @@ export class FilterTableComponent implements OnInit, OnChanges {
   }
 
   private evaluateScreenSize() {
-    if (this.innerWidth <= 767) {
-      this.smallScreen = true;
-    } else {
-      this.smallScreen = false;
-    }
+    this.smallScreen = this.innerWidth <= 767;
   }
 
   filterItems(): void {
     this.filteredItems = this.items;
     this.reorderPriority();
-    for ( const f of this.filter ) {
+    for (const f of this.filter) {
       if (f.value) {
         const value = f.value.toLocaleLowerCase();
         this.filteredItems = this.filteredItems.filter(i => this.getValue(i, f.key).toString().toLocaleLowerCase().indexOf(value) >= 0);
@@ -109,7 +105,7 @@ export class FilterTableComponent implements OnInit, OnChanges {
     if (this.globalFilter) {
       const value = this.globalFilter.toLocaleLowerCase();
       this.filteredItems = this.filteredItems.filter(i => {
-        for ( const f of this.filter ) {
+        for (const f of this.filter) {
           if (this.getValue(i, f.key).toString().toLocaleLowerCase().indexOf(value) >= 0) {
             return true;
           }
@@ -169,7 +165,7 @@ export class FilterTableComponent implements OnInit, OnChanges {
   getValue(item: Issue, key: string) {
     const keys = key.split('.');
     let value = item;
-    for ( const k of keys ) {
+    for (const k of keys) {
       if (value[k] instanceof Object) {
         value = value[k].id;
       } else {

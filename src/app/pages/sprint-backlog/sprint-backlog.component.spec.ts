@@ -1,9 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SprintBacklogComponent } from './sprint-backlog.component';
+import {SprintBacklogComponent} from './sprint-backlog.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {DragulaModule} from 'ng2-dragula';
-import { RouterTestingModule } from '@angular/router/testing';
+import {RouterTestingModule} from '@angular/router/testing';
 import {ContextMenuComponent} from '../../directives/context-menu/context-menu.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {ModalDialogService} from 'ngx-modal-dialog';
@@ -15,11 +15,11 @@ describe('SprintBacklogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SprintBacklogComponent, ContextMenuComponent],
+      declarations: [SprintBacklogComponent, ContextMenuComponent],
       imports: [TranslateModule.forRoot(), DragulaModule, RouterTestingModule, NgbModule.forRoot()],
       providers: [ModalDialogService, ModalDialogInstanceService]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

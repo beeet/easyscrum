@@ -35,7 +35,8 @@ export class BurndownChartComponent implements OnInit {
   public sprintSelected: Sprint;
   public sprintSelectedId: string;
 
-  constructor(private issueService: IssueService, public sprintService: SprintService) {
+  constructor(private issueService: IssueService,
+              public sprintService: SprintService) {
   }
 
   ngOnInit() {

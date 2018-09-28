@@ -23,8 +23,8 @@ export class ContextMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-  const target: Issue = this.contextmenu.target;
-  const source: string = this.contextmenu.source;
+    const target: Issue = this.contextmenu.target;
+    const source: string = this.contextmenu.source;
     this.actions.push(
       {action: 'add', icon: 'add_circle'},
       {action: 'new', icon: 'library_add'});

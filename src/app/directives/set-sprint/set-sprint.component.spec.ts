@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SetSprintComponent } from './set-sprint.component';
+import {SetSprintComponent} from './set-sprint.component';
 
 xdescribe('SetSprintComponent', () => {
   let component: SetSprintComponent;
@@ -8,9 +8,9 @@ xdescribe('SetSprintComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SetSprintComponent ]
+      declarations: [SetSprintComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

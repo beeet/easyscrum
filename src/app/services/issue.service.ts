@@ -170,7 +170,7 @@ export class IssueService implements Crud<Issue> {
       dummy.resolutionDate = d.resolutionDate;
       dummy.comments = d.comments;
       dummy.issueLinks = d.issueLinks;
-      dummy.subissues = d.subissues;
+      // dummy.subissues = d.subissues;
       this.issues.push(dummy);
     }
     this.persistence.storeIssues(this.issues)

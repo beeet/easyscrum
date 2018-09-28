@@ -1,6 +1,6 @@
-import { TestBed, inject } from '@angular/core/testing';
+import {TestBed, inject} from '@angular/core/testing';
 
-import { SprintService } from './sprint.service';
+import {SprintService} from './sprint.service';
 import {Sprint} from './sprint';
 import {DateUtil} from '../utils/date.util';
 import {addDays} from 'date-fns';
@@ -12,6 +12,7 @@ function setupData(service: SprintService, begin: Date, end: Date) {
   service.put(sprint);
   return sprint;
 }
+
 const dateUtil = new DateUtil();
 const now = dateUtil.now();
 

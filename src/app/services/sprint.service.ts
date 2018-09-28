@@ -38,7 +38,7 @@ export class SprintService implements Crud<Sprint> {
     this.persistence.insertSprint(sprint)
       .then(() => this.sprints.push(sprint))
       .catch(e => console.error(e));
-    return ;
+    return;
   }
 
   delete(id: string) {

@@ -7,7 +7,6 @@ import {ChartType} from './chartType';
   styleUrls: ['./chart-board.component.scss']
 })
 export class ChartBoardComponent implements OnInit {
-  chartTypes: ChartType;
   chartType: string;
 
   constructor() {

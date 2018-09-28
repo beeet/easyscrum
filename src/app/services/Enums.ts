@@ -29,7 +29,7 @@ export class IssueType extends Enum {
   ];
 
   static get(type: string): IssueType {
-      return this.IssueTypes.find(t => type === t.id);
+    return this.IssueTypes.find(t => type === t.id);
   }
 }
 

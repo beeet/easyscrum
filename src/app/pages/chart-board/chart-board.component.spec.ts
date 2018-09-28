@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ChartBoardComponent } from './chart-board.component';
+import {ChartBoardComponent} from './chart-board.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {FormsModule} from '@angular/forms';
 import {NgbTooltipModule} from '@ng-bootstrap/ng-bootstrap';
@@ -15,10 +15,10 @@ describe('ChartBoardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChartBoardComponent, BurndownChartComponent, SprintIssueRatioComponent, SprintLabelPipe],
+      declarations: [ChartBoardComponent, BurndownChartComponent, SprintIssueRatioComponent, SprintLabelPipe],
       imports: [TranslateModule.forRoot(), FormsModule, NgbTooltipModule.forRoot(), ChartsModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

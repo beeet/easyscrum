@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {Sprint} from '../../services/sprint';
 import {SprintService} from '../../services/sprint.service';

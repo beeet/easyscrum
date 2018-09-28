@@ -1,5 +1,3 @@
-import {Issue} from './issue';
-
 export interface Crud<T> {
   create(): T;
 

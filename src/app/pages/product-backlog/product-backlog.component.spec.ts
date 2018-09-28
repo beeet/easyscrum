@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ProductBacklogComponent } from './product-backlog.component';
+import {ProductBacklogComponent} from './product-backlog.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {FormsModule} from '@angular/forms';
 import {FilterTableComponent} from '../../directives/filter-table/filter-table.component';
@@ -14,10 +14,10 @@ xdescribe('ProductBacklogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProductBacklogComponent, FilterTableComponent, ContextMenuComponent ],
+      declarations: [ProductBacklogComponent, FilterTableComponent, ContextMenuComponent],
       imports: [TranslateModule.forRoot(), FormsModule, RouterTestingModule, NgbModule.forRoot()]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

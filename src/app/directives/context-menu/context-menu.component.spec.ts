@@ -15,7 +15,7 @@ xdescribe('ContextMenuComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ContextMenuComponent ],
+      declarations: [ContextMenuComponent],
       imports: [TranslateModule.forRoot(), RouterTestingModule.withRoutes([])],
       providers: [
         IssueService,
@@ -25,7 +25,7 @@ xdescribe('ContextMenuComponent', () => {
         {provide: NgbModal, useClass: MockModal}
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -50,7 +50,8 @@ export class IssueBoardComponent implements OnInit, DoCheck {
               private router: Router,
               private location: Location,
               private formBuilder: FormBuilder,
-              private modalService: NgbModal) {}
+              private modalService: NgbModal) {
+  }
 
   ngDoCheck() {
     const urlParamTemp = this.route.snapshot.paramMap.get('id');
@@ -129,8 +130,14 @@ export class IssueBoardComponent implements OnInit, DoCheck {
     this.onChanges(state, resolution, sprintId);
   }
 
-  get title() { return this.theForm.get('title'); }
-  get description() { return this.theForm.get('description'); }
+  get title() {
+    return this.theForm.get('title');
+  }
+
+  get description() {
+    return this.theForm.get('description');
+  }
+
   get stateGroup() {
     return this.theForm.get('stateGroup');
   }
@@ -244,7 +251,7 @@ function validateResolution(control: AbstractControl) {
   const state = control.get('state');
   const resolution = control.get('resolution');
   if (state.value === IssueState.done.id && !resolution.value) {
-    return { invalidResolution: true };
+    return {invalidResolution: true};
   }
   return null;
 }

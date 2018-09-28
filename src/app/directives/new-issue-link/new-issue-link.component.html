@@ -11,9 +11,7 @@
       <div class="form-group col-sm-6">
         <label id="issueLinkTypeLabel" for="issueLinkType">{{'new-issue-link.type' | translate}}</label>
         <select id="issueLinkType" class="form-control" name="issueLinkType" [(ngModel)]="issueLinkTypeString" required>
-          <option *ngFor="let issueLinkType of issueLinkTypes" value="{{issueLinkType.type}}">{{('new-issue-link.type.' +
-            issueLinkType.type) | translate}}
-          </option>
+          <option *ngFor="let issueLinkType of issueLinkTypes" value="{{issueLinkType.type}}">{{('new-issue-link.type.' + issueLinkType.type) | translate}}</option>
         </select>
       </div>
     </div>
@@ -21,8 +19,7 @@
       <div class="form-group col-sm-6">
         <label id="issueLabel" for="issue">{{'new-issue-link.issue' | translate}}</label>
         <select id="issue" class="form-control" name="issue" [(ngModel)]="relatedIssueId" required>
-          <option *ngFor="let issue of issues" value="{{issue.id}}">{{issue.title}}
-          </option>
+          <option *ngFor="let issue of issues" value="{{issue.id}}">{{issue.title}}</option>
         </select>
       </div>
     </div>

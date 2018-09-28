@@ -19,7 +19,8 @@ export class SetResolutionComponent implements IModalDialog {
   issueResolutions = IssueResolution.IssueResolutions;
   private issue: Issue;
 
-  constructor(public translate: TranslateService, private issueService: IssueService) {
+  constructor(public translate: TranslateService,
+              private issueService: IssueService) {
     this.actionButtons = [
       {
         text: this.translate.instant('set-resolution.save'),

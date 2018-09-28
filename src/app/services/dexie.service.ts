@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import Dexie from 'dexie';
 import {Sprint} from './sprint';
 import {Assignee} from './assignee';

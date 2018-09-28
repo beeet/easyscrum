@@ -6,8 +6,7 @@
     <div class="form-group col-md-12">
       <label id="resolutionLabel" for="resolution">{{'set-resolution.resolution' | translate}}</label>
       <select id="resolution" name="resolution" class="form-control" [(ngModel)]="resolution" required>
-        <option *ngFor="let r of issueResolutions" value="{{r.id}}">{{('issue-board.resolution.' + r.value) | translate}}
-        </option>
+        <option *ngFor="let r of issueResolutions" value="{{r.id}}">{{('issue-board.resolution.' + r.value) | translate}}</option>
       </select>
     </div>
   </div>

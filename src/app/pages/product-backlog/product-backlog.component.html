@@ -9,27 +9,36 @@
           <div class="input-group-prepend sm-6">
             <button type="button" class="btn btn-outline-secondary btn-sm" (click)="sprintBackward()"><</button>
             <div class="input-group-append">
-              <select name="sprintSelect" class="form-control form-control-sm" (change)="changeSprint($event.target.value)" [(ngModel)]="selectedSprint">
+              <select name="sprintSelect"
+                      class="form-control form-control-sm"
+                      (change)="changeSprint($event.target.value)"
+                      [(ngModel)]="selectedSprint">
                 <option value="default">{{'product-backlog.sprint.placeholder' | translate}}</option>
                 <option *ngFor="let sprint of sprints" value="{{sprint.id}}">
                   {{sprint.name}} ({{sprint.begin | date:"dd.MM.yyyy"}} - {{sprint.end | date:"dd.MM.yyyy"}})
                 </option>
               </select>
-              <button type="button" class="btn btn-outline-secondary btn-sm" (click)="sprintForward()">></button>
+              <button type="button"
+                      class="btn btn-outline-secondary btn-sm"
+                      (click)="sprintForward()">></button>
             </div>
           </div>
         </div>
 
         <div *ngIf="selectedSprint === 'default' && issues.length > 0" align="right" class="form-group col-md-6">
-          <button type="button" class="btn btn-outline-secondary btn-sm" (click)="changeCustomSort()"
+          <button type="button"
+                  class="btn btn-outline-secondary btn-sm"
+                  (click)="changeCustomSort()"
                   [ngStyle]="{
                     'background-color':customSort ? '#23272b' : 'transparent',
                     'border-color':customSort ? 'black' : 'grey',
                     'color':customSort ? 'white' : 'grey'
-                  }" >
+                  }">
             {{'product-backlog.custom.sort' | translate}}
           </button>
-          <button type="button" class="btn btn-outline-secondary btn-sm" (click)="changeSprint(nextSprint?.id)">
+          <button type="button"
+                  class="btn btn-outline-secondary btn-sm"
+                  (click)="changeSprint(nextSprint?.id)">
             {{nextSprint?.name}} {{'product-backlog.estimated' | translate}}:
             <span class="badge badge-primary">{{nextIssuesEstimated}}</span>
           </button>
@@ -38,5 +47,9 @@
       </div>
     </form>
   </div>
-  <app-filter-table [items]="issues" [tableColumns]="tableColumns" [customSort]="customSort" [isBacklog]="selectedSprint === 'default'"></app-filter-table>
+  <app-filter-table [items]="issues"
+                    [tableColumns]="tableColumns"
+                    [customSort]="customSort"
+                    [isBacklog]="selectedSprint === 'default'">
+  </app-filter-table>
 </div>

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {NewSprintComponent} from './new-sprint.component';
 import {TranslateModule} from '@ngx-translate/core';
@@ -19,14 +19,14 @@ describe('NewSprintComponent', () => {
       declarations: [NewSprintComponent, SprintLabelPipe],
       imports: [TranslateModule.forRoot(), FormsModule, ReactiveFormsModule, NgbModule.forRoot()],
       providers: [
-          IssueService,
-          SprintService,
-          PersistenceService,
-          DexieService,
-          {provide: NgbActiveModal, useClass: MockModalDialog}
+        IssueService,
+        SprintService,
+        PersistenceService,
+        DexieService,
+        {provide: NgbActiveModal, useClass: MockModalDialog}
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

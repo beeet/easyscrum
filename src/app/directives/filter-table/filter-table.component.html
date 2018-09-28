@@ -14,8 +14,7 @@
         <td></td>
         <td>
           <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()" [(ngModel)]="filter[0].value">
-            <option *ngFor="let type of filterTypes" value="{{type.value}}">{{'product-backlog.filter.type.'+type.name | translate}}
-            </option>
+            <option *ngFor="let type of filterTypes" value="{{type.value}}">{{'product-backlog.filter.type.'+type.name | translate}}</option>
           </select>
         </td>
         <td>
@@ -30,15 +29,15 @@
                       class="btn btn-outline-secondary"
                       type="button"
                       id="filterButton1"
-                      (click)="filter[1].value = ''; filterItems()">X
+                      (click)="filter[1].value = ''; filterItems()">
+                X
               </button>
             </div>
           </div>
         </td>
         <td>
           <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()" [(ngModel)]="filter[2].value">
-            <option *ngFor="let prio of filterPriorities" value="{{prio.value}}">{{'product-backlog.filter.prio.'+prio.name | translate}}
-            </option>
+            <option *ngFor="let prio of filterPriorities" value="{{prio.value}}">{{'product-backlog.filter.prio.'+prio.name | translate}}</option>
           </select>
         </td>
         <td>
@@ -53,7 +52,8 @@
                       class="btn btn-outline-secondary"
                       type="button"
                       id="filterButton2"
-                      (click)="filter[3].value = ''; filterItems()">X
+                      (click)="filter[3].value = ''; filterItems()">
+                X
               </button>
             </div>
           </div>
@@ -90,13 +90,11 @@
   <h5> Filter </h5>
 
   <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()" [(ngModel)]="filter[0].value">
-    <option *ngFor="let type of filterTypes" value="{{type.value}}">{{'product-backlog.filter.type.'+type.name | translate}}
-    </option>
+    <option *ngFor="let type of filterTypes" value="{{type.value}}">{{'product-backlog.filter.type.'+type.name | translate}}</option>
   </select>
   <br>
   <select name="sprintSelect" class="form-control form-control-sm" (change)="filterItems()" [(ngModel)]="filter[2].value">
-    <option *ngFor="let prio of filterPriorities" value="{{prio.value}}">{{'product-backlog.filter.prio.'+prio.name | translate}}
-    </option>
+    <option *ngFor="let prio of filterPriorities" value="{{prio.value}}">{{'product-backlog.filter.prio.'+prio.name | translate}}</option>
   </select>
   <br>
 
@@ -111,7 +109,8 @@
               class="btn btn-outline-secondary"
               type="button"
               id="filterButton3"
-              (click)="filter[1].value = ''; filterItems()">X
+              (click)="filter[1].value = ''; filterItems()">
+        X
       </button>
     </div>
   </div>

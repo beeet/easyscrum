@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {SetResolutionComponent} from './set-resolution.component';
 import {TranslateModule} from '@ngx-translate/core';
@@ -10,10 +10,10 @@ describe('SetResolutionComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SetResolutionComponent ],
+      declarations: [SetResolutionComponent],
       imports: [TranslateModule.forRoot(), FormsModule]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
