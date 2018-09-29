@@ -54,6 +54,7 @@ import {IssueService} from './services/issue.service';
 import {AssigneeService} from './services/assignee.service';
 import {SprintService} from './services/sprint.service';
 import {PersistenceService} from './services/persistence.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // AoT requires an exported function for factories
 export function createTranslateLoader(http: HttpClient) {
@@ -100,7 +101,8 @@ export function createTranslateLoader(http: HttpClient) {
     ModalDialogModule.forRoot(),
     ServiceWorkerModule.register(
       '/ngsw-worker.js',
-      {enabled: environment.production})
+      {enabled: environment.production}),
+    BrowserAnimationsModule
   ],
   entryComponents: [
     NewSprintComponent,
