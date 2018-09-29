@@ -138,7 +138,7 @@ export class Issue {
   set resolution(value: IssueResolution) {
     if (!value) {
       this.resolutionDate = undefined;
-    } else if (value !== this.resolution) {
+    } else if (!this.resolutionDate && value !== this.resolution) {
       this.resolutionDate = this.dateUtil.now();
     }
     this._resolution = value;
