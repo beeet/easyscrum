@@ -103,7 +103,6 @@ export class SprintService implements Crud<Sprint> {
       sprints.push(dummy);
     }
     this.persistence.storeSprints(sprints)
-      .then(r => console.log(r))
       .catch(e => console.error(e));
   }
 }

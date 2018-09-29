@@ -154,6 +154,7 @@ export class IssueService implements Crud<Issue> {
   setupDummyData() {
     for (const d of issueData) {
       const dummy = this.create();
+      dummy.id = d.id;
       dummy.title = d.title;
       dummy.description = d.description;
       dummy.priority = d.priority;
@@ -174,7 +175,6 @@ export class IssueService implements Crud<Issue> {
       this.issues.push(dummy);
     }
     this.persistence.storeIssues(this.issues)
-      .then(r => console.log(r))
       .catch(e => console.error(e));
   }
 }

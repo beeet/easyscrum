@@ -65,7 +65,7 @@ export let sprintData = [
 export let issueData = [];
 issueData = [
   {
-    id: 1,
+    id: '1',
     title: 'Defending Gotham',
     description: 'Defend Gotham city from Joker.',
     type: IssueType.story,
@@ -84,7 +84,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 2,
+    id: '2',
     title: 'Lock up Joker',
     description: 'Catch Joker and put him behind bars.',
     type: IssueType.task,
@@ -103,7 +103,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 3,
+    id: '3',
     title: 'Catch Two-Face',
     description: 'Put Two-Face out of action.',
     type: IssueType.bug,
@@ -122,7 +122,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 4,
+    id: '4',
     title: 'Cleant the Batmobil',
     description: 'Batmobil wash and clean inside.',
     type: IssueType.task,
@@ -141,7 +141,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 5,
+    id: '5',
     title: 'Defuse the Bomb',
     description: 'Disarm the bomb in the subway.',
     type: IssueType.bug,
@@ -160,7 +160,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 6,
+    id: '6',
     title: 'Destroy Sauron',
     description: 'Find Sauron and destroy him.',
     type: IssueType.story,
@@ -179,7 +179,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 7,
+    id: '7',
     title: 'Grind the knife',
     description: 'Knife to grind.',
     type: IssueType.task,
@@ -198,7 +198,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 8,
+    id: '8',
     title: 'Pick up the knife',
     description: 'Pick up the ground knife.',
     type: IssueType.task,
@@ -217,7 +217,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 9,
+    id: '9',
     title: 'Make arrows',
     description: 'Fill the quiver.',
     type: IssueType.story,
@@ -236,7 +236,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 10,
+    id: '10',
     title: 'Veterinarian visit with Rantanplan',
     description: 'Take Rantanplan to the vet an have him vaccinated.',
     type: IssueType.story,
@@ -255,7 +255,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 11,
+    id: '11',
     title: 'Inspect the bank',
     description: 'Search the bank for traces of the Daltons.',
     type: IssueType.bug,
@@ -274,7 +274,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 12,
+    id: '12',
     title: 'Become king of the north',
     description: 'To be elected king of the north.',
     type: IssueType.task,
@@ -293,7 +293,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 13,
+    id: '13',
     title: 'Attack King\'s Landing',
     description: 'Attack King\'s Landing and decapiatet the Lannisters.',
     type: IssueType.story,
@@ -312,7 +312,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 14,
+    id: '14',
     title: 'Conquer Casterlystein',
     description: 'Conquer and destroy Casterlystein.',
     type: IssueType.task,
@@ -331,7 +331,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 15,
+    id: '15',
     title: 'Stop the Riddler',
     description: 'Find and stop the insane Riddler.',
     type: IssueType.story,
@@ -350,7 +350,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 16,
+    id: '16',
     title: 'Destroy the ring',
     description: 'Help Frodo to destroy the ring',
     type: IssueType.task,
@@ -369,7 +369,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 17,
+    id: '17',
     title: 'Defend Winterfell',
     description: 'Go back an defend Winterfell against Theon.',
     type: IssueType.story,
@@ -388,7 +388,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 18,
+    id: '18',
     title: 'Sink the Pearl',
     description: 'Find and sink the Black Pearl.',
     type: IssueType.bug,
@@ -407,7 +407,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 19,
+    id: '19',
     title: 'Bring frodo back',
     description: 'Bring frodo back to the shire.',
     type: IssueType.story,
@@ -426,7 +426,7 @@ issueData = [
     issueLinks: []
   },
   {
-    id: 20,
+    id: '20',
     title: 'Feed Jolly Jumper',
     description: 'Do not feed a horse that you can not ride.',
     type: IssueType.task,
