@@ -99,6 +99,11 @@ export class AssigneeService implements Crud<Assignee> {
       assignees.push(dummy);
     }
     this.persistence.storeAssignees(assignees)
+      .then(() => this.persistence.loadAssignees().then(array => {
+          this.assignees = array;
+        })
+          .catch(e => console.error(e))
+      )
       .catch(e => console.error(e));
   }
 }
