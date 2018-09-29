@@ -8,10 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "predeploy": "ng build",
+    "predeploy": "ng build --base-href .",
     "predeploy-prod": "ng build --prod",
     "predeploy-prod-optimized": "ng build --prod --build-optimizer",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist/easyscrum"
   },
   "private": true,
   "dependencies": {
