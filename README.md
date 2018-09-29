@@ -70,3 +70,6 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 - install modal dialog
   - npm install --save ngx-modal-dialog
   - https://github.com/Greentube/ngx-modal
+
+- install material design
+  - ng add @angular/material
