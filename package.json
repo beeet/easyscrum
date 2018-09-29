@@ -9,7 +9,8 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "predeploy": "ng build",
-    "predeploy-prod": "ng build --prod --build-optimizer",
+    "predeploy-prod": "ng build --prod",
+    "predeploy-prod-optimized": "ng build --prod --build-optimizer",
     "deploy": "gh-pages -d dist"
   },
   "private": true,
