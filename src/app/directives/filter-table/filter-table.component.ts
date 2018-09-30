@@ -182,7 +182,11 @@ export class FilterTableComponent implements OnInit, OnChanges {
   }
 
   dndClass(): string {
-    if (!this.customSort && this.isBacklog) {
+    // Drag'n'Drop ist nur möglich, wenn
+    // - das Product-Backlog angezeigt wird
+    // - der individuelle (Custom) Sort ausgeschalten ist
+    // - kein Filter aktiv ist
+    if (this.isBacklog && !this.customSort && !this.filter.some(f => !!f.value)) {
       return AppComponent.DRAGABLE;
     }
   }
