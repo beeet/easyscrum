@@ -8,6 +8,7 @@
         <a class="nav-item nav-link" routerLink="/product-backlog" routerLinkActive="active">{{'app.product-backlog' | translate}}</a>
         <a class="nav-item nav-link" routerLink="/chart-board" routerLinkActive="active">{{'app.chart-board' | translate}}</a>
         <div class="nav-item nav-link">
+          <button id="loadTestData" type="button" class="btn btn-danger btn-sm"name="loadTestData"(click)="loadTestData()">{{'app.loadTestData' | translate}}</button>
           <button id="de_active" type="button" *ngIf="lang === 'de'" class="btn btn-dark btn-sm" name="de_active" (click)="switchLang('de')">DE</button>
           <button id="de_inactive" type="button" *ngIf="lang !== 'de'" class="btn btn-outline-dark btn-sm" name="de_inactive" (click)="switchLang('de')">DE</button>
           <button id="en_active" type="button" *ngIf="lang === 'en'" class="btn btn-dark btn-sm" name="en_active" (click)="switchLang('en')">EN</button>

@@ -175,6 +175,10 @@ export class IssueService implements Crud<Issue> {
       this.issues.push(dummy);
     }
     this.persistence.storeIssues(this.issues)
+      .then(() => this.persistence.loadIssues().then(issues => {
+          this.issues = issues;
+        })
+      )
       .catch(e => console.error(e));
   }
 }

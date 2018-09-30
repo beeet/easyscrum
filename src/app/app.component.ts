@@ -43,10 +43,6 @@ export class AppComponent {
       // das Verhalten beim Droppen kann definiert werden.
       moves: this.canDrag
     });
-    // TODO: remove later start
-    this.assigneeService.setupDummyData();
-    this.sprintService.setupDummyData();
-    this.issueService.setupDummyData();
   }
 
   /*
@@ -97,5 +93,11 @@ export class AppComponent {
 
   closeContextMenu() {
     this.contextmenu.visible = false;
+  }
+
+  public loadTestData() {
+    this.assigneeService.setupDummyData();
+    this.sprintService.setupDummyData();
+    this.issueService.setupDummyData();
   }
 }
