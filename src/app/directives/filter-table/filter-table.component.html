@@ -126,7 +126,10 @@
       </tr>
       </thead>
       <tbody [dragula]='"backlog-issues"'>
-      <tr *ngFor="let item of filteredItems" (contextmenu)="onrightClick($event, item)" routerLink="/issue-board/{{item.id}}"
+      <tr *ngFor="let item of filteredItems"
+          (contextmenu)="onrightClick($event, item)"
+          routerLink="/issue-board/{{item.id}}"
+          id="{{item.id}}"
           [ngClass]="dndClass()">
         <td>{{item[filter[1].key]}}</td>
       </tr>
