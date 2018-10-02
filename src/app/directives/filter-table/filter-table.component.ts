@@ -79,6 +79,7 @@ export class FilterTableComponent implements OnInit, OnChanges, OnDestroy {
       this.sortItems(this.tableColumns[2]);
     } else {
       this.backLogSort();
+      this.reorderPriority();
     }
   }
 
