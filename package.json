@@ -8,9 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "predeploy": "ng build --base-href .",
-    "predeploy-prod": "ng build --prod",
-    "predeploy-prod-optimized": "ng build --prod --build-optimizer",
+    "predeploy": "ng build --prod --base-href .",
     "deploy": "gh-pages -d dist/easyscrum"
   },
   "private": true,
