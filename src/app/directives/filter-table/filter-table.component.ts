@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {Component, EventEmitter, HostListener, Input, OnChanges, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnChanges, OnDestroy, OnInit, Output} from '@angular/core';
 import {Issue} from '../../services/issue';
 import {DragulaService} from 'ng2-dragula';
 import {IssueService} from '../../services/issue.service';
@@ -10,7 +10,7 @@ import {AppComponent} from '../../app.component';
   templateUrl: './filter-table.component.html',
   styleUrls: ['./filter-table.component.scss']
 })
-export class FilterTableComponent implements OnInit, OnChanges {
+export class FilterTableComponent implements OnInit, OnChanges, OnDestroy {
   @Input() items: any[];
   @Input() tableColumns: string[];
   @Input() customSort: boolean;
@@ -24,6 +24,8 @@ export class FilterTableComponent implements OnInit, OnChanges {
   sortAscending = false;
   smallScreen: boolean;
   innerWidth: any;
+
+  private subscriber: any;
 
   filterTypes = [
     {value: '', name: 'all'},
@@ -45,15 +47,9 @@ export class FilterTableComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
-    this.filteredItems = this.items;
     this.tableColumns.forEach(col => this.filter.push({key: col, value: ''}));
-    if (this.customSort) {
-      this.sortItems(this.tableColumns[2]);
-    } else {
-      this.backLogSort();
-    }
     this.evaluateScreenSize();
-    this.dragula.drop.subscribe(value => {
+    this.subscriber = this.dragula.drop.subscribe(value => {
       if (this.filteredItems.length === 0) {
         return;
       }
@@ -78,8 +74,16 @@ export class FilterTableComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges() {
-    this.filterItems();
-    this.sortItems(undefined);
+    this.filteredItems = this.items;
+    if (this.customSort) {
+      this.sortItems(this.tableColumns[2]);
+    } else {
+      this.backLogSort();
+    }
+  }
+
+  ngOnDestroy() {
+    this.subscriber.unsubscribe();
   }
 
   @HostListener('window:resize', ['$event'])

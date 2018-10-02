@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import {Component, EventEmitter, OnInit, Output, ViewContainerRef} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewContainerRef} from '@angular/core';
 import {filteredByAssignee, filteredByState, IssueService} from '../../services/issue.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
@@ -19,13 +19,14 @@ import {AppComponent} from '../../app.component';
   styleUrls: ['./sprint-backlog.component.scss']
 })
 
-export class SprintBacklogComponent implements OnInit {
+export class SprintBacklogComponent implements OnInit, OnDestroy {
   @Output() eventEmitterClick = new EventEmitter();
   states: IssueState[] = [];
   isSubtaskFilterAcitve = false;
   selectedAssigneeFilter: string;
 
   dndEnabled = AppComponent.DRAGABLE;
+  private subscriber: any;
 
   constructor(public issueService: IssueService,
               public sprintService: SprintService,
@@ -43,11 +44,12 @@ export class SprintBacklogComponent implements OnInit {
     this.states.push(IssueState.inWork);
     this.states.push(IssueState.inTest);
     this.states.push(IssueState.done);
-    this.dragula.drop.subscribe(value => {
+    this.subscriber = this.dragula.drop.subscribe(value => {
       const id = value[1].id;
       const to = value[2].id.split('-')[1];
       const state = _.find(this.states, {'value': to});
       const issue = this.issueService.get(id);
+      // Issue wird innerhalb des gleichen Status verschoben: keine update nötig (Issues werden nicht priorisiert angezeigt).
       if (state === issue.state) {
         return;
       }
@@ -61,6 +63,10 @@ export class SprintBacklogComponent implements OnInit {
         this.issueService.put(issue);
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.subscriber.unsubscribe();
   }
 
   getIssues(issueState: IssueState): Issue[] {
