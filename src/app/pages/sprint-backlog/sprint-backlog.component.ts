@@ -72,7 +72,6 @@ export class SprintBacklogComponent implements OnInit, OnDestroy {
   getIssues(issueState: IssueState): Issue[] {
     const sprint = this.sprintService.getCurrent();
     if (!sprint) {
-      console.log('Sprint-Backlog#getIssues(): kein aktueller Sprint vorhanden');
       return;
     }
     const sprintId = sprint.id;
@@ -89,7 +88,6 @@ export class SprintBacklogComponent implements OnInit, OnDestroy {
   getInvolvedAssignees(): string[] {
     const sprint = this.sprintService.getCurrent();
     if (!sprint) {
-      console.log('Sprint-Backlog#getInvolvedAssignees(): kein aktueller Sprint vorhanden');
       return;
     }
     const sprintId = sprint.id;
@@ -118,6 +116,15 @@ export class SprintBacklogComponent implements OnInit, OnDestroy {
       this.selectedAssigneeFilter = ''; // reset filter
     } else {
       this.selectedAssigneeFilter = filterAssignee;
+    }
+  }
+
+  getAssigneeName(assigneeId: string) {
+    if (assigneeId) {
+      const assignee = this.assigneeService.get(assigneeId);
+      if (assignee) {
+        return assignee.nickname;
+      }
     }
   }
 

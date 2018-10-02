@@ -9,6 +9,7 @@
          appHighlight
          src="{{getAvatar(filterAssignee)}}"
          (click)="setAssigneeFilter(filterAssignee)"
+         ngbTooltip="{{getAssigneeName(filterAssignee)}}"
          alt="filter of assignees">
   </div>
 
