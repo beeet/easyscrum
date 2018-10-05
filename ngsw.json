@@ -46,7 +46,7 @@
         "./assets/pics/trash.png",
         "./favicon.ico",
         "./index.html",
-        "./main.6f792b1da1a2ab8d9ee1.js",
+        "./main.527b2c176d4072de83a9.js",
         "./polyfills.e3633a42d1123afc5fc9.js",
         "./runtime.a66f828dca56eeb90e02.js",
         "./styles.02c07cf6d1e6844a3445.css"
@@ -63,8 +63,8 @@
   ],
   "dataGroups": [],
   "hashTable": {
-    "./assets/i18n/de.json": "cc5ca648b84397e2e47c1e22a34c7e5c9d31897b",
-    "./assets/i18n/en.json": "9b0263b2f15d0318680a6cb2b2674fb5fa37b7c7",
+    "./assets/i18n/de.json": "bdc99b2d3aad2fb6a23ba5d273f56e2b66da0915",
+    "./assets/i18n/en.json": "66ddb88bad8f75a39a9c7db3c5ba6317886a4af2",
     "./assets/pics/avatar/barca.png": "e9dec3c9efc52371d02da51c393faed4beaebdec",
     "./assets/pics/avatar/batman.png": "4cebc7863f60eeee64f6d18daabc59a36b9eea27",
     "./assets/pics/avatar/calimero.png": "b1f2499fb65ebed7eab83550065ebe722ff65d33",
@@ -101,8 +101,8 @@
     "./assets/pics/issue-types/task.png": "2261227cd7cc46c80a7c9f2d1af21636df4977f4",
     "./assets/pics/trash.png": "1ceb5f27f460e58b8ec2b5c64f483e7e97f088ea",
     "./favicon.ico": "e63f48d0d72ff44e0bbc02ac328a397a2ecb93f1",
-    "./index.html": "aa083ab46aea099b3a943330eaacf9f46d0dc186",
-    "./main.6f792b1da1a2ab8d9ee1.js": "c6516cf972ba7c4920415aa97b5d3da973f93d39",
+    "./index.html": "a324869c7ee9e90b15d5433b50f26b5d3f0fe72a",
+    "./main.527b2c176d4072de83a9.js": "5dd637e3649164bf0e36b3ec2ce5d13b1d50ce50",
     "./polyfills.e3633a42d1123afc5fc9.js": "5261a4729f780dd900641be94bd321182959641a",
     "./runtime.a66f828dca56eeb90e02.js": "078e320cc6fdaf355836c3b1c52b059cdd33fc7e",
     "./styles.02c07cf6d1e6844a3445.css": "756d7b4646a2860e1058a639aa5e0d8d54c041cc"

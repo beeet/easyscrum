@@ -9,6 +9,7 @@
   "app.issue-board": "Issue-Board",
   "app.product-backlog": "Product-Backlog",
   "app.chart-board": "Chart-Board",
+  "app.loadTestData": "Testdaten laden",
 
   "issue-board.title": "Titel",
   "issue-board.title.placeholder": "Erfassen Sie einen Titel",
@@ -118,7 +119,7 @@
   "new-issue-link.title": "Issue Link",
   "new-issue-link.type": "Issue Typ",
   "new-issue-link.issue": "Issue Verlinkung",
-  "new-issue-link.type.related": "hängt ab von",
+  "new-issue-link.type.related": "hängt zusammen mit",
   "new-issue-link.type.blocks": "blockiert",
   "new-issue-link.type.isBlockedBy": "wird blockiert von",
   "new-issue-link.save": "Speichern",

@@ -9,6 +9,7 @@
   "app.issue-board": "Issue-Board",
   "app.product-backlog": "Product-Backlog",
   "app.chart-board": "Chart-Board",
+  "app.loadTestData": "Load test data",
 
   "issue-board.title": "Title",
   "issue-board.title.placeholder": "Enter title",
